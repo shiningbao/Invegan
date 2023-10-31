@@ -8,6 +8,7 @@ public class PhotoDTO {
 	private int idx;
 	private String server_file_name;
 	private Date file_creation_date;
+	private String category;
 	
 	public int getImage_id() {
 		return image_id;

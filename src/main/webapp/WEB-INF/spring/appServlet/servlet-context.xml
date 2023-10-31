@@ -46,9 +46,13 @@
 		<beans:property name="mapperLocations" value="classpath:kr/co/invegan/**/dao/*.xml"/>
 	</beans:bean>
 	
+	
+	
 	<!-- mybatis package area -->
 	<!-- dao 패키지 경로 확인 -->
 	<mybatis-spring:scan base-package="kr.co.invegan"/>
+	
+	
 	
 
 </beans:beans>
