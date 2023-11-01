@@ -32,7 +32,7 @@
 	li{
 		display: inline-block;
 	}
-	#gBox input[type=text]{
+	#gBox{
 		width: 30px;
 	}
 	#listArea, #showNutri{
@@ -59,7 +59,7 @@
 			<li ><input id="dinner" class="mealBtn" type="button" value="저녁" onclick="meal(this)"/></li> 
 			<li ><input id="etc" class="mealBtn" type="button" value="기타" onclick="meal(this)"/></li> 
 			<li><input id=searchBox type="text" placeholder="식품 검색"/><button type="button" onclick="searchFood()">검색</button></li>
-			<li id="gBox"><input type="text"/>g</li>
+			<li><input id="gBox" type="text"/>g</li>
 		</ul>
 		<div id="foodListBox">
 			<table>
@@ -105,13 +105,19 @@
 		</table>
 	</div>
 	<div>
-		<input type="button" value="완료"/>
+		<input type="button" value="완료" onclick="addMenu()"/>
 	</div>
 </body>
 <script>
 	var foodId;
-	var selectMeal;	
-
+	var selectMeal;
+	var gram = $('#gBox').val();
+	console.log($('#gBox').val());
+	
+	function addMenu() {
+		console.log('foodId : '+foodId +" / selectMeal : "+selectMeal+ " / gram : "+ gram);
+	}
+	
 	function meal(obj){
 		selectMeal = obj.value;
 		if(selectMeal === '아침'){
