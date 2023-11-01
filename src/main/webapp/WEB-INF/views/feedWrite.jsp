@@ -36,7 +36,7 @@
 	
 	
 	
-	<form action="feed/register.do" method="post" id="myForm">
+	<form action="feed/register.do" method="post" enctype="multipart/form-data">
 	<div class="previews"></div>
 	<table>
 		<tr>
@@ -50,13 +50,10 @@
 		<button type="button" class="btn btn-daily" name="daily">#일상</button>
 		<button type="button" class="btn btn-restaurant" name="restaurant">#식당</button>
 		<button type="button" class="btn btn-recipe" name="recipe">#레시피</button>
-		<tr>
-			<th>필수태그</th>
-			<td><textarea name="needTag" placeholder="필수태그를 입력해주세요 1개이상"></textarea></td>
-		</tr>
+		
 		<tr>
 			<th>태그</th>
-			<td><textarea name="feedTag" placeholder="자유태그를 입력해주세요"></textarea></td>
+			<td><textarea name="feedTag" placeholder="태그를 입력해주세요"></textarea></td>
 		</tr>
 		<tr>
 			<th>사진</th>
@@ -105,31 +102,61 @@ $(document).ready(function(){
             }
         }
     });
-    
-    $('.btn').click(function() {
-        // 선택한 버튼의 텍스트를 가져와서 필수태그 필드에 추가
-        var buttonText = $(this).text();
-        var needTagField = $('textarea[name="needTag"]');
-        var currentValue = needTagField.val();
-
-        if (currentValue) {
-            needTagField.val(currentValue + ', ' + buttonText);
-        } else {
-            needTagField.val(buttonText);
-        }
-
-        // 폼 제출
-        $('#myForm').submit();
+    $('button[name="food"]').click(function() {
+        var $foodbtn = $('button[name="food"]').text();
+        addToTextArea($foodbtn);
     });
+
+    $('button[name="beauty"]').click(function() {
+        var $beautybtn = $('button[name="beauty"]').text();
+        addToTextArea($beautybtn);
+    });
+
+    $('button[name="fashion"]').click(function() {
+        var $fashionbtn = $('button[name="fashion"]').text();
+        addToTextArea($fashionbtn);
+    });
+
+    $('button[name="daily"]').click(function() {
+        var $dailybtn = $('button[name="daily"]').text();
+        addToTextArea($dailybtn);
+    });
+
+    $('button[name="restaurant"]').click(function() {
+        var $restaurantbtn = $('button[name="restaurant"]').text();
+        addToTextArea($restaurantbtn);
+    });
+
+    $('button[name="recipe"]').click(function() {
+        var $recipebtn = $('button[name="recipe"]').text();
+        addToTextArea($recipebtn);
+    });
+
+    function addToTextArea(textToAdd) {
+    	
+        var currentValue = $('textarea[name="feedTag"]').val();
+        
+        if(currentValue.indexOf(textToAdd) == -1){
+	        if (currentValue) {
+	            $('textarea[name="feedTag"]').val(currentValue + ', ' + textToAdd);
+	        } else {
+	            $('textarea[name="feedTag"]').val(textToAdd);
+	        }
+	        console.log(textToAdd);
+	        console.log(currentValue);
+    	}
+    }
+    
     
         // 작성 버튼 클릭 시 이벤트 처리
         $('#feedSave').click(function() {
             var content = $('#content').val();
             var feedTag = $('#feedTag').val();
-             	
+            var photos = $('#photos')[0].files;
+            
             console.log(content);
             console.log(feedTag);
-            
+            console.log(photos);
             var msg = "${msg}";
             if(msg != "" ){
             	console.log('msggggggg');
