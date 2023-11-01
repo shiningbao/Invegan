@@ -22,18 +22,18 @@ public class MyRecipeController {
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
-	@RequestMapping(value="/MyRecipeList.go")
+	@RequestMapping(value="/myRecipe/MyRecipeList.go")
 	public String MyRecipelist() {
 		
-		return "MyRecipeList";
+		return "/myRecipe/MyRecipeList";
 	}
 	
-	@RequestMapping(value="/mlist.go")
+	@RequestMapping(value="/myRecipe/mlist.go")
 	public String Mlistgo() {
-		return "addRecipeMaterial";
+		return "/myRecipe/addRecipeMaterial";
 	}
 	
-	@RequestMapping(value="/mlist.do")
+	@RequestMapping(value="/myRecipe/mlist.do")
 	@ResponseBody
 	public HashMap<String, Object> mListdo(HttpSession session, @RequestParam String fname) {
 		

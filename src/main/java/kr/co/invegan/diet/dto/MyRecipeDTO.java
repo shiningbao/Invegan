@@ -7,7 +7,7 @@ public class MyRecipeDTO {
 	private String food_category;
 	private int serving_size;
 	private int kcal;
-	private float h20;
+	private float h2o;
 	private float prot;
 	private float fat;
 	private float carb;
@@ -63,11 +63,11 @@ public class MyRecipeDTO {
 	public void setKcal(int kcal) {
 		this.kcal = kcal;
 	}
-	public float getH20() {
-		return h20;
+	public float getH2o() {
+		return h2o;
 	}
-	public void setH20(float h20) {
-		this.h20 = h20;
+	public void setH2o(float h2o) {
+		this.h2o = h2o;
 	}
 	public float getProt() {
 		return prot;

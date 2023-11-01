@@ -5,18 +5,11 @@
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
 		<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-		<style>			
-			  table, th, td {
-			    
-			    width: 100%;
-			  }
+		<style>	
 			  
 			   table {
 			    border-collapse: collapse;
 			    white-space: nowrap;
-			  }
-			
-			  th {
 			  }
 			
 			  th, td {
@@ -62,6 +55,7 @@
 						<th>아연(mg)</th>
 						<th>비타민A(ug)</th>
 						<th>비타민B6(mg)</th>
+						<th>비타민B12(mg)</th>
 						<th>비타민C(mg)</th>
 						<th>필수 아미노산(mg)</th>
 						<th>오메가 3(g)</th>
@@ -90,7 +84,7 @@
 				    dataType:'json',
 				    success:function(data){
 				       console.log(data);
-				       drawList(data.mlist);
+				       drawList(data.mlist, data.size);
 				    },
 				    error:function(e){
 				       console.log(e);
@@ -101,32 +95,33 @@
 		function drawList(mlist) {
 			console.log(mlist);
 			var content = '';
-			mlist.forEach(function(item, idx){
-				content += '<tr>';
-				content += '<td>'+item.food_name+'</td>';
-				content += '<td>'+item.food_category+'</td>';
-				content += '<td>'+item.serving_size+'</td>';
-				content += '<td>'+item.kcal+'</td>';
-				content += '<td>'+item.h2o+'</td>';
-				content += '<td>'+item.prot+'</td>';
-				content += '<td>'+item.fat+'</td>';
-				content += '<td>'+item.carb+'</td>';
-				content += '<td>'+item.suger+'</td>';
-				content += '<td>'+item.fiber+'</td>';
-				content += '<td>'+item.ca+'</td>';
-				content += '<td>'+item.fe+'</td>';
-				content += '<td>'+item.mg+'</td>';
-				content += '<td>'+item.p+'</td>';
-				content += '<td>'+item.k+'</td>';
-				content += '<td>'+item.na+'</td>';
-				content += '<td>'+item.zn+'</td>';
-				content += '<td>'+item.vit_a+'</td>';
-				content += '<td>'+item.vit_b6+'</td>';
-				content += '<td>'+item.vit_b12+'</td>';
-				content += '<td>'+item.vit_c+'</td>';
-				content += '<td>'+item.essential+'</td>';
-				content += '<td>'+item.omega3+'</td>';
-				content += '</tr>';
+			mlist.forEach(function(item){
+					content += '<tr>';
+					content += '<td>'++'</td>';
+					content += '<td>'+item.food_name+'</td>';
+					content += '<td>'+item.food_category+'</td>';
+					content += '<td>'+item.serving_size+'</td>';
+					content += '<td>'+item.kcal+'</td>';
+					content += '<td>'+item.h2o+'</td>';
+					content += '<td>'+item.prot+'</td>';
+					content += '<td>'+item.fat+'</td>';
+					content += '<td>'+item.carb+'</td>';
+					content += '<td>'+item.sugar+'</td>';
+					content += '<td>'+item.fiber+'</td>';
+					content += '<td>'+item.ca+'</td>';
+					content += '<td>'+item.fe+'</td>';
+					content += '<td>'+item.mg+'</td>';
+					content += '<td>'+item.p+'</td>';
+					content += '<td>'+item.k+'</td>';
+					content += '<td>'+item.na+'</td>';
+					content += '<td>'+item.zn+'</td>';
+					content += '<td>'+item.vit_a+'</td>';
+					content += '<td>'+item.vit_b6+'</td>';
+					content += '<td>'+item.vit_b12+'</td>';
+					content += '<td>'+item.vit_c+'</td>';
+					content += '<td>'+item.essential+'</td>';
+					content += '<td>'+item.omega3+'</td>';
+					content += '</tr>';
 			});
 			$('#materiallist').empty();
 			$('#materiallist').append(content);
