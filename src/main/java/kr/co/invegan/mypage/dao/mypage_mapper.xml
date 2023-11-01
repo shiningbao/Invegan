@@ -5,4 +5,8 @@
 
 <mapper namespace="kr.co.invegan.mypage.dao.MyPageDAO">
 
+	<select id="userInfo" resultType="map">
+		SELECT join_date,id,birthdate,gender,nickname,vegan_type,vegan_purpose from Members WHERE user_no=1
+	</select>
+
 </mapper>
