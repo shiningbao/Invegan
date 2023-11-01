@@ -36,7 +36,7 @@
 	
 	
 	
-	<form action="feed/register.do" method="post">
+	<form action="feed/register.do" method="post" id="myForm">
 	<div class="previews"></div>
 	<table>
 		<tr>
@@ -105,50 +105,22 @@ $(document).ready(function(){
             }
         }
     });
-    $('button[name="food"]').click(function() {
-        var $foodbtn = $('button[name="food"]').text();
-        addToTextArea($foodbtn);
-    });
+    
+    $('.btn').click(function() {
+        // 선택한 버튼의 텍스트를 가져와서 필수태그 필드에 추가
+        var buttonText = $(this).text();
+        var needTagField = $('textarea[name="needTag"]');
+        var currentValue = needTagField.val();
 
-    $('button[name="beauty"]').click(function() {
-        var $beautybtn = $('button[name="beauty"]').text();
-        addToTextArea($beautybtn);
-    });
+        if (currentValue) {
+            needTagField.val(currentValue + ', ' + buttonText);
+        } else {
+            needTagField.val(buttonText);
+        }
 
-    $('button[name="fashion"]').click(function() {
-        var $fashionbtn = $('button[name="fashion"]').text();
-        addToTextArea($fashionbtn);
+        // 폼 제출
+        $('#myForm').submit();
     });
-
-    $('button[name="daily"]').click(function() {
-        var $dailybtn = $('button[name="daily"]').text();
-        addToTextArea($dailybtn);
-    });
-
-    $('button[name="restaurant"]').click(function() {
-        var $restaurantbtn = $('button[name="restaurant"]').text();
-        addToTextArea($restaurantbtn);
-    });
-
-    $('button[name="recipe"]').click(function() {
-        var $recipebtn = $('button[name="recipe"]').text();
-        addToTextArea($recipebtn);
-    });
-
-    function addToTextArea(textToAdd) {
-    	
-        var currentValue = $('textarea[name="needTag"]').val();
-        
-        if(currentValue.indexOf(textToAdd) == -1){
-	        if (currentValue) {
-	            $('textarea[name="needTag"]').val(currentValue + ', ' + textToAdd);
-	        } else {
-	            $('textarea[name="needTag"]').val(textToAdd);
-	        }
-	        console.log(textToAdd);
-	        console.log(currentValue);
-    	}
-    }
     
         // 작성 버튼 클릭 시 이벤트 처리
         $('#feedSave').click(function() {
