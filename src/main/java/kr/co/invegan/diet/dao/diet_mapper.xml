@@ -5,4 +5,20 @@
 
 <mapper namespace="kr.co.invegan.diet.dao.DietDAO">
 
+	<select id="findFoodList" parameterType="String" resultType="kr.co.invegan.diet.dto.FoodDataDTO">
+		SELECT * FROM FoodData 
+			WHERE food_name LIKE CONCAT('%', #{param1},'%')
+			ORDER BY CASE 
+				WHEN food_name LIKE #{param1} THEN 1
+				WHEN food_name LIKE CONCAT(#{param1}, ',%') THEN 2
+	 			WHEN food_name LIKE CONCAT(#{param1}, '%') THEN 3
+				WHEN food_name LIKE CONCAT('%',#{param1}, '%') THEN 4
+				WHEN food_name LIKE CONCAT('%', #{param1}) THEN 5
+			ELSE 0 END;
+	</select>
+	
+	<select id="showNutri" parameterType="int" resultType="kr.co.invegan.diet.dto.FoodDataDTO">
+		SELECT * FROM FoodData 
+			WHERE food_id = #{param1};
+	</select>
 </mapper>

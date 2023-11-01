@@ -4,14 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>TEST PAGE</title>
+<title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <link rel="stylesheet" href="resources/css/common.css" type="text/css">
 </head>
 <body>
-	<h3>${msg}</h3>
+	<h3>2023-10-31</h3>
+	<input type="button" value="식단추가" />
+	
 </body>
-<script>
-
-</script>
+<script></script>
 </html>
