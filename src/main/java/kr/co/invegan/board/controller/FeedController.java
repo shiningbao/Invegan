@@ -25,14 +25,14 @@ public class FeedController {
 	@Autowired FeedService service;
 	org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
 	
-	@RequestMapping(value = "/feedWrite.go") // feedWrite 페이지에 대한 URL 매핑을 추가
+	@RequestMapping(value = "/feed/write.go") // feedWrite 페이지에 대한 URL 매핑을 추가
 	public String feedWrite(Model model) {
 		logger.info("feedWrite 접근");
 		// 필요한 모델 데이터를 추가
 		return "feedWrite"; // feedWrite.jsp로 이동
 	}
 	
-	@RequestMapping(value="/feed/register.do" ,method= RequestMethod.POST)
+	@RequestMapping(value="/feed/write.do" ,method= RequestMethod.POST)
 	public String feedPost(Model model, @RequestParam String content, @RequestParam String feedTag
 			){
 		logger.info("feedPost 접근 ");

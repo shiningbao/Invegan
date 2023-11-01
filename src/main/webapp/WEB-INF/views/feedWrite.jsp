@@ -36,7 +36,7 @@
 	
 	
 	
-	<form action="feed/register.do" method="post" enctype="multipart/form-data">
+	<form action="feed/write.do" method="post" enctype="multipart/form-data">
 	<div class="previews"></div>
 	<table>
 		<tr>
