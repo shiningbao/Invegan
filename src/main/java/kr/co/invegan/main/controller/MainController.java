@@ -18,4 +18,5 @@ public class MainController {
 		model.addAttribute("msg","IN VEGAN :: TEST PAGE");
 		return "main";
 	}
+	
 }

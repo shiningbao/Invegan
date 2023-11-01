@@ -25,9 +25,7 @@
 	
 	<context:component-scan base-package="kr.co.invegan" />
 	
-	
-	
-	
+
 	<!-- datasource -->
 	<!-- url, username, password는 바뀔 수 있으니 항상 확인할것 -->
 	<!-- DB의 종류가 바뀌면 driverClassName, url도 바뀌게 된다 -->
@@ -48,13 +46,13 @@
 		<beans:property name="mapperLocations" value="classpath:kr/co/invegan/**/dao/*.xml"/>
 	</beans:bean>
 	
+	
+	
 	<!-- mybatis package area -->
 	<!-- dao 패키지 경로 확인 -->
 	<mybatis-spring:scan base-package="kr.co.invegan"/>
 	
 	
 	
-	
-	
-	
+
 </beans:beans>
