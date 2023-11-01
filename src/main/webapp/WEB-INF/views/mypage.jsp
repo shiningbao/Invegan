@@ -98,6 +98,7 @@
         <hr>
         <form action="/myPage/update.go">
         	<img src="" width="150" height="150">
+        	<label>닉네임 : <input type="text" name="nickname" value="${user.nickname}"/></label>
         </form>
         <span class="close">&times;</span>
     </div>
