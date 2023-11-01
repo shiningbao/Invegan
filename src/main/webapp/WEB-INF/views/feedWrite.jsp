@@ -44,12 +44,16 @@
 			<td><textarea name="content" placeholder="내용을 입력하세요.."></textarea></td>
 		</tr>
 		
-		<button type="button" class="btn btn-food" id="food">#식품</button>
-		<button type="button" class="btn btn-beauty" id="beauty">#뷰티</button>
-		<button type="button" class="btn btn-fashion" id="fashion">#패션</button>
-		<button type="button" class="btn btn-daily" id="daily">#일상</button>
-		<button type="button" class="btn btn-restaurant" id="restaurant">#식당</button>
-		<button type="button" class="btn btn-recipe" id="recipe">#레시피</button>
+		<button type="button" class="btn btn-food" name="food">#식품</button>
+		<button type="button" class="btn btn-beauty" name="beauty">#뷰티</button>
+		<button type="button" class="btn btn-fashion" name="fashion">#패션</button>
+		<button type="button" class="btn btn-daily" name="daily">#일상</button>
+		<button type="button" class="btn btn-restaurant" name="restaurant">#식당</button>
+		<button type="button" class="btn btn-recipe" name="recipe">#레시피</button>
+		<tr>
+			<th>필수태그</th>
+			<td><textarea name="needTag" placeholder="필수태그를 입력해주세요 1개이상"></textarea></td>
+		</tr>
 		<tr>
 			<th>태그</th>
 			<td><textarea name="feedTag" placeholder="자유태그를 입력해주세요"></textarea></td>
@@ -80,16 +84,14 @@
 
 $(document).ready(function(){
     // 모달을 초기화
-    $('.btn-primary').click(function() {
-        $('.bd-example-modal-xl').modal();
-    });
     
+        $('.bd-example-modal-xl').modal();
+    
+    // 이미지 선택시 미리보기
     $('#photos').on('change', function (e) {
         var files = e.target.files;
         var previews = $('.previews');
-
         previews.empty();
-
         for (var i = 0; i < files.length; i++) {
             var file = files[i];
             if (file) {
@@ -99,32 +101,75 @@ $(document).ready(function(){
                     var preview = $('<img>').attr('src', e.target.result);
                     previews.append(preview);
                 };
-
                 reader.readAsDataURL(file);
             }
         }
     });
- 
-    $('.btn').click(function() {
-        var needTag = $(this).text(); // 버튼의 텍스트를 가져옴
-        var formData = new FormData()
-        console.log(needTag);          
+    $('button[name="food"]').click(function() {
+        var $foodbtn = $('button[name="food"]').text();
+        addToTextArea($foodbtn);
+    });
+
+    $('button[name="beauty"]').click(function() {
+        var $beautybtn = $('button[name="beauty"]').text();
+        addToTextArea($beautybtn);
+    });
+
+    $('button[name="fashion"]').click(function() {
+        var $fashionbtn = $('button[name="fashion"]').text();
+        addToTextArea($fashionbtn);
+    });
+
+    $('button[name="daily"]').click(function() {
+        var $dailybtn = $('button[name="daily"]').text();
+        addToTextArea($dailybtn);
+    });
+
+    $('button[name="restaurant"]').click(function() {
+        var $restaurantbtn = $('button[name="restaurant"]').text();
+        addToTextArea($restaurantbtn);
+    });
+
+    $('button[name="recipe"]').click(function() {
+        var $recipebtn = $('button[name="recipe"]').text();
+        addToTextArea($recipebtn);
+    });
+
+    function addToTextArea(textToAdd) {
+    	
+        var currentValue = $('textarea[name="needTag"]').val();
         
-        
-        // Post 버튼 클릭 시 이벤트 처리
+        if(currentValue.indexOf(textToAdd) == -1){
+	        if (currentValue) {
+	            $('textarea[name="needTag"]').val(currentValue + ', ' + textToAdd);
+	        } else {
+	            $('textarea[name="needTag"]').val(textToAdd);
+	        }
+	        console.log(textToAdd);
+	        console.log(currentValue);
+    	}
+    }
+    
+        // 작성 버튼 클릭 시 이벤트 처리
         $('#feedSave').click(function() {
             var content = $('#content').val();
             var feedTag = $('#feedTag').val();
-            if (content.isEmpty() || feedTag.isEmpty()) {
-                alert('내용과 태그를 모두 입력해주세요.');
-                return; // 빈 값이 있을 때 함수를 종료
-            }
+             	
             console.log(content);
             console.log(feedTag);
-            console.log()
-            }); 
-     
-        });
+            
+            var msg = "${msg}";
+            if(msg != "" ){
+            	console.log('msggggggg');
+            	alert(msg);
+            } 
+            
+            
+          
+       }); 
+     	
+        	
+       
    
    
   
@@ -140,10 +185,9 @@ $(document).ready(function(){
     
 });
 
-/* var msg = "${msg}";
-if(msg != ""){
-	alert(msg);
-} */
+
+
+
 
 </script>
 
