@@ -15,4 +15,10 @@
 			    WHEN food_name LIKE CONCAT('%', #{param1}) THEN 5
 			ELSE 0 END;
 	</select>
+	
+	<insert id="rListUpdate" parameterType="map">
+	    INSERT INTO Menu (recipe_name, user_no, category)
+	    VALUES (#{recipe_name}, #{user_no}, #{category})
+	</insert>
+
 </mapper>

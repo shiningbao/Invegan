@@ -6,12 +6,24 @@
 		<title>Insert title here</title>
 		<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 		<style>
-			table, th, td {
+			table{
 				border : solid 1px black;
 				border-collapse: collapse;
 				padding : 5px 10px;
-				width: 500px;
+				width: 700px;
+				text-align: center;
 			}
+			
+			th, td { 
+				border-collapse: collapse;
+				padding : 5px 10px;
+				text-align: center;
+			}
+			
+			#food_name {
+				width : 400px;
+			}
+			
 		</style>
 	</head>
 	<body>
@@ -24,26 +36,26 @@
 			<button>점심</button>
 			<button>저녁</button>
 			<button>기타</button>
-			<button>+</button>
-			<button>-</button>
-			<table>
+			<input type="button" value="+" id="rinsert"/>
+			<input type="button" value="-" id="rdelete"/>
+			<table id = "mRecipeList">	
+				<thead>
 					<tr>
-						<th>식품명</th>
+						<th id = food_name>식품명</th>
 						<th>1회 제공량(g)</th>
 						<th>에너지(kcal)</th>
 					</tr>
-					<tr>
-						<td>버섯 칼국수</td>
-						<td>230</td>
-						<td>67</td>
-					</tr>
-					<tr>
-						<td colspan="3"><input type="text" value="레시피의 이름을 입력해 주세요"/><button>확인</button></td>
-					</tr>
+				</thead>
+				<tbody id=rList>
+					<!-- 레시피 데이터 출력 -->
+				</tbody>
+				<tbody id=rinsertbox>
+					<!-- 레시피 이름 입력칸 -->
+				</tbody>
 			</table>
 		</div>
 		<br>
-		<table>
+		<table id = "mMaterialList">
 			<tr>
 				<th colspan="2">재료</th>
 				<th>
@@ -72,6 +84,60 @@
 		</table>
 	</body>
 	<script>
+		listCall();
+		
+		var category = "나만의 레시피";
+		$('#rinsert').on('click', function() {
+		    var content = '';
+		    content += '<tr>';
+		    content += '<td>';
+		    content += '<input type="text" name="recipe_name" placeholder="레시피의 이름을 입력해 주세요" style="border:none; width:300px"/>';
+		    content += '<input type="button" id="rNameinsert" value="확인"/>';
+		    content += '</td>';
+		    content += '</tr>';		
+			$('#rinsertbox').empty();
+		    $('#rinsertbox').append(content);
+
+		    
+		    $('#rNameinsert').on('click', function(){
+				var recipe_name = $('input[name="recipe_name"]').val();
+				// 추후 수정
+				var user_no = "1";
+				console.log("레시피 이름 : "+recipe_name);
+				console.log(user_no);
+				console.log(category);
+				
+				var param = {};
+				param.recipe_name = recipe_name;
+				param.user_no = user_no;
+				param.category = category;
+				
+				$.ajax({
+					type:'post',
+					url:'rlistUpdate.do',
+					data:param,
+					success:function(data){
+						console.log(data);
+					},
+					error:function(e) {
+						console.log(e);
+					}
+				});
+			});
+		});
+		
+		function listCall() {
+			$.ajax({
+				type:'get',
+				url:'listCall',
+				data:{},
+				dataType:'json',
+				success:function(data){
+					
+				}
+			});
+		}
+		 
 		
 	</script>
 </html>
