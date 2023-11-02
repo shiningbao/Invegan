@@ -162,6 +162,8 @@
 	        <label>닉네임 : </label>${user.nickname}<br>
 	        <label>비건타입 : </label>${user.vegan_type}<br>
 	        <label>비건목적 </label><br>${user.vegan_purpose}
+			<input type="hidden" name="id" value="${user.id}"/>
+			<input type="hidden" name="user_no" value="${user.user_no}"/>
 	    </div>
 	</div>
 	<div class="changeInfo">회원정보 변경</div>
@@ -292,16 +294,21 @@ $(document).ready(function(){
 	});
 
 });
-
+	
+	
 	$('.button input[type="button"]').on('click', function() {
 		var boardType = $(this).val();
+		var user_no = $('input[name="user_no"]').val();
 		console.log(boardType);
+		console.log(user_no);
+	
 	
     $.ajax({
         type: 'GET',
         url: 'listCall',
         data:{
         	'boardType':boardType,
+        	'user_no':user_no
         },
         dataType: 'JSON',
         success: function(data) {
@@ -315,24 +322,35 @@ $(document).ready(function(){
     });
 });
 
-function drawList(list){
-	console.log(list);
-	var content='';
-	list.forEach(function(item,idx){
-		 content += '<tr>';
-		 var activeButton = $('.button input[type="button"]:focus').val();
-	     if(activeButton == '요청'){
-	    	    content += '<td>' + item.req_title + '</td>';
-	     } else {
-	            content += '<td>' + item.title + '</td>';
-		 }
-	     content += '<td>' + '조회수 ' + item.views + '</td>';
-	     content += '</tr>';
-	});
-	
-	$('#ListContainer').html(content);
-	
-}
+	function drawList(list) {
+	    console.log(list);
+	    var content = '';
+	    var activeButton = $('.button input[type="button"]:focus').val();
+
+	    list.forEach(function(item, idx) {
+	        content += '<tr>';
+	        switch (activeButton) {
+	            case '요청':
+	                content += '<td>' + item.req_title + '</td>';
+	                break;
+	            case '레시피':
+	            case '자유게시판':
+	                content += '<td>' + item.title + '</td>';
+	                break;
+	            case '피드':
+	                content += '<td><img src="' + item.server_file_name + '" alt="image"></td>';
+	                content += '<td>' + item.content + '</td>';
+	                content += '<td>' + item.nickname + '</td>';
+	                break;
+	            default:
+	                break;
+	        }
+	        content += '<td>' + '조회수 ' + item.views + '</td>';
+	        content += '</tr>';
+	    });
+
+	    $('#ListContainer').html(content);
+	}
 
 </script>
 </html>

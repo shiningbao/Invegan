@@ -18,7 +18,21 @@ public class MyPageDTO {
 	private String req_title;
 	private int views;
 	private String title;
+	private String server_file_name;
+	private String content;
 	
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public String getServer_file_name() {
+		return server_file_name;
+	}
+	public void setServer_file_name(String server_file_name) {
+		this.server_file_name = server_file_name;
+	}
 	public String getTitle() {
 		return title;
 	}

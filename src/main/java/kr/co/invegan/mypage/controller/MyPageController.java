@@ -3,6 +3,8 @@ package kr.co.invegan.mypage.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +25,16 @@ public class MyPageController {
 	@Autowired MyPageService service;
 	
 	@RequestMapping(value="/myPage/info.go")
-	public String infoGo(Model model) {
-		ArrayList<MyPageDTO> info = service.userInfo();
-		model.addAttribute("info",info);
-		return "mypage";
+	public String infoGo(Model model, HttpSession session) {
+	    String loginId = (String) session.getAttribute("loginId");
+	    if (loginId != null) {
+	        ArrayList<MyPageDTO> info = service.userInfo(loginId);
+	        model.addAttribute("info", info);
+	        return "mypage";
+	    } else {
+	       
+	       return "redirect:/login"; 
+	    }
 	}
 	
 	@RequestMapping(value="/myPage/overlay")
@@ -40,23 +48,24 @@ public class MyPageController {
 	
 	@RequestMapping(value="/myPage/listCall")
 	@ResponseBody
-	public HashMap<String, Object> listCall(@RequestParam String boardType) {
+	public HashMap<String, Object> listCall(@RequestParam String boardType, @RequestParam Integer user_no) {
 		
 	    HashMap<String, Object> result = new HashMap<String, Object>();
 	    ArrayList<MyPageDTO> list = null;
 	    
-	    // boardType에 따라 적절한 데이터를 가져오는 서비스 메서드 호출
 	    if ("요청".equals(boardType)) {
-	        list = service.requestBoardList();
+	        list = service.requestBoardList(user_no);
 	    } else if ("레시피".equals(boardType)) {
-	        list = service.recipeBoardList();
+	        list = service.recipeBoardList(user_no);
 	    } else if ("자유게시판".equals(boardType)) {
-	        list = service.freeBoardList();
+	        list = service.freeBoardList(user_no);
+	    } else if ("피드".equals(boardType)) {
+	    	list = service.feedList(user_no);
 	    }
 	    
 	    result.put("list", list);
 	    logger.info("list:"+list);
-
+	    logger.info("user_no:"+user_no);
 	    return result;
 	}
 	
