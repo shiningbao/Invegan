@@ -30,36 +30,36 @@ public class DietService {
 		return dietDAO.showNutri(foodId);
 	}
 
-	public void addMenuDo(HashMap<String, Object> params) {
-		logger.info("addMenuDo() 실행 || param : "+params);
-		HashMap<String, Object> dupleChk = null;
-//		int food_id = Integer.parseInt(params.get("food_id").toString());// 필요한가.. ?
-		logger.info("::"+params);
-		try {
-			// update
-			dupleChk = dietDAO.dupleChk(params);
-			// hashmap 체크
-//			date||2023-10-31
-//			diet_category||아침
-//			food_id||16244
-			dupleChk.forEach((key, value)->{
-				System.out.println(key+"||"+value);
-			});
-			
-		} catch (Exception e) {	// dupleChk 의 결과가 없을 경우 NullPointException
-			// insert
+	public void addMenuDo(String addMenuChk, HashMap<String, Object> params) {
+		logger.info("addMenuDo() 실행 || addMenuChk : "+addMenuChk+" param : "+params);
+		
+		if(addMenuChk.equals("add")) {		// =true || insert
+			logger.info("메뉴 추가 기능 실행");
+			dietDAO.addDiet(params);
+		}else {								// = false || update
+			logger.info("메뉴 수정 기능 실행");
 		}
 		
-
 		
 		
-		
-		
+//		HashMap<String, Object> dupleChk = null;
+		// 메뉴추가전 중복 체크
+//		try {
+//			// update
+//			dupleChk = dietDAO.dupleChk(params);
+//			// hashmap 체크
+////			date||2023-10-31
+////			diet_category||아침
+////			food_id||16244
+//			dupleChk.forEach((key, value)->{
+//				System.out.println(key+"||"+value);
+//			});
+//			
+//		} catch (Exception e) {	// dupleChk 의 결과가 없을 경우 NullPointException
+//			// insert
+//		}
 		
 	}
 
-
-	
-	
 
 }

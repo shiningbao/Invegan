@@ -26,16 +26,12 @@
 		SELECT serving_size FROM FoodData WHERE food_id = #{food_id};
 	</select>
 	
-	<select id="dupleChk" parameterType="hashmap" resultType="hashmap">
-		SELECT d.date, d.diet_category, m2.food_id 
-			FROM Diet d INNER JOIN Diet_composition dc 
-			ON d.diet_id = dc.diet_id 
-				AND d.date=#{select_date} AND d.diet_category = #{diet_category} 
-			INNER JOIN Material m2 
-			ON dc.menu_id = m2.menu_id 
-				AND m2.food_id = #{food_id}
-			WHERE d.user_no = (SELECT user_no FROM Members WHERE id = #{loginId});
-	</select>
+	<insert id="addDiet" parameterType="hashmap">
+		INSERT INTO Diet(user_no,date,diet_category) 
+			VALUES(2,'2023-12-01','저녁');
+	</insert>
+	
+	
 	
 	
 	

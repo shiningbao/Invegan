@@ -15,7 +15,8 @@ public interface DietDAO {
 
 	int getServingSize(int food_id);
 
-	HashMap<String, Object> dupleChk(HashMap<String, Object> params);
+	void addDiet(HashMap<String, Object> params);
+
 
 
 
