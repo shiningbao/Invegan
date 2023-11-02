@@ -3,18 +3,52 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.co.invegan.board.dao.FeedDAO">
-    <!-- useGeneratedKeys="true"
-    keyColumn="post_id"
-    keyProperty="post_id" -->
-  <insert id="writeFeed">
-    INSERT INTO Board (title, content,category,user_no)
-    VALUES ('-', #{content}, '피드','1')
-    
-  </insert>
-  
-  <insert  id="writeTag">
-    INSERT INTO Tags (tag_content) values(#{feedTag})
-  </insert>
 
-
+   <insert 
+   useGeneratedKeys="true"
+		keyColumn="post_id"
+		keyProperty="post_id"
+   id="feedWrite" parameterType="kr.co.invegan.board.dto.FeedDTO" >
+   	INSERT INTO Board (title,content,is_hidden,category,user_no) 
+   		VALUES ('-',#{content},'0','피드','${user_no}');
+   </insert>
+   
+   <insert 
+   useGeneratedKeys="true"
+		keyColumn="tag_id"
+		keyProperty="tag_id"
+   id="tagWrite" parameterType="kr.co.invegan.board.dto.FeedDTO" >
+   	INSERT INTO Tags (tag_content) values(#{tag_content});
+   </insert>
+   
+   <insert id="feedtagWrite" parameterType="kr.co.invegan.board.dto.FeedDTO">
+   INSERT INTO FeedTags (tag_id,post_id) 
+   values(#{tag_id},#{post_id});
+   </insert>
+   
+   <insert id ="feedWritePhoto">
+   	INSERT INTO ImageTable (server_file_name,idx,category)
+   	 values(#{server_file_name},#{postidx},'피드');
+   </insert>
+   
+   <select id="list" resultType="kr.co.invegan.board.dto.FeedListDTO">
+   
+    SELECT
+    m.nickname,
+    t.tag_content,
+    b.content,
+    c.comment_text,
+    b.date
+FROM
+    Members m
+    JOIN Board b ON m.user_no = b.user_no
+    LEFT JOIN Comments c ON b.post_id = c.post_id
+    JOIN FeedTags ft ON b.post_id = ft.post_id
+    JOIN Tags t ON ft.tag_id = t.tag_id
+WHERE
+    b.category = '피드'
+ORDER BY
+	b.date DESC
+	 
+</select>
 </mapper>
