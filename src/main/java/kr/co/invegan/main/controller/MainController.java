@@ -12,11 +12,11 @@ public class MainController {
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
-	@RequestMapping(value = "/")
+	@RequestMapping(value = "/home")
 	public String main(Model model) {
 		logger.info("REQUEST MAIN PAGE :: TEST");
 		model.addAttribute("msg","IN VEGAN :: TEST PAGE");
-		return "main";
+		return "/member/login";
 	}
 	
 }

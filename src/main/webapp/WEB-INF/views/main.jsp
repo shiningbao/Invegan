@@ -10,9 +10,19 @@
 </head>
 <body>
 	<h3>${msg}</h3>
+<<<<<<< HEAD
+	<!-- <input id="login" type="button" value="로그인"/> -->
+=======
 	<h3><a href="diet/tempCalander">메뉴추가 바로가기</a></h3>
+>>>>>>> origin/master
 </body>
 <script>
+
+/*
+$('#login').on('click',function(){
+	location.href='login';
+});
+*/
 
 </script>
 </html>
