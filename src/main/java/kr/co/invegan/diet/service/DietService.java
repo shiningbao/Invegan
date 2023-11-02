@@ -30,6 +30,34 @@ public class DietService {
 		return dietDAO.showNutri(foodId);
 	}
 
+	public void addMenuDo(HashMap<String, Object> params) {
+		logger.info("addMenuDo() 실행 || param : "+params);
+		HashMap<String, Object> dupleChk = null;
+//		int food_id = Integer.parseInt(params.get("food_id").toString());// 필요한가.. ?
+		logger.info("::"+params);
+		try {
+			// update
+			dupleChk = dietDAO.dupleChk(params);
+			// hashmap 체크
+//			date||2023-10-31
+//			diet_category||아침
+//			food_id||16244
+			dupleChk.forEach((key, value)->{
+				System.out.println(key+"||"+value);
+			});
+			
+		} catch (Exception e) {	// dupleChk 의 결과가 없을 경우 NullPointException
+			// insert
+		}
+		
+
+		
+		
+		
+		
+		
+	}
+
 
 	
 	
