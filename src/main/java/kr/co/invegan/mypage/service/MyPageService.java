@@ -20,4 +20,29 @@ public class MyPageService {
 		
 		return dao.userInfo();
 	}
+
+	public boolean overlay(String nickname) {
+		boolean use = false;
+		int cnt = dao.overlay(nickname);
+		if(cnt==0) {
+			use = true;
+		}
+		return use;
+	}
+
+	public ArrayList<MyPageDTO> requestBoardList() {
+		return dao.requestBoardList();
+	}
+
+	public ArrayList<MyPageDTO> recipeBoardList() {
+		return dao.recipeBoardList();
+	}
+	
+	public ArrayList<MyPageDTO> freeBoardList() {
+		return dao.freeBoardList();
+	}
+
+
+
+
 }

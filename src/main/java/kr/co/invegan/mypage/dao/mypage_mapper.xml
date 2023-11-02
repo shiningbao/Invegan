@@ -6,7 +6,23 @@
 <mapper namespace="kr.co.invegan.mypage.dao.MyPageDAO">
 
 	<select id="userInfo" resultType="map">
-		SELECT join_date,id,birthdate,gender,nickname,vegan_type,vegan_purpose from Members WHERE user_no=1
+		SELECT join_date,id,birthdate,gender,nickname,vegan_type,vegan_purpose FROM Members WHERE user_no=2
+	</select>
+	
+	<select id="overlay" resultType="int">
+		SELECT COUNT(nickname) FROM Members WHERE nickname=#{param1}
+	</select>
+	
+	<select id="requestBoardList" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
+    	SELECT req_title,views FROM Request; 
+	</select>
+	
+	<select id="recipeBoardList" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
+    	SELECT title,views FROM Board WHERE user_no=2 and category="레시피"; 
+	</select>
+	
+	<select id="freeBoardList" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
+    	SELECT title,views FROM Board WHERE user_no=2 and category="자유게시판"; 
 	</select>
 
 </mapper>

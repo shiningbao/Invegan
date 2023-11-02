@@ -8,4 +8,14 @@ public interface MyPageDAO {
 
 	ArrayList<MyPageDTO> userInfo();
 
+	int overlay(String nickname);
+
+	ArrayList<MyPageDTO> requestBoardList();
+
+	ArrayList<MyPageDTO> recipeBoardList();
+
+	ArrayList<MyPageDTO> freeBoardList();
+
+
+
 }
