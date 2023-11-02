@@ -293,10 +293,6 @@ $(document).ready(function(){
 
 });
 
-$('.tabs li').on('click', function() {
-	var tabType = $(this).text().trim();
-	console.log(tabType);
-	
 	$('.button input[type="button"]').on('click', function() {
 		var boardType = $(this).val();
 		console.log(boardType);
@@ -306,7 +302,6 @@ $('.tabs li').on('click', function() {
         url: 'listCall',
         data:{
         	'boardType':boardType,
-        	'tabType': tabType
         },
         dataType: 'JSON',
         success: function(data) {
@@ -318,7 +313,6 @@ $('.tabs li').on('click', function() {
             console.log(error);
         }
     });
-});
 });
 
 function drawList(list){
