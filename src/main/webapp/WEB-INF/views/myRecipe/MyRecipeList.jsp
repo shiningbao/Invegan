@@ -133,11 +133,16 @@
 				data:{},
 				dataType:'json',
 				success:function(data){
-					
+					console.log(data);
+					drawList(data.list);
+				},
+				error:function(e) {
+					console.log(e);
 				}
 			});
 		}
-		 
+		
+		function drawList(mRecipeList)		 
 		
 	</script>
 </html>
