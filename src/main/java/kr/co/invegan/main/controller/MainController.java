@@ -1,6 +1,8 @@
 package kr.co.invegan.main.controller;
 
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -12,11 +14,17 @@ public class MainController {
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
-	@RequestMapping(value = "/home")
+	@RequestMapping(value = "/")
 	public String main(Model model) {
 		logger.info("REQUEST MAIN PAGE :: TEST");
 		model.addAttribute("msg","IN VEGAN :: TEST PAGE");
-		return "/member/login";
+		return "/main";
 	}
+	
+	
+	
+	
+	
+	
 	
 }
