@@ -18,7 +18,7 @@
   <title>Feed Form</title>
 </head>
 <body>
-  <button type="button"  class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl">피드 게시글 작성</button>
+  
 
 <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
@@ -36,7 +36,7 @@
 	
 	
 	
-	<form action="feed/write.do" method="post" enctype="multipart/form-data">
+	
 	<div class="previews"></div>
 	<table>
 		<tr>
@@ -66,7 +66,7 @@
 			</th>
 		</tr>
 	</table>	
-	</form>
+	<
        </div>
         
       </div>
@@ -102,6 +102,8 @@ $(document).ready(function(){
             }
         }
     });
+    
+    // 버튼클릭 이벤트
     $('button[name="food"]').click(function() {
         var $foodbtn = $('button[name="food"]').text();
         addToTextArea($foodbtn);
@@ -150,6 +152,7 @@ $(document).ready(function(){
     
         // 작성 버튼 클릭 시 이벤트 처리
         $('#feedSave').click(function() {
+
             var content = $('#content').val();
             var feedTag = $('#feedTag').val();
             var photos = $('#photos')[0].files;
@@ -157,12 +160,30 @@ $(document).ready(function(){
             console.log(content);
             console.log(feedTag);
             console.log(photos);
-            var msg = "${msg}";
-            if(msg != "" ){
-            	console.log('msggggggg');
-            	alert(msg);
-            } 
             
+            var formData = new FormData();
+            formData.append("content", content);
+            formData.append("feedTag", feedTag);
+
+            for(var i =0; i <photos.length; i++){
+                formData.append("photos",photos[i]);
+            }
+
+            $.ajax({
+            	type:'post',
+                url:'write',
+                data:formData,
+                processData: false,
+                contentType: false,
+                enctype : 'multipart/form-data',
+                success:function(e){
+                    console.log(e);
+                },
+                error:function(e){
+                    console.log(e);
+                }
+
+            });
             
           
        }); 
