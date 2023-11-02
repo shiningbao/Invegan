@@ -84,6 +84,8 @@
 		</table>
 	</body>
 	<script>
+		listCall();
+		
 		var category = "나만의 레시피";
 		$('#rinsert').on('click', function() {
 		    var content = '';
@@ -123,6 +125,18 @@
 				});
 			});
 		});
+		
+		function listCall() {
+			$.ajax({
+				type:'get',
+				url:'listCall',
+				data:{},
+				dataType:'json',
+				success:function(data){
+					
+				}
+			});
+		}
 		 
 		
 	</script>
