@@ -10,8 +10,15 @@
 </head>
 <body>
 	<h3>${msg}</h3>
+	<!-- <input id="login" type="button" value="로그인"/> -->
 </body>
 <script>
+
+/*
+$('#login').on('click',function(){
+	location.href='login';
+});
+*/
 
 </script>
 </html>
