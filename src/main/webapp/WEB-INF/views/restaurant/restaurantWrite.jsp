@@ -15,7 +15,7 @@
 		border-collapse: collapse;
 	}
 	div{
-		background-color: red;
+		background-color: lightslategray;
 		margin: 3px 0px;
 	}
 	#base{
@@ -37,14 +37,18 @@
 		height: 25px;
 	}
 	#thum{
-		height: 240px;
+		height: 250px;
+		overflow-x: scroll;
 	}
 	select{
 		width: 100%;
 		height: 24px;
 		margin: 1px 1px
 	}
-
+	.img_class{
+		border: 1px solid black;
+		
+	}
 
 </style>
 </head>
@@ -292,6 +296,8 @@ $('#img').on('change',function(){
 			spanTag.id = 'img_id_'+i;
 			spanTag.style.width = '200px';
 			spanTag.style.height = '200px';
+			spanTag.style = {'border' : '1px solid black', 'margin': '1px'};
+			spanTag.className = 'img_class';
 			thum.appendChild(spanTag);
 
 			var img = new Image();

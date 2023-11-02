@@ -27,9 +27,12 @@ public class RestaurantController {
 	@Autowired RestaurantService service;
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
-
-
 	
+	@RequestMapping(value = "/restaurant/list")
+	public String restaurantList() {
+		return "restaurant/restaurantList";
+	}
+
 	@RequestMapping(value = "/restaurant/write.go")
 	public String restaurantWriteGo() {
 		return "restaurant/restaurantWrite";
@@ -50,6 +53,6 @@ public class RestaurantController {
 		service.restaurantWrite(user_no,uploadImages, param);
 
 
-		return "restaurant/restaurantWrite";
+		return "redirect:/restaurantList";
 	}
 }
