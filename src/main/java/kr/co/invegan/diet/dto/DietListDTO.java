@@ -8,4 +8,6 @@ public class DietListDTO {
 	private int gram;
 	private int kcal;
 	
+	
+	
 }
