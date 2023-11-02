@@ -3,27 +3,39 @@ package kr.co.invegan.diet.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.invegan.diet.dto.FoodDataDTO;
 import kr.co.invegan.diet.service.DietService;
 
 @Controller
+
 public class DietController {
 
 	@Autowired DietService dietService;
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
+	@RequestMapping(value = "diet/tempCalander")
+	public String tempCalander() {
+		return "diet/tempCalander";
+	}
+	
 	@RequestMapping(value = "diet/addMenu.go")
-	public String addMenuGo() {
+	public String addMenuGo(HttpSession session,@RequestParam String loginId) {
 		logger.info("메뉴 추가 페이지 요청");
+		// 임시 로그인 세션 추가 
+		session.setAttribute("loginId", loginId);
+		//
+		
 		return "diet/addMenu";
 	}
 	
@@ -55,6 +67,19 @@ public class DietController {
 		 HashMap<String,Object> result = new HashMap<String, Object>(); 
 		 FoodDataDTO showNutri = dietService.showNutri(foodId); 
 		 result.put("showNutri", showNutri); 
+		 return result; 
+	 }
+	 
+	 @RequestMapping(value = "diet/addMenu.do")
+	 @ResponseBody 
+	 public HashMap<String, Object> addMenuDo(HttpSession session,@RequestParam HashMap<String, Object> params ){ 
+		 logger.info("params : "+params);
+		 String loginId = (String) session.getAttribute("loginId");
+		 logger.info("session :: id = "+loginId);
+		 params.put("loginId", loginId);
+		 
+		 HashMap<String,Object> result = new HashMap<String, Object>(); 
+		 dietService.addMenuDo(params);
 		 return result; 
 	 }
 	 
