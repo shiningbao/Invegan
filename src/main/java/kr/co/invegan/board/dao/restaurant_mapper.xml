@@ -5,4 +5,30 @@
 
 <mapper namespace="kr.co.invegan.board.dao.RestaurantDAO">
 
+
+	<!-- 조건2 : generatedKey 사용하기(방금 인서트한 데이터의 pk값)
+						useGeneratedKeys="true"	: 사용 여부
+						keyColumn="idx"				: 어떤 컬럼값을 가져올것인가
+						keyProperty="idx"				: DTO의 어떤 속성(필드)에 넣을 것인가?
+	-->
+	<insert
+		useGeneratedKeys="true"
+		keyColumn="post_id"
+		keyProperty="post_id"
+		id="BoardWrite"
+		parameterType="kr.co.invegan.board.dto.RestaurantDTO">
+		INSERT INTO Board(user_no ,title,content,category) VALUES(#{user_no},#{title},#{content},#{category})
+	</insert>
+	
+	<insert id="restaurantWrite" parameterType="kr.co.invegan.board.dto.RestaurantDTO">
+		INSERT INTO Restaurant(post_id,address,phone,hours) VALUES(#{post_id},#{address},#{phone},#{hours})
+	</insert>
+	
+	<insert id="writePhoto">
+		INSERT INTO ImageTable(idx,server_file_name,category) VALUES(#{param1},#{param2},#{param3})
+	</insert>
+	
+	<insert id="menuWrite" parameterType="kr.co.invegan.board.dto.MenuDTO">
+		INSERT INTO RestaurantMenu (post_id,menu_name,price,vegan_type) VALUES(#{post_id},#{menu_name},#{price},#{vegan_type})
+	</insert>
 </mapper>
