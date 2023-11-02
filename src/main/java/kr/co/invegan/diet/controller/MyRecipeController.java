@@ -3,13 +3,12 @@ package kr.co.invegan.diet.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -35,7 +34,7 @@ public class MyRecipeController {
 	
 	@RequestMapping(value="/myRecipe/mlist.do")
 	@ResponseBody
-	public HashMap<String, Object> mListdo(HttpSession session, @RequestParam String fname) {
+	public HashMap<String, Object> mListdo (@RequestParam String fname) {
 		
 		logger.info("food_name :"+fname);	
 		ArrayList<HashMap<String, Object>> mlist = service.mlist(fname);
@@ -44,6 +43,30 @@ public class MyRecipeController {
 		result.put("mlist", mlist);
 		result.put("size", mlist.size());
 		
+		return result;
+	}
+	
+	@RequestMapping(value="/myRecipe/mMaterial")
+	public HashMap<String, Object> mMaterial(@RequestParam String mName, @RequestParam int gram) {
+		
+		logger.info("mName : " + mName);
+		logger.info("gram : "+gram);
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		ArrayList<HashMap<String, Object>> mMaterial = service.mMaterial(mName, gram);
+		
+		return result;
+	}
+	
+	@RequestMapping(value="/myRecipe/rlistUpdate.do", method = RequestMethod.POST)
+	public HashMap<String, Object> rListUpdate(@RequestParam HashMap<String, Object> params) {
+		
+		logger.info("params : "+params);
+		
+		String category = (String) params.get("category");
+		logger.info("category : "+category);
+		
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		service.rListUpdate(params);
 		return result;
 	}
 }

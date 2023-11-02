@@ -23,4 +23,19 @@ public class MyRecipeService {
 		return dao.mlist(fname);
 	}
 
+	public ArrayList<HashMap<String, Object>> mMaterial(String mName, int gram) {
+		logger.info("mName : " + mName);
+		logger.info("gram : "+gram);
+		
+		return dao.mMaterial(mName);
+	}
+
+	public void rListUpdate(HashMap<String, Object> params) {
+		
+		logger.info("params : "+params);
+		int row = dao.rListUpdate(params);
+	}
+
+
+
 }
