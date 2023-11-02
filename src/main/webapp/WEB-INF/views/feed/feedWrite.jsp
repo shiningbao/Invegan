@@ -220,7 +220,7 @@ $(document).ready(function(){
         
         if(currentValue.indexOf(textToAdd) == -1){
 	        if (currentValue) {
-	            $('textarea[name="feedTag"]').val(currentValue + ', ' + textToAdd);
+	            $('textarea[name="feedTag"]').val(currentValue + textToAdd);
 	        } else {
 	            $('textarea[name="feedTag"]').val(textToAdd);
 	        }
@@ -235,14 +235,24 @@ $(document).ready(function(){
     var content = $('textarea[name="content"]').val();
     var feedTag = $('textarea[name="feedTag"]').val();
     var photos = $('#photos')[0].files;
-
+	
     if (content.trim() === "") {
         alert("내용을 입력하세요.");
     } else if (feedTag.trim() === "") {
         alert("피드 태그를 입력하세요.");
     } else if (photos.length === 0) {
         alert("파일을 선택하세요.");
-    } else {
+    } else if (
+    	    !feedTag.includes("#식품") &&
+    	    !feedTag.includes("#패션") &&
+    	    !feedTag.includes("#일상") &&
+    	    !feedTag.includes("#레시피") &&
+    	    !feedTag.includes("#뷰티") &&
+    	    !feedTag.includes("#식당")
+    	) {
+    	    alert("6개의 태그 중 하나 이상을 입력해주세요.");
+    	    return;
+    	} else {
         var formData = new FormData();
         formData.append("content", content);
         formData.append("feedTag", feedTag);

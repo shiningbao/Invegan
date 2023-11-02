@@ -27,6 +27,8 @@ public interface FeedDAO {
 	ArrayList<FeedListDTO> list();
 
 	
+
+	
 	
 
 

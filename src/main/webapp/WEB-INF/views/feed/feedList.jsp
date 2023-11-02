@@ -24,79 +24,186 @@ input[type="text"] {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <style>
-        /* 테이블을 가운데로 정렬 */
-        .centered-table {
-            margin: 0 auto;
-        }
-
+      
         /* 왼쪽 사이드바 메뉴 스타일 */
         .sidebar {
             width: 250px;
-            background-color: #f8f9fa; /* 사이드바 배경색 */
-            float: left;
-            height: 100vh; /* 페이지 높이에 맞게 조정 */
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
-        .centered-table {
-		    margin: 0 auto;
-		    width: 90%; /* 테이블 너비를 조정 */
-		    border-collapse: collapse; /* 셀 경계를 겹치게 설정 */
+
+        hr {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        div.row {
+            display: flex; /* 자식 요소를 수평으로 나란히 배치하기 위해 */
+            justify-content: center;
+        }
+
+        #feedList {
+            display: flex;
+            flex-direction: column;
+            max-width: 100%; /* 최대 너비를 100%로 설정하여 화면 크기에 맞게 조정됩니다. */
+   		    width: auto; /* 가로 크기 자동 조정 */
+        }
+
+        /* 개별 게시물 스타일 */
+        .post {
+            width: 100%;
+            height: 500px;
+            border: 1px solid #e1e1e1;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 게시물 헤더 스타일 */
+        .post-header {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #e1e1e1;
+        }
+
+        .post-header img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .username {
+            font-weight: bold;
+        }
+
+        /* 게시물 이미지 스타일 */
+        .post img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* 게시물 캡션 스타일 */
+        .post-caption {
+            padding: 10px;
+        }
+
+        .post-caption .username {
+            font-weight: bold;
+        }
+
+        /* 댓글 스타일 */
+        .post-comments {
+            padding: 10px;
+        }
+
+        .comment {
+            margin-bottom: 10px;
+        }
+
+        .comment .username {
+            font-weight: bold;
+        }
+
+        /* 게시물 업로드 시간 스타일 */
+        .post-time {
+            color: #999;
+            padding: 10px;
+        }
+
+        .button:hover,
+        .button.active {
+            background: #7ea338;
+            color: white;
+        }
+
+        .button:visited {
+            background: #7ea338;
+            color: white;
+        }
+
+        .button {
+            border: 0;
+            padding: 10px 30px;
+            writing-mode: horizontal-tb;
+        }
+
+        .grid-menu {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3개씩 가로로 나열합니다 */
+            gap: 10px; /* 버튼 간의 간격을 설정합니다 */
+            width: 100px;
+        }
+
+        /* 사이드바 스타일 조정 */
+        .col-2.sidebar {
+
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 100%; /* 최대 너비를 100%로 설정하여 화면 크기에 맞게 조정됩니다. */
+   			 width: auto; /* 가로 크기 자동 조정 */
+        }
+
+        /* Feed 및 중앙 정렬 */
+        .feed {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 800px;
+        }
+        .user-profile, .post-image {
+		    max-width: 100%;
+		    height: auto;
+		    display: block; /* 이미지를 블록 요소로 표시하여 여백을 적용합니다. */
 		}
 		
-		.centered-table th, .centered-table td {
-		    border: 1px solid #ccc; /* 셀 경계 스타일 설정 */
-		    padding: 8px; /* 셀 내부 패딩 설정 */
-		}
-		
-		.centered-table th {
-		    background-color: #f2f2f2; /* 헤더 배경색 설정 */
-		}
-		
-		.centered-table th, .centered-table td {
-		    text-align: center; /* 텍스트 중앙 정렬 */
-		}
-		
-		/* 이미지 컬럼의 스타일 */
-		.centered-table .image-column {
-		    width: 100px; /* 이미지 셀 너비 조정 */
-		    text-align: center; /* 이미지 중앙 정렬 */
-		}
-		
-		/* 홀수 행 배경색 설정 */
-		.centered-table tbody tr:nth-child(odd) {
-		    background-color: #f9f9f9;
-		}
     </style>
+    
 </head>
 <body>
+	
     <div class="container-fluid">
         <div class="row">
-            <div class="col-2 sidebar">
+            <div class="col-2 sidebar"> 
                 <!-- 사이드바 메뉴 내용 -->
-                <ul>
-                    <li><a href="#">메뉴 항목 1</a></li>
-                    <li><a href="#">메뉴 항목 2</a></li>
+                <h4>기본태그</h4>
+                <ul class="grid-menu">
+                
+                    <button type="button" class="button" name="food" onclick="change_btn(event)">#식품</button>
+					<button type="button" class="button" name="beauty"onclick="change_btn(event)" >#뷰티</button>
+					<button type="button" class="button" name="fashion" onclick="change_btn(event)">#패션</button>
+					<button type="button" class="button" name="daily" onclick="change_btn(event)">#일상</button>
+					<button type="button" class="button" name="restaurant" onclick="change_btn(event)">#식당</button>
+					<button type="button" class="button" name="recipe" onclick="change_btn(event)">#레시피</button>
                     <!-- 원하는 메뉴 항목 추가 -->
                 </ul>
-            </div>
-            <div class="col">
-                <!-- 테이블을 가운데로 정렬 -->
-                <button type="button" id="write-btn"  class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl">피드 게시글 작성</button>
-                <table class="centered-table">
-                    <thead>
-                        <tr>
-                            <th>닉네임</th>
-                            <th>태그</th>
-                            <th>본문내용</th>
-                            <th>댓글내용</th>
-                            <th>작성일</th>
-                            <th>이미지</th>
-                        </tr>
-                    </thead>
-                    <tbody id="feedList">
-                        <!-- 여기에 게시글 목록이 동적으로 추가됩니다 -->
-                    </tbody>
-                </table>
-            </div>
+                <h4>검색</h4>
+                 <ul class="search-menu">
+                	
+                    <button type="button" class="button" name="food" onclick="change_btn(event)">검색</button>
+					 <button type="button" id="write-btn"  class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl">피드 게시글 작성</button>
+                    <!-- 원하는 메뉴 항목 추가 -->
+                </ul>
+<             </div> 
+   
+        
+<div class="feed">
+    <!-- Instagram 피드 게시물들을 동적으로 추가하기 위한 영역 -->
+
+    <div id="feedList" class="post">
+    
+    </div>
+
+    <!-- 위와 같은 구조의 다른 Instagram 피드 게시물들을 추가 -->
+</div>
+            
+            
         </div>
     </div>
 
@@ -104,7 +211,9 @@ input[type="text"] {
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 <script>
-feedListCall();
+
+    feedListCall();
+
 
     // 페이지 로딩 시 피드 목록을 불러오도록 호출
     
@@ -131,21 +240,63 @@ feedListCall();
 	function drawList(list) {
 	    console.log(list);
 	    var content = '';
-
+		
 	    list.forEach(function(item, idx) {
-	        content += '<tr>';
-	        content += '<td>' + item.nickname + '</td>';
-	        content += '<td>' + item.tag_content + '</td>';
-	        content += '<td>' + item.content + '</td>';
-	        content += '<td>' + item.comment_text + '</td>';
-	        var date = new Date(item.date);
-			var dateStr = date.toLocaleDateString("ko-KR"); 
-	        content += '<td>' + dateStr + '</td>';
-	        content += '</tr>';
-	    });
+	    	console.log(item.server_file_name);
+	    	
 
+	    	var tags = item.tag_content;
+	    	console.log(item.tag_content);
+
+	    	var allowedTags = ['#식품', '#패션', '#일상', '#레시피', '#뷰티', '#식당'];
+	    	console.log(allowedTags);
+
+	    	if (tags) {
+	    	    allowedTags.forEach(function(tag) {
+	    	        if (tags.includes(tag)) {
+	    	            content += '<button class="tag-button">' + tag + '</button>';
+	    	        }
+	    	    });
+	    	}
+	    	
+	    	content += '<div class="post">';
+	    	content += '<div class="post-header">';
+	    	content += '<div class="user-profile"><img src="/photo/' + item.profile_image + '"></div>'; // 사용자의 프로필 사진
+	    	content += '<span class="username">' + item.nickname + '</span>';
+	    	content += '</div>'; 
+	    	content += '<div class="post-image"><img src="/photo/' + item.server_file_name + '"></div>';
+	    	content += '<div class="tag-content">' + item.tag_content + '</div>';
+	    	content += '<div class="post-caption">';
+	    	content += '<span class="feed-content">' + item.content + '</span> ';
+	    	content += '</div>';
+	    	content += '<div class="post-comments">';
+	    	content += '<div class="comment">';
+	    	content += '<span class="username">' + item.comment_user_nickname + '</span> ' + item.comment_text;
+	    	content += '</div>';
+	    	content += '</div>';
+	    	var date = new Date(item.date);
+	    	var dateStr = date.toLocaleDateString("ko-KR"); //en-US
+	    	content += '<div class="post-time">' + dateStr + '</div>';
+	    	content += '</div>';
+	    	content += '<hr>';
+	       
+	    });
 	    $('#feedList').html(content);
-	}
+	    
+	} 
+	// 버튼 색생 변경
+	function change_btn(e) {
+		  var btns = document.querySelectorAll(".button");
+		  btns.forEach(function (btn, i) {
+		    if (e.currentTarget == btn) {
+		      btn.classList.add("active");
+		    } else {
+		      btn.classList.remove("active");
+		    }
+		  });
+		  console.log(e.currentTarget);
+		}
+	
 
 </script>
 
