@@ -32,7 +32,7 @@
 	li{
 		display: inline-block;
 	}
-	#gBox input[type=text]{
+	#gBox{
 		width: 30px;
 	}
 	#listArea, #showNutri{
@@ -58,8 +58,8 @@
 			<li ><input id="lunch" class="mealBtn" type="button" value="점심" onclick="meal(this)"/></li> 
 			<li ><input id="dinner" class="mealBtn" type="button" value="저녁" onclick="meal(this)"/></li> 
 			<li ><input id="etc" class="mealBtn" type="button" value="기타" onclick="meal(this)"/></li> 
-			<li><input id=searchBox type="text" placeholder="식품 검색"/><button type="button" onclick="searchFood()">검색</button></li>
-			<li id="gBox"><input type="text"/>g</li>
+			<li><input id=searchBox type="text" placeholder="식품 검색" /><button type="button" onclick="searchFood()">검색</button></li>
+			<li><input id="gBox" type="text"/>g</li>
 		</ul>
 		<div id="foodListBox">
 			<table>
@@ -105,36 +105,76 @@
 		</table>
 	</div>
 	<div>
-		<input type="button" value="완료"/>
+		<input type="button" value="완료" onclick="addMenu()"/>
 	</div>
 </body>
 <script>
+	var selectDate = opener.document.getElementById('selectDate').value;
 	var foodId;
-	var selectMeal;	
-
-	function meal(obj){
-		selectMeal = obj.value;
-		if(selectMeal === '아침'){
-			$('#breakfast').css('border','1px solid green');
-			$('#lunch').css('border','1px solid black');
-			$('#dinner').css('border','1px solid black');
-			$('#etc').css('border','1px solid black');
-		}else if(selectMeal === '점심'){
-			$('#breakfast').css('border','1px solid black');
-			$('#lunch').css('border','1px solid green');
-			$('#dinner').css('border','1px solid black');
-			$('#etc').css('border','1px solid black');
+	var diet_category;
+	var gram;
+	
+	function addMenu() {
+		gram = $('#gBox').val();
+		console.log('foodId : '+foodId +" / diet_category : "+diet_category+ " / gram : "+ gram);
+		if(foodId == null){
+			alert("식품을 선택해주세요");
+			$('#searchBox').focus();
+		}else if(diet_category == null){
+			alert("아침 / 점심 / 저녁 / 기타 중에 선택해 주세요");
+		}else if(gram == null){
+			alert("선택한 식품의 섭취량을 입력해주세요");		
 		}
-		else if(selectMeal === '저녁'){
+		
+		var params = { };
+		params.select_date = selectDate;
+		params.food_id = foodId;
+		params.diet_category = diet_category;
+		params.gram = gram;
+		
+		$.ajax({
+			type:'get',
+			url:'addMenu.do',
+			data:params,
+			dataType:'JSON',
+			success:function(data){
+				
+			},
+			error:function(e){
+				console.log(e);
+			}
+		});
+		
+		
+	}
+	
+	function meal(obj){
+		diet_category = obj.value;
+		if(diet_category === '아침'){
+			$('#breakfast').css('border','2px solid green');
+			$('#lunch').css('border','1px solid black');
+			$('#dinner').css('border','1px solid black');
+			$('#etc').css('border','1px solid black');
+			$('#searchBox').focus();
+		}else if(diet_category === '점심'){
+			$('#breakfast').css('border','1px solid black');
+			$('#lunch').css('border','2px solid green');
+			$('#dinner').css('border','1px solid black');
+			$('#etc').css('border','1px solid black');
+			$('#searchBox').focus();
+		}
+		else if(diet_category === '저녁'){
 			$('#breakfast').css('border','1px solid black');
 			$('#lunch').css('border','1px solid black');
-			$('#dinner').css('border','1px solid green');
+			$('#dinner').css('border','2px solid green');
 			$('#etc').css('border','1px solid black');
-		}else if(selectMeal === '기타'){
+			$('#searchBox').focus();
+		}else if(diet_category === '기타'){
 			$('#breakfast').css('border','1px solid black');
 			$('#lunch').css('border','1px solid black');
 			$('#dinner').css('border','1px solid black');
-			$('#etc').css('border','1px solid green');
+			$('#etc').css('border','2px solid green');
+			$('#searchBox').focus();
 		}
 	}
 	
@@ -169,7 +209,7 @@
 		}else{
 			data.findFoodList.forEach(function(item, idx) {
 				console.log('content'+content);
-				content += '<tr class="foodItem" onclick="selectFood(this,event)">';
+				content += '<tr class="foodItem" onclick="selectFood(this)">';
 				content += '<td style="display:none"><input type="text" class="foodId" value="'+item.food_id+'"/></td>';
 				content += '<td>'+(idx+1)+'</td>';
 				content += '<td>'+item.food_name+'</td>';
@@ -183,12 +223,14 @@
 		$('#foodList').append(content);
 	};
 	
-	function selectFood(obj, e) {
+	function selectFood(obj) {
 		foodId = $(obj).find('.foodId').val();
-		$(obj).css('border','2px solid green');
-		if(!$(e.target).hasClass("foodItem")){
-		}
-		console.log(foodId);
+		
+	        $('.foodItem').css('border', 'none');
+	         $(obj).css('border','2px solid green');
+		
+		
+		$('#gBox').focus();
 		
 		$.ajax({
 			type:'get',
@@ -254,7 +296,5 @@
 		}
 	};
 	
-	
-
 </script>
 </html>

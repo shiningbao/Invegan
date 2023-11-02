@@ -10,6 +10,7 @@
 </head>
 <body>
 	<h3>${msg}</h3>
+	<h3><a href="diet/tempCalander">메뉴추가 바로가기</a></h3>
 </body>
 <script>
 
