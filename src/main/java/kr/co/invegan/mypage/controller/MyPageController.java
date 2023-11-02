@@ -40,22 +40,22 @@ public class MyPageController {
 	
 	@RequestMapping(value="/myPage/listCall")
 	@ResponseBody
-	public HashMap<String, Object> listCall(@RequestParam String boardType, @RequestParam String tabType) {
+	public HashMap<String, Object> listCall(@RequestParam String boardType) {
 		
 	    HashMap<String, Object> result = new HashMap<String, Object>();
 	    ArrayList<MyPageDTO> list = null;
-
+	    
+	    // boardType에 따라 적절한 데이터를 가져오는 서비스 메서드 호출
 	    if ("요청".equals(boardType)) {
 	        list = service.requestBoardList();
-	    } else if("레시피".equals(boardType)){
+	    } else if ("레시피".equals(boardType)) {
 	        list = service.recipeBoardList();
-	    } else if("자유게시판".equals(boardType)) {
-	    	list = service.freeBoardList();
+	    } else if ("자유게시판".equals(boardType)) {
+	        list = service.freeBoardList();
 	    }
 	    
 	    result.put("list", list);
-	    logger.info("list:" + list);
-
+	    logger.info("list:"+list);
 
 	    return result;
 	}
