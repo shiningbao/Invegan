@@ -105,6 +105,11 @@ public class FeedService {
 		return dao.list();
 	}
 	
+	public ArrayList<FeedListDTO> detailList(int post_id) {
+		
+		return dao.detailList(post_id);
+	}
+	
 }
 
 	

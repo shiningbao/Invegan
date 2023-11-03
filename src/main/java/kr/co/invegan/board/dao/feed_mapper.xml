@@ -70,4 +70,43 @@ ORDER BY
     b.date DESC;
 	 
 </select>
+
+<select id="detailList" resultType="kr.co.invegan.board.dto.FeedListDTO" >
+	SELECT 
+    it2.server_file_name AS profile_image,
+    m.nickname,
+    (
+        SELECT GROUP_CONCAT(t.tag_content) 
+        FROM Tags t
+        WHERE t.tag_id IN (
+            SELECT tag_id
+            FROM FeedTags ft
+            WHERE ft.post_id = b.post_id
+        )
+    ) AS tag_content,
+    b.content,
+    c.comment_text,
+    m2.nickname AS comment_user_nickname,
+    b.date,
+    it.image_id,
+    b.post_id,
+    (
+        SELECT GROUP_CONCAT(ft.tag_id) 
+        FROM FeedTags ft 
+        WHERE ft.post_id = b.post_id
+    ) AS tag_ids,
+    it.server_file_name
+FROM
+    Members m
+    JOIN Board b ON m.user_no = b.user_no
+    LEFT JOIN Comments c ON b.post_id = c.post_id
+    JOIN ImageTable it ON b.post_id = it.idx
+    LEFT JOIN Members m2 ON c.user_no = m2.user_no
+    LEFT JOIN ImageTable it2 ON m.user_no = it2.idx AND it2.category = '회원'
+WHERE
+    b.category = '피드'
+    AND b.post_id = #{post_id}
+ORDER BY
+    b.date DESC;
+</select>
 </mapper>

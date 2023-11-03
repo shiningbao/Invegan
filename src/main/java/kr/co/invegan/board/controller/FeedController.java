@@ -31,12 +31,23 @@ public class FeedController {
 	@Autowired FeedService service;
 	org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
 	
+//	@RequestMapping(value = "writejsp") // feedWrite 페이지에 대한 URL 매핑을 추가
+//	public String writejsp(Model model) {
+//		logger.info("feedWrite 접근");
+//		// 필요한 모델 데이터를 추가
+//		return "write.go";
+//	}
+	
+	
 	@RequestMapping(value = "write.go") // feedWrite 페이지에 대한 URL 매핑을 추가
 	public String feedWrite(Model model) {
 		logger.info("feedWrite 접근");
 		// 필요한 모델 데이터를 추가
+		
 		return "feed/feedWrite"; // feedWrite.jsp로 이동
 	}
+	
+	
 	
 	@RequestMapping(value = "write")
 	@ResponseBody
@@ -66,6 +77,31 @@ public class FeedController {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		ArrayList<FeedListDTO> list = service.list();
 		result.put("list", list);
+		logger.info("list :"+ list);
+		logger.info("list size:"+ list.size());
+		return result;
+	}
+	@RequestMapping(value="detail.go")
+	public String detail() {
+		
+		
+		
+		return "feed/feedDetail";
+	}
+	
+	@RequestMapping(value="feedDetailCall")
+	@ResponseBody
+	public HashMap<String, Object> feedDetailCall(HttpSession session, @RequestParam("post_id") int post_id){
+
+		logger.info("상세보기 접근");
+		logger.info("post id:"+post_id);
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		ArrayList<FeedListDTO> list = service.detailList(post_id);
+
+		
+		
+		result.put("list", list);
+		
 		
 		return result;
 	}
