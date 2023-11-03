@@ -5,9 +5,11 @@ import java.util.HashMap;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
 
+import kr.co.invegan.member.dto.MemberDTO;
+
 public interface MemberDAO {
 
-	HashMap<String, Object> login(HashMap<String, String> params);
+	MemberDTO login(HashMap<String, String> params);
 
 	String findId(String email);
 
