@@ -30,6 +30,7 @@ public class MyPageController {
 	    if (loginId != null) {
 	        ArrayList<MyPageDTO> info = service.userInfo(loginId);
 	        model.addAttribute("info", info);
+	        logger.info("info:"+info);
 	        return "myPage/mypage";
 	    } else {
 	       
@@ -55,32 +56,35 @@ public class MyPageController {
 	    
 	    switch (boardType) {
         case "요청":
-            if ("글모아보기".equals(tabType)) {
+            if ("작성한 글 모아보기".equals(tabType)) {
                 list = service.requestBoardList(user_no);
             }
             break;
         case "레시피":
-            if ("글모아보기".equals(tabType)) {
+            if ("작성한 글 모아보기".equals(tabType)) {
                 list = service.recipeBoardList(user_no);
-            } else if ("댓글모아보기".equals(tabType)) {
+            } else if ("댓글 모아보기".equals(tabType)) {
                 list = service.recipeComments(user_no);
-            } else if ("스크랩보기".equals(tabType)) {
+            } else if ("나의 스크랩".equals(tabType)) {
                 list = service.recipeFavorite(user_no);
             }
             break;
         case "자유게시판":
-            if ("글모아보기".equals(tabType)) {
+            if ("작성한 글 모아보기".equals(tabType)) {
                 list = service.freeBoardList(user_no);
-            } else if ("댓글모아보기".equals(tabType)) {
-                list = service.getFreeComments(user_no);
-            } else if ("스크랩보기".equals(tabType)) {
-                list = service.getFreeScraps(user_no);
+            } else if ("댓글 모아보기".equals(tabType)) {
+                list = service.freeComments(user_no);
             }
             break;
         case "피드":
-            // 피드의 경우에도 tabType에 따라 처리를 추가할 수 있음
-            // list = service.getFeedPosts(user_no, tabType); // 피드 글 목록 조회 메서드 호출 예시
+        	if ("작성한 글 모아보기".equals(tabType)) {
+                list = service.feedList(user_no);
+            } else if ("댓글 모아보기".equals(tabType)) {
+                list = service.feedComments(user_no);
+            }
             break;
+//        case "식당":
+//        	break;
         default:
             // 처리할 수 없는 boardType에 대한 예외 처리 또는 기본 동작을 설정
             break;

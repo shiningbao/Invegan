@@ -50,24 +50,23 @@ public class MyPageService {
 		dao.delUser(user_no);
 	}
 
-	public ArrayList<MyPageDTO> recipeComments(Integer user_no) {
+	public ArrayList<MyPageDTO> recipeComments(int user_no) {
 		return dao.recipeComments(user_no);
 	}
 
-	public ArrayList<MyPageDTO> recipeFavorite(Integer user_no) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<MyPageDTO> recipeFavorite(int user_no) {
+		return dao.recipeFavorite(user_no);
 	}
 
-	public ArrayList<MyPageDTO> getFreeComments(Integer user_no) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<MyPageDTO> freeComments(int user_no) {
+		return dao.freeComments(user_no);
 	}
 
-	public ArrayList<MyPageDTO> getFreeScraps(Integer user_no) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<MyPageDTO> feedComments(int user_no) {
+		return dao.feedComments(user_no);
 	}
+
+	
 
 
 

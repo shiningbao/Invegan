@@ -22,6 +22,12 @@ public interface MyPageDAO {
 
 	ArrayList<MyPageDTO> recipeComments(int user_no);
 
+	ArrayList<MyPageDTO> recipeFavorite(int user_no);
+
+	ArrayList<MyPageDTO> freeComments(Integer user_no);
+
+	ArrayList<MyPageDTO> feedComments(int user_no);
+
 
 
 }

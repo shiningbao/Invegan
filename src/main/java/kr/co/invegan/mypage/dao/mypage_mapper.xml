@@ -6,10 +6,23 @@
 <mapper namespace="kr.co.invegan.mypage.dao.MyPageDAO">
 
 	<select id="userInfo" resultType="map">
-    SELECT m1.join_date, m1.id, m1.birthdate, m1.gender, m1.nickname, m1.vegan_type, m1.vegan_purpose, m1.user_no
-    FROM Members m1
-    WHERE m1.id = #{session.loginId}
-	</select>
+    SELECT 
+        m1.join_date, 
+        m1.id, 
+        m1.birthdate, 
+        m1.gender, 
+        m1.nickname, 
+        m1.vegan_type, 
+        m1.vegan_purpose, 
+        m1.user_no,
+        it.server_file_name AS profile_image
+    FROM 
+        Members m1
+    LEFT JOIN 
+        ImageTable it ON m1.user_no = it.idx AND it.category = '회원'
+    WHERE 
+        m1.id = #{session.loginId}
+</select>
 	
 	<select id="overlay" resultType="int">
 		SELECT COUNT(nickname) FROM Members WHERE nickname=#{param1}
@@ -28,11 +41,20 @@
 	</select>
 	
 	<select id="feedList" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
-    	SELECT i.server_file_name, b.content, m.nickname
-		FROM ImageTable i
-		JOIN Board b ON i.idx = b.post_id
-		JOIN Members m ON b.user_no = m.user_no
-		WHERE b.user_no = #{param1} and b.category = '피드'
+SELECT 
+    it2.server_file_name AS profile_image,
+    m.nickname,
+    b.content,
+    it.server_file_name AS server_file_name
+FROM
+    Members m
+    JOIN Board b ON m.user_no = b.user_no
+    JOIN ImageTable it ON b.post_id = it.idx
+    LEFT JOIN ImageTable it2 ON m.user_no = it2.idx AND it2.category = '회원'
+WHERE
+    b.category = '피드'
+ORDER BY
+    b.date DESC;
 	</select>
 	
 	<delete id="delUser" parameterType="int">
@@ -40,6 +62,38 @@
 	</delete>
 
 	<select id="recipeComments" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
-		
+		SELECT DISTINCT title,views FROM Board 
+		WHERE post_id IN (SELECT post_id FROM Comments WHERE user_no = #{param1}) 
+		AND post_id IN (SELECT post_id FROM Board WHERE category='레시피')
+	</select>
+	
+	<select id="recipeFavorite" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
+		SELECT title,views FROM Board 
+		WHERE post_id IN (SELECT post_id FROM Favorite WHERE user_no = #{param1})
+		 AND category='레시피'
+	</select>
+	
+	<select id="freeComments" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
+		SELECT title,views FROM Board 
+		WHERE post_id IN (SELECT post_id FROM Comments WHERE user_no = #{param1}) 
+		AND post_id IN(SELECT post_id FROM Board WHERE category='자유게시판')
+	</select>
+	
+	<select id="feedComments" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
+		SELECT 
+		    it2.server_file_name AS profile_image,
+		    m.nickname,
+		    b.content,
+		    it.server_file_name AS server_file_name
+		FROM
+		    Board b
+		    JOIN Members m ON m.user_no = b.user_no
+		    LEFT JOIN ImageTable it2 ON m.user_no = it2.idx AND it2.category = '회원'
+		    JOIN ImageTable it ON b.post_id = it.idx
+		WHERE
+		    b.category = '피드'
+		    AND b.post_id IN (SELECT post_id FROM Comments)
+		ORDER BY
+		    b.date DESC;
 	</select>
 </mapper>

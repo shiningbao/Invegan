@@ -20,8 +20,35 @@ public class MyPageDTO {
 	private String title;
 	private String server_file_name;
 	private String content;
+	private int idx;
+	private int image_id;
+	private String category;
+	private String profile_image;
 	
-	
+	public String getProfile_image() {
+		return profile_image;
+	}
+	public void setProfile_image(String profile_image) {
+		this.profile_image = profile_image;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	public int getImage_id() {
+		return image_id;
+	}
+	public void setImage_id(int image_id) {
+		this.image_id = image_id;
+	}
+	public int getIdx() {
+		return idx;
+	}
+	public void setIdx(int idx) {
+		this.idx = idx;
+	}
 	public String getContent() {
 		return content;
 	}

@@ -24,20 +24,25 @@
         }
 
         .profileImage {
-            margin-right: 20px;
+            top: -10px;
+    		right: 1123px;
+    		position: absolute;
         }
 
         .userInfo {
             font-size: 18px;
-            margin-top:27px;
+            margin-top: 27px;
+            margin-left: -55px;
             width: 400px;
+            position: absolute;
           
         }
         
         .additionalInfo{
          	font-size: 18px;
          	margin-top:27px;
-        	margin-left: 50px;
+        	margin-left: 657px;
+        	position: absolute;
         	
         }
         
@@ -169,8 +174,12 @@
 			left: 1100px;
 			cursor: pointer;
 			font-size: 14px;
-
-			
+		}
+		
+		.profile img{
+			width: 40px;
+			border-radius:50%;
+			margin: 5px;
 		}
 		
     </style>
@@ -178,10 +187,13 @@
 <body>
  <h3>마이페이지</h3>
  <c:forEach items="${info}" var="user">
+ 	<c:set var="profileImage" value="${user.profile_image}" />
 	<div class="profileContainer">
-	    <div class="profileImage">
-	        <img src="" width="150" height="150">
-	    </div>
+	
+	  	<div class="profileImage">
+            <img src="/photo/${ profileImage }" width="200" height="200">
+      	</div>
+	    
 	   	<div class="userInfo">
 	        <label>가입 날짜 : </label>${user.join_date}<br>
 	        <label>아이디 : </label>${user.id}<br>
@@ -374,9 +386,9 @@ $(document).ready(function(){
 	                content += '<td>' + item.title + '</td>';
 	                break;
 	            case '피드':
-	                content += '<td><img src="' + item.server_file_name + '" alt="image"></td>';
+	                content += '<td><img src="/photo/' + item.server_file_name + '" alt="image"></td>';
 	                content += '<td>' + item.content + '</td>';
-	                content += '<td>' + item.nickname + '</td>';
+	                content += '<td class="profile"><img src="/photo/' + item.profile_image + '" alt="image">' + item.nickname + '</td>';
 	                break;
 	            default:
 	                break;
