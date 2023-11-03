@@ -78,11 +78,11 @@ public class MyPageController {
             }
             break;
         case "피드":
-            // 피드의 경우에도 tabType에 따라 처리를 추가할 수 있습니다.
+            // 피드의 경우에도 tabType에 따라 처리를 추가할 수 있음
             // list = service.getFeedPosts(user_no, tabType); // 피드 글 목록 조회 메서드 호출 예시
             break;
         default:
-            // 처리할 수 없는 boardType에 대한 예외 처리 또는 기본 동작을 설정할 수 있습니다.
+            // 처리할 수 없는 boardType에 대한 예외 처리 또는 기본 동작을 설정
             break;
     }
 	    
