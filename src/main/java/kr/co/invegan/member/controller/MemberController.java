@@ -51,11 +51,9 @@ public class MemberController {
 			result.put("msg", "아이디 또는 비밀번호를 확인 하세요");
 		}else {
 			result.put("msg", "로그인에 성공 하였습니다.");
+			result.put("loginInfo", loginInfo);
 			session.setAttribute("loginInfo", loginInfo);
-			//session.setAttribute("loginId", result.get("id"));
-			//session.setAttribute("perm", result.get("perm"));
-			logger.info("aa"+loginInfo.getId()+loginInfo.getEmail());
-			session.setAttribute("id", loginInfo.getId());
+			logger.info("로그인 id :"+loginInfo.getId()+" 관리자 여부 : "+loginInfo.getIs_admin());
 		}
 		
 		return result;

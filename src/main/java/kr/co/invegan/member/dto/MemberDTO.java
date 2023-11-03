@@ -18,12 +18,19 @@ public class MemberDTO {
 	private Timestamp join_date;
 	private int is_admin;
 	private int is_suspended;
+	private String profile_img;
 	
 	public int getUser_no() {
 		return user_no;
 	}
 	public void setUser_no(int user_no) {
 		this.user_no = user_no;
+	}
+	public String getProfile_img() {
+		return profile_img;
+	}
+	public void setProfile_img(String profile_img) {
+		this.profile_img = profile_img;
 	}
 	public String getId() {
 		return id;

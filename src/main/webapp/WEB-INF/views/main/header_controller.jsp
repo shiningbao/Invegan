@@ -70,12 +70,10 @@
 <body>
 	<div class="top">
 		<div class = "logoImg">
-			<img src="<c:url value='/resources/main/logo.png'/>" width=180px height=90px, alt="Logo Img" id="Logo"/>
+			<img src="<c:url value='/resources/main/logo.png'/>" width=180px height=90px, alt="Logo Img"/>
 		</div>
 		<div class="loginInfo">
-  		
-<%-- 	
-				<!-- 로그인 안했을 때 -->
+			<!-- 로그인 안했을 때 -->
 			<c:if test="${empty memberInfo}">
 				<p><a href = "#">로그인</a></p>
 				<p><a href = "#">회원가입</a></p>
@@ -85,12 +83,6 @@
  			<c:if test="${not empty memberInfo }">
 				<p>프로필사진, 닉네임, 아이디<button id="infoButton">@</button></p>
 			</c:if>
---%>
-
-				<p><a href = "<c:url value='/member/signup'/>">회원가입</a></p>
-				<p><a href = "<c:url value='/member/login.go'/>">로그인</a></p>
-				
-				
 		</div>
 	</div>
 	<div class="infoModal">
@@ -120,7 +112,7 @@
 
 </nav>
 	<div class="mainList">
-		<a href="diet/tempCalander">식단관리</a>
+		<a href="#">식단관리</a>
 		<a href="restaurant/list">식당</a>
 		<a href="feed/list">피드</a>
 		<a href="#">자유게시판</a></li>
@@ -156,12 +148,6 @@
 <hr id="last">
 </body>
 <script>
-	$('#Logo').on('click',function(){
-		location.href = '<c:url value='/'/>';
-	});
-
-
-
 	$('.mainList_li_1').on('mouseover',function(){
 		var ul = $(this).find('ul');
 		if(ul.length != 0){
@@ -180,21 +166,12 @@
 		console.log(displayChk);
 		
 		if(displayChk == 'block'){
-			$('.infoModal').css({'display':'none'});
+			$('.infoModal').css({"display":"none"});
 		}else{
-			$('.infoModal').css({'display':'block'});
+			$('.infoModal').css({"display":"block"});
 		}
 	});
 
-	$('.logoImg').on('click',function(){
-		var memberInfo = sessionStorage.getItem("memberInfo");
-		sessionStorage.setItem("aa","aaa");
-		var id = sessionStorage.getItem("id");
-		console.log(memberInfo);
-		console.log(id);	
-		console.log(sessionStorage.getItem("aa"));
-	});
-	
 	
 	
 	
