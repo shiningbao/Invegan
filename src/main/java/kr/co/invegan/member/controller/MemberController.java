@@ -3,6 +3,7 @@ package kr.co.invegan.member.controller;
 import java.io.IOException;
 import java.net.http.HttpResponse;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletResponse;
@@ -30,6 +31,14 @@ public class MemberController {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired MemberService service;
+	
+	@RequestMapping(value="/member/login.go")
+	public String loginPage() {
+		return "member/login";
+	}
+	
+
+	
 	
 	//로그인
 	@RequestMapping(value="/member/login", method = RequestMethod.POST)
@@ -88,20 +97,55 @@ public class MemberController {
 		return "/member/findInfo";
 	}
 	
-	
+	/*
 	@RequestMapping(value = { "/member/home2" }, method = RequestMethod.GET)
 	public String home2() {
 
 		return "member/home2";
 	}
+	*/
+	
+	
+	//임시
+	@RequestMapping(value = "/member/join")
+	@ResponseBody
+	public Map<String, Object> join(@RequestParam String email,@RequestParam String add) {
+		
+		logger.info("join 입장  ");
+		logger.info("email : "+email);
+		logger.info("add : "+add);
+		
+		String trueemail = email+"@"+add;
+		logger.info("trueemail : "+trueemail);
+		
+		
+		 return null;
+	}
+	
+	
+	
+	
 	
 	//회원가입
+	
 	@RequestMapping(value = { "/member/signup" }, method = RequestMethod.GET)
-	public String signup() {
+	public String signupPage() {
 
 		return "member/signup";
 	}
 
+	@RequestMapping(value = "/member/signup2", method = RequestMethod.POST)
+	public String signup(Model model, @RequestParam HashMap<String, String> params) {
+		logger.info("params : "+params);
+		
+		String msg = service.signup(params);
+		
+		model.addAttribute("msg", msg);
+		
+		return "main";
+	}
+	
+	
 	//이거 수정해야됨!!!!!!!!!!!!!!!!!
 	@Autowired  
 	private JavaMailSender mailSender;

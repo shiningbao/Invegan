@@ -6,9 +6,9 @@
 <mapper namespace="kr.co.invegan.member.dao.MemberDAO">
 
 <!-- id pw pw확인 이메일 닉네임 생년월일 성별 비건목적 관심사  -->
-	<insert id="join" parameterType="map">
-		INSERT INTO Members(id,pw,name,age,gender,email)
-			VALUES(#{id},#{pw},#{name},#{age},#{gender},#{email})
+	<insert id="signup" parameterType="map">
+		INSERT INTO Members(id,pw,email,nickname,birthdate,gender,vegan_type,vegan_purpose,interests)
+			VALUES(#{id}, #{pw}, #{email}, #{nickname},#{birthdate},#{gender},#{vegan_type}, #{vegan_purpose}, #{interests})
 	</insert>
 	
 	<select id="login3" parameterType="map" resultType="map">
@@ -27,4 +27,5 @@
 	<select id="findId" parameterType="String" resultType="String">
 		SELECT * FROM Members WHERE email=#{email}
 	</select>
+	
 </mapper>

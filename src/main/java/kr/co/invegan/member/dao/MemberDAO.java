@@ -11,6 +11,8 @@ public interface MemberDAO {
 
 	String findId(String email);
 
+	int signup(HashMap<String, String> params);
+
 	//boolean login(Model model);
 
 }
