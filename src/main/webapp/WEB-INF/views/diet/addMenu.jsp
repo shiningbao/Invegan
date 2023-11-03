@@ -9,101 +9,54 @@
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <style>
 	
-	table, th, td{
-		border-collapse: collapse;
-		padding: 3px 10px;
-		font-size: 13px;
-	}
-	#tapMenu{
-		width: inherit;
-		height: 30px;
-		border-bottom: 1px solid black; 
-		text-align: center;
-	}
-	#tapMenu li{
-		margin: 0 10px;
-	}
-	#tapMenu li:hover{
-		cursor: pointer;
-	}
-	.mealBtn{
-		border: 1px solid black;
-		background-color: white;
-		border-radius: 4px;
-	}
-	.mealBtn:hover{
-		cursor: pointer;
-	}
-	#foodListHead{
-		height: 30px;
-		width: 600px;
-		border: 1px solid black;
-	}
-	#foodListHead th{
-		height: 25px;
-		border: 1px solid black;
-	}
-	#foodListBox{
-		height: 430px;
-		width: 600px;
-		overflow: auto;
-		overflow-x:hidden; 
-	}
-	/* #foodListBox::-webkit-scrollbar{
-		width: 3px;
-	}
-	#foodListBox::-webkit-thumb{
-		width: 3px;
-	}
-	#foodListBox::-webkit-track{
-		width: 3px;
-	} */
-	#foodList{
-		width: inherit;
-	}
-	#foodList tr{
-		border: 1px solid blue;
-	}
-	
-	#showNutri table{
-		width: 300px;
-		height:540px;
-	}
-	.foodItem:hover{
-		cursor: pointer;
-	}
 	ul{
 		padding: 0;
 	}
 	li{
 		display: inline-block;
 	}
-	#gBox{
-		width: 30px;
+	#top {
+		text-align: right;
+		float: right;
+		position: relative;
+		top:-10px;
+		right: 20px;
 	}
-	#listArea, #showNutri{
-		display: inline-block;
+	#top input{
+		cursor: pointer;
+		background: none;
+		border: none;
+		font-size: 25px;
 	}
-	
 		
 }
 	
 </style>
 
 </head>
-<body style="overflow-x:hidden; overflow-y:hidden;">
-	<h2>메뉴 추가</h2>
+<body style="overflow-x:hidden; overflow-y:auto;">
+	<div id="top">
+		<input type="button" value="Χ" onclick="winClose()"/>
+	</div>
 	<div id="tapMenu">
 		<ul>
 			<li id="default" onclick="defaultMenu()">기본메뉴</li>
 			<li id="myRecipe" onclick="myRecipeMenu()">나만의 레시피 메뉴</li>
 		</ul>
+		
 	</div>
 	<div id="contents">
 	</div>
 </body>
 <script>
 	defaultMenu();
+	
+	function winClose(){
+		console.log("닫기 클릭");
+		if(confirm("입력된 내용은 사라집니다\n창을 닫으시겠습니까?")){
+			self.close();
+		} 
+	} 
 	
 	var menu_category;
 	var recipe_name;
