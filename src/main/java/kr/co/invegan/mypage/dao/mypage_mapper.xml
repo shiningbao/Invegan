@@ -6,7 +6,33 @@
 <mapper namespace="kr.co.invegan.mypage.dao.MyPageDAO">
 
 	<select id="userInfo" resultType="map">
-		SELECT join_date,id,birthdate,gender,nickname,vegan_type,vegan_purpose from Members WHERE user_no=1
+    SELECT m1.join_date, m1.id, m1.birthdate, m1.gender, m1.nickname, m1.vegan_type, m1.vegan_purpose, m1.user_no
+    FROM Members m1
+    WHERE m1.id = #{session.loginId}
+	</select>
+	
+	<select id="overlay" resultType="int">
+		SELECT COUNT(nickname) FROM Members WHERE nickname=#{param1}
+	</select>
+	
+	<select id="requestBoardList" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
+    	SELECT req_title,views FROM Request WHERE user_no=#{param1}
+	</select>
+	
+	<select id="recipeBoardList" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
+    	SELECT title,views FROM Board WHERE user_no=#{param1} and category="레시피"
+	</select>
+	
+	<select id="freeBoardList" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
+    	SELECT title,views FROM Board WHERE user_no=#{param1} and category="자유게시판"
+	</select>
+	
+	<select id="feedList" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
+    	SELECT i.server_file_name, b.content, m.nickname
+		FROM ImageTable i
+		JOIN Board b ON i.idx = b.post_id
+		JOIN Members m ON b.user_no = m.user_no
+		WHERE b.user_no = #{param1} and b.category = '피드'
 	</select>
 
 </mapper>

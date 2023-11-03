@@ -16,8 +16,37 @@ public class MyPageService {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired MyPageDAO dao;
 	
-	public ArrayList<MyPageDTO> userInfo() {
+	public ArrayList<MyPageDTO> userInfo(String loginId) {
 		
-		return dao.userInfo();
+		return dao.userInfo(loginId);
 	}
+
+	public boolean overlay(String nickname) {
+		boolean use = false;
+		int cnt = dao.overlay(nickname);
+		if(cnt==0) {
+			use = true;
+		}
+		return use;
+	}
+
+	public ArrayList<MyPageDTO> requestBoardList(int user_no) {
+		return dao.requestBoardList(user_no);
+	}
+
+	public ArrayList<MyPageDTO> recipeBoardList(int user_no) {
+		return dao.recipeBoardList(user_no);
+	}
+	
+	public ArrayList<MyPageDTO> freeBoardList(int user_no) {
+		return dao.freeBoardList(user_no);
+	}
+
+	public ArrayList<MyPageDTO> feedList(Integer user_no) {
+		return dao.feedList(user_no);
+	}
+
+
+
+
 }

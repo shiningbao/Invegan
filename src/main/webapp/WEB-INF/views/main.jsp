@@ -82,8 +82,19 @@
 </style>
 </head>
 <body>
+
 	<%@include file="main/header.jsp" %>
 	
+	
+<!-- 
+		<h3>${msg}</h3>
+	<!-- <input id="login" type="button" value="로그인"/> -->
+	
+	<!-- 임시 버튼 -->
+	<h3><a href="diet/tempCalander">식단관리 바로가기</a></h3>
+ -->
+ 
+ 
 	<div class="banner"><p>dd</p></div>
 	<br>
 	
@@ -243,6 +254,7 @@
 	<div class="blank"></div>
 	
 	<%@include file="main/footer.jsp" %>
+
 </body>
 
 

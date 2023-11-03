@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.invegan.diet.dto.DietDTO;
 import kr.co.invegan.diet.dto.FoodDataDTO;
 import kr.co.invegan.diet.service.DietService;
 
@@ -30,14 +31,47 @@ public class DietController {
 	}
 	
 	@RequestMapping(value = "diet/addMenu.go")
-	public String addMenuGo(HttpSession session,@RequestParam String loginId) {
-		logger.info("메뉴 추가 페이지 요청");
+	public String addMenuGo(HttpSession session,@RequestParam String chk, @RequestParam String loginId) {
+		logger.info("메뉴 추가 페이지 요청 || chk값 = " + chk);
 		// 임시 로그인 세션 추가 
 		session.setAttribute("loginId", loginId);
-		//
+		// chk = true 이면 메뉴 추가
+		// chk = false 이면 메뉴 수정
+		session.setAttribute("addMenuChk", chk);
+		
+		// 추후 페이지 접근 제한에도 chk 활용
 		
 		return "diet/addMenu";
 	}
+	
+	 @RequestMapping(value = "diet/addMenu.do")
+	 @ResponseBody 
+	 public HashMap<String, Object> addMenuDo(HttpSession session,@RequestParam HashMap<String, Object> params ){ 
+		 logger.info("메뉴 추가 / 수정 요청 ");
+		 logger.info(" |||||| params : "+params);
+		 String addMenuChk = (String) session.getAttribute("addMenuChk");
+		 logger.info("session :: chk = "+addMenuChk);
+		 
+		 DietDTO dietDTO = new DietDTO();
+		 dietDTO.setUser_id((String) session.getAttribute("loginId"));
+		 dietDTO.setDate((String) params.get("select_date"));
+		 dietDTO.setFood_id( Integer.parseInt(params.get("food_id").toString()));
+		 dietDTO.setDiet_category((String) params.get("diet_category"));
+		 dietDTO.setCategory((String) params.get("menu_category"));
+		 dietDTO.setRecipe_name((String) params.get("recipe_name"));
+		 dietDTO.setGram(Integer.parseInt(params.get("gram").toString()));
+		 
+		 HashMap<String,Object> result = new HashMap<String, Object>(); 
+		 dietService.addMenuDo(addMenuChk, dietDTO);
+		 return result; 
+	 }
+	 
+	 
+	 @RequestMapping(value = "diet/defaultMenu.go")
+	 public String defaultMenuGo() {
+		 logger.info("기본메뉴 페이지 요청 || ");
+		 return "diet/defaultMenu";
+	 }
 	
 	@RequestMapping(value = "diet/searchFood")
 	@ResponseBody
@@ -58,8 +92,6 @@ public class DietController {
 		return result;
 	}
 		
-
-	
 	 @RequestMapping(value = "diet/showNutri")
 	 @ResponseBody 
 	 public HashMap<String, Object> showNutri(int foodId){ 
@@ -70,18 +102,9 @@ public class DietController {
 		 return result; 
 	 }
 	 
-	 @RequestMapping(value = "diet/addMenu.do")
-	 @ResponseBody 
-	 public HashMap<String, Object> addMenuDo(HttpSession session,@RequestParam HashMap<String, Object> params ){ 
-		 logger.info("params : "+params);
-		 String loginId = (String) session.getAttribute("loginId");
-		 logger.info("session :: id = "+loginId);
-		 params.put("loginId", loginId);
-		 
-		 HashMap<String,Object> result = new HashMap<String, Object>(); 
-		 dietService.addMenuDo(params);
-		 return result; 
-	 }
+	
+	 
+	
 	 
 	
 	
