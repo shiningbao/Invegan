@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,24 +29,26 @@ public class RestaurantController {
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
+	// 리스트보여주는 요청
 	@RequestMapping(value = "/restaurant/list")
 	public String restaurantList(HttpSession session) {
-		String user_no = (String) session.getAttribute("loginId");
+		String user_no = (String) session.getAttribute("user_no");
 		if(user_no == "") {
 			//로그인 사용자 보여줄 내용
 		}else {
 			//그냥 보여줄 내용
 		}
 		
-		
 		return "restaurant/restaurantList";
 	}
 
+	// 작성 페이지 이동 요청
 	@RequestMapping(value = "/restaurant/write.go")
 	public String restaurantWriteGo() {
 		return "restaurant/restaurantWrite";
 	}
 	
+	// 작성 요청
 	@RequestMapping(value = "/restaurant/write.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String restaurantWrite(MultipartFile[] uploadImages, @RequestParam HashMap<String, Object> param, HttpSession session) throws Exception {
@@ -59,8 +62,30 @@ public class RestaurantController {
 		logger.info("uploadImages : "+uploadImages);
 		
 		service.restaurantWrite(user_no,uploadImages, param);
-
-
-		return "redirect:/restaurantList";
+		
+		return "redirect:/restaurant/list";
 	}
+	
+	// 상세보기 요청
+	@RequestMapping(value = "/restaurant/detail")
+	public String restaurantDetail(@RequestParam int post_id, Model model, HttpSession session) {
+		String user_no = (String) session.getAttribute("user_no");
+		String is_adimin = (String) session.getAttribute("is_admin");
+		
+		model.addAttribute("restaurantDetail", service.restaurantDetail(post_id));
+		model.addAttribute("menuDetail", service.menuDetail(post_id));
+		model.addAttribute("photoList", service.photoList(post_id));
+		
+		return "restaurant/restaurantDetail";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
