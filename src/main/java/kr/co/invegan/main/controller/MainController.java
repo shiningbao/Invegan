@@ -16,7 +16,11 @@ public class MainController {
 	public String main(Model model) {
 		logger.info("REQUEST MAIN PAGE :: TEST");
 		model.addAttribute("msg","IN VEGAN :: TEST PAGE");
+<<<<<<< HEAD
 		return "main";
+=======
+		return "/main";
+>>>>>>> origin/master
 	}
 	
 }
