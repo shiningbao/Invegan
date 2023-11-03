@@ -59,8 +59,8 @@ $('#login').on('click',function(){
 		success:function(data){
 			console.log(data);
 			alert(data.msg);
-			if(data.id != null){
-				location.href = 'main';
+			if(data.loginInfo != null){
+				location.href = '<c:url value='/'/>';
 				//location.reload();
 					
 			}		

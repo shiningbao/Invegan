@@ -12,7 +12,7 @@
 	</insert>
 	
 	<select id="login" parameterType="map" resultType="kr.co.invegan.member.dto.MemberDTO">
-		SELECT * FROM Members WHERE id=#{id} AND pw=#{pw}
+		SELECT  user_no, id, nickname, is_admin FROM Members WHERE id=#{id} AND pw=#{pw}
 	</select>
 	
 	<select id="findId" parameterType="String" resultType="String">

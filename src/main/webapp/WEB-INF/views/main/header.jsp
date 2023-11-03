@@ -70,10 +70,12 @@
 <body>
 	<div class="top">
 		<div class = "logoImg">
-			<img src="<c:url value='/resources/main/logo.png'/>" width=180px height=90px, alt="Logo Img"/>
+			<img src="<c:url value='/resources/main/logo.png'/>" width=180px height=90px, alt="Logo Img" id="Logo"/>
 		</div>
 		<div class="loginInfo">
-			<!-- 로그인 안했을 때 -->
+  		
+<%-- 	
+				<!-- 로그인 안했을 때 -->
 			<c:if test="${empty memberInfo}">
 				<p><a href = "#">로그인</a></p>
 				<p><a href = "#">회원가입</a></p>
@@ -83,6 +85,12 @@
  			<c:if test="${not empty memberInfo }">
 				<p>프로필사진, 닉네임, 아이디<button id="infoButton">@</button></p>
 			</c:if>
+--%>
+
+				<p><a href = "<c:url value='/member/signup'/>">회원가입</a></p>
+				<p><a href = "<c:url value='/member/login.go'/>">로그인</a></p>
+				
+				
 		</div>
 	</div>
 	<div class="infoModal">
@@ -148,6 +156,12 @@
 <hr id="last">
 </body>
 <script>
+	$('#Logo').on('click',function(){
+		location.href = '<c:url value='/'/>';
+	});
+
+
+
 	$('.mainList_li_1').on('mouseover',function(){
 		var ul = $(this).find('ul');
 		if(ul.length != 0){
