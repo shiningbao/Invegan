@@ -166,21 +166,12 @@
 		console.log(displayChk);
 		
 		if(displayChk == 'block'){
-			$('.infoModal').css({'display':'none'});
+			$('.infoModal').css({"display":"none"});
 		}else{
-			$('.infoModal').css({'display':'block'});
+			$('.infoModal').css({"display":"block"});
 		}
 	});
 
-	$('.logoImg').on('click',function(){
-		var memberInfo = sessionStorage.getItem("memberInfo");
-		sessionStorage.setItem("aa","aaa");
-		var id = sessionStorage.getItem("id");
-		console.log(memberInfo);
-		console.log(id);	
-		console.log(sessionStorage.getItem("aa"));
-	});
-	
 	
 	
 	

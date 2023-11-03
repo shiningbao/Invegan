@@ -10,13 +10,6 @@
 <!-- 
 <link rel="stylesheet" href="resources/css/common.css" type="text/css">
  -->
-</head>
-<body>
-	<h3>${msg}</h3>
-
-	<input id="login" type="button" value="로그인"/>
-	<h3><a href="diet/tempCalander">메뉴추가 바로가기</a></h3>
-
 
 <style>
 	.banner{
@@ -95,18 +88,8 @@
 </head>
 <body>
 
-	<%@include file="main/header.jsp" %>
+	<c:import url="/main/header"/>
 	
-	
-
-		<h3>${msg}</h3>
-	<input id="login" type="button" value="로그인"/> 
-	
-
-	<!-- 임시 버튼 -->
-<!-- 	
-	<h3><a href="diet/tempCalander">식단관리 바로가기</a></h3>
--->
 	<div class="banner"><p>dd</p></div>
 	<br>
 	
@@ -265,7 +248,7 @@
 		
 	<div class="blank"></div>
 	
-	<%@include file="main/footer.jsp" %>
+	<c:import url="/main/footer"/>
 
 </body>
 
