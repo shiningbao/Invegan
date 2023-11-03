@@ -297,6 +297,10 @@ input[type="text"] {
 		  console.log(e.currentTarget);
 		}
 	
+	$('.tag-button').on('click',function(){
+		var tagbt = $('.tab-button').val();
+		console.log(tagbt);
+	});
 
 </script>
 
