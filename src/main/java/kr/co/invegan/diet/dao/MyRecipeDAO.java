@@ -10,4 +10,14 @@ public interface MyRecipeDAO {
 
 	int rListUpdate(HashMap<String, Object> params);
 
+	ArrayList<HashMap<String, Object>> mrlist(int user_no);
+
+	ArrayList<HashMap<String, Object>> rMaterial(int menu_id);
+
+	boolean mdelete(int food_id, int menu_id);
+
+	boolean rdelete(int menu_id);
+
+	boolean rmdelete(int menu_id);
+
 }
