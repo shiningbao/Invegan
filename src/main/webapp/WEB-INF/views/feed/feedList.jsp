@@ -185,7 +185,8 @@ input[type="text"] {
     <%@ include file="feedWrite.jsp"%>
 </div>
 
- 	
+
+
  	
  	
  	
@@ -257,7 +258,6 @@ $('#write-btn').on('click',function(){
 	 $('body').css('overflow', 'auto');
             
         });    
-
 
     // 페이지 로딩 시 피드 목록을 불러오도록 호출
     
