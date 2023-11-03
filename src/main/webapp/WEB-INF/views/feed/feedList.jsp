@@ -187,6 +187,8 @@ input[type="text"] {
 
 
 
+
+
  	
  	
  	
@@ -197,7 +199,7 @@ input[type="text"] {
             <div class="col-2 sidebar"> 
                 <!-- 사이드바 메뉴 내용 -->
                 <h4>기본태그</h4>
-                <ul class="grid-menu">
+                
                 
                     <button type="button" class="searchtag" name="food" onclick="change_btn(event)">#식품</button>
 					<button type="button" class="searchtag" name="beauty"onclick="change_btn(event)" >#뷰티</button>
@@ -206,15 +208,15 @@ input[type="text"] {
 					<button type="button" class="searchtag" name="restaurant" onclick="change_btn(event)">#식당</button>
 					<button type="button" class="searchtag" name="recipe" onclick="change_btn(event)">#레시피</button>
                     <!-- 원하는 메뉴 항목 추가 -->
-                </ul>
+                
                 <h4>검색</h4>
-                 <ul class="search-menu">
+                 
                 	
                     <button>검색</button>
 					 <button type="button" id="write-btn"  class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl">피드 게시글 작성</button>
                     <!-- 원하는 메뉴 항목 추가 -->
-                </ul>
-<             </div> 
+                
+             </div> 
    
         
 <div class="feed">
@@ -251,6 +253,8 @@ $('#write-btn').on('click',function(){
 	$('body').css('overflow', 'hidden');
 	
 })
+
+
 
  $('.bd-example-modal-xl').on('hidden.bs.modal', function () {
             // 모달 창이 닫힐 때 수행할 작업
@@ -381,7 +385,7 @@ $('#write-btn').on('click',function(){
    	    	content += '<div class="user-profile"><img src="/photo/' + item.profile_image + '"></div>'; // 사용자의 프로필 사진
    	    	content += '<span class="username">' + item.nickname + '</span>';
    	    	content += '</div>'; 
-   	    	content += '<div class="post-image" id="detail_feed"><a href="detail.go?post_id=' + item.post_id + '"><img src="/photo/' + item.server_file_name + '"></a></div>';
+   	    	content += '<div class="post-image"><a href="detail.go?post_id=' + item.post_id + '"><img src="/photo/' + item.server_file_name + '"></a></div>';
    	    	content += '<div class="tag-content">' + item.tag_content + '</div>';
    	    	content += '<div class="post-caption">';
    	    	content += '<span class="feed-content">' + item.content + '</span> ';
@@ -403,6 +407,18 @@ $('#write-btn').on('click',function(){
    	    	
    	    });
    	    $('#feedList').html(content);
+   	    
+//    	 $('.post-image').on('click',function(){
+//    		console.log('click');
+//    		$('.bd-example-modal-xl').modal('dispose');
+//    		$('.bd-example-modal-xl').modal();
+//    		$('.feedWriteModal').css({'display':'block'});
+//    		$('.modal-backdrop').css({'display':'block'});
+//    		$('body').css('overflow', 'hidden');
+// //    		$('#feedList').load('feedDetail.jsp',function(){
+// //    			$('#feedList').html(content);
+// //    		});
+//    	});
    	    
    	    
    	    

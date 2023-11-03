@@ -101,7 +101,7 @@
 	       		
 	       	    list.forEach(function(item) {
 	       	    	console.log(item.server_file_name);
-	       	    	
+	       	    	console.log(post_id)
 
 	       	    	
 	       	    	
@@ -110,7 +110,7 @@
 	       	    	content += '<div class="user-profile"><img src="/photo/' + item.profile_image + '"></div>'; // 사용자의 프로필 사진
 	       	    	content += '<span class="username">' + item.nickname + '</span>';
 	       	    	content += '</div>'; 
-	       	    	content += '<div class="post-image"><a href="detail.go?post_id=' + item.post_id + '"><img src="/photo/' + item.server_file_name + '"></a></div>';
+	       	    	content += '<div class="post-image"><a href="detail.go?post_id=' + post_id + '"><img src="/photo/' + item.server_file_name + '"></a></div>';
 	       	    	content += '<div class="tag-content">' + item.tag_content + '</div>';
 	       	    	content += '<div class="post-caption">';
 	       	    	content += '<span class="feed-content">' + item.content + '</span> ';
