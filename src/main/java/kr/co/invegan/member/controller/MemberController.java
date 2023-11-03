@@ -32,7 +32,6 @@ public class MemberController {
 	
 	@Autowired MemberService service;
 	
-<<<<<<< HEAD
 	@RequestMapping(value="/member/login.go")
 	public String loginPage() {
 		return "member/login";
@@ -41,9 +40,6 @@ public class MemberController {
 
 	
 	
-	
-=======
->>>>>>> origin/master
 	//로그인
 	@RequestMapping(value="/member/login", method = RequestMethod.POST)
 	@ResponseBody
