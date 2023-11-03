@@ -53,6 +53,7 @@
 </style>
 </head>
 <body>
+<%@include file="/WEB-INF/views/main/header.jsp"%>
 <table id = "base">
 	<tr>
 		<th class="head">식당 이름</th>
@@ -128,7 +129,7 @@
 
 </table>
 <button type="button" id="write">작성</button>
-
+<%@include file="/WEB-INF/views/main/footer.jsp"%>
 </body>
 
 <script>

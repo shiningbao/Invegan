@@ -31,11 +31,6 @@ public class MemberController {
 	
 	@Autowired MemberService service;
 	
-	@RequestMapping(value="/member/login")
-	public String home() {
-		return "/member/login";
-	}
-	
 	//로그인
 	@RequestMapping(value="/member/login", method = RequestMethod.POST)
 	@ResponseBody

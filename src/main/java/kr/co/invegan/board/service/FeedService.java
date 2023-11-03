@@ -1,5 +1,6 @@
 package kr.co.invegan.board.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -28,6 +29,7 @@ public class FeedService {
 	
 	@Autowired FeedDAO dao;
 	PhotoDTO photodto = new PhotoDTO();
+
 	private String root = "C:/upload/";
 	
 	public void write(int userno, HashMap<String, String> params, MultipartFile[] uploadimages) throws Exception {
@@ -97,6 +99,8 @@ public class FeedService {
 		
 	}
 	public ArrayList<FeedListDTO> list() {
+		
+		
 		
 		return dao.list();
 	}
