@@ -31,7 +31,7 @@ public class MemberController {
 	
 	@Autowired MemberService service;
 	
-	@RequestMapping(value="/")
+	@RequestMapping(value="/member/login")
 	public String home() {
 		return "/member/login";
 	}

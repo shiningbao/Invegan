@@ -3,6 +3,7 @@ package kr.co.invegan.diet.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import kr.co.invegan.diet.dto.DietDTO;
 import kr.co.invegan.diet.dto.FoodDataDTO;
 
 
@@ -15,7 +16,10 @@ public interface DietDAO {
 
 	int getServingSize(int food_id);
 
-	HashMap<String, Object> dupleChk(HashMap<String, Object> params);
+	int addDiet(DietDTO dietDTO);
+	int addMenu(DietDTO dietDTO);
+	int addMaterial(DietDTO dietDTO);
+	int addDietComp(DietDTO dietDTO);
 
 
 
