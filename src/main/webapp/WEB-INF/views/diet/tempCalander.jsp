@@ -25,7 +25,7 @@
 		var selectDate = $('#selectDate').val(); 
 		alert(loginId+"님 안녕하세요\n선택한 날짜는 "+$('#selectDate').val()+" 입니다");
 		
-		window.open("addMenu.go?chk="+chk+"&loginId="+loginId, "pop", "width=1100,height=700,top=100,left=300,scrollbals=no")
+		window.open("addMenu.go?chk="+chk+"&loginId="+loginId, "pop", "width=1200,height=700,top=100,left=300,scrollbals=no")
 		
 	}
 	//
