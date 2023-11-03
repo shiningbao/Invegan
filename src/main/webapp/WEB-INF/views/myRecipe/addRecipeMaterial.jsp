@@ -106,7 +106,7 @@
 				    dataType:'json',
 				    success:function(data){
 				       console.log(data);
-				       drawList(data.mlist, data.size);
+				       drawList(data.mlist);
 				    },
 				    error:function(e){
 				       console.log(e);
