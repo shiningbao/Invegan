@@ -8,50 +8,8 @@
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <style>
 	
-	table, th, td{
-		border: 1px solid black;
-		border-collapse: collapse;
-		padding: 3px 10px;
-		font-size: 10px;
-	}
-	#foodListBox{
-		height: 600px;
-		width: 600px;
-		overflow: scroll;
-		overflow-x:hidden; 
-	}
-	#foodListBox table{
-		width: inherit;
-	}
-	#showNutri table{
-		width: 300px;
-		height:640px;
-	}
-	.foodItem:hover{
-		cursor: pointer;
-	}
-	ul{
-		padding: 0;
-	}
-	li{
-		display: inline-block;
-	}
-	#gBox{
-		width: 30px;
-	}
-	#listArea, #showNutri{
-		display: inline-block;
-	}
-	.mealBtn{
-		border: 1px solid black;
-		background-color: white;
-		border-radius: 4px;
-	}
-	.mealBtn:hover{
-		cursor: pointer;
-	}
-	
-		
+
+
 }
 	
 </style>
@@ -67,28 +25,36 @@
 			<li><input id=searchBox type="text" placeholder="식품 검색" /><button type="button" onclick="searchFood()">검색</button></li>
 			<li><input id="gBox" type="text"/>g</li>
 		</ul>
+		<div>
+		<table id="foodListHead">
+			<colgroup>
+				<col width="5%">
+				<col width="50%">
+				<col width="20%">
+				<col width="15%">
+				<col width="15%">
+			</colgroup>
+			<tr>
+				<th>No.</th>
+				<th>식품명</th>
+				<th>분류</th>
+				<th>제공량(g)</th>
+				<th>kcal</th>
+			</tr>
+		</table>
 		<div id="foodListBox">
-			<table>
-				<thead>
-					<tr>
-						<th>No.</th>
-						<th>식품명</th>
-						<th>분류</th>
-						<th>1회 제공량(g)</th>
-						<th>에너지(kcal)</th>
-					</tr>
-				</thead>
-				<tbody id="foodList">
-				<!-- 검색결과 영역 -->
-				</tbody>
+			<table id="foodList">
+			
+			<!-- 검색결과 영역 -->
 			</table>
+		</div>
 		</div>
 	</div>
 	<div id="showNutri">
 		<table>
 			<tr> <td colspan="2"><h2 id="food_name"></h2></td> </tr>
 			<tr> <td>1회 제공량</td> <td id="serving_size"></td> </tr>
-			<tr> <td>에너지</td> <td id="kcal"></td> </tr>
+			<tr> <td>kcal</td> <td id="kcal"></td> </tr>
 			<tr> <td>탄수화물</td> <td id="carb"></td> </tr>
 			<tr> <td>단백질</td> <td id="prot"></td> </tr>
 			<tr> <td>지방</td> <td id="fat"></td> </tr>
@@ -121,8 +87,6 @@
 	var gram;
 	 // 기본메뉴 / 나만의 레시피 메뉴
 	
-	
-	
 	function addMenu() {
 		gram = $('#gBox').val();
 		console.log('foodId : '+foodId +" / diet_category : "+diet_category+ " / gram : "+ gram);
@@ -139,6 +103,8 @@
 		params.select_date = selectDate;
 		params.food_id = foodId;
 		params.diet_category = diet_category;
+		params.menu_category = menu_category;
+		params.recipe_name = recipe_name; 
 		params.gram = gram;
 		
 		$.ajax({
@@ -198,10 +164,6 @@
 			data:{'keyword':keyword},
 			dataType:'JSON',
 			success:function(data){
-				console.log(data);
-				console.log(data.findFoodList);
-				console.log(data.findFoodListSize);
-				console.log(data.msg);
 				drawList(data);
 			},
 			error:function(e){
@@ -216,8 +178,9 @@
 		if(data.success == 0){
 			content += '<h3>'+data.msg+'</h3>';
 		}else{
+			content += '<colgroup><col width="5%"><col width="50%"><col width="20%"><col width="15%"><col width="15%"></colgroup>';
 			data.findFoodList.forEach(function(item, idx) {
-				console.log('content'+content);
+				
 				content += '<tr class="foodItem" onclick="selectFood(this)">';
 				content += '<td style="display:none"><input type="text" class="foodId" value="'+item.food_id+'"/></td>';
 				content += '<td>'+(idx+1)+'</td>';
@@ -234,9 +197,9 @@
 	
 	function selectFood(obj) {
 		foodId = $(obj).find('.foodId').val();
-		
-	        $('.foodItem').css('border', 'none');
-	         $(obj).css('border','2px solid green');
+	
+        $('.foodItem').css('border-color', 'white');
+        $(obj).css('border','1px solid green');
 		
 		
 		$('#gBox').focus();

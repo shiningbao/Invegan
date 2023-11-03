@@ -26,9 +26,36 @@
 		SELECT serving_size FROM FoodData WHERE food_id = #{food_id};
 	</select>
 	
-	<insert id="addDiet" parameterType="hashmap">
+	<insert 
+		useGeneratedKeys="true"
+		keyColumn="diet_id"
+		keyProperty="diet_id"
+		id="addDiet" parameterType="kr.co.invegan.diet.dto.DietDTO">
 		INSERT INTO Diet(user_no,date,diet_category) 
-			VALUES(2,'2023-12-01','저녁');
+			VALUES(
+				(SELECT user_no FROM Members WHERE id=#{user_id})
+				, #{date}, #{diet_category});
+	</insert>
+	
+	<insert
+		useGeneratedKeys="true"
+		keyColumn="menu_id"
+		keyProperty="menu_id" 
+		id="addMenu" parameterType="kr.co.invegan.diet.dto.DietDTO">
+		INSERT INTO Menu(user_no,recipe_name,category)
+			VALUES(
+				(SELECT user_no FROM Members WHERE id=#{user_id})
+				,#{recipe_name},#{category});
+	</insert>
+	
+ 	<insert id="addMaterial" parameterType="hashmap">
+		INSERT INTO Material(food_id,grams,menu_id)
+			VALUES(#{food_id}, #{gram}, #{menu_id});
+	</insert>
+	
+	<insert id="addDietComp" parameterType="hashmap">
+		INSERT INTO Diet_composition(diet_id,menu_id)
+			VALUES(#{diet_id},#{menu_id});
 	</insert>
 	
 	

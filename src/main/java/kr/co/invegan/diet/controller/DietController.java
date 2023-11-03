@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.invegan.diet.dto.DietDTO;
 import kr.co.invegan.diet.dto.FoodDataDTO;
 import kr.co.invegan.diet.service.DietService;
 
@@ -47,15 +48,21 @@ public class DietController {
 	 @ResponseBody 
 	 public HashMap<String, Object> addMenuDo(HttpSession session,@RequestParam HashMap<String, Object> params ){ 
 		 logger.info("메뉴 추가 / 수정 요청 ");
-		 String loginId = (String) session.getAttribute("loginId");
+		 logger.info(" |||||| params : "+params);
 		 String addMenuChk = (String) session.getAttribute("addMenuChk");
 		 logger.info("session :: chk = "+addMenuChk);
 		 
-		 params.put("loginId", loginId);
-		 logger.info("params : "+params);
+		 DietDTO dietDTO = new DietDTO();
+		 dietDTO.setUser_id((String) session.getAttribute("loginId"));
+		 dietDTO.setDate((String) params.get("select_date"));
+		 dietDTO.setFood_id( Integer.parseInt(params.get("food_id").toString()));
+		 dietDTO.setDiet_category((String) params.get("diet_category"));
+		 dietDTO.setCategory((String) params.get("menu_category"));
+		 dietDTO.setRecipe_name((String) params.get("recipe_name"));
+		 dietDTO.setGram(Integer.parseInt(params.get("gram").toString()));
 		 
 		 HashMap<String,Object> result = new HashMap<String, Object>(); 
-		 dietService.addMenuDo(addMenuChk, params);
+		 dietService.addMenuDo(addMenuChk, dietDTO);
 		 return result; 
 	 }
 	 

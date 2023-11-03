@@ -10,19 +10,64 @@
 <style>
 	
 	table, th, td{
-		border: 1px solid black;
 		border-collapse: collapse;
 		padding: 3px 10px;
-		font-size: 10px;
+		font-size: 13px;
+	}
+	#tapMenu{
+		width: inherit;
+		height: 30px;
+		border-bottom: 1px solid black; 
+		text-align: center;
+	}
+	#tapMenu li{
+		margin: 0 10px;
+	}
+	#tapMenu li:hover{
+		cursor: pointer;
+	}
+	.mealBtn{
+		border: 1px solid black;
+		background-color: white;
+		border-radius: 4px;
+	}
+	.mealBtn:hover{
+		cursor: pointer;
+	}
+	#foodListHead{
+		height: 30px;
+		width: 600px;
+		border: 1px solid black;
+	}
+	#foodListHead th{
+		height: 25px;
+		border: 1px solid black;
 	}
 	#foodListBox{
-		height: 400px;
-		width: 500px;
-		overflow: scroll;
+		height: 430px;
+		width: 600px;
+		overflow: auto;
 		overflow-x:hidden; 
 	}
-	#foodListBox table{
+	/* #foodListBox::-webkit-scrollbar{
+		width: 3px;
+	}
+	#foodListBox::-webkit-thumb{
+		width: 3px;
+	}
+	#foodListBox::-webkit-track{
+		width: 3px;
+	} */
+	#foodList{
 		width: inherit;
+	}
+	#foodList tr{
+		border: 1px solid blue;
+	}
+	
+	#showNutri table{
+		width: 300px;
+		height:540px;
 	}
 	.foodItem:hover{
 		cursor: pointer;
@@ -39,34 +84,14 @@
 	#listArea, #showNutri{
 		display: inline-block;
 	}
-	.mealBtn{
-		border: 1px solid black;
-		background-color: white;
-		border-radius: 4px;
-	}
-	.mealBtn:hover{
-		cursor: pointer;
-	}
-	#tapMenu{
-		width: inherit;
-		height: 30px;
-		border-bottom: 1px solid black; 
-		text-align: center;
-		
-	}
-	#tapMenu li{
-		margin: 0 10px;
-	}
-	#tapMenu li:hover{
-		cursor: pointer;
-	}
+	
 		
 }
 	
 </style>
 
 </head>
-<body>
+<body style="overflow-x:hidden; overflow-y:hidden;">
 	<h2>메뉴 추가</h2>
 	<div id="tapMenu">
 		<ul>
@@ -79,18 +104,19 @@
 </body>
 <script>
 	defaultMenu();
+	
 	var menu_category;
+	var recipe_name;
 	
 	function defaultMenu(){
 		$('#contents').load("<c:url value='defaultMenu.go'/>");
 		menu_category = $('#default').text();
-		console.log(menu_category);
+		recipe_name ='-';
 	}
 	
 	function myRecipeMenu(){
 		$('#contents').load("<c:url value='../myRecipe/MyRecipeList.go'/>");
 		menu_category = $('#myRecipe').text();
-		console.log(menu_category);
 	}
 	
 	
