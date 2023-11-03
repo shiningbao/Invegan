@@ -36,8 +36,8 @@
 			<button>점심</button>
 			<button>저녁</button>
 			<button>기타</button>
-			<input type="button" value="+" id="rinsert"/>
-			<input type="button" value="-" id="rdelete"/>
+			<button onclick="rinsert()">+</button>
+			<button onclick="rdel()">-</button>
 			<table id = "mRecipeList">	
 				<thead>
 					<tr>
@@ -46,7 +46,7 @@
 						<th>에너지(kcal)</th>
 					</tr>
 				</thead>
-				<tbody id=rList>
+				<tbody id=mrList>				
 					<!-- 레시피 데이터 출력 -->
 				</tbody>
 				<tbody id=rinsertbox>
@@ -55,19 +55,23 @@
 			</table>
 		</div>
 		<br>
-		<table id = "mMaterialList">
-			<tr>
-				<th colspan="2">재료</th>
-				<th>
-					<button onclick="location.href='mlist.go'">+</button>
-					<button>-</button>
-				</th>
-			</tr>
-			<tr>
-				<td>해바라기씨, 볶은것</td>
-				<td>20g</td>
-				<td>13.4 kcal</td>
-			</tr>
+		<table>
+			<thead>
+				<tr>
+					<th colspan="2"  style="width : 350px;">재료</th>
+					<th>
+						<button onclick="minsert()">+</button>
+						<button onclick="mdel()">-</button>
+					</th>
+				</tr>
+				<tr>
+					<th style="width : 300px;">재료 이름</th>
+					<th>1회 제공량(g)</th>
+					<th>에너지(kcal)</th>
+				</tr>
+			<tbody  id = "rMaterialList">
+				<!-- 재료 출력 -->
+			</tbody>
 		</table>
 		<br>
 		<button>완료</button>
@@ -85,9 +89,32 @@
 	</body>
 	<script>
 		listCall();
-		
 		var category = "나만의 레시피";
-		$('#rinsert').on('click', function() {
+		var food_id;
+		var menu_id;
+		
+		// 레시피 리스트 불러오기
+		function listCall() {
+			
+			var rparam = {};
+			
+			$.ajax({
+				type:'post',
+				url:'listCall',
+				data:{'user_no' : 1},
+				dataType:'json',
+				success:function(data){
+					console.log(data);
+					drawList(data.mrlist);
+				},
+				error:function(e) {
+					console.log(e);
+				}
+			});
+		}
+		
+		// 레시피 추가
+		function rinsert() {
 		    var content = '';
 		    content += '<tr>';
 		    content += '<td>';
@@ -98,7 +125,7 @@
 			$('#rinsertbox').empty();
 		    $('#rinsertbox').append(content);
 
-		    
+		    // 나만의 레시피 이름 입력창
 		    $('#rNameinsert').on('click', function(){
 				var recipe_name = $('input[name="recipe_name"]').val();
 				// 추후 수정
@@ -123,26 +150,141 @@
 						console.log(e);
 					}
 				});
+				listCall();
+				$('#rinsertbox').empty();
 			});
-		});
+		};
 		
-		function listCall() {
-			$.ajax({
-				type:'get',
-				url:'listCall',
-				data:{},
-				dataType:'json',
-				success:function(data){
-					console.log(data);
-					drawList(data.list);
-				},
-				error:function(e) {
-					console.log(e);
-				}
+		
+
+		// 리스트 그리기
+		function drawList(mrlist) {
+			console.log(mrlist);
+			var content = "";
+			mrlist.forEach(function(item, idx){
+				content += '<tr>';
+				content += '<td style="display : none;">'+item.menu_id+'</td>';
+				content += '<td>'+item.recipe_name+'</td>';
+				content += '<td>'+item.grams+'</td>';
+				content += '<td>'+item.kcal+'</td>';
+				content += '</tr>';
 			});
+			$('#rMaterialList').empty();
+			$('#mrList').empty();
+			$('#mrList').append(content);
+		
 		}
 		
-		function drawList(mRecipeList)		 
+		// 레시피에 들어있는 재료 리스트
+		$('#mrList').on('click', 'tr', function() {
+        	$('#mrList tr').css('border', 'none');
+            menu_id = $(this).find('td:eq(0)').text();
+            var rName = $(this).find('td:eq(1)').text();
+            $(this).css('border','2px solid green');
+            console.log('클릭한 food_name: ' + rName);
+            console.log('클릭한 레시피 번호 :'+menu_id);
 		
+            $.ajax({
+            	type:'post',
+            	url:'rMaterial.do',
+            	data:{"menu_id":menu_id},
+            	success:function(data){
+            		console.log(data.rMaterial);
+            		drawmList(data.rMaterial);
+            	},
+            	error:function(e) {
+            		console.log(e);
+            	}
+            });
+       });
+		
+		// 재료 리스트 그리기
+		function drawmList(rMaterial) {
+			console.log(rMaterial);
+			var content = "";
+			rMaterial.forEach(function(item, idx){
+				content += '<tr>';
+				content += '<td style="display : none;">'+item.food_id+'</td>';
+				content += '<td>'+item.food_name+'</td>';
+				content += '<td>'+item.grams+'</td>';
+				content += '<td>'+item.kcal+'</td>';
+				content += '</tr>';
+			});
+			$('#rMaterialList').empty();
+			$('#rMaterialList').append(content);	
+		};
+		
+		$('#rMaterialList').on('click', 'tr', function() {
+	       	$('#rMaterialList tr').css('border', 'none');
+	        food_id = $(this).find('td:eq(0)').text();
+	        var fName = $(this).find('td:eq(1)').text();
+	        $(this).css('border','2px solid green');
+	        console.log('클릭한 food_name: ' + fName);
+	        console.log('클릭한 재료 번호 :'+food_id);
+		});
+		
+		function minsert() {
+			
+		}
+		
+        function mdel() {
+        	
+			if (food_id == null) {
+				alert('제거하실 재료를 선택해주세요');
+				listCall();
+			} else{
+				var deletechk = confirm('재료를 삭제하시겠습니까?');
+				if (deletechk == true){
+					
+					$.ajax({
+		        		type:'get',
+		        		url:'mdelete.do',
+		        		data:{"food_id":food_id, "menu_id":menu_id},
+		        		dataType:'json',
+		        		success:function(data){
+		        			console.log(data);
+		        			if (data.mdelete == true) {
+		        				alert('재료가 삭제되었습니다.');
+		        				listCall();
+		        			}
+
+		        		},
+		        		error:function(e){
+		        			console.log(e);
+		        		}
+		        	});
+				}
+			}
+        }
+        
+		function rdel(){
+			if (menu_id == null) {
+				alert('제거하실 레시피를 선택해주세요');
+				listCall();
+			} else {
+				var deletechk = confirm('레시피를 삭제하시겠습니까?');
+				if(deletechk == true){
+					$.ajax({
+		        		type:'get',
+		        		url:'rdelete.do',
+		        		data:{"menu_id":menu_id},
+		        		dataType:'json',
+		        		success:function(data){
+		        			console.log(data);
+		        			if (data.rdelete == true) {
+		        				alert('레시피가 삭제되었습니다.');
+		        				listCall();
+		        			}
+
+		        		},
+		        		error:function(e){
+		        			console.log(e);
+		        		}
+		        	});
+				} else {
+					listCall();
+				}
+			}
+		}
 	</script>
 </html>

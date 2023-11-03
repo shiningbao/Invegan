@@ -4,7 +4,7 @@
 >
 
 <mapper namespace="kr.co.invegan.diet.dao.MyRecipeDAO">
-	<select id = "mlist" parameterType="string" resultType="kr.co.invegan.diet.dto.MyRecipeDTO">
+	<select id = "mlist" parameterType="string" resultType="kr.co.invegan.diet.dto.FoodDataDTO">
 		SELECT * FROM FoodData
 			WHERE food_name LIKE CONCAT('%', #{param1}, '%')
 			ORDER BY CASE
@@ -20,5 +20,34 @@
 	    INSERT INTO Menu (recipe_name, user_no, category)
 	    VALUES (#{recipe_name}, #{user_no}, #{category})
 	</insert>
+
+	<select id = "mrlist" parameterType="map" resultType="kr.co.invegan.diet.dto.MyRecipeDTO">
+		SELECT m.menu_id, m.recipe_name, sum(m2.grams) AS grams,
+			SUM(ROUND((m2.grams / fd.serving_size) * fd.kcal, 0)) AS kcal
+			FROM Menu m LEFT JOIN Material m2
+									ON m.menu_id = m2.menu_id 
+								  LEFT JOIN FoodData fd 
+								   	ON m2.food_id = fd.food_id
+		WHERE m.category = '나만의 레시피' AND m.user_no = #{param1}
+		GROUP BY m.menu_id;
+	</select>
+	
+	<select id = "rMaterial" parameterType="int" resultType="kr.co.invegan.diet.dto.MyRecipeDTO">
+		SELECT m.food_id, fd.food_name, m.grams, ROUND((m.grams / fd.serving_size) * fd.kcal, 0) AS kcal
+			FROM Material m JOIN FoodData fd ON m.food_id = fd.food_id 
+		WHERE menu_id = #{menu_id};
+	</select>
+	
+	<delete id = "mdelete" parameterType="map">
+		DELETE FROM Material WHERE food_id = #{param1} AND menu_id = #{param2};
+	</delete>
+	
+	<delete id = "rmdelete" parameterType="int">
+		DELETE FROM Material WHERE menu_id = #{menu_id};
+	</delete>
+	
+		<delete id = "rdelete" parameterType="int">
+		DELETE FROM Menu WHERE menu_id = #{menu_id};
+	</delete>
 
 </mapper>
