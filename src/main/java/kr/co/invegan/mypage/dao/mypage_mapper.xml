@@ -34,5 +34,12 @@
 		JOIN Members m ON b.user_no = m.user_no
 		WHERE b.user_no = #{param1} and b.category = '피드'
 	</select>
+	
+	<delete id="delUser" parameterType="int">
+		DELETE FROM Members WHERE user_no = #{user_no}
+	</delete>
 
+	<select id="recipeComments" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
+		
+	</select>
 </mapper>

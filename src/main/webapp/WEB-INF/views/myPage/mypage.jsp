@@ -4,16 +4,23 @@
 <head>
 <meta charset="UTF-8">
 <title>MyPage</title>
-<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<!-- bootstrap : 디자인을 위한 프레임워크 -->
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<!-- jquery 는 사용하는 플러그인과 다른 라이브러리와의 충돌 여부를 확인해야 한다. -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<!-- 페이징 처리를 위한 라이브러리 -->    
+<script src="resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 <style>
         .profileContainer {
             display: flex;
-            height: 200px;
-            width: 1200px;
+            height: 187px;
+            width: 1508px;
             margin: 67px;
     		flex-direction: row;
    			flex-wrap: nowrap;
     		justify-content: center;
+    		position: relative;
         }
 
         .profileImage {
@@ -35,10 +42,12 @@
         }
         
         .changeInfo{
-	        position: absolute;
-	        cursor: pointer;
-	        right: 422px;
-	        bottom: 458px;
+	         position: absolute;
+			 top: 294px; 
+			 left: 1100px;
+			 cursor: pointer;
+			 font-size: 18px;
+			 font-weight: bold;
         }
         .modal {
 		    display: none;
@@ -92,7 +101,7 @@
 		ul.tabs li.current{
 			background: white;
 			color: black;
-			width: 140px; 
+			width: 155px; 
 		    height: 40px; 
 		    line-height: 40px; 
 		    font-weight: bold;
@@ -101,7 +110,7 @@
 
 		.button {
 		    position: absolute;
-		    top: 476px;
+		    top: 105px;
 		}
 		
 		
@@ -119,28 +128,49 @@
 			display: flex;
 			height: 102px;
 	        width: 1200px;
+	        right: -179px;
 		    margin: 67px;
-		    flex-wrap: nowrap;
+		    flex-wrap: inherit;
 		    justify-content: space-evenly;
 		    flex-direction: column;
 		    align-items: baseline;
+		    position: relative;
 		}
 		
 		table,td{
 			border : 1px solid black;
 			border-collapse : collapse;
 			padding : 5px 10px;
+			border-left:0;
+			border-right:0;
+			border-bottom:0;
+			
 		}
 		
 		#ListContainer {
 			display: none;
 		    position: absolute;
-		    top: 526px;
+		    top: 170px;
+		    right: -29px;
 		    width: 1200px;
 		}
 		
 		.titleLink{
 			cursor: pointer;
+		}
+		
+		.h3, h3 {
+    		font-size: 22px;
+		}
+		
+		.delUser{
+		  	position: absolute;
+			top: 90px; 
+			left: 1100px;
+			cursor: pointer;
+			font-size: 14px;
+
+			
 		}
 		
     </style>
@@ -164,9 +194,12 @@
 	        <label>비건목적 </label><br>${user.vegan_purpose}
 			<input type="hidden" name="id" value="${user.id}"/>
 			<input type="hidden" name="user_no" value="${user.user_no}"/>
+
 	    </div>
 	</div>
 	<div class="changeInfo">회원정보 변경</div>
+	<div class="delUser" onclick="confirmDelete(${user.user_no})">회원탈퇴</div>
+	
 	
 	<div class="modal" id="updateModal">
     <div class="modal-content">
@@ -219,7 +252,6 @@
 		<div class="button">
 			<input type="button" value="레시피"/>
 			<input type="button" value="식당"/>
-			<input type="button" value="피드"/>
 		</div>
 	</div>
 	
@@ -298,8 +330,10 @@ $(document).ready(function(){
 	
 	$('.button input[type="button"]').on('click', function() {
 		var boardType = $(this).val();
+		var tabType = $('.tabs li.current').text();
 		var user_no = $('input[name="user_no"]').val();
 		console.log(boardType);
+		console.log(tabType);
 		console.log(user_no);
 	
 	
@@ -308,6 +342,7 @@ $(document).ready(function(){
         url: 'listCall',
         data:{
         	'boardType':boardType,
+        	'tabType':tabType,
         	'user_no':user_no
         },
         dataType: 'JSON',
@@ -326,6 +361,7 @@ $(document).ready(function(){
 	    console.log(list);
 	    var content = '';
 	    var activeButton = $('.button input[type="button"]:focus').val();
+	    
 
 	    list.forEach(function(item, idx) {
 	        content += '<tr>';
@@ -350,6 +386,19 @@ $(document).ready(function(){
 	    });
 
 	    $('#ListContainer').html(content);
+	}
+	
+	function confirmDelete(user_no) {
+	    var result = confirm('정말 탈퇴하시겠습니까?');
+
+	    if (result) {
+	        // 사용자가 '확인'을 눌렀을 때의 처리
+	        alert('탈퇴가 완료 되었습니다.')
+	        location.href = './delUser?user_no=' + user_no;
+	    } else {
+	        // 사용자가 '취소'를 눌렀을 때의 처리
+	        alert('탈퇴가 취소 되었습니다.');
+	    }
 	}
 
 </script>
