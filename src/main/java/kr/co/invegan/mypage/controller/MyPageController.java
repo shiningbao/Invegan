@@ -30,7 +30,7 @@ public class MyPageController {
 	    if (loginId != null) {
 	        ArrayList<MyPageDTO> info = service.userInfo(loginId);
 	        model.addAttribute("info", info);
-	        return "mypage";
+	        return "myPage/mypage";
 	    } else {
 	       
 	       return "redirect:/login"; 
