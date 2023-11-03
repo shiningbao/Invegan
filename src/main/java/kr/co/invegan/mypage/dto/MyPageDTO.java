@@ -21,6 +21,7 @@ public class MyPageDTO {
 	private String server_file_name;
 	private String content;
 	
+	
 	public String getContent() {
 		return content;
 	}

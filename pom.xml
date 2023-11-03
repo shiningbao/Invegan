@@ -38,8 +38,7 @@
 		
 		
 		
-		
-
+				
 		<!-- mariadb-jdbc -->
 		<!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
 		<dependency>
@@ -103,12 +102,6 @@
 			<version>2.9.4</version> <!-- JDK에 따라 버전을 확인해 줄것 -->
 		</dependency>
 
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>2.9.4</version>
-		</dependency>
-
 		<!-- STMP 메일 전송 관련 라이브러리 -->
 		<dependency>
 			<groupId>javax.mail</groupId>
@@ -136,13 +129,17 @@
 			<version>1.5</version>
 		</dependency>
 
-<!-- 이거 확실하지 않음!!!!!!!!! -->
-<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
-<dependency>
-    <groupId>org.springframework</groupId>
-    <artifactId>spring-context-support</artifactId>
-    <version>5.2.9.RELEASE</version>
-</dependency>
+		<!-- 이거 확실하지 않음!!!!!!!!! -->
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context-support</artifactId>
+		    <version>5.2.9.RELEASE</version>
+		</dependency>
+
+
+
+
 
 
 		<!-- AspectJ -->

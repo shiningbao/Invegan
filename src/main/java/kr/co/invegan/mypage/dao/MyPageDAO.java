@@ -16,7 +16,11 @@ public interface MyPageDAO {
 
 	ArrayList<MyPageDTO> freeBoardList(int user_no);
 
-	ArrayList<MyPageDTO> feedList(Integer user_no);
+	ArrayList<MyPageDTO> feedList(int user_no);
+
+	void delUser(int user_no);
+
+	ArrayList<MyPageDTO> recipeComments(int user_no);
 
 
 

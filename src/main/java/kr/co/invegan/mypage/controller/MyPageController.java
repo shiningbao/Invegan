@@ -30,7 +30,7 @@ public class MyPageController {
 	    if (loginId != null) {
 	        ArrayList<MyPageDTO> info = service.userInfo(loginId);
 	        model.addAttribute("info", info);
-	        return "mypage";
+	        return "myPage/mypage";
 	    } else {
 	       
 	       return "redirect:/login"; 
@@ -48,25 +48,57 @@ public class MyPageController {
 	
 	@RequestMapping(value="/myPage/listCall")
 	@ResponseBody
-	public HashMap<String, Object> listCall(@RequestParam String boardType, @RequestParam Integer user_no) {
+	public HashMap<String, Object> listCall(@RequestParam String boardType, @RequestParam String tabType, @RequestParam Integer user_no) {
 		
 	    HashMap<String, Object> result = new HashMap<String, Object>();
 	    ArrayList<MyPageDTO> list = null;
 	    
-	    if ("요청".equals(boardType)) {
-	        list = service.requestBoardList(user_no);
-	    } else if ("레시피".equals(boardType)) {
-	        list = service.recipeBoardList(user_no);
-	    } else if ("자유게시판".equals(boardType)) {
-	        list = service.freeBoardList(user_no);
-	    } else if ("피드".equals(boardType)) {
-	    	list = service.feedList(user_no);
-	    }
+	    switch (boardType) {
+        case "요청":
+            if ("글모아보기".equals(tabType)) {
+                list = service.requestBoardList(user_no);
+            }
+            break;
+        case "레시피":
+            if ("글모아보기".equals(tabType)) {
+                list = service.recipeBoardList(user_no);
+            } else if ("댓글모아보기".equals(tabType)) {
+                list = service.recipeComments(user_no);
+            } else if ("스크랩보기".equals(tabType)) {
+                list = service.recipeFavorite(user_no);
+            }
+            break;
+        case "자유게시판":
+            if ("글모아보기".equals(tabType)) {
+                list = service.freeBoardList(user_no);
+            } else if ("댓글모아보기".equals(tabType)) {
+                list = service.getFreeComments(user_no);
+            } else if ("스크랩보기".equals(tabType)) {
+                list = service.getFreeScraps(user_no);
+            }
+            break;
+        case "피드":
+            // 피드의 경우에도 tabType에 따라 처리를 추가할 수 있음
+            // list = service.getFeedPosts(user_no, tabType); // 피드 글 목록 조회 메서드 호출 예시
+            break;
+        default:
+            // 처리할 수 없는 boardType에 대한 예외 처리 또는 기본 동작을 설정
+            break;
+    }
 	    
 	    result.put("list", list);
 	    logger.info("list:"+list);
 	    logger.info("user_no:"+user_no);
 	    return result;
 	}
+
+	
+	@RequestMapping(value="/myPage/delUser")
+	public String deleteInfo(@RequestParam int user_no) {
+		service.delUser(user_no);
+		logger.info("user_no:"+user_no);
+		return "redirect:/";
+	}
+	
 	
 }
