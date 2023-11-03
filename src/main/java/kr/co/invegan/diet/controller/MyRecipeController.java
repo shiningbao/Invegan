@@ -32,8 +32,10 @@ public class MyRecipeController {
 	
 	// 나만의 레시피 재료추가
 	@RequestMapping(value="/myRecipe/minsert")
-	public String Mlistgo() {
-		return "/myRecipe/addRecipeMaterial";
+	public HashMap<String, Object> minsert(@RequestParam HashMap<String, Object> params) {
+		logger.info("params : "+params);
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		return result;
 	}
 	
 	// 나만의 레시피 재료 검색

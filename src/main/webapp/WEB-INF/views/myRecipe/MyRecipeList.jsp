@@ -224,7 +224,11 @@
 		});
 		
 		function minsert() {
-			
+			if (menu_id == null){
+				alert('재료를 추가할 레시피를 선택해주세요');
+			} else {
+				$.ajax
+			}
 		}
 		
         function mdel() {
