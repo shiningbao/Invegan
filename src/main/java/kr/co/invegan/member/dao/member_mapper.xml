@@ -6,25 +6,32 @@
 <mapper namespace="kr.co.invegan.member.dao.MemberDAO">
 
 <!-- id pw pw확인 이메일 닉네임 생년월일 성별 비건목적 관심사  -->
-	<insert id="join" parameterType="map">
-		INSERT INTO Members(id,pw,name,age,gender,email)
-			VALUES(#{id},#{pw},#{name},#{age},#{gender},#{email})
+	<insert id="signup" parameterType="map">
+		INSERT INTO Members(id,pw,email,nickname,birthdate,gender,vegan_type,vegan_purpose,interests)
+			VALUES(#{id}, #{pw}, #{email}, #{nickname},#{birthdate},#{gender},#{vegan_type}, #{vegan_purpose}, #{interests})
 	</insert>
 	
-	<select id="login3" parameterType="map" resultType="map">
-		SELECT m.id, m.name FROM Members m LEFT JOIN author a ON m.id = a.id		
-		 WHERE m.id = #{id} AND m.pw = #{pw}
-	</select>
-	
-	<select id="login" parameterType="map" resultType="map">
-		SELECT id FROM Members WHERE id=#{id} AND pw=#{pw}
-	</select>
-
-	<select id="findId3" parameterType="String" resultType="String">
-		SELECT * FROM Members WHERE nickname =#{nickname} AND email=#{email}
+	<select id="login" parameterType="map" resultType="kr.co.invegan.member.dto.MemberDTO">
+		SELECT * FROM Members WHERE id=#{id} AND pw=#{pw}
 	</select>
 	
 	<select id="findId" parameterType="String" resultType="String">
 		SELECT * FROM Members WHERE email=#{email}
 	</select>
+	
+	
+	
+	
+	
+	<select id="login3" parameterType="map" resultType="map">
+		SELECT m.id, m.name FROM Members m LEFT JOIN author a ON m.id = a.id		
+		 WHERE m.id = #{id} AND m.pw = #{pw}
+	</select>
+	<select id="findId3" parameterType="String" resultType="String">
+		SELECT * FROM Members WHERE nickname =#{nickname} AND email=#{email}
+	</select>
+	
+
+	
+	
 </mapper>

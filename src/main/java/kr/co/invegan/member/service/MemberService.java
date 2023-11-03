@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import kr.co.invegan.member.dao.MemberDAO;
+import kr.co.invegan.member.dto.MemberDTO;
 
 @Service
 public class MemberService {
@@ -22,8 +23,11 @@ public class MemberService {
 	
 	@Autowired MemberDAO dao;
 
-	public HashMap<String, Object> login(HashMap<String, String> params) {
-		return dao.login(params);
+	public MemberDTO login(HashMap<String, String> params) {
+		MemberDTO dto = dao.login(params);
+		return dto;
+		
+		
 	}
 
 	//여기 이메일 인증으로 바꾸기!!!!!!!!!
@@ -44,5 +48,14 @@ public class MemberService {
 		}
 	}
 
+	public String signup(HashMap<String, String> params) {
+		String msg = "회원 가입이 실패하였습니다";
+		
+		int row = dao.signup(params);
+		if (row > 0) {
+			msg = "회원 가입이 성공하였습니다";
+		}
 
+		return msg;
+	}
 }
