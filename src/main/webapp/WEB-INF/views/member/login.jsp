@@ -37,7 +37,7 @@
 	        </tr>
 	        <tr>
 	            <th colspan="3">
-	                <input id="regist" type="button" value="회원가입"/>
+	                <input id="signup" type="button" value="회원가입"/>
 	                <input id="findId" type="button" value="아이디/비밀번호 찾기"/>
 	            </th>    
 	        </tr>
@@ -53,42 +53,34 @@ $('#login').on('click',function(){
 	
 	$.ajax({
 		type:'post',
-		url:'member/login',
+		url:'login',
 		data:{'id':id, 'pw':pw},
 		dataType:'JSON',
 		success:function(data){
 			console.log(data);
 			alert(data.msg);
 			if(data.id != null){
-				if(data.perm != null){
-					location.href = 'main';
-				}else{
-					location.href = 'member/home2';
-				}
-			}
-			
-			/*
-			if(data == "false"){
-				alert('아이디와 비밀번호를 확인해주세요');
-			}else{
 				location.href = 'main';
-			}
-			*/
+				//location.reload();
+					
+			}		
 		},
 		error:function(e){
 			console.log(e);
 		}
-	});
+	}); 
 	
 });
 
 
-	$('#regist').on('click',function(){
-		location.href='member/signup';
+	$('#signup').on('click',function(){
+		console.log('a');
+		location.href='signup';
 	});
 	
 	$('#findId').on('click',function(){
-		location.href='member/findId';
+		console.log('b');
+		location.href='findId';
 	});
 	
 	var msg = "${msg}";

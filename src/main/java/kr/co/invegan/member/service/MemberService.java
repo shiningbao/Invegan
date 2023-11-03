@@ -44,5 +44,14 @@ public class MemberService {
 		}
 	}
 
+	public String signup(HashMap<String, String> params) {
+		String msg = "회원 가입이 실패하였습니다";
+		
+		int row = dao.signup(params);
+		if (row > 0) {
+			msg = "회원 가입이 성공하였습니다";
+		}
 
+		return msg;
+	}
 }
