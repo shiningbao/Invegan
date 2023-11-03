@@ -227,7 +227,18 @@
 			if (menu_id == null){
 				alert('재료를 추가할 레시피를 선택해주세요');
 			} else {
-				$.ajax
+				$.ajax({
+					type:'get',
+					url:'minsert.do',
+					data:{"menu_id":menu_id},
+					dataType:'json',
+					success:function(data){
+						console.log(data);
+					},
+					error:function(e){
+						console.log(e);
+					}
+				});
 			}
 		}
 		
