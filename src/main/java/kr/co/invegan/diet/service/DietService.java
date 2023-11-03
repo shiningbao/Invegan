@@ -13,7 +13,7 @@ import kr.co.invegan.diet.dto.DietDTO;
 import kr.co.invegan.diet.dto.FoodDataDTO;
 
 @Service
-public class DietService {
+public class DietService{
 
 	@Autowired DietDAO dietDAO;
 	
@@ -31,12 +31,13 @@ public class DietService {
 		return dietDAO.showNutri(foodId);
 	}
 
-	public void addMenuDo(String addMenuChk, DietDTO dietDTO) {
+	public String addMenuDo(String addMenuChk, DietDTO dietDTO){
 		logger.info("addMenuDo() 실행");
+		int row = 0;
 		
 		if(addMenuChk.equals("add")) {		// =true || insert
 			logger.info("메뉴 추가 기능 실행");
-			int row = dietDAO.addDiet(dietDTO);
+			row += dietDAO.addDiet(dietDTO);
 			row += dietDAO.addMenu(dietDTO);
 			logger.info("get diet_id = "+dietDTO.getDiet_id()+" / get menu_id = "+dietDTO.getMenu_id());
 			row += dietDAO.addMaterial(dietDTO);
@@ -45,7 +46,10 @@ public class DietService {
 		}else {								// = false || update
 			logger.info("메뉴 수정 기능 실행");
 		}
-		
+		if(row == 4) {
+			return "메뉴를 등록 성공";
+		}
+		return "메뉴 등록 실패";  
 	}
 
 

@@ -88,6 +88,10 @@ $('#login').on('click',function(){
 		alert(msg);
 	}
 
+		
+
+	
+	
 
 </script>
 </html>

@@ -52,17 +52,18 @@ public class DietController {
 		 String addMenuChk = (String) session.getAttribute("addMenuChk");
 		 logger.info("session :: chk = "+addMenuChk);
 		 
-		 DietDTO dietDTO = new DietDTO();
-		 dietDTO.setUser_id((String) session.getAttribute("loginId"));
-		 dietDTO.setDate((String) params.get("select_date"));
-		 dietDTO.setFood_id( Integer.parseInt(params.get("food_id").toString()));
-		 dietDTO.setDiet_category((String) params.get("diet_category"));
-		 dietDTO.setCategory((String) params.get("menu_category"));
-		 dietDTO.setRecipe_name((String) params.get("recipe_name"));
-		 dietDTO.setGram(Integer.parseInt(params.get("gram").toString()));
-		 
 		 HashMap<String,Object> result = new HashMap<String, Object>(); 
-		 dietService.addMenuDo(addMenuChk, dietDTO);
+		 
+			 DietDTO dietDTO = new DietDTO();
+			 dietDTO.setUser_id((String) session.getAttribute("loginId"));
+			 dietDTO.setDate((String) params.get("select_date"));
+			 dietDTO.setFood_id( Integer.parseInt(params.get("food_id").toString()));
+			 dietDTO.setDiet_category((String) params.get("diet_category"));
+			 dietDTO.setCategory((String) params.get("menu_category"));
+			 dietDTO.setRecipe_name((String) params.get("recipe_name"));
+			 dietDTO.setGram(Integer.parseInt(params.get("gram").toString()));
+		 
+			String successMsg = dietService.addMenuDo(addMenuChk, dietDTO);
 		 return result; 
 	 }
 	 

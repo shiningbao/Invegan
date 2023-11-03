@@ -112,7 +112,7 @@
 
 </nav>
 	<div class="mainList">
-		<a href="#">식단관리</a>
+		<a href="diet/tempCalander">식단관리</a>
 		<a href="restaurant/list">식당</a>
 		<a href="feed/list">피드</a>
 		<a href="#">자유게시판</a></li>
