@@ -29,7 +29,15 @@ public class RestaurantController {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@RequestMapping(value = "/restaurant/list")
-	public String restaurantList() {
+	public String restaurantList(HttpSession session) {
+		String user_no = (String) session.getAttribute("loginId");
+		if(user_no == "") {
+			//로그인 사용자 보여줄 내용
+		}else {
+			//그냥 보여줄 내용
+		}
+		
+		
 		return "restaurant/restaurantList";
 	}
 
