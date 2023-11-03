@@ -401,7 +401,7 @@ $(document).ready(function(){
 	}
 	
 	function confirmDelete(user_no) {
-	    var result = confirm('정말 탈퇴하시겠습니까?');
+	    var result = confirm('정말 탈퇴하시겠습니까? "확인"을 선택하시면 탈퇴가 완료 됩니다.');
 
 	    if (result) {
 	        // 사용자가 '확인'을 눌렀을 때의 처리
