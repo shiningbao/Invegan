@@ -28,6 +28,12 @@ public class PhotoDTO {
 	public void setServer_file_name(String server_file_name) {
 		this.server_file_name = server_file_name;
 	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
 	public Date getFile_creation_date() {
 		return file_creation_date;
 	}
