@@ -7,147 +7,167 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <style>
-	.top > {
-		display: inline;
-	}
-	
+	.top {
+		clear: both;
+		height: 150px;
+	}	
 	.logoImg{
 		position: inherit;
-		width: 180px;
-		height: 90px;
+		float: left;
 	}
 	.loginInfo{
 		position: inherit;
 		float: right;
+		width: 200px;
+		height: 30px;
+		margin-top: 25px;
+		margin-right: 50px;
+		
+	}
+	.loginInfo > p {
+		display: inline-block;
 	}
 	.infoModal{
 		border: 1px solid black;
 		display: none;
 		position: absolute;
-		width : 120px;
-		height: 120px;
+		background-color: grey;
 		z-index: 100;
-		top: 50px;
-		right: 50px;
-	}
-	
-	.mainList{
-		float: right;
-		font-size: 50px;
-	}
 
-	.mainList_li_1{
-		display: inline-block;
 	}
-	.mainList_ul_2{
-		display: none;
-		position: relative;
-		top: 100%;
-	}
-	
 	.sideBar{
 		width: 60px;
 		height: 372px;
 		position: fixed;
 		top: 35%;
 		right: 3%;
-	}
-	
+	}	
 	.sideList{
 		width: 60px;
 		height: 60px;
 		margin: 1px 0px;
 		border: 1px solid black;
-		background-color: #F0F8FF;
-		
+		background-color: #F0F8FF;		
 	}
 	#last{
 		border: 2px gray solid;
 		width: 100%;
 	}
+	.nav{
+		float: right;
+		margin: 0 auto;
+		width: 1000px;
+	}
+	.nav_item_1{
+		list-style: none;
+		float: left;
+		margin: 0 15px;
+		position: relative;
+	}
+	.nav_item_1 > a{
+		font-size: 40px;
+		text-decoration: none;
+		color: black;
+
+	}
+	.nav_list_2{
+		display: none;
+		position: absolute;
+		top: 100%;
+		background-color: grey;
+	}
+	.nav_item_1{
+		list-style: none;
+		position: relative;
+	}
+	.nav_litm_2 > a{
+		text-align: center;
+		text-decoration: none;
+		font: 40px;
+	}
 </style>
 </head>
 <body>
+
+
+
 	<div class="top">
 		<div class = "logoImg">
-			<img src="<c:url value='/resources/main/logo.png'/>" width=180px height=90px, alt="Logo Img" id="Logo"/>
+			<img src="<c:url value='/resources/main/logo.png'/>" width=300px height=150px, alt="Logo Img" id="Logo"/>
 		</div>
 		<div class="loginInfo">
-  		
-<%-- 	
 				<!-- 로그인 안했을 때 -->
-			<c:if test="${empty memberInfo}">
-				<p><a href = "#">로그인</a></p>
-				<p><a href = "#">회원가입</a></p>
+			<c:if test="${empty loginInfo}">
+				<p><a href = "<c:url value='/member/login.go'/>">로그인</a></p>
+				<p>/</p>
+				<p><a href = "<c:url value='/member/signup'/>">회원가입</a></p>
 			</c:if>
 		
 			<!-- 로그인 했을 때 -->
- 			<c:if test="${not empty memberInfo }">
-				<p>프로필사진, 닉네임, 아이디<button id="infoButton">@</button></p>
+ 			<c:if test="${not empty loginInfo}">
+				<p>프로필사진</p>
+				<p id="loginNickname">${loginInfo.getNickname()}</p>
+				<p id="loginId">${loginInfo.getId()}</p>
+				<div class="infoMB">
+					<button id="infoButton">@</button>
+					<div class="infoModal">
+						<div class="infoModalList"><a href = "<c:url value='/member/signup'/>">로그아웃</a></div>
+						<div class="infoModalList"><a href = "<c:url value='/myPage/info.go'/>">마이페이지</a></div>
+						<c:if test="${loginInfo.getIs_admin() eq '1'}">
+							<div class="infoModalList_admin"><a href = "<c:url value='/member/signup'/>">회원 관리</a></div>
+							<div class="infoModalList_admin"><a href = "<c:url value='/member/signup'/>">신고관리</a></div>
+							<div class="infoModalList_admin"><a href = "<c:url value='/member/signup'/>">식재료추가</a></div>
+						</c:if>
+					</div>
+				</div>
 			</c:if>
---%>
-
-				<p><a href = "<c:url value='/member/signup'/>">회원가입</a></p>
-				<p><a href = "<c:url value='/member/login.go'/>">로그인</a></p>
-				
-				
 		</div>
+		
 	</div>
-	<div class="infoModal">
-		<div class="infoModalList">로그아웃</div>
-		<div class="infoModalList">로그아웃1</div>
-		<div class="infoModalList_admin">로그아웃3</div>
-		<div class="infoModalList_admin">로그아웃5</div>
-		<div class="infoModalList_admin">로그아웃6</div>
-	</div>
-<nav>
-	<ul class="mainList_ul_1">
-		<li class="mainList_li_1"><a href="#">식단관리</a></li>
-		<li class="mainList_li_1">
-			<a href="#">카테고리</a>
-			<ul class="mainList_ul_2">
-				<li class="mainList_li_2"><a href="restaurant/list">식당</a></li>
-				<li class="mainList_li_2"><a href="#">레시피</a></li>
-				<li class="mainList_li_2"><a href="#">음식</a></li>
-				<li class="mainList_li_2"><a href="#">뷰티</a></li>
-				<li class="mainList_li_2"><a href="#">패션</a></li>
+		<nav class="nav">
+			<ul class="nav_list_1">
+				<li class="nav_item_1"><a href="<c:url value='/diet/tempCalander'/>">식단관리</a></li>
+				<li class="nav_item_1" id="nav_item_categori"><a href="<c:url value='/restaurant/list'/>">카테고리</a>
+	 				<ul class="nav_list_2">
+						<li class="nav_item_2"><a href="<c:url value='/restaurant/list'/>">식당</a></li>
+						<li class="nav_item_2"><a href="<c:url value='/restaurant/list'/>">레시피</a></li>
+						<li class="nav_item_2"><a href="<c:url value='/restaurant/list'/>">음식</a></li>
+						<li class="nav_item_2"><a href="<c:url value='/restaurant/list'/>">뷰티</a></li>
+						<li class="nav_item_2"><a href="<c:url value='/restaurant/list'/>">패션</a></li>
+					</ul>
+					
+				</li>
+				<li class="nav_item_1"><a href="<c:url value='/feed/list.go'/>">피드</a></li>
+				<li class="nav_item_1"><a href="<c:url value='/restaurant/list'/>">자유게시판</a></li>
+				<li class="nav_item_1"><a href="<c:url value='/restaurant/list'/>">소식지</a></li>
 			</ul>
-		</li>
-		<li class="mainList_li_1"><a href="feed/list">피드</a></li>
-		<li class="mainList_li_1"><a href="#">자유게시판</a></li>
-		<li class="mainList_li_1"><a href="#">소식지</a></li>
-	</ul>
+		</nav>
 
-</nav>
-	<div class="mainList">
-		<a href="diet/tempCalander">식단관리</a>
-		<a href="restaurant/list">식당</a>
-		<a href="feed/list">피드</a>
-		<a href="#">자유게시판</a></li>
-		<a href="#">소식지</a></li>
-	</div>
+
+
+
 	
 
-<div class="sideBar">
-	<div class="sideList">
-		<p>위</p>
+	<div class="sideBar">
+		<div class="sideList">
+			<p>위</p>
+		</div>
+		<div class="sideList">
+			<p>사</p>
+		</div>
+		<div class="sideList">
+			<p>이</p>
+		</div>
+		<div class="sideList">
+			<p>드</p>
+		</div>
+		<div class="sideList">
+			<p>바</p>
+		</div>
+		<div class="sideList">
+			<p>아래</p>
+		</div>
 	</div>
-	<div class="sideList">
-		<p>사</p>
-	</div>
-	<div class="sideList">
-		<p>이</p>
-	</div>
-	<div class="sideList">
-		<p>드</p>
-	</div>
-	<div class="sideList">
-		<p>바</p>
-	</div>
-	<div class="sideList">
-		<p>아래</p>
-	</div>
-</div>
 
 
 
@@ -160,21 +180,6 @@
 		location.href = '<c:url value='/'/>';
 	});
 
-
-
-	$('.mainList_li_1').on('mouseover',function(){
-		var ul = $(this).find('ul');
-		if(ul.length != 0){
-			ul.css({"display":"block"});
-		}
-	});
-	$('.mainList_li_1').on('mouseout',function(){
-		var ul = $(this).find('ul');
-		if(ul.length != 0){
-			ul.css({"display":"none"});
-		}
-	});
-	
 	$('#infoButton').on('click',function(){
 		var displayChk = $('.infoModal').css('display');
 		console.log(displayChk);
@@ -186,19 +191,13 @@
 		}
 	});
 
-	$('.logoImg').on('click',function(){
-		var memberInfo = sessionStorage.getItem("memberInfo");
-		sessionStorage.setItem("aa","aaa");
-		var id = sessionStorage.getItem("id");
-		console.log(memberInfo);
-		console.log(id);	
-		console.log(sessionStorage.getItem("aa"));
+	$('#nav_item_categori').on('mouseover',function(){
+		$('.nav_list_2').css({"display":"block"});	
 	});
-	
-	
-	
-	
-	
+	$('#nav_item_categori').on('mouseout',function(){
+		$('.nav_list_2').css({"display":"none"});	
+	});
+
 
 </script>
 </html>

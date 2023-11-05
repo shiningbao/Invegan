@@ -91,7 +91,7 @@
 	<c:import url="/main/header"/>
 	
 
-	<div class="banner"><p>dd</p></div>
+	<div class="banner"><p>${loginInfo.getIs_admin()}</p></div>
 	<br>
 	
 	<!-- 맞춤 정보 제공 -->
