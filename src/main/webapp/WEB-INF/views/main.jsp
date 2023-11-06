@@ -87,7 +87,7 @@
 </style>
 </head>
 <body>
-
+	
 	<c:import url="/main/header"/>
 	
 

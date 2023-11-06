@@ -90,7 +90,6 @@
 <body>
 
 
-
 	<div class="top">
 		<div class = "logoImg">
 			<img src="<c:url value='/resources/main/logo.png'/>" width=300px height=150px, alt="Logo Img" id="Logo"/>
@@ -142,10 +141,6 @@
 				<li class="nav_item_1"><a href="<c:url value='/restaurant/list'/>">소식지</a></li>
 			</ul>
 		</nav>
-
-
-
-
 	
 
 	<div class="sideBar">
