@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>메뉴 추가하기</title>
+<title>Invegan - 식단관리</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <style>
 	table, th, td{
@@ -70,10 +70,6 @@
 	} */
 	#foodList{
 		width: inherit;
-	}
-	#foodItem{
-	}
-	#showNutri{
 	}
 	#showNutri table{
 		width: 300px;

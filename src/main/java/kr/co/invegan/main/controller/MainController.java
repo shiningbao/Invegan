@@ -22,9 +22,8 @@ public class MainController {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@RequestMapping(value = "/")
-	public String main(Model model) {
+	public String main() {
 		logger.info("REQUEST MAIN PAGE :: TEST");
-		model.addAttribute("msg","IN VEGAN :: TEST PAGE");
 
 		return "main";
 	}

@@ -34,6 +34,7 @@ public class DietService{
 	public String addMenuDo(String addMenuChk, DietDTO dietDTO){
 		logger.info("addMenuDo() 실행");
 		int row = 0;
+		String msg = "메뉴 등록 실패";
 		
 		if(addMenuChk.equals("add")) {		// =true || insert
 			logger.info("메뉴 추가 기능 실행");
@@ -47,9 +48,18 @@ public class DietService{
 			logger.info("메뉴 수정 기능 실행");
 		}
 		if(row == 4) {
-			return "메뉴를 등록 성공";
+			msg = "메뉴를 등록 성공";
 		}
-		return "메뉴 등록 실패";  
+		return msg;  
+	}
+
+
+	public ArrayList<DietDTO> getDietList(String date, int user_no) {
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("date", date);
+		params.put("loginId", user_no);
+		return dietDAO.getDietList(params);
+		
 	}
 
 

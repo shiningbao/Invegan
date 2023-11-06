@@ -2,7 +2,7 @@ package kr.co.invegan.diet.dto;
 
 public class DietDTO {
 	
-	private String user_id;
+	private String user_no;
 	
 	private int diet_id;
 	private String date;
@@ -11,17 +11,31 @@ public class DietDTO {
 	private int menu_id;
 	private String recipe_name;
 	private String category;
+	private int grams;
+	
 	
 	private int food_id;
-	private int gram;
+	private String food_name;
+	private float kcal;
 	
-	
-	
-	public String getUser_id() {
-		return user_id;
+	public float getKcal() {
+		return kcal;
 	}
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
+	public void setKcal(float kcal) {
+		this.kcal = kcal;
+	}
+	public String getFood_name() {
+		return food_name;
+	}
+	public void setFood_name(String food_name) {
+		this.food_name = food_name;
+	}
+	
+	public String getUser_no() {
+		return user_no;
+	}
+	public void setUser_no(String user_no) {
+		this.user_no = user_no;
 	}
 	public int getDiet_id() {
 		return diet_id;
@@ -65,12 +79,13 @@ public class DietDTO {
 	public void setFood_id(int food_id) {
 		this.food_id = food_id;
 	}
-	public float getGram() {
-		return gram;
+	public int getGrams() {
+		return grams;
 	}
-	public void setGram(int gram) {
-		this.gram = gram;
+	public void setGrams(int grams) {
+		this.grams = grams;
 	}
+	
 	
 	
 	
