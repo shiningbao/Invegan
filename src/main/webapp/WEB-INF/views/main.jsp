@@ -87,12 +87,13 @@
 </style>
 </head>
 <body>
-<%-- 
-	    <c:import url="/main/header"/>
-	
 
+
+	  
+	<c:import url="/main/header"/>
+	
 	<div class="banner"><p>dd</p></div>
-	<br>    --%>
+	<br>  
 		<p><a href = "<c:url value='/member/signup'/>">회원가입</a></p>
 				<p><a href = "<c:url value='/member/login.go'/>">로그인</a></p>
 

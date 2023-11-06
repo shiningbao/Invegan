@@ -1,21 +1,30 @@
 package kr.co.invegan.board.dto;
 
-import java.sql.Date;
+
 
 public class FeedDTO {
 	
 	private int post_id;
 	private String title;
 	private String content;
+
 	private int views;
 	private int is_hidden;
 	private String category;
+	private String feed_content;
 	private int user_no;
 	private int tag_id;
 	private String tag_content;
 
 	
 
+	
+	public String getFeed_content() {
+		return feed_content;
+	}
+	public void setFeed_content(String feed_content) {
+		this.feed_content = feed_content;
+	}
 	public int getPost_id() {
 		return post_id;
 	}
