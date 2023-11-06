@@ -2,11 +2,14 @@ package kr.co.invegan.mypage.dto;
 
 import java.sql.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class MyPageDTO {
 
 	private int user_no;
 	private Date join_date;
 	private String id;
+	private String pw;
 	private Date birthdate;
 	private String gender;
 	private String nickname;
@@ -24,7 +27,22 @@ public class MyPageDTO {
 	private int image_id;
 	private String category;
 	private String profile_image;
+	private int rating;
+
 	
+	public String getPw() {
+		return pw;
+	}
+	public void setPw(String pw) {
+		this.pw = pw;
+	}
+	
+	public int getRating() {
+		return rating;
+	}
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
 	public String getProfile_image() {
 		return profile_image;
 	}

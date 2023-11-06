@@ -7,7 +7,7 @@
 
 	<select id="userInfo" resultType="map">
     SELECT 
-        m1.join_date, 
+        DATE_FORMAT(m1.join_date, '%Y-%m-%d') AS join_date, 
         m1.id, 
         m1.birthdate, 
         m1.gender, 
@@ -15,14 +15,15 @@
         m1.vegan_type, 
         m1.vegan_purpose, 
         m1.user_no,
+        m1.is_admin,
         it.server_file_name AS profile_image
     FROM 
         Members m1
     LEFT JOIN 
         ImageTable it ON m1.user_no = it.idx AND it.category = '회원'
     WHERE 
-        m1.id = #{session.loginId}
-</select>
+        m1.user_no = #{session.user_no}
+	</select>
 	
 	<select id="overlay" resultType="int">
 		SELECT COUNT(nickname) FROM Members WHERE nickname=#{param1}
@@ -41,20 +42,20 @@
 	</select>
 	
 	<select id="feedList" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
-SELECT 
-    it2.server_file_name AS profile_image,
-    m.nickname,
-    b.content,
-    it.server_file_name AS server_file_name
-FROM
-    Members m
-    JOIN Board b ON m.user_no = b.user_no
-    JOIN ImageTable it ON b.post_id = it.idx
-    LEFT JOIN ImageTable it2 ON m.user_no = it2.idx AND it2.category = '회원'
-WHERE
-    b.category = '피드'
-ORDER BY
-    b.date DESC;
+	SELECT 
+	    it2.server_file_name AS profile_image,
+	    m.nickname,
+	    b.content,
+	    it.server_file_name AS server_file_name
+	FROM
+	    Members m
+	    JOIN Board b ON m.user_no = b.user_no
+	    JOIN ImageTable it ON b.post_id = it.idx
+	    LEFT JOIN ImageTable it2 ON m.user_no = it2.idx AND it2.category = '회원'
+	WHERE
+	    b.category = '피드' and m.user_no=#{param1}
+	ORDER BY
+	    b.date DESC;
 	</select>
 	
 	<delete id="delUser" parameterType="int">
@@ -70,7 +71,7 @@ ORDER BY
 	<select id="recipeFavorite" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
 		SELECT title,views FROM Board 
 		WHERE post_id IN (SELECT post_id FROM Favorite WHERE user_no = #{param1})
-		 AND category='레시피'
+		AND category='레시피'
 	</select>
 	
 	<select id="freeComments" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
@@ -93,7 +94,94 @@ ORDER BY
 		WHERE
 		    b.category = '피드'
 		    AND b.post_id IN (SELECT post_id FROM Comments)
+		    AND m.user_no=#{param1}
 		ORDER BY
-		    b.date DESC;
+		    b.date DESC
 	</select>
+	
+	<select id="restaurantComments" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
+		SELECT 
+		    it.server_file_name AS server_file_name,
+		    c.rating,
+		    b.title,
+		    rm.vegan_type,
+		    b.post_id 
+		FROM
+		    Board b
+		    JOIN Members m ON m.user_no = b.user_no
+		    LEFT JOIN ImageTable it ON m.user_no = it.idx AND it.category = '회원'
+		    JOIN Comments c ON b.post_id = c.post_id
+		    JOIN RestaurantMenu rm ON b.post_id = rm.post_id
+		WHERE
+		    b.category = '식당'
+		    AND rm.post_id IN (SELECT post_id FROM Comments)
+		    AND m.user_no = #{param1}
+		ORDER BY
+		    b.date DESC
+	</select>
+	
+	<select id="restaurantFavorite" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
+		SELECT
+		    it.server_file_name AS server_file_name,
+		    c.rating,
+		    b.title,
+		    rm.vegan_type,
+		    b.post_id 
+		FROM
+		    Board b
+		    JOIN Members m ON m.user_no = b.user_no
+		    LEFT JOIN ImageTable it ON m.user_no = it.idx AND it.category = '회원'
+		    JOIN Favorite f ON b.post_id = f.post_id
+		    JOIN RestaurantMenu rm ON b.post_id = rm.post_id
+		    JOIN Comments c ON c.post_id = b.post_id
+		WHERE
+		    b.category = '식당'
+		    AND rm.post_id IN (SELECT post_id FROM Favorite)
+		    AND m.user_no = #{param1}
+		ORDER BY
+		    b.date DESC
+	</select>
+	
+	<update id="updateNickname" parameterType="hashmap">
+ 		UPDATE Members SET nickname=#{param1} WHERE user_no=#{param2}
+ 	</update>
+ 	
+ 	<select id="pwConfirm" resultType="String">
+ 		SELECT pw FROM Members WHERE user_no=#{param2}
+ 	</select>
+ 	
+ 	<update id="completePw" parameterType="map">
+ 		UPDATE Members SET pw=#{updatePwConfirm} WHERE user_no=#{user_no}
+ 	</update>
+ 	
+ 	<update id="save" parameterType="map">
+ 		UPDATE Members SET interests=#{interests}, vegan_type=#{vegan_type}, vegan_purpose=#{vegan_purpose} 
+ 		WHERE user_no=#{user_no}
+ 	</update>
+ 	
+<!-- 	<insert 
+ 		useGeneratedKeys="true"
+		keyColumn="image_id"
+		keyProperty="image_id"
+ 	id="uploadProfile" parameterType="kr.co.invegan.mypage.dto.MyPageDTO">
+    INSERT INTO ImageTable (server_file_name, idx, category) 
+    VALUES (#{server_file_name}, #{idx}, '회원')
+	</insert>
+	
+	<update id="uploadProfileImg" parameterType="kr.co.invegan.mypage.dto.MyPageDTO">
+    UPDATE ImageTable 
+    SET server_file_name = #{server_file_name} 
+    WHERE idx = #{idx} AND category = '회원'
+	</update>
+	
+	<select id="list" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
+		select title,views from Board limit #{param1} 
+			OFFSET #{param2}
+	</select>
+	
+	<select id="totalPage" resultType="int">
+		select ceil(count(post_id)/#{param1}) as pages from Board param : pagePerNum
+	</select> -->
+ 	
+	
 </mapper>

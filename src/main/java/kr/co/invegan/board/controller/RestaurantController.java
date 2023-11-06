@@ -38,7 +38,6 @@ public class RestaurantController {
 		}else {
 			//그냥 보여줄 내용
 		}
-		
 		return "restaurant/restaurantList";
 	}
 
