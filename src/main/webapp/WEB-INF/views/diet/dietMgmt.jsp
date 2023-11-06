@@ -99,21 +99,31 @@
 	
 	/* 영양성분 */	
 	#contents-right-header{
-		border:1px solid black;
+		border-bottom:1px solid gray;
 		width: 100%;
-		height: 50px;
+		height: 39px;
 	}
 	#contents-right-header ul{
-		margin: 10px;
+		margin: 11px auto;
 		padding: 0;
 		display: flex;
-	}
-	#contents-right-header li:not(.li-vertical-line){
-		display: inline-block;
-		padding: 5px 20px;
 		justify-content: center;
 	}
+	#contents-right-header ul li{
+		display: inline-block;
+		justify-content: center;
+	}
+	#contents-right-header ul li:not(.li-vertical-line){
+		padding: 3px 16px;
+		cursor: pointer;
+		margin: 0 10px;
+	}
+	
+	#contents-right-header ul li:not(.li-vertical-line):hover{
+		border-bottom: 2px solid #95df95;
+	}
 	.li-vertical-line{
+		border-right: 1px solid black; 
 	}
 </style>
 </head>
@@ -259,15 +269,36 @@
 			<div id="contents-right-header">
 				<ul>
 					<li>전체</li>
-					<li class="li-vertical-Line"></li>
+					<li class="li-vertical-line"></li>
 					<li>아침</li>
-					<li class="li-vertical-Line"></li>
+					<li class="li-vertical-line"></li>
 					<li>점심</li>
-					<li class="li-vertical-Line"></li>
+					<li class="li-vertical-line"></li>
 					<li>저녁</li>
-					<li class="li-vertical-Line"></li>
+					<li class="li-vertical-line"></li>
 					<li>기타</li>
 				</ul>
+			</div>
+			<div id="contents-right-content">
+				<div id="nutri-top">
+					<table>
+						<tr>
+							<td>칼로리</td>
+							<td>탄수화물</td>
+							<td>단백질</td>
+							<td>지방</td>
+						</tr>
+					</table>
+				</div>
+				<div id="nutri-bottom">
+					<table>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface MyRecipeDAO {
-	ArrayList<HashMap<String, Object>> mlist(String fname);
+	ArrayList<HashMap<String, Object>> mlist(String fName);
 
-	ArrayList<HashMap<String, Object>> mMaterial(String mName);
+	void mMaterial(int food_id, int grams, int menu_id);
 
-	int rListUpdate(HashMap<String, Object> params);
+	void rListUpdate(HashMap<String, Object> params);
 
 	ArrayList<HashMap<String, Object>> mrlist(int user_no);
 
@@ -19,5 +19,7 @@ public interface MyRecipeDAO {
 	boolean rdelete(int menu_id);
 
 	boolean rmdelete(int menu_id);
+
+	ArrayList<HashMap<String, Object>> rNutrido(int menu_id);
 
 }
