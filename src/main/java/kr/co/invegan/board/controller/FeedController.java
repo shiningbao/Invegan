@@ -137,7 +137,7 @@ public class FeedController {
 	   result.put("user_no", user_no);
 	   result.put("comment_text", params.get("comment_text"));
 	   result.put("post_id", params.get("post_id"));
-	   result.put("comment_user_nickname", comment_user_nickname);
+	   result.put("comment_user_nickname", comment_user_nickname); 
 	   
 	   return result;
    }
