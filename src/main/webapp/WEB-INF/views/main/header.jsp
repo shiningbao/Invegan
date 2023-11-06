@@ -68,6 +68,7 @@
 </style>
 </head>
 <body>
+
 	<div class="top">
 		<div class = "logoImg">
 			<img src="<c:url value='/resources/main/logo.png'/>" width=180px height=90px, alt="Logo Img" id="Logo"/>
@@ -122,7 +123,7 @@
 	<div class="mainList">
 		<a href="diet/tempCalander">식단관리</a>
 		<a href="restaurant/list">식당</a>
-		<a href="feed/list">피드</a>
+		<a href="feed/list.go">피드</a>
 		<a href="#">자유게시판</a></li>
 		<a href="#">소식지</a></li>
 	</div>
