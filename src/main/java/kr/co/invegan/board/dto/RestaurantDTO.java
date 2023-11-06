@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class RestaurantDTO {
 
+	// Board Table
 	private int post_id;
 	private String title;
 	private String content;
@@ -12,6 +13,8 @@ public class RestaurantDTO {
 	private String category;
 	private int user_no;
 	private Date date;
+	
+	// Restaurnat Table
 	private String address;
 	private String phone;
 	private String hours;

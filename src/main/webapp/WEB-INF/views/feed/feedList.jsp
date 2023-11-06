@@ -18,6 +18,16 @@ table{
 input[type="text"] {
 	width: 100%;
 }
+
+/* 슬라이드 이미지 스타일 */
+
+.slide {
+    width: 100%; /* 슬라이드를 100% 너비로 설정하여 부모에 맞게 크기 조절 */
+    height: 100%; /* 슬라이드를 100% 높이로 설정하여 부모에 맞게 크기 조절 */
+    display: none;
+    float: left;
+    margin-right: 10px; /* 슬라이드 간의 간격 조정 */
+}
 </style>
 <head>
 <meta charset="UTF-8">
@@ -107,11 +117,7 @@ input[type="text"] {
             font-weight: bold;
         }
 
-        /* 게시물 업로드 시간 스타일 */
-        .post-time {
-            color: #999;
-            padding: 10px;
-        }
+       
 
         .button:hover,
         .button.active {
@@ -163,34 +169,54 @@ input[type="text"] {
 		    display: block; /* 이미지를 블록 요소로 표시하여 여백을 적용합니다. */
 		}
 		
+  		 .feedWriteModal{
+  		 	display:none;
+  		 }
+  	
+		.modal-backdrop{
+			display:none;
+		}
     </style>
     
 </head>
-<body>
-	
+<body>	
+
+<div id="feedWriteModal" class="feedWriteModal">
+    <%@ include file="feedWrite.jsp"%>
+</div>
+
+
+
+
+
+ 	
+ 	
+ 	
+ 	
+  
     <div class="container-fluid">
         <div class="row">
             <div class="col-2 sidebar"> 
                 <!-- 사이드바 메뉴 내용 -->
                 <h4>기본태그</h4>
-                <ul class="grid-menu">
                 
-                    <button type="button" class="button" name="food" onclick="change_btn(event)">#식품</button>
-					<button type="button" class="button" name="beauty"onclick="change_btn(event)" >#뷰티</button>
-					<button type="button" class="button" name="fashion" onclick="change_btn(event)">#패션</button>
-					<button type="button" class="button" name="daily" onclick="change_btn(event)">#일상</button>
-					<button type="button" class="button" name="restaurant" onclick="change_btn(event)">#식당</button>
-					<button type="button" class="button" name="recipe" onclick="change_btn(event)">#레시피</button>
+                
+                    <button type="button" class="searchtag" name="food" onclick="change_btn(event)">#식품</button>
+					<button type="button" class="searchtag" name="beauty"onclick="change_btn(event)" >#뷰티</button>
+					<button type="button" class="searchtag" name="fashion" onclick="change_btn(event)">#패션</button>
+					<button type="button" class="searchtag" name="daily" onclick="change_btn(event)">#일상</button>
+					<button type="button" class="searchtag" name="restaurant" onclick="change_btn(event)">#식당</button>
+					<button type="button" class="searchtag" name="recipe" onclick="change_btn(event)">#레시피</button>
                     <!-- 원하는 메뉴 항목 추가 -->
-                </ul>
+                
                 <h4>검색</h4>
-                 <ul class="search-menu">
+                 
                 	
-                    <button type="button" class="button" name="food" onclick="change_btn(event)">검색</button>
+                    <button>검색</button>
 					 <button type="button" id="write-btn"  class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl">피드 게시글 작성</button>
                     <!-- 원하는 메뉴 항목 추가 -->
-                </ul>
-<             </div> 
+                
+             </div> 
    
         
 <div class="feed">
@@ -206,101 +232,226 @@ input[type="text"] {
             
         </div>
     </div>
-
+	
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    
+    
 </body>
 <script>
+$(document).ready(function() {
+	feedListCall();
+	
+	
+	 $('body').css('overflow', 'auto');
+$('#write-btn').on('click',function(){
+	
+	$('.bd-example-modal-xl').modal('dispose');
+	$('.bd-example-modal-xl').modal();
+	$('.feedWriteModal').css({'display':'block'});
+	$('.modal-backdrop').css({'display':'block'});
+	$('body').css('overflow', 'hidden');
+	
+})
 
-    feedListCall();
 
+
+ $('.bd-example-modal-xl').on('hidden.bs.modal', function () {
+            // 모달 창이 닫힐 때 수행할 작업
+	 $('.modal-backdrop').css({ 'display': 'none' });
+	 $('body').css('overflow', 'auto');
+            
+        });    
 
     // 페이지 로딩 시 피드 목록을 불러오도록 호출
     
     
-	$('#write-btn').on('click',function(){
-		location.href="write.go";
-	});
+    	
+    	
+    	
+       
+    
+    
+
+   
+    
+    
+        // 작성 버튼 클릭 시 이벤트 처리
+        $('#feedSave').click(function() {
+    var content = $('textarea[name="content"]').val();
+    var feedTag = $('textarea[name="feedTag"]').val();
+    var photos = $('#photos')[0].files;
 	
-	function feedListCall(){
-		$.ajax({
-			type:'get',
-			url:'feedListCall',
-			data:{},
-			success:function(data){
-				console.log(data);
-				drawList(data.list);
-			},
-			error:function(error){
-				console.log(error);
-			}
-		});
-		
-	};
-	function drawList(list) {
-	    console.log(list);
-	    var content = '';
-		
-	    list.forEach(function(item, idx) {
-	    	console.log(item.server_file_name);
-	    	
+    if (content.trim() === "") {
+        alert("내용을 입력하세요.");
+    } else if (feedTag.trim() === "") {
+        alert("피드 태그를 입력하세요.");
+    } else if (photos.length === 0) {
+        alert("파일을 선택하세요.");
+    } else if (
+    	    !feedTag.includes("#식품") &&
+    	    !feedTag.includes("#패션") &&
+    	    !feedTag.includes("#일상") &&
+    	    !feedTag.includes("#레시피") &&
+    	    !feedTag.includes("#뷰티") &&
+    	    !feedTag.includes("#식당")
+    	) {
+    	    alert("6개의 태그 중 하나 이상을 입력해주세요.");
+    	    return;
+    	} else {
+        var formData = new FormData();
+        formData.append("content", content);
+        formData.append("feedTag", feedTag);
 
-	    	var tags = item.tag_content;
-	    	console.log(item.tag_content);
+        for (var i = 0; i < photos.length; i++) {
+            formData.append("photos", photos[i]);
+        }
 
-	    	var allowedTags = ['#식품', '#패션', '#일상', '#레시피', '#뷰티', '#식당'];
-	    	console.log(allowedTags);
+        // 이제 formData에 데이터가 정상적으로 추가되었으므로 서버로 요청을 보냅니다.
+        $.ajax({
+            type: 'post',
+            url: 'write',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(e) {
+                console.log(e);
+            },
+            error: function(e) {
+                console.log(e);
+            }
+        });
+        location.href="list.go";
+    }
+});
+     	
+        	
+       
+   
+   
+  
+  $('#feedWriteCancle').on('click',function(){
+	  if (!confirm("작성을 취소하시겠습니까?")) {
+          
+      } else {
+    	  $('.bd-example-modal-xl').modal('hide'); 
+      }
+  
+	  
+  });
+   
 
-	    	if (tags) {
-	    	    allowedTags.forEach(function(tag) {
-	    	        if (tags.includes(tag)) {
-	    	            content += '<button class="tag-button">' + tag + '</button>';
-	    	        }
-	    	    });
-	    	}
-	    	
-	    	content += '<div class="post">';
-	    	content += '<div class="post-header">';
-	    	content += '<div class="user-profile"><img src="/photo/' + item.profile_image + '"></div>'; // 사용자의 프로필 사진
-	    	content += '<span class="username">' + item.nickname + '</span>';
-	    	content += '</div>'; 
-	    	content += '<div class="post-image"><img src="/photo/' + item.server_file_name + '"></div>';
-	    	content += '<div class="tag-content">' + item.tag_content + '</div>';
-	    	content += '<div class="post-caption">';
-	    	content += '<span class="feed-content">' + item.content + '</span> ';
-	    	content += '</div>';
-	    	content += '<div class="post-comments">';
-	    	content += '<div class="comment">';
-	    	content += '<span class="username">' + item.comment_user_nickname + '</span> ' + item.comment_text;
-	    	content += '</div>';
-	    	content += '</div>';
-	    	var date = new Date(item.date);
-	    	var dateStr = date.toLocaleDateString("ko-KR"); //en-US
-	    	content += '<div class="post-time">' + dateStr + '</div>';
-	    	content += '</div>';
-	    	content += '<hr>';
-	       
-	    });
-	    $('#feedList').html(content);
-	    
-	} 
-	// 버튼 색생 변경
-	function change_btn(e) {
-		  var btns = document.querySelectorAll(".button");
-		  btns.forEach(function (btn, i) {
-		    if (e.currentTarget == btn) {
-		      btn.classList.add("active");
-		    } else {
-		      btn.classList.remove("active");
-		    }
-		  });
-		  console.log(e.currentTarget);
-		}
+    
+    
+   	function feedListCall(){
+   		$.ajax({
+   			type:'get',
+   			url:'feedListCall',
+   			data:{},
+   			success:function(data){
+   				console.log(data);
+   				drawList(data.list);
+   			},
+   			error:function(error){
+   				console.log(error);
+   			}
+   		});
+   		
+   	};
+   	function drawList(list) {
+   	    console.log(list);
+   	    var content = '';
+   		
+   	    list.forEach(function(item, idx) {
+   	    	console.log(item.server_file_name);
+   	    	
+
+   	    	var tags = item.tag_content;
+   	    	console.log(item.tag_content);
+
+   	    	var allowedTags = ['#식품', '#패션', '#일상', '#레시피', '#뷰티', '#식당'];
+   	    	console.log(allowedTags);
+
+   	    	if (tags) {
+   	    	    allowedTags.forEach(function(tag) {
+   	    	        if (tags.includes(tag)) {
+   	    	            content += '<button class="tag-button">' + tag + '</button>';
+   	    	        }
+   	    	    });
+   	    	}
+   	    	
+   	    	content += '<div class="post">';
+   	    	content += '<div class="post-header">';
+   	    	content += '<div class="user-profile"><img src="/photo/' + item.profile_image + '"></div>'; // 사용자의 프로필 사진
+   	    	content += '<span class="username">' + item.nickname + '</span>';
+   	    	content += '</div>'; 
+   	    	content += '<div class="post-image"><a href="detail.go?post_id=' + item.post_id + '"><img src="/photo/' + item.server_file_name + '"></a></div>';
+   	    	content += '<div class="tag-content">' + item.tag_content + '</div>';
+   	    	content += '<div class="post-caption">';
+   	    	content += '<span class="feed-content">' + item.content + '</span> ';
+   	    	content += '</div>';
+   	    	content += '<div class="post-comments">';
+   	    	content += '<div class="comment">';
+   	    	content += '<span class="username">' + item.comment_user_nickname + '</span> ';
+   	    	content += '<div class="detail-href">';
+   	    	content += '<span class="comment">' + item.comment_text + '</span> '
+   	    	content += '</div">';
+   	    	content += '</div>';
+   	    	content += '</div>';
+   	    	var date = new Date(item.date);
+   	    	var dateStr = date.toLocaleDateString("ko-KR"); //en-US
+   	    	content += '<div class="post-time">' + dateStr + '</div>';
+   	    	content += '</div>';
+   	    	content += '<hr>';
+   	       
+   	    	
+   	    });
+   	    $('#feedList').html(content);
+   	    
+//    	 $('.post-image').on('click',function(){
+//    		console.log('click');
+//    		$('.bd-example-modal-xl').modal('dispose');
+//    		$('.bd-example-modal-xl').modal();
+//    		$('.feedWriteModal').css({'display':'block'});
+//    		$('.modal-backdrop').css({'display':'block'});
+//    		$('body').css('overflow', 'hidden');
+// //    		$('#feedList').load('feedDetail.jsp',function(){
+// //    			$('#feedList').html(content);
+// //    		});
+//    	});
+   	    
+   	    
+   	    
+   	    
+   	} 
+   	
+   	
+   	// 버튼 색생 변경
+   	function change_btn(e) {
+   		  var btns = document.querySelectorAll(".button");
+   		  btns.forEach(function (btn, i) {
+   		    if (e.currentTarget == btn) {
+   		      btn.classList.add("active");
+   		    } else {
+   		      btn.classList.remove("active");
+   		    }
+   		  });
+   		  
+   		}
+   	
+   	$(document).on('click', '.searchtag', function() {
+   	    var searchbt = $(this).text();
+   	    console.log(searchbt);
+   	});
+   	$(document).on('click', '.tag-button', function() {
+   	    var tagbt = $(this).text();
+   	    console.log(tagbt);
+   	});
+});
+   
 	
-	$('.tag-button').on('click',function(){
-		var tagbt = $('.tab-button').val();
-		console.log(tagbt);
-	});
+	
+
 
 </script>
 

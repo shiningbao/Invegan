@@ -3,6 +3,7 @@ package kr.co.invegan.board.service;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.co.invegan.board.dao.RestaurantDAO;
 import kr.co.invegan.board.dto.MenuDTO;
 import kr.co.invegan.board.dto.RestaurantDTO;
+import kr.co.invegan.member.dto.MemberDTO;
 
 @Service
 public class RestaurantService {
@@ -23,6 +25,7 @@ public class RestaurantService {
 	Logger logger = LoggerFactory.getLogger(getClass());
 
 	private String root = "C:/upload/";
+	
 	
 	public void restaurantWrite(String user_no, MultipartFile[] uploadImages, HashMap<String, Object> param){
 		logger.info("restaurantWrite");
@@ -39,7 +42,7 @@ public class RestaurantService {
 		dto.setHours((String) param.get("hours"));
 		
 		// Board 인서트
-		dao.BoardWrite(dto);
+		dao.boardWrite(dto);
 		// Restaurant 인서트
 		dao.restaurantWrite(dto);
 		
@@ -58,7 +61,7 @@ public class RestaurantService {
 		}	
 	}
 	
-	
+	// 메뉴를 DB에 인서트하는 메서드
 	private void menuWrite(int post_id, String menu) {
 		String[] menuArr= menu.split(",");
 		for (int i = 0; i < menuArr.length; i+=3) {
@@ -73,6 +76,7 @@ public class RestaurantService {
 		}
 	}
 
+	// 서버에 파일 저장하고 DB에 인서트하는 메서드
 	private void saveFile(int post_id, MultipartFile[] uploadImages) throws Exception {
 		
 		String idx = ""+post_id;
@@ -93,9 +97,22 @@ public class RestaurantService {
 				Files.write(path, arr);
 				
 				// DB저장
-				dao.writePhoto(idx,server_file_name,"식당");
+				dao.photoWrite(idx,server_file_name,"식당");
 			}
 		}
+	}
+	
+	
+	public RestaurantDTO restaurantDetail(int post_id) {
+		return dao.restaurantDetail(post_id);		
+	}
+
+	public ArrayList<MemberDTO> menuDetail(int post_id) {
+		return dao.menuDetail(post_id);
+	}
+
+	public ArrayList<String> photoList(int post_id) {
+		return dao.photoList(post_id);
 	}
 	
 

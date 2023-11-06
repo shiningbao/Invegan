@@ -21,6 +21,7 @@
     float: left;
     margin-right: 10px; /* 슬라이드 간의 간격 조정 */
 }
+
 </style>
 <head>
   <meta charset="UTF-8">
@@ -31,7 +32,7 @@
 <body>
   
 
-<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -57,12 +58,12 @@
 			<td><textarea name="content" placeholder="내용을 입력하세요.."></textarea></td>
 		</tr>
 		
-		<button type="button" class="btn btn-food" name="food">#식품</button>
-		<button type="button" class="btn btn-beauty" name="beauty">#뷰티</button>
-		<button type="button" class="btn btn-fashion" name="fashion">#패션</button>
-		<button type="button" class="btn btn-daily" name="daily">#일상</button>
-		<button type="button" class="btn btn-restaurant" name="restaurant">#식당</button>
-		<button type="button" class="btn btn-recipe" name="recipe">#레시피</button>
+		<button type="button" class="writefood" name="food">#식품</button>
+		<button type="button" class="writebeauty" name="beauty">#뷰티</button>
+		<button type="button" class="writefashion" name="fashion">#패션</button>
+		<button type="button" class="writedaily" name="daily">#일상</button>
+		<button type="button" class="writerestaurant" name="restaurant">#식당</button>
+		<button type="button" class="writerecipe" name="recipe">#레시피</button>
 		
 		<tr>
 			<th>태그</th>
@@ -97,10 +98,10 @@ $(document).ready(function(){
     
         $('.bd-example-modal-xl').modal();
     
-     // 모달 창 닫힐 때 이벤트 처리
+    	// 모달 창 닫힐 때 이벤트 처리
         $('.bd-example-modal-xl').on('hidden.bs.modal', function () {
             // 모달 창이 닫힐 때 수행할 작업
-            location.href = "list.go"; // 현재 있는 feedList 페이지로 이동
+//             location.href = "list.go"; // 현재 있는 feedList 페이지로 이동
         });
         var currentSlide = 0;
         var totalSlides = 0; // 이미지 슬라이드의 총 개수
@@ -184,33 +185,34 @@ $(document).ready(function(){
     
     
     // 버튼클릭 이벤트
-    $('button[name="food"]').click(function() {
-        var $foodbtn = $('button[name="food"]').text();
+    $('.writefood').click(function() {
+    	
+        var $foodbtn = $('.writefood').text();
         addToTextArea($foodbtn);
     });
 
-    $('button[name="beauty"]').click(function() {
-        var $beautybtn = $('button[name="beauty"]').text();
+    $('.writebeauty').click(function() {
+        var $beautybtn = $('.writebeauty').text();
         addToTextArea($beautybtn);
     });
 
-    $('button[name="fashion"]').click(function() {
-        var $fashionbtn = $('button[name="fashion"]').text();
+    $('.writefashion').click(function() {
+        var $fashionbtn = $('.writefashion').text();
         addToTextArea($fashionbtn);
     });
 
-    $('button[name="daily"]').click(function() {
-        var $dailybtn = $('button[name="daily"]').text();
+    $('.writedaily').click(function() {
+        var $dailybtn = $('.writedaily').text();
         addToTextArea($dailybtn);
     });
 
-    $('button[name="restaurant"]').click(function() {
-        var $restaurantbtn = $('button[name="restaurant"]').text();
+    $('.writerestaurant').click(function() {
+        var $restaurantbtn = $('.writerestaurant').text();
         addToTextArea($restaurantbtn);
     });
 
-    $('button[name="recipe"]').click(function() {
-        var $recipebtn = $('button[name="recipe"]').text();
+    $('.writerecipe').click(function() {
+        var $recipebtn = $('.writerecipe').text();
         addToTextArea($recipebtn);
     });
 

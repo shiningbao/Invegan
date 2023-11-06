@@ -26,6 +26,8 @@ public interface FeedDAO {
 
 	ArrayList<FeedListDTO> list();
 
+	ArrayList<FeedListDTO> detailList(int post_id);
+
 	
 
 	

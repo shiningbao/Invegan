@@ -1,9 +1,6 @@
 package kr.co.invegan.member.controller;
 
-import java.io.IOException;
-import java.net.http.HttpResponse;
 import java.util.HashMap;
-import java.util.Map;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletResponse;
@@ -12,7 +9,6 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailSender;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
@@ -21,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.invegan.member.dto.MemberDTO;
 import kr.co.invegan.member.service.MemberService;
 
 @Controller
@@ -47,39 +43,23 @@ public class MemberController {
 			HttpSession session){
 		logger.info("params : "+params);
 		
-		HashMap<String, Object> result = service.login(params);
-		logger.info("result : "+result);		
-		if(result == null) {
-			result = new HashMap<String, Object>();
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		MemberDTO loginInfo = service.login(params);
+		logger.info("loginInfo : "+ loginInfo);		
+		if(loginInfo == null) {
+			//result = new MemberDTO();
 			result.put("msg", "아이디 또는 비밀번호를 확인 하세요");
 		}else {
 			result.put("msg", "로그인에 성공 하였습니다.");
-			session.setAttribute("user_no", result.get("user_no"));
-			session.setAttribute("loginId", result.get("id"));
-			//session.setAttribute("perm", result.get("perm"));
+			result.put("loginInfo", loginInfo);
+			session.setAttribute("loginInfo", loginInfo);
+			logger.info("로그인 id :"+loginInfo.getId()+" 관리자 여부 : "+loginInfo.getIs_admin());
 		}
 		
 		return result;
 		
 	}
-	
-	/*
-	@RequestMapping(value="/login", method = RequestMethod.GET)
-	public void login(@RequestParam String id, @RequestParam String pw,
-			HttpServletResponse response , HttpSession session, Model model) {
-		
-		ModelAndView mav = new ModelAndView();
-		boolean result = service.login(model, session);
-		if(result == true) {
-			mav.setViewName("main");
-			mav.addObject("msg", "success");
-		}else {
-			mav.setViewName("home");
-			mav.addObject("msg", "false");
-		}
-		return mav;
-	}
-	*/
+
 	
 	//아이디 찾기
 	@RequestMapping(value = { "/member/findId" }, method = RequestMethod.GET)
@@ -107,6 +87,7 @@ public class MemberController {
 	
 	
 	//임시
+	/*
 	@RequestMapping(value = "/member/join")
 	@ResponseBody
 	public Map<String, Object> join(@RequestParam String email,@RequestParam String add) {
@@ -121,10 +102,7 @@ public class MemberController {
 		
 		 return null;
 	}
-	
-	
-	
-	
+	*/
 	
 	//회원가입
 	
