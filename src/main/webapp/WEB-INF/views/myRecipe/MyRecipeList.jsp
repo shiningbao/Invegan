@@ -99,12 +99,10 @@
 		// 레시피 리스트 불러오기
 		function listCall() {
 			
-			var rparam = {};
-			
 			$.ajax({
 				type:'post',
-				url:'listCall',
-				data:{'user_no' : 1},
+				url:'mrlistCall',
+				data:{},
 				dataType:'json',
 				success:function(data){
 					console.log(data);
@@ -131,21 +129,12 @@
 		    // 나만의 레시피 이름 입력창
 		    $('#rNameinsert').on('click', function(){
 				var recipe_name = $('input[name="recipe_name"]').val();
-				// 추후 수정
-				var user_no = "1";
 				console.log("레시피 이름 : "+recipe_name);
-				console.log(user_no);
-				console.log(category);
-				
-				var param = {};
-				param.recipe_name = recipe_name;
-				param.user_no = user_no;
-				param.category = category;
 				
 				$.ajax({
 					type:'post',
 					url:'rlistUpdate.do',
-					data:param,
+					data:{"recipe_name" : recipe_name},
 					success:function(data){
 						console.log(data);
 					},

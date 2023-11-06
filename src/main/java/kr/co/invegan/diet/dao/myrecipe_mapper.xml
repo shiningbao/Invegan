@@ -25,14 +25,14 @@
 	    VALUES (#{recipe_name}, #{user_no}, #{category})
 	</insert>
 
-	<select id = "mrlist" parameterType="map" resultType="kr.co.invegan.diet.dto.MyRecipeDTO">
+	<select id = "mrlist" parameterType="int" resultType="kr.co.invegan.diet.dto.MyRecipeDTO">
 		SELECT m.menu_id, m.recipe_name, sum(m2.grams) AS grams,
 			SUM(ROUND((m2.grams / fd.serving_size) * fd.kcal, 0)) AS kcal
 			FROM Menu m LEFT JOIN Material m2
 									ON m.menu_id = m2.menu_id 
 								  LEFT JOIN FoodData fd 
 								   	ON m2.food_id = fd.food_id
-		WHERE m.category = '나만의 레시피' AND m.user_no = #{param1}
+		WHERE m.category = '나만의레시피' AND m.user_no = #{user_no}
 		GROUP BY m.menu_id;
 	</select>
 	

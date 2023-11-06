@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.invegan.diet.service.MyRecipeService;
+import kr.co.invegan.member.dto.MemberDTO;
 
 @Controller
 public class MyRecipeController {
@@ -23,16 +25,39 @@ public class MyRecipeController {
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
+	MemberDTO loginInfo = null;
+	
 	// 나만의 레시피 이동
 	@RequestMapping(value="/myRecipe/MyRecipeList.go")
-	public String MyRecipelist() {
+	public String MyRecipelist(HttpSession session, RedirectAttributes reAttr) {
+		logger.info("나만의 레시피 페이지 이동");
+		String page = "redirect:member/login.go";
+		loginInfo = (MemberDTO) session.getAttribute("loginInfo");
+		if (loginInfo != null) {
+			logger.info("User_no : " + loginInfo.getUser_no());
+			page = "myRecipe/MyRecipeList";
+		} else {
+			logger.info("로그인 x");
+			reAttr.addFlashAttribute("msg", "로그인 후 이용 가능한 서비스입니다.");
+		}
 		
-		return "/myRecipe/MyRecipeList";
+		return page;
 	}
 	
-	@RequestMapping(value="/myRecipe/addRecipeMaterial")
-	public String minsertgo() {
-		return "/myRecipe/addRecipeMaterial";
+	// 나만의 레시피 재료추가 이동
+	@RequestMapping(value="*/addRecipeMaterial")
+	public String minsertgo(HttpSession session, RedirectAttributes reAttr) {
+		logger.info("나만의 레시피 재료 추가 이동");
+		String page = "redirect:member/login.go";
+		loginInfo = (MemberDTO) session.getAttribute("loginInfo");
+		if (loginInfo != null) {
+			logger.info("User_no : " + loginInfo.getUser_no());
+			page = "myRecipe/addRecipeMaterial";
+		} else {
+			logger.info("로그인 x");
+			reAttr.addFlashAttribute("msg", "로그인 후 이용 가능한 서비스입니다.");
+		}
+		return page;
 	}
 	
 	// 나만의 레시피 재료추가
@@ -97,22 +122,24 @@ public class MyRecipeController {
 	}
 
 	// 나만의 레시피 리스트 출력
-	@RequestMapping(value="/myRecipe/listCall", method = RequestMethod.POST)
+	@RequestMapping(value="*/mrlistCall", method = RequestMethod.POST)
 	@ResponseBody
-	public HashMap<String, Object> mrList(HttpSession session, @RequestParam int user_no){
+	public HashMap<String, Object> mrList(HttpSession session){
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		// 나중에 지우기
-		session.setAttribute("loginId", "1");
+		loginInfo = (MemberDTO) session.getAttribute("loginInfo");
 		
-		logger.info("user_no : "+user_no);
+		logger.info("user_no : "+loginInfo.getUser_no());
 		
-		if(session.getAttribute("loginId") == null) {
+		if(loginInfo == null) {
+			logger.info("로그인 되어있지 않음");
 			result.put("login", false);
 		}else {
 			result.put("login", true);
-			ArrayList<HashMap<String, Object>> mrlist = service.mrlist(user_no);
+			ArrayList<HashMap<String, Object>> mrlist = service.mrlist(loginInfo.getUser_no());
 			result.put("mrlist", mrlist);
 		}
+
 		
 		return result;
 	}
