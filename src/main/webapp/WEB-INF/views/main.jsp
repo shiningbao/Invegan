@@ -261,7 +261,10 @@
 
 <script>
 
-
+var msg = "${msg}";
+if(msg != ""){
+	alert(msg);
+}
 
 $('#login').on('click',function(){
 	location.href='member/login.go';
