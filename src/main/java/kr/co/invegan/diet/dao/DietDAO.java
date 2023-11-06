@@ -21,6 +21,8 @@ public interface DietDAO {
 	int addMaterial(DietDTO dietDTO);
 	int addDietComp(DietDTO dietDTO);
 
+	ArrayList<DietDTO> getDietList(HashMap<String, Object> params);
+
 
 
 }
