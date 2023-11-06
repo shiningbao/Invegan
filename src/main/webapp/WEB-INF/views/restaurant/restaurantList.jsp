@@ -21,13 +21,16 @@
 
 	<table>
 		<tr>
-			<th>사진</th>
+			<th>포스트 아이디</th>
 			<th>식당명</th>
 		</tr>
-		<tr>
-			<td><div></div></td>
-			<td></td>
+		<c:forEach items="${restaurantList}" var = "restaurant">
+			<tr>
+				<td>${restaurant.getPost_id()}</td>
+			<td>${restaurant.getTitle()}</td>
+			<tr>
 		</tr>
+		</c:forEach>
 	</table>
 <%@include file="/WEB-INF/views/main/footer.jsp"%>
 </body>

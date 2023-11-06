@@ -37,14 +37,7 @@
 	.map{
 
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
 </style>
 </head>
 <body>

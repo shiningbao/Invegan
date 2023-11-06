@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.co.invegan.board.dto.RestaurantDTO;
 import kr.co.invegan.board.service.RestaurantService;
+import kr.co.invegan.member.dto.MemberDTO;
 
 @Controller
 public class RestaurantController {
@@ -31,14 +33,24 @@ public class RestaurantController {
 	
 	// 리스트보여주는 요청
 	@RequestMapping(value = "/restaurant/list")
-	public String restaurantList(HttpSession session) {
-		String user_no = (String) session.getAttribute("user_no");
-		if(user_no == "") {
-			//로그인 사용자 보여줄 내용
+	public String restaurantList(HttpSession session, Model model) {
+		
+		String page = "restaurant/restaurantList";
+		
+		MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
+		
+		ArrayList<RestaurantDTO> restaurantList = service.restaurantList();
+		model.addAttribute("restaurantList", restaurantList);
+		if(loginInfo == null) {
+			// 비회원 내용
+		}else if(loginInfo.getIs_admin() == 0){
+			// 일반회원 내용
+		}else if(loginInfo.getIs_admin() == 1) {
+			// 관리자 내용
 		}else {
-			//그냥 보여줄 내용
+			page = "/";
 		}
-		return "restaurant/restaurantList";
+		return page;
 	}
 
 	// 작성 페이지 이동 요청
