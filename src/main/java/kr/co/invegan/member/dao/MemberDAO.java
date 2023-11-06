@@ -15,6 +15,10 @@ public interface MemberDAO {
 
 	int signup(HashMap<String, String> params);
 
+	int signup(String id, String pw, String nickname, String birthdate, String gender, int vegan_type,
+			String[] interests);
+
+
 	//boolean login(Model model);
 
 }

@@ -16,9 +16,8 @@
 	</select>
 	
 	<select id="findId" parameterType="String" resultType="String">
-		SELECT * FROM Members WHERE email=#{email}
+		SELECT * FROM Members WHERE email=#{email} 
 	</select>
-	
 	
 	
 	

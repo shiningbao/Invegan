@@ -20,22 +20,22 @@ import kr.co.invegan.member.dto.MemberDTO;
 public class MemberService {
 
 	Logger logger = LoggerFactory.getLogger(getClass());
-	
-	@Autowired MemberDAO dao;
+
+	@Autowired
+	MemberDAO dao;
 
 	public MemberDTO login(HashMap<String, String> params) {
 		MemberDTO dto = dao.login(params);
 		return dto;
-		
-		
+
 	}
 
-	//여기 이메일 인증으로 바꾸기!!!!!!!!!
+	// 여기 이메일 인증으로 바꾸기!!!!!!!!!
 	public Object findId(HttpServletResponse response, String email) throws Exception {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		String id = dao.findId(email);
-		
+
 		if (id == null) {
 			out.println("<script>");
 			out.println("alert('가입된 아이디가 없습니다.');");
@@ -47,10 +47,11 @@ public class MemberService {
 			return id;
 		}
 	}
+	
 
 	public String signup(HashMap<String, String> params) {
 		String msg = "회원 가입이 실패하였습니다";
-		
+
 		int row = dao.signup(params);
 		if (row > 0) {
 			msg = "회원 가입이 성공하였습니다";
@@ -58,4 +59,8 @@ public class MemberService {
 
 		return msg;
 	}
+
+
+
+
 }

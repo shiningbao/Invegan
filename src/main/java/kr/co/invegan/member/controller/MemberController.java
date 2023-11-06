@@ -10,9 +10,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,10 +34,7 @@ public class MemberController {
 	@RequestMapping(value="/member/login.go")
 	public String loginPage() {
 		return "member/login";
-	}
-	
-
-	
+	}	
 	
 	//로그인
 	@RequestMapping(value="/member/login", method = RequestMethod.POST)
@@ -67,23 +67,38 @@ public class MemberController {
 
 		return "member/findId";
 	}
+
 	
-	@RequestMapping(value = {"/member/findId"}, method = RequestMethod.POST)
+	
+	@RequestMapping(value = {"/member/findId2"}, method = RequestMethod.POST)
 	public String findId(HttpServletResponse response, 
-			@RequestParam String nickname, @RequestParam String email, 
+			@RequestParam String email, 
 			Model model) throws Exception {
 		logger.info("email : "+email);
 		model.addAttribute("fid", service.findId(response, email));
-		return "/member/findInfo";
+		return "member/findId";
 	}
 	
-	/*
-	@RequestMapping(value = { "/member/home2" }, method = RequestMethod.GET)
-	public String home2() {
+	
+	//회원가입
+	@RequestMapping(value = { "/member/signup" }, method = RequestMethod.GET)
+	public String signupPage() {
 
-		return "member/home2";
+		return "member/signup";
 	}
-	*/
+
+	
+	@RequestMapping(value = "/member/signup2", method = RequestMethod.POST)
+	//@PostMapping("/submitForm")
+	public String signup(Model model, @RequestParam HashMap<String, String> params) {
+		logger.info("params : "+params);
+		
+		String msg = service.signup(params);
+		
+		model.addAttribute("msg", msg);
+		
+		return "main";
+	}
 	
 	
 	//임시
@@ -104,35 +119,18 @@ public class MemberController {
 	}
 	*/
 	
-	//회원가입
-	
-	@RequestMapping(value = { "/member/signup" }, method = RequestMethod.GET)
-	public String signupPage() {
-
-		return "member/signup";
-	}
-
-	@RequestMapping(value = "/member/signup2", method = RequestMethod.POST)
-	public String signup(Model model, @RequestParam HashMap<String, String> params) {
-		logger.info("params : "+params);
-		
-		String msg = service.signup(params);
-		
-		model.addAttribute("msg", msg);
-		
-		return "main";
-	}
-	
 	
 	//이거 수정해야됨!!!!!!!!!!!!!!!!!
-	@Autowired  
-	private JavaMailSender mailSender;
+	//@Autowired  
+	//private JavaMailSender mailSender;
 	
 	//이메일 인증
 	@RequestMapping(value = "/mailCheck", method = RequestMethod.GET)
 	@ResponseBody
 	public String mailCheck(@RequestParam("sm_email") String sm_email) throws Exception{
 	    int serti = (int)((Math.random()* (99999 - 10000 + 1)) + 10000);
+	    
+	    JavaMailSenderImpl mailSender = null;
 	    
 	    String from = "rlaalswll25@naver.com";//보내는 이 메일주소
 	    String to = sm_email;

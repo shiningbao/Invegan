@@ -15,9 +15,19 @@ public class MemberDTO {
 	private int vegan_type;
 	private String vegan_purpose;
 	private String interests;
+	//private String[] interests;
 	private Timestamp join_date;
 	private int is_admin;
 	private int is_suspended;
+	
+	/*
+	public String[] getInterests() {
+		return interests;
+	}
+	public void setInterests(String[] interests) {
+		this.interests = interests;
+	}
+	*/
 	private String profile_img;
 	
 	public int getUser_no() {
@@ -80,12 +90,14 @@ public class MemberDTO {
 	public void setVegan_purpose(String vegan_purpose) {
 		this.vegan_purpose = vegan_purpose;
 	}
+	
 	public String getInterests() {
 		return interests;
 	}
 	public void setInterests(String interests) {
 		this.interests = interests;
 	}
+	
 	public Timestamp getJoin_date() {
 		return join_date;
 	}

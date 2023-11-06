@@ -12,17 +12,22 @@
 </head>
 <body>
 
-<form name="findIdPage" method="POST">
-<h3>아이디 찾기</h3>
-	<div class="findNickname">
-		<label>닉네임</label>
-		<input type="text" name="findname" placeholder="닉네임을 입력하세요">
-	</div>
-	<div class="findEmail">
-		<label>이메일</label>
-		<input type="text" name="findmail" placeholder="이메일을 입력하세요">
-	</div>
-	<div class="btnSearch">
+<h2>아이디 찾기 결과:</h2>
+    <c:if test="${not empty foundId}">
+        <p>찾은 아이디: ${foundId}</p>
+    </c:if>
+
+
+<form action="findId2" method="post">
+	<div>
+    <label for="email">이메일:</label>
+    <input type="text" id="email" name="email" required>
+    <br>
+    <label for="birthdate">생년월일:</label>
+    <input type="text" id="birthdate" name="birthdate" required>
+    <br>
+    <input type="submit" value="아이디 찾기">
+
 	<p>
 		<input id="enter" type="button" name="enter" value="확인" >
 		<input type="button" onclick="history.go(-1);" name="cancel" value="취소" >

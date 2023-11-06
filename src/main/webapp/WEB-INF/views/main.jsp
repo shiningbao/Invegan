@@ -87,14 +87,17 @@
 </style>
 </head>
 <body>
-
+<!-- `` 
+	
 	<c:import url="/main/header"/>
 	
-
+	
 	<div class="banner"><p>dd</p></div>
 	<br>
-	
+	<input type="button" id="login" name="로그인"/>
+-->		
 	<!-- 맞춤 정보 제공 -->
+
 	<div class="custom">
 	
 		<!-- 식당 -->
