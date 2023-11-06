@@ -90,13 +90,10 @@
 
 	<c:import url="/main/header"/>
 	
-<<<<<<< HEAD
 	
 	<div class="banner"><p>dd</p></div>
-=======
 
 	<div class="banner"><p>${loginInfo.getIs_admin()}</p></div>
->>>>>>> origin/master
 	<br>
 	<input type="button" id="login" name="로그인"/>
 	

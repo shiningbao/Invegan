@@ -89,13 +89,15 @@ public class MemberController {
 
 	
 	@RequestMapping(value = "/member/signup2", method = RequestMethod.POST)
-	//@PostMapping("/submitForm")
-	public String signup(Model model, @RequestParam HashMap<String, String> params) {
+	public String signup(Model model, @RequestParam HashMap<String, String> params, @RequestParam String[] interests) {
 		logger.info("params : "+params);
+		for (String str : interests) {
+			logger.info("interests : "+str);
+			
+		}
+		//String msg = service.signup(params);
 		
-		String msg = service.signup(params);
-		
-		model.addAttribute("msg", msg);
+		//model.addAttribute("msg", msg);
 		
 		return "main";
 	}

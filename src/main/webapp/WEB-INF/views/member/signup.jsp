@@ -125,14 +125,14 @@ input[type=password] {
 				<th>관심사</th>
 				<td colspan="2">
 				 
-				<input type="checkbox" name="interests" value="식당" id="interests"/> 식당
-				<input type="checkbox" name="interests" value="레시피" id="interests"/> 레시피
-				<input type="checkbox" name="interests" value="식품" id="interests"/> 식품
+				<input type="checkbox" name="interests" value="식당" id="interests1"/> 식당
+				<input type="checkbox" name="interests" value="레시피" id="interest2"/> 레시피
+				<input type="checkbox" name="interests" value="식품" id="interests3"/> 식품
 				<p>
-				<input type="checkbox" name="interests" value="뷰티" id="interests"/> 뷰티
-				<input type="checkbox" name="interests" value="패션" id="interests"/> 패션
-				<input type="checkbox" name="interests" value="일상" id="interests"/> 일상
-				<button id="submitButton">Submit</button>
+				<input type="checkbox" name="interests" value="뷰티" id="interests4"/> 뷰티
+				<input type="checkbox" name="interests" value="패션" id="interests5"/> 패션
+				<input type="checkbox" name="interests" value="일상" id="interests6"/> 일상
+				
 				
 				
 				</td>
@@ -161,7 +161,7 @@ input[type=password] {
 			</tr>
 			<tr>
 				<th colspan="3">
-					<input type="submit" value="회원가입" />
+					<input type="submit"  value="회원가입" />
 					<!-- <input type="button" id="join" value="회원가입"/> -->
 				</th>
 			</tr>
@@ -171,23 +171,23 @@ input[type=password] {
 <script>
 
 	
-document.getElementById('submitButton').addEventListener('click', function() {
-    var selectedInterests = [];
-    var checkboxes = document.getElementsByName('interests');
+ $('input[type="submit"]').on('click', function() {
+     var selectedInterests = [];
+     var checkboxes = document.getElementsByName('interests');
     for (var i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].checked) {
-            selectedInterests.push(checkboxes[i].value);
+         if (checkboxes[i].checked) {
+             selectedInterests.push(checkboxes[i].value);
         }
     }
     var combinedInterests = selectedInterests.join(',');
-    alert('선택한 관심 분야: ' + combinedInterests);
+     // alert('선택한 관심 분야: ' + combinedInterests);
     console.log(combinedInterests);
     
-   //관심사 다중선택 콘솔에는 찍히는 거 확인 완료 
-   //다른 값과 한번에 같이 보내는 부분 구현 못함
+    //관심사 다중선택 콘솔에는 찍히는 거 확인 완료 
+    //다른 값과 한번에 같이 보내는 부분 구현 못함
    
    
-});
+ });
 
 /*
 $(document).ready(function() {
@@ -213,8 +213,8 @@ $(document).ready(function() {
         });
     });
 });
-*/
 
+*/
 
 
 

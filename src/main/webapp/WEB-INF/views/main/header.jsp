@@ -120,15 +120,13 @@
 					</div>
 				</div>
 			</c:if>
-<<<<<<< HEAD
+
 --%>
 
 				<p><a href = "<c:url value='/member/signup.go'/>">회원가입</a></p>
 				<p><a href = "<c:url value='/member/login.go'/>">로그인</a></p>
 				
 				
-=======
->>>>>>> origin/master
 		</div>
 		
 	</div>
