@@ -76,15 +76,8 @@
 		<br>
 		<button>완료</button>
 		<br>
-		<table>
-			<tr>
-				<th colspan="2">
-					해바라기 씨를 곁들인 콩나물 감자볶음
-				</th>
-			</tr>
-			<tr>
-				<td>아무튼 영양소</td>
-			</tr>
+		<table id = "rNutriList">
+			<!-- 레시피 영양소 출력 -->
 		</table>
 	</body>
 	<script>
@@ -150,6 +143,7 @@
 						console.log(e);
 					}
 				});
+				$('#mrList').empty();
 				listCall();
 				$('#rinsertbox').empty();
 			});
@@ -196,7 +190,54 @@
             		console.log(e);
             	}
             });
+            
+            $.ajax({
+            	type:'get',
+            	url:'rNutri.do',
+            	data:{"menu_id":menu_id},
+            	success:function(data){
+            		console.log(data);
+            		drawrNList(data.rNutri);
+            	},
+            	error:function(e) {
+            		console.log(e);
+            	}
+            });
        });
+		
+		// 레시피 영양소 그리기
+		function drawrNList(rNutri) {
+			console.log(rNutri);
+			var content = "";
+			rNutri.forEach(function(item, idx){
+				content += '<tr>';
+				content += '<td>'+item.recipe_name+'</td>';
+				content += '<td>'+'제공량 '+item.grams+'g'+'</td>';
+				content += '<td>'+'열량 '+item.kcal+'kcal'+'</td>';
+				content += '<td>'+'탄수화물 '+item.carb+'g'+'</td>';
+				content += '<td>'+'단백질 '+item.prot+'g'+'</td>';
+				content += '<td>'+'지방 '+item.fat+'g'+'</td>';
+				content += '<td>'+'수분 '+item.h2o+'g'+'</td>';			
+				content += '<td>'+'총 당류 '+item.sugar+'g'+'</td>';
+				content += '<td>'+'총 식이섬유 '+item.fiber+'g'+'</td>';
+				content += '<td>'+'칼슘 '+item.ca+'mg'+'</td>';
+				content += '<td>'+'철 '+item.fe+'mg'+'</td>';
+				content += '<td>'+'마그네슘 '+item.mg+'mg'+'</td>';
+				content += '<td>'+'인 '+item.p+'mg'+'</td>';
+				content += '<td>'+'칼륨 '+item.k+'mg'+'</td>';
+				content += '<td>'+'나트륨 '+item.na+'mg'+'</td>';
+				content += '<td>'+'아연 '+item.zn+'mg'+'</td>';
+				content += '<td>'+'비타민A '+item.vit_a+'ug'+'</td>';
+				content += '<td>'+'비타민B6 '+item.vit_b6+'mg'+'</td>';
+				content += '<td>'+'비타민B12 '+item.vit_b12+'mg'+'</td>';
+				content += '<td>'+'비타민C '+item.vit_c+'mg'+'</td>';
+				content += '<td>'+'필수 아미노산 '+item.essential+'mg'+'</td>';
+				content += '<td>'+'오메가3 '+item.omega3+'mg'+'</td>';
+				content += '</tr>';
+			});
+			$('#rNutriList').empty();
+			$('#rNutriList').append(content);
+		};
 		
 		// 재료 리스트 그리기
 		function drawmList(rMaterial) {
@@ -228,9 +269,9 @@
 				alert('재료를 추가할 레시피를 선택해주세요');
 			} else {
 				$.ajax({
-					type:'get',
+					type:'post',
 					url:'minsert.do',
-					data:{"menu_id":menu_id},
+					data:{"menu_id" : menu_id},
 					dataType:'json',
 					success:function(data){
 						console.log(data);
@@ -239,6 +280,7 @@
 						console.log(e);
 					}
 				});
+				location.href = 'addRecipeMaterial';
 			}
 		}
 		

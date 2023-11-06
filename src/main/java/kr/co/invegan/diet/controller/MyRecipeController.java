@@ -30,21 +30,34 @@ public class MyRecipeController {
 		return "/myRecipe/MyRecipeList";
 	}
 	
-	// 나만의 레시피 재료추가
-	@RequestMapping(value="/myRecipe/minsert.do")
-	public HashMap<String, Object> minsert(@RequestParam HashMap<String, Object> params) {
-		logger.info("params : "+params);
-		HashMap<String, Object> result = new HashMap<String, Object>();
-		return result;
+	@RequestMapping(value="/myRecipe/addRecipeMaterial")
+	public String minsertgo() {
+		return "/myRecipe/addRecipeMaterial";
 	}
+	
+	// 나만의 레시피 재료추가
+	@RequestMapping(value="/myRecipe/minsert.do", method = RequestMethod.POST)
+	public HashMap<String, Object> minsert(HttpSession session, @RequestParam(required = false) Integer menu_id) {
+		logger.info("menu_id : "+menu_id);
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		session.setAttribute("menu_id", menu_id);
+		if (menu_id == null ) {
+			result.put("msg", "레시피를 선택해 주세요");
+		} else {
+			session.setAttribute("menu_id", menu_id);
+			result.put("msg", "재료를 입력해주세요");
+		}
+		return result;
+	} 
 	
 	// 나만의 레시피 재료 검색
 	@RequestMapping(value="/myRecipe/mlist.do")
 	@ResponseBody
-	public HashMap<String, Object> mListdo (@RequestParam String fname) {
+	public HashMap<String, Object> mListdo (HttpSession session, @RequestParam String fName) {
 		
-		logger.info("food_name :"+fname);	
-		ArrayList<HashMap<String, Object>> mlist = service.mlist(fname);
+		logger.info("menu_id : "+session.getAttribute("menu_id"));
+		logger.info("food_name :"+fName);	
+		ArrayList<HashMap<String, Object>> mlist = service.mlist(fName);
 		
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("mlist", mlist);
@@ -54,12 +67,20 @@ public class MyRecipeController {
 	
 	// 재료 추가
 	@RequestMapping(value="/myRecipe/mMaterial")
-	public HashMap<String, Object> mMaterial(@RequestParam String mName, @RequestParam int gram) {
+	public HashMap<String, Object> mMaterial(@RequestParam int food_id, @RequestParam int grams, HttpSession session) {
 		
-		logger.info("mName : " + mName);
-		logger.info("gram : "+gram);
+		Integer menu_id = (Integer) session.getAttribute("menu_id");
+		logger.info("food_id : " + food_id);
+		logger.info("gram : "+grams);
+		logger.info("menu_id : "+menu_id);
+		
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		ArrayList<HashMap<String, Object>> mMaterial = service.mMaterial(mName, gram);
+		
+	    if (menu_id != null) {
+	        service.mMaterial(food_id, grams, menu_id);
+	    } else {
+	        result.put("msg", "올바른 접근이 아닙니다.");
+	    }
 		
 		return result;
 	}
@@ -136,6 +157,21 @@ public class MyRecipeController {
 		result.put("rmdelete", rmdelete);
 		result.put("rdelete", rdelete);
 	
+		return result;
+	}
+	
+	// 레시피 영양소 출력
+	@RequestMapping(value="/myRecipe/rNutri.do")
+	@ResponseBody
+	public HashMap<String, Object> rNutrido(@RequestParam int menu_id) {
+		logger.info("menu_id : "+menu_id);
+		
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		ArrayList<HashMap<String, Object>> rNutrido = service.rNutrido(menu_id);
+		logger.info("rNutrido : "+rNutrido);
+		
+		result.put("rNutri", rNutrido);
+		
 		return result;
 	}
 }

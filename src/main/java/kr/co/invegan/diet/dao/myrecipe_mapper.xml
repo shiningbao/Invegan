@@ -16,6 +16,10 @@
 			ELSE 0 END;
 	</select>
 	
+	<insert id = "mMaterial" parameterType="map">
+		INSERT INTO Material (food_id, grams, menu_id) VALUES (#{param1}, #{param2}, #{param3});
+	</insert>
+	
 	<insert id="rListUpdate" parameterType="map">
 	    INSERT INTO Menu (recipe_name, user_no, category)
 	    VALUES (#{recipe_name}, #{user_no}, #{category})
@@ -50,4 +54,33 @@
 		DELETE FROM Menu WHERE menu_id = #{menu_id};
 	</delete>
 
+	<select id = "rNutrido" parameterType="int" resultType="kr.co.invegan.diet.dto.FoodDataDTO">
+		SELECT m.recipe_name,
+			sum(m2.grams) AS grams,
+			SUM(ROUND((m2.grams / fd.serving_size) * fd.kcal, 0)) AS kcal,
+			SUM(ROUND((m2.grams / fd.serving_size) * fd.h2o, 0)) AS h2o,
+			SUM(ROUND((m2.grams / fd.serving_size) * fd.prot, 0)) AS prot,
+			SUM(ROUND((m2.grams / fd.serving_size) * fd.fat, 0)) AS fat,
+			SUM(ROUND((m2.grams / fd.serving_size) * fd.carb, 0)) AS carb,
+			SUM(ROUND((m2.grams / fd.serving_size) * fd.sugar, 0)) AS sugar,
+			SUM(ROUND((m2.grams / fd.serving_size) * fd.fiber, 0)) AS fiber,
+			SUM(ROUND((m2.grams / fd.serving_size) * fd.ca, 0)) AS ca,
+			SUM(ROUND((m2.grams / fd.serving_size) * fd.fe, 0)) AS fe,
+			SUM(ROUND((m2.grams / fd.serving_size) * fd.mg, 0)) AS mg,
+			SUM(ROUND((m2.grams / fd.serving_size) * fd.p, 0)) AS p,
+			SUM(ROUND((m2.grams / fd.serving_size) * fd.k, 0)) AS k,
+			SUM(ROUND((m2.grams / fd.serving_size) * fd.na, 0)) AS na,
+			SUM(ROUND((m2.grams / fd.serving_size) * fd.zn, 0)) AS zn,
+			SUM(ROUND((m2.grams / fd.serving_size) * fd.vit_a, 0)) AS vit_a,
+			SUM(ROUND((m2.grams / fd.serving_size) * fd.vit_b6, 0)) AS vit_b6,
+			SUM(ROUND((m2.grams / fd.serving_size) * fd.vit_b12, 0)) AS vit_b12,
+			SUM(ROUND((m2.grams / fd.serving_size) * fd.vit_c, 0)) AS vit_c,
+			SUM(ROUND((m2.grams / fd.serving_size) * fd.essential, 0)) AS essential,
+			SUM(ROUND((m2.grams / fd.serving_size) * fd.omega3, 0)) AS omega3
+		FROM FoodData fd JOIN Material m2
+									ON m2.food_id = fd.food_id 
+						  			JOIN Menu m
+						   			ON m.menu_id = m2.menu_id
+		WHERE m.menu_id = #{menu_id}
+	</select>
 </mapper>
