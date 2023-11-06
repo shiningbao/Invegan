@@ -6,6 +6,30 @@
 		<title>Insert title here</title>
 		<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 		<style>
+				
+			ul{
+				padding: 0;
+			}
+			
+			li{
+				display: inline-block;
+			}
+			
+			#top {
+				text-align: right;
+				float: right;
+				position: relative;
+				top:-10px;
+				right: 20px;
+			}
+			
+			#top input{
+				cursor: pointer;
+				background: none;
+				border: none;
+				font-size: 25px;
+			}
+					
 			table{
 				border : solid 1px black;
 				border-collapse: collapse;
@@ -37,10 +61,6 @@
 		</style>
 	</head>
 	<body>
-		<h2>메뉴추가</h2>
-		<h4>기본 메뉴 | 나만의 레시피 메뉴</h4>
-		<button>취소</button>
-		<hr>
 		<div>		
 			<label><input type="radio" name="meal"/>아침</label>
 			<label><input type="radio" name="meal"/>점심</label>

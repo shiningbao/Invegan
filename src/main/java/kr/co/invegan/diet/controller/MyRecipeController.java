@@ -28,7 +28,7 @@ public class MyRecipeController {
 	MemberDTO loginInfo = null;
 	
 	// 나만의 레시피 이동
-	@RequestMapping(value="/myRecipe/MyRecipeList.go")
+	@RequestMapping(value="*/MyRecipeList.go")
 	public String MyRecipelist(HttpSession session, RedirectAttributes reAttr) {
 		logger.info("나만의 레시피 페이지 이동");
 		String page = "redirect:member/login.go";
@@ -61,7 +61,7 @@ public class MyRecipeController {
 	}
 	
 	// 나만의 레시피 재료추가
-	@RequestMapping(value="/myRecipe/minsert.do", method = RequestMethod.POST)
+	@RequestMapping(value="*/minsert.do", method = RequestMethod.POST)
 	public HashMap<String, Object> minsert(HttpSession session, @RequestParam(required = false) Integer menu_id) {
 		logger.info("menu_id : "+menu_id);
 		HashMap<String, Object> result = new HashMap<String, Object>();
@@ -76,7 +76,7 @@ public class MyRecipeController {
 	} 
 	
 	// 나만의 레시피 재료 검색
-	@RequestMapping(value="/myRecipe/mlist.do")
+	@RequestMapping(value="*/mlist.do")
 	@ResponseBody
 	public HashMap<String, Object> mListdo (HttpSession session, @RequestParam String fName) {
 		
@@ -91,7 +91,7 @@ public class MyRecipeController {
 	}
 	
 	// 재료 추가
-	@RequestMapping(value="/myRecipe/mMaterial")
+	@RequestMapping(value="*/mMaterial")
 	public HashMap<String, Object> mMaterial(@RequestParam int food_id, @RequestParam int grams, HttpSession session) {
 		
 		Integer menu_id = (Integer) session.getAttribute("menu_id");
@@ -111,7 +111,7 @@ public class MyRecipeController {
 	}
 	
 	// 나만의 레시피 이름 입력창
-	@RequestMapping(value="/myRecipe/rlistUpdate.do", method = RequestMethod.POST)
+	@RequestMapping(value="*/rlistUpdate.do", method = RequestMethod.POST)
 	public HashMap<String, Object> rListUpdate(@RequestParam HashMap<String, Object> params) {
 		
 		logger.info("params : "+params);
@@ -145,7 +145,7 @@ public class MyRecipeController {
 	}
 	
 	// 레시피 재료 출력
-	@RequestMapping(value="/myRecipe/rMaterial.do", method = RequestMethod.POST)
+	@RequestMapping(value="*/rMaterial.do", method = RequestMethod.POST)
 	@ResponseBody
 	public HashMap<String, Object> rMaterial(@RequestParam int menu_id){
 		HashMap<String, Object> result = new HashMap<String, Object>();
@@ -157,7 +157,7 @@ public class MyRecipeController {
 	}
 	
 	// 레시피 재료 제거
-	@RequestMapping(value="/myRecipe/mdelete.do")
+	@RequestMapping(value="*/mdelete.do")
 	@ResponseBody
 	public HashMap<String, Object> mdelete(@RequestParam int food_id, @RequestParam int menu_id) {
 		logger.info("food_id : "+food_id);
@@ -172,7 +172,7 @@ public class MyRecipeController {
 	}
 	
 	// 레시피 제거
-	@RequestMapping(value="/myRecipe/rdelete.do")
+	@RequestMapping(value="*/rdelete.do")
 	@ResponseBody
 	public HashMap<String, Object> rdelete(@RequestParam int menu_id) {
 		logger.info("menu_id : "+menu_id);
@@ -188,7 +188,7 @@ public class MyRecipeController {
 	}
 	
 	// 레시피 영양소 출력
-	@RequestMapping(value="/myRecipe/rNutri.do")
+	@RequestMapping(value="*/rNutri.do")
 	@ResponseBody
 	public HashMap<String, Object> rNutrido(@RequestParam int menu_id) {
 		logger.info("menu_id : "+menu_id);
