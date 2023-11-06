@@ -17,6 +17,7 @@
 <%@include file="/WEB-INF/views/main/header.jsp"%>
 <h1>식당 리스트</h1>
 <button type="button" onclick="location.href='write.go'">식당 작성</button>
+<button type="button" onclick="location.href='detail?post_id=145'">식당 상세보기</button>
 
 	<table>
 		<tr>

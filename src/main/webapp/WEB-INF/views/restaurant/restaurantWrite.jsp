@@ -12,137 +12,234 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <style>
-	table, th, td{
+	.restaurantWriteTable {
 		border: 1px solid black;
-		border-collapse: collapse;
+		width: 1000px;
+		margin: 0 auto;
 	}
-	div{
-		background-color: lightslategray;
-		margin: 3px 0px;
+	.restaurantWriteHead{
+		width: 20%;
+		font-size: 30px;
 	}
-	#base{
-		width: 900px;
+	.restaurantWriteCon{
+		width: 80%;
+
 	}
-	#sub{
-		width: 700px;
-	}
-	.head{
-		font-size: 25px;
-		width: 200px;
-	}
-	input{
+	.restaurnatInput{
 		width: 100%;
-		height: 24px;
-		margin: 1px 1px;
+		font-size: 20px;
+		margin: 3px 3px;
 	}
-	td{
-		height: 25px;
+	textarea{
+		height: 200px;
+		margin: 3px 3px;
+		resize: none;
+		display: inline-block;
 	}
-	#thum{
-		height: 250px;
+	#restaurantImg{
+		width: 780px;
+		white-space: nowrap;
 		overflow-x: scroll;
+		background-color: grey;
+	}
+	#preview{
+		font-size: 2vw;
+		text-align: center;
+		align-items: center;
+		
+	}
+	.divImg{
+		width: 300px;
+		border: 1px solid black;
+		margin: 1px;
+		display: inline-block;
+	}
+	.previewImg{
+		width: 300px;
+		height: 300px;
+	}
+	.nameImg{
+		text-align: center;
+	}
+	.menuDiv {
+		margin: 2px 0px;
+		border: 1px solid black;
+	}
+	.menuTable{
+		width: 100%;
 	}
 	select{
 		width: 100%;
-		height: 24px;
-		margin: 1px 1px
-	}
-	.img_class{
-		border: 1px solid black;
-		
 	}
 
 </style>
 </head>
 <body>
 <c:import url="/main/header"/>
-<table id = "base">
+
+<table class = "restaurantWriteTable">
 	<tr>
-		<th class="head">식당 이름</th>
-		<td><input type="text" name="title"/></td>
+		<th class="restaurantWriteHead">식당 이름</th>
+		<td class="restaurantWriteCon"><input class="restaurnatInput" type="text" name="title"/></td>
 	</tr>
 	<tr>
-		<th class="head">식당 주소</th>
-		<td><button type="button" id="daumPostcode">주소 검색</button><br/><input type="text" name="address"/></td>
+		<th class="restaurantWriteHead">식당 주소</th>
+		<td class="restaurantWriteCon">
+			<button type="button" id="daumPostcode">주소 검색</button>
+			<br/>
+			<input class="restaurnatInput" type="text" name="address"/>
+		</td>
 	</tr>
 	<tr>
-		<th class="head">식당 소개</th>
-		<td><input type="text" name="content"/></td>
+		<th class="restaurantWriteHead">식당 소개</th>
+		<td class="restaurantWriteCon"><textarea class="restaurnatInput" name="content"/></textarea></td>
 	</tr>
 	<tr>
-		<th class="head">연락처</th>
-		<td><input type="text" name="phone"/></td>
+		<th class="restaurantWriteHead">연락처</th>
+		<td class="restaurantWriteCon"><input class="restaurnatInput" type="text" name="phone"/></td>
 	</tr>
 	<tr>
-		<th class="head">영업시간</th>
-		<td><input type="text" name="hours"/></td>
+		<th class="restaurantWriteHead">영업시간</th>
+		<td class="restaurantWriteCon"><input class="restaurnatInput" type="text" name="hours"/></td>
 	</tr>
 	
 	<tr>
-		<th class="head">사진 등록</th>
-		<td><input type="file" name="images" id="img" multiple="multiple"/></td>
+		<th class="restaurantWriteHead">사진 등록</th>
+		<td class="restaurantWriteCon"><input type="file" name="images" id="restarunatWriteImg" multiple="multiple"/></td>
 	</tr>
 	<tr>
-		<th class="head">미리보기</th>
-		<th>
-			<div id="thum"></div>
-		
-		</th>
+		<th class="restaurantWriteHead"></th>
+		<td  class="restaurantWriteCon">
+			<div id="restaurantImg"><p id="preview">등록된 사진이 없습니다.</p></div>
+		</td>
 	</tr>	
 	<tr>
-		<th class="head">메뉴 등록</th>
-		<td><button id="menuAdd" type="button">메뉴 추가</button></td>	
+		<th class="restaurantWriteHead">메뉴 등록</th>
+		<td class="restaurantWriteCon"><button id="menuAdd" type="button">메뉴 추가</button></td>	
 	</tr>
 	<tr>
-	<th></th>
-	<td id = "menu">
-	<div>
-		<table id = "sub">
-			<tr>
-				<th>메뉴명</th>
-				<td><input type="text" name="menu_name"/></td>
-				<th rowspan="3"><button onclick="menuDel(this)">삭제</button></th>
-			</tr>
-			<tr>
-				<th>가격</th>
-				<td><input type="text" name="price"/></td>		
-			</tr>	
-			<tr>
-				<th>비건단계</th>
-				<td>
-					<select name="vegan_type">
-						<option value="1">플루테리언</option>
-						<option value="2">비건</option>
-						<option value="3">락토</option>
-						<option value="4">오보</option>
-						<option value="5">락토오보</option>
-						<option value="6">폴로</option>
-						<option value="7">페스코</option>
-						<option value="8">폴로페스코</option>
-						<option value="9">플렉시테리언</option>
-					</select>
-				</td>
-			</tr>
-		</table>
-	</div>
-	</td>
+		<th></th>
+		<td class="restaurantWriteCon" id="menu">
+			<div class="menuDiv">
+				<table class="menuTable">
+					<tr>
+						<th>메뉴명</th>
+						<td><input class="restaurnatInput" type="text" name="menu_name"/></td>
+						<th rowspan="3"><button onclick="menuDel(this)">삭제</button></th>
+					</tr>
+					<tr>
+						<th>가격</th>
+						<td><input class="restaurnatInput" type="text" name="price"/></td>		
+					</tr>	
+					<tr>
+						<th>비건단계</th>
+						<td>
+							<select name="vegan_type">
+								<option value="1">플루테리언</option>
+								<option value="2">비건</option>
+								<option value="3">락토</option>
+								<option value="4">오보</option>
+								<option value="5">락토오보</option>
+								<option value="6">폴로</option>
+								<option value="7">페스코</option>
+								<option value="8">폴로페스코</option>
+								<option value="9">플렉시테리언</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</td>
 	</tr>
-
-
+	<tr>
+	<th colspan="2"><button type="button" id="write">작성</button></th>
+	</tr>
 </table>
-<button type="button" id="write">작성</button>
 <%@include file="/WEB-INF/views/main/footer.jsp"%>
 </body>
 
 <script>
 
+var imgArr= [];
+
+var $restaurantImg = document.getElementById('restaurantImg');
+
+
+$('#restarunatWriteImg').on('change',function(){
+	//console.log("img change 감지");
+	var uploadImages = $('#restarunatWriteImg')[0].files;
+	upload(uploadImages);
+});
+
+function upload(uploadImages){
+	//console.log('upload 펑션 시작');
+	//console.log(uploadImages);
+	$restaurantImg.innerHTML = '';
+	imgArr= [];
+	var imageType = 'image';
+	for(var i = 0; i < uploadImages.length; i++){
+		var imgFile = uploadImages[i];
+		imgArr.push(imgFile);
+
+		if(imgFile.type.includes('image')){
+			
+			var delButton = document.createElement('button');
+			delButton.type= 'button';
+			delButton.id = 'delButton_'+i;
+			delButton.onclick = function(){delImg(this);};
+			delButton.textContent = '삭제';
+			$restaurantImg.appendChild(delButton);
+			
+			var divTag = document.createElement('div');
+			divTag.id = 'img_id_'+i;
+			divTag.className = 'divImg';
+			$restaurantImg.appendChild(divTag);
+
+			var img = new Image();
+			img.className = 'previewImg';
+			img.src = window.URL.createObjectURL(imgFile);
+			divTag.appendChild(img);	
+			
+			var nameTag = document.createElement('p');
+			nameTag.className = 'nameImg';
+			nameTag.textContent = imgFile.name;
+			divTag.appendChild(nameTag);
+	
+		}else{
+			alert('이미지 파일 아님');
+			$('#restarunatWriteImg')[0].files = new DataTransfer().files;
+			$restaurantImg.innerHTML='<p id="preview">등록된 사진이 없습니다.</p>';
+			break;
+		}
+	}
+	//console.log('upload 펑션 종료');
+	//console.log(imgArr);
+	}
+
+function delImg(e){
+	var idx = e.id[e.id.length -1];
+	imgArr.splice(idx,1);
+	//console.log('해당 이미지 삭제');
+	//console.log(imgArr);
+	var dataTranster = new DataTransfer();
+	for(var i = 0; i < imgArr.length; i++){
+		dataTranster.items.add(imgArr[i]);
+	}
+	$('#restarunatWriteImg')[0].files = dataTranster.files;
+	//console.log($('#restarunatWriteImg')[0].files);
+	upload($('#restarunatWriteImg')[0].files);
+}
+
+
 // 메뉴 추가 작성 항목
 $('#menuAdd').on('click',function(){
-	var menuContent = '<div>메뉴명<input type="text" name="menu_name"/><br/>가격<input type="text" name="price"/>';
-		menuContent += '<button onclick="menuDel(this)">삭제</button><br/>비건단계<select name="vegan_type">';
-		menuContent += '<option value="1">플루테리언</option><option value="2">비건</option><option value="3">락토</option>';
-		menuContent += '<option value="4">오보</option><option value="5">락토오보</option><option value="6">폴로</option>';
-		menuContent += '<option value="7">페스코</option><option value="8">폴로페스코</option><option value="9">플렉시테리언</option></select></div>';
+	var menuContent = '<div class="menuDiv"><table class="menuTable"><tr><th>메뉴명</th><td><input class="restaurnatInput" type="text" name="menu_name"/>';
+		menuContent += '</td><th rowspan="3"><button onclick="menuDel(this)">삭제</button></th></tr><tr><th>가격</th><td>';
+		menuContent += '<input class="restaurnatInput" type="text" name="price"/></td></tr><tr><th>비건단계</th><td>';
+		menuContent += '<select name="vegan_type"><option value="1">플루테리언</option><option value="2">비건</option>';
+		menuContent += '<option value="3">락토</option><option value="4">오보</option><option value="5">락토오보</option>';
+		menuContent += '<option value="6">폴로</option><option value="7">페스코</option><option value="8">폴로페스코</option>';
+		menuContent += '<option value="9">플렉시테리언</option></select></td></tr></table></div';
 	$('#menu').append(menuContent);
 });
 
@@ -261,7 +358,6 @@ $('#write').on('click',function(e){
 		formData.append('hours', $hours.val());
 		formData.append('menu', menu);
 		
-		
 		$.ajax({
 			type:'post',
 			url:'write.do',
@@ -279,65 +375,7 @@ $('#write').on('click',function(e){
 	}
 });
 
-var thum = document.getElementById('thum');
-$('#img').on('change',function(){
-	thum.innerHTML = '';
-	var imageType = 'image';
-	var imgArr= [];
-	var reader = new FileReader();
-	var uploadImages = $('input[name="images"]')[0].files
-	for(var i = 0; i < uploadImages.length; i++){
-		var imgFile = uploadImages[i];
-		console.log(imgFile.type);
-		imgArr.push(imgFile);
-		console.log(imgArr);
-		
-		// 업로드 파일 삭제 기능 추가 필요
-		if(imgFile.type.includes('image')){ // 이미지타입 확인
-
-			var spanTag = document.createElement('span');
-			spanTag.id = 'img_id_'+i;
-			spanTag.style.width = '200px';
-			spanTag.style.height = '200px';
-			spanTag.style = {'border' : '1px solid black', 'margin': '1px'};
-			spanTag.className = 'img_class';
-			thum.appendChild(spanTag);
-
-			var img = new Image();
-			img.classList.add('preview-image');
-			img.file = imgFile;
-			img.style.width='inherit';
-            img.style.height='inherit';
-            img.style.cursor='pointer';
-			spanTag.appendChild(img);	
-			
-			var reader = new FileReader();
-			reader.onload = (function(aImg) {
-                return function(e) {
-                    aImg.src = e.target.result;
-                };
-            })(img);
-			
-			reader.readAsDataURL(imgFile);		
-	
-		}else{
-			alert('이미지 파일 아님');
-		}	
-	}
-});
-
-
-
 </script>
-
-
-
-
-
-
-
-
-
 
 </html>
 
