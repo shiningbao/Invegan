@@ -31,14 +31,6 @@ public class MainController {
 	
 	@RequestMapping(value = "/main/header")
 	public String mainHeader(Model model, HttpSession session) {
-<<<<<<< HEAD
-		String user_no = (String) session.getAttribute("user_no");
-		user_no = "1";
-		logger.info("user_no : "+user_no);
-		MemberDTO memberInfo = null;
-		if(user_no != null) {
-			memberInfo = service.merberInfo(user_no);			
-=======
 		MemberDTO loginInfo = null;
 		logger.info("loginInfo: "+session.getAttribute("loginInfo"));
 		if(session.getAttribute("loginInfo") != null) {			
@@ -53,8 +45,7 @@ public class MainController {
 		
 		/*
 		if(loginInfo != null) {
-			memberInfo = service.merberInfo(loginInfo.getId());			
->>>>>>> origin/master
+			memberInfo = service.merberInfo(loginInfo.getId());
 		}
 		session.setAttribute("memberInfo", memberInfo);
 		session.setAttribute("id", memberInfo.getId());
