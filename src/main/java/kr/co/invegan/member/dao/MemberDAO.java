@@ -1,5 +1,6 @@
 package kr.co.invegan.member.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.ibatis.session.SqlSession;

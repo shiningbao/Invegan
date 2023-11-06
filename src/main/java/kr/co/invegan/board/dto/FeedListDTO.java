@@ -4,18 +4,24 @@ import java.sql.Date;
 
 public class FeedListDTO {
 	
+	
 	private String nickname;
 	private String profile_image;
-	
+	private int user_no;
 	private String tag_content;
 	private String content;
 	private String comment_text;
 	private String comment_user_nickname;
 	private Date date;
 	private int image_id;
-	private int post_id;
+	private String post_id;
 	private String server_file_name;
-	
+	public int getUser_no() {
+		return user_no;
+	}
+	public void setUser_no(int user_no) {
+		this.user_no = user_no;
+	}
 	public String getProfile_image() {
 		return profile_image;
 	}
@@ -40,11 +46,11 @@ public class FeedListDTO {
 	public void setImage_id(int image_id) {
 		this.image_id = image_id;
 	}
-	public int getPost_id() {
+	public String getPost_id() {
 		return post_id;
 	}
-	public void setPost_id(int post_id) {
-		this.post_id = post_id;
+	public void setPost_id(String string) {
+		this.post_id = string;
 	}
 	public String getNickname() {
 		return nickname;

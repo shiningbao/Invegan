@@ -3,6 +3,8 @@ package kr.co.invegan.member.dto;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+import javax.servlet.http.HttpSession;
+
 public class MemberDTO {
 
 	private int user_no;
@@ -19,6 +21,7 @@ public class MemberDTO {
 	private int is_admin;
 	private int is_suspended;
 	private String profile_img;
+	private HttpSession session;
 	
 	public int getUser_no() {
 		return user_no;
@@ -104,6 +107,9 @@ public class MemberDTO {
 	public void setIs_suspended(int is_suspended) {
 		this.is_suspended = is_suspended;
 	}
-	
+	public HttpSession getSession() {
+       
+        return session;
+    }
 	
 }

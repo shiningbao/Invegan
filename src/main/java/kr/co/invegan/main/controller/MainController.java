@@ -30,18 +30,26 @@ public class MainController {
 	
 	@RequestMapping(value = "/main/header")
 	public String mainHeader(Model model, HttpSession session) {
-		String user_no = (String) session.getAttribute("user_no");
-		logger.info("user_no : "+user_no);
-		user_no = "1";
-		MemberDTO memberInfo = null;
-		if(user_no != null) {
-			memberInfo = service.merberInfo(user_no);			
+		MemberDTO loginInfo = null;
+		logger.info("loginInfo: "+session.getAttribute("loginInfo"));
+		if(session.getAttribute("loginInfo") != null) {			
+			loginInfo = (MemberDTO) session.getAttribute("loginInfo");
+			logger.info("loginId : "+loginInfo.getId()+" / admin : "+loginInfo.getIs_admin());
+		}else {
+			logger.info("로그인 X");
 		}
-		model.addAttribute("memberInfo", memberInfo);
+		
+		model.addAttribute("loginInfo", loginInfo);
+		
+		
+		/*
+		if(loginInfo != null) {
+			memberInfo = service.merberInfo(loginInfo.getId());			
+		}
 		session.setAttribute("memberInfo", memberInfo);
 		session.setAttribute("id", memberInfo.getId());
-		logger.info("memberInfo : "+session.getAttribute("memberInfo"));
-		logger.info("id : "+session.getAttribute("id"));
+		logger.info("id : "+session.getAttribute("id")); 
+		 */
 		return "main/header";
 	}
 	
