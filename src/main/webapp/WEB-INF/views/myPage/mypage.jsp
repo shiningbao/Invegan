@@ -403,7 +403,7 @@
 	</div>
 </body>	
 <script>
-var showPage = 1;
+
 var modal = document.getElementById("updateModal");
 
 // 클릭시 모달창 열림
@@ -423,7 +423,7 @@ window.onclick = function(event) {
     }
 }
 
-$('.profileImgUpdate').on('click', function(){
+/* $('.profileImgUpdate').on('click', function(){
     $('#photos').click();
 });
 
@@ -448,7 +448,7 @@ $('#photos').on('change', function() {
             console.log(error);
         }
     });
-});
+}); */
 
 $('#overlay').on('click',function(){
 	var nickname = $('input[name="nickname"]').val();
