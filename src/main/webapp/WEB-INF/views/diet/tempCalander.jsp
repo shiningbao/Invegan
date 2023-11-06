@@ -89,7 +89,9 @@
  	</div>
 </body>
 <script>
+
 	window.onload = function () { buildCalendar(); }  
+
 	
 	var selectDate = "";
 	
@@ -189,7 +191,6 @@
         return value;
     }
 
-    
 </script>
 
 </html>
