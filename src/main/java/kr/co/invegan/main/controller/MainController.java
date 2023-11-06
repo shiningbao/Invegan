@@ -32,8 +32,8 @@ public class MainController {
 	@RequestMapping(value = "/main/header")
 	public String mainHeader(Model model, HttpSession session) {
 		String user_no = (String) session.getAttribute("user_no");
-		logger.info("user_no : "+user_no);
 		user_no = "1";
+		logger.info("user_no : "+user_no);
 		MemberDTO memberInfo = null;
 		if(user_no != null) {
 			memberInfo = service.merberInfo(user_no);			

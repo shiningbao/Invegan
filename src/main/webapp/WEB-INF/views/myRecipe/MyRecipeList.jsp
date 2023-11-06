@@ -24,6 +24,16 @@
 				width : 400px;
 			}
 			
+			input[name="meal"] {
+				  width: 20px;
+				  height: 20px; 
+				  background-color: #007BFF;
+				  border-radius: 50%;
+				  display: inline-block;
+				  margin-right: 10px;
+				  cursor: pointer;
+				}
+			
 		</style>
 	</head>
 	<body>
@@ -32,10 +42,10 @@
 		<button>취소</button>
 		<hr>
 		<div>		
-			<button>아침</button>
-			<button>점심</button>
-			<button>저녁</button>
-			<button>기타</button>
+			<label><input type="radio" name="meal"/>아침</label>
+			<label><input type="radio" name="meal"/>점심</label>
+			<label><input type="radio" name="meal"/>저녁</label>
+			<label><input type="radio" name="meal"/>기타</label>
 			<button onclick="rinsert()">+</button>
 			<button onclick="rdel()">-</button>
 			<table id = "mRecipeList">	
@@ -74,7 +84,7 @@
 			</tbody>
 		</table>
 		<br>
-		<button>완료</button>
+		<input type="button" name="dinsert"value="완료"/>
 		<br>
 		<table id = "rNutriList">
 			<!-- 레시피 영양소 출력 -->
