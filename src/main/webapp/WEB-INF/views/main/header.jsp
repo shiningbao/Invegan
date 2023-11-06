@@ -1,10 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <style>
 	.top {
@@ -88,8 +86,7 @@
 </style>
 </head>
 <body>
-
-
+<header>
 	<div class="top">
 		<div class = "logoImg">
 			<img src="<c:url value='/resources/main/logo.png'/>" width=300px height=150px, alt="Logo Img" id="Logo"/>
@@ -134,14 +131,12 @@
 						<li class="nav_item_2"><a href="<c:url value='/restaurant/list'/>">뷰티</a></li>
 						<li class="nav_item_2"><a href="<c:url value='/restaurant/list'/>">패션</a></li>
 					</ul>
-					
 				</li>
 				<li class="nav_item_1"><a href="<c:url value='/feed/list.go'/>">피드</a></li>
 				<li class="nav_item_1"><a href="<c:url value='/restaurant/list'/>">자유게시판</a></li>
 				<li class="nav_item_1"><a href="<c:url value='/restaurant/list'/>">소식지</a></li>
 			</ul>
 		</nav>
-	
 
 	<div class="sideBar">
 		<div class="sideList">
@@ -163,14 +158,14 @@
 			<p>아래</p>
 		</div>
 	</div>
-
-
-
-
-
+	
 <hr id="last">
+
+</header>
 </body>
+
 <script>
+
 	$('#Logo').on('click',function(){
 		location.href = '<c:url value='/'/>';
 	});
@@ -178,7 +173,6 @@
 	$('#infoButton').on('click',function(){
 		var displayChk = $('.infoModal').css('display');
 		console.log(displayChk);
-		
 		if(displayChk == 'block'){
 			$('.infoModal').css({'display':'none'});
 		}else{
@@ -192,7 +186,6 @@
 	$('#nav_item_categori').on('mouseout',function(){
 		$('.nav_list_2').css({"display":"none"});	
 	});
-
 
 </script>
 </html>

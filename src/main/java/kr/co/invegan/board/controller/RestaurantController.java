@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -55,41 +56,57 @@ public class RestaurantController {
 
 	// 작성 페이지 이동 요청
 	@RequestMapping(value = "/restaurant/write.go")
-	public String restaurantWriteGo() {
-		return "restaurant/restaurantWrite";
+	public String restaurantWriteGo(Model model, HttpSession session) {
+		String page = "/";
+		MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
+		if(loginInfo.getIs_admin() == 1) {
+			page = "restaurant/restaurantWrite";
+		}
+		return page;
 	}
 	
 	// 작성 요청
 	@RequestMapping(value = "/restaurant/write.do", method = RequestMethod.POST)
 	@ResponseBody
-	public String restaurantWrite(MultipartFile[] uploadImages, @RequestParam HashMap<String, Object> param, HttpSession session) throws Exception {
+	public HashMap<String, Object> restaurantWrite(MultipartFile[] uploadImages, @RequestParam HashMap<String, Object> param, HttpSession session) throws Exception {
 		
-		// 로그인이 대체할려고 만든 부분
-		String user = "1";
-		session.setAttribute("user_no", user);
+		HashMap<String, Object> result = new HashMap<String, Object>();
 		
-		String user_no = (String) session.getAttribute("user_no");
+		MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
+		
+		String user_no = ""+loginInfo.getUser_no();
 		logger.info("param : "+param);
 		logger.info("uploadImages : "+uploadImages);
 		
 		service.restaurantWrite(user_no,uploadImages, param);
-		
-		return "redirect:/restaurant/list";
+		result.put("결과", "식당 작성 성공");
+		return result;
 	}
 	
 	// 상세보기 요청
 	@RequestMapping(value = "/restaurant/detail")
 	public String restaurantDetail(@RequestParam int post_id, Model model, HttpSession session) {
-		String user_no = (String) session.getAttribute("user_no");
-		String is_adimin = (String) session.getAttribute("is_admin");
 		
 		model.addAttribute("restaurantDetail", service.restaurantDetail(post_id));
 		model.addAttribute("menuDetail", service.menuDetail(post_id));
 		model.addAttribute("photoList", service.photoList(post_id));
-		
+
 		return "restaurant/restaurantDetail";
 	}
 	
+	// 수정 요청
+	@RequestMapping(value = "/restaurant/update")
+	public String restaurantUpdate(HttpSession session, Model model, @RequestParam int post_id) {
+		
+		MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
+		
+		model.addAttribute("restaurant", service.restaurantDetail(post_id));
+		model.addAttribute("men", service.menuDetail(post_id));
+		model.addAttribute("photo", service.photoList(post_id));	
+		
+		String page = "restaurant/restaurantUpdate";
+		return page;
+	}
 	
 	
 	
