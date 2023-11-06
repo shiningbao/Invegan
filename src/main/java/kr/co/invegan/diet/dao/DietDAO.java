@@ -14,7 +14,7 @@ public interface DietDAO {
 
 	FoodDataDTO showNutri(int foodId);
 
-	int getServingSize(int food_id);
+	int getServingSize(int food_id);	// ?
 
 	int addDiet(DietDTO dietDTO);
 	int addMenu(DietDTO dietDTO);
@@ -22,6 +22,9 @@ public interface DietDAO {
 	int addDietComp(DietDTO dietDTO);
 
 	ArrayList<DietDTO> getDietList(HashMap<String, Object> params);
+
+	FoodDataDTO getAllNutri(HashMap<String, Object> params);
+	FoodDataDTO getNutri(HashMap<String, Object> params);
 
 
 
