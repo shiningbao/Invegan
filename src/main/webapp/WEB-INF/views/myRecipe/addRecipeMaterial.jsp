@@ -90,19 +90,20 @@
 		</div>
 	</body>
 	<script>
-		var fname; // food_name
+		var food_id; // food_id
+		var fName;
 		var mName; // material_name
-		var gram; // gram
+		var grams; // gram
 
 		$('#msearch').on('click', function(){
-			fname = $('input[name="fname"]').val();
+			fName = $('input[name="fname"]').val();
 			
-			console.log('food_name : '+fname); 
+			console.log('food_name : '+fName); 
 			
 				$.ajax({
 					type:'get',
 				    url:'mlist.do',
-				    data:{'fname' : fname},
+				    data:{'fName' : fName},
 				    dataType:'json',
 				    success:function(data){
 				       console.log(data);
@@ -120,6 +121,7 @@
 			mlist.forEach(function(item, idx){
 					content += '<tr>';
 					content += '<td>'+(idx+1)+'</td>';
+					content += '<td style="display : none;">'+item.food_id+'</td>';
 					content += '<td>'+item.food_name+'</td>';
 					content += '<td>'+item.food_category+'</td>';
 					content += '<td>'+item.serving_size+'</td>';
@@ -151,38 +153,38 @@
 		
         $('#materialList').on('click', 'tr', function() {
         	$('#materialList tr').css('border', 'none');
-            mName = $(this).find('td:eq(1)').text();
+            food_id = $(this).find('td:eq(1)').text();
+            fName = $(this).find('td:eq(2)').text();
             $(this).css('border','2px solid green');
-            console.log('클릭한 food_name: ' + mName);
+            console.log('클릭한 food_name: ' + fName);
         });
         
         $('#mMaterial').on('click', function() {
-        	gram = $('input[name="gram"]').val();
+        	grams = $('input[name="gram"]').val();
         	console.log('전송한 food_name : ' + mName);
-        	console.log('입력한 gram 수 : '+gram);
+        	console.log('입력한 grams 수 : '+grams);
         	
         	// gram에 문자가 있을경우 alert
         	var regex = new RegExp('[a-zA-Zㄱ-ㅎ가-힣]');
-        	var match = regex.test(gram);
+        	var match = regex.test(grams);
         	if (match) {
         		alert('숫자만 넣어주세요');
         		$('input[name="gram"]').val('');
         	}
         	
         	$.ajax({
-        		type:'post',
+        		type:'get',
         		url:'mMaterial',
-        		data:param,
+        		data:{"food_id":food_id, "grams":grams},
         		dataType:'JSON',
         		success:function(data){
         			console.log(data);
-        			location.href='./';
         		},
         		error:function(e) {
         			console.log(e);
         		}
         	});
-        	
+			location.href='MyRecipeList.go';
         });
 		
 	</script>
