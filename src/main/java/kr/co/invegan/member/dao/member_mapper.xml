@@ -22,6 +22,14 @@
 	
 	
 	
+	<select id="findId2" parameterType="String" resultType="String">
+		SELECT * FROM Members WHERE email=#{email}
+	</select>
+	
+	
+	
+	
+	
 	<select id="login3" parameterType="map" resultType="map">
 		SELECT m.id, m.name FROM Members m LEFT JOIN author a ON m.id = a.id		
 		 WHERE m.id = #{id} AND m.pw = #{pw}

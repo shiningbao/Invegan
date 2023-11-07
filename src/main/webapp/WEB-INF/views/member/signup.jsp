@@ -170,7 +170,8 @@ input[type=password] {
 </body>
 <script>
 
-	
+
+/*	
  $('input[type="submit"]').on('click', function() {
      var selectedInterests = [];
      var checkboxes = document.getElementsByName('interests');
@@ -189,59 +190,8 @@ input[type=password] {
    
  });
 
-/*
-$(document).ready(function() {
-    $("#sendButton").click(function() {
-    	var selectedInterests = [];
-        var checkboxes = document.getElementsByName('interests');
-        for (var i = 0; i < checkboxes.length; i++) {
-            if (checkboxes[i].checked) {
-                selectedInterests.push(checkboxes[i].value);
-            }
-        }
-        var combinedInterests = selectedInterests.join(',');
-        alert('선택한 관심 분야: ' + combinedInterests);
-        console.log(combinedInterests);
-        $.ajax({
-            type: "POST",
-            contentType: "application/json",
-            url: "/yourControllerEndpoint",
-            data: JSON.stringify(data),
-            success: function(response) {
-                console.log(response);
-            }
-        });
-    });
-});
-
 */
 
-
-
-
-//임시
-/*
-$('#join').on('click', function(){
-	var email = $('input[name="email"]').val();
-	var add =$('#domain-list').val();
-	console.log(email);
-	console.log(add);
-	
-	$.ajax({
-		type:'get',
-		url:'join',
-		data:{'email':email,'add':add},
-		dataType:'JSON',
-		success:function(data){
-			console.log(data);
-		},
-		error:function(e){
-			console.log(e);
-		}
-	});
-	
-})
-*/
 	//팝업으로 조건문 실행
 	//유효성 검사 
 	document.getElementById("validateId").addEventListener("click", function() {

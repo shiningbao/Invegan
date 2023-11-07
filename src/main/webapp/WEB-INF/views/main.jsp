@@ -88,12 +88,11 @@
 </head>
 <body>
 
-<<<<<<< HEAD
 	<c:import url="/main/header"/>
 	
 	
 	<div class="banner"><p>dd</p></div>
-=======
+
 
 	  
 	<c:import url="/main/header"/>
@@ -101,7 +100,6 @@
 		<p><a href = "<c:url value='/member/signup'/>">회원가입</a></p>
 				<p><a href = "<c:url value='/member/login.go'/>">로그인</a></p>
 
->>>>>>> origin/master
 
 	<div class="banner"><p>${loginInfo.getIs_admin()}</p></div>
 	<br>

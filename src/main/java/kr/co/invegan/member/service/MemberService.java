@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -58,4 +59,36 @@ public class MemberService {
 
         return msg;
     }
+
+    /*
+	public String signup(Map<String, String> params) {
+		String msg = "회원 가입이 실패하였습니다";
+
+        int row = dao.signup(params);
+        if (row > 0) {
+            msg = "회원 가입이 성공하였습니다";
+        }
+
+        return msg;
+	}*/
+/*
+	public String signup(String interest) {
+		String msg = "회원 가입이 실패하였습니다";
+
+        int row = dao.signup(interest);
+        if (row > 0) {
+            msg = "회원 가입이 성공하였습니다";
+        }
+
+        return msg;
+	}
+*/
+/*
+	public void signup(Map<String, String> params, String combinedInterests, String birthdateString) {
+        MemberDTO member = new MemberDTO();
+        // DAO 메서드를 호출하여 데이터를 전달
+        dao.signup(member);
+    }
+    */
+
 }

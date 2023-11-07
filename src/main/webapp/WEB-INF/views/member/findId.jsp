@@ -7,7 +7,10 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <style>
-
+input[type=text] {
+	width: 300px;
+	height: 25px;
+}
 </style>
 </head>
 <body>
@@ -21,10 +24,10 @@
 <form action="findId2" method="post">
 	<div>
     <label for="email">이메일:</label>
-    <input type="text" id="email" name="email" required>
+    <input type="text" id="email" name="email" required placeholder="이메일을 입력해주세요">
     <br>
     <label for="birthdate">생년월일:</label>
-    <input type="text" id="birthdate" name="birthdate" required>
+    <input type="text" id="birthdate" name="birthdate" required placeholder="생년월일을 yyyy-mm-dd 형식으로 입력해주세요">
     <br>
     <input type="submit" value="아이디 찾기">
 

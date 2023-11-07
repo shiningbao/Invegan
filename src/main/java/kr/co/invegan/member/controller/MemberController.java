@@ -1,6 +1,10 @@
 package kr.co.invegan.member.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +18,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -87,44 +92,38 @@ public class MemberController {
 		return "member/signup";
 	}
 
-	
+		
 	@RequestMapping(value = "/member/signup2", method = RequestMethod.POST)
 	public String signup(Model model, @RequestParam HashMap<String, String> params, @RequestParam String[] interests) {
-		logger.info("params : "+params);
-		for (String str : interests) {
-			logger.info("interests : "+str);
-			
-		}
-		//String msg = service.signup(params);
 		
-		//model.addAttribute("msg", msg);
+		// "interests" 배열을 쉼표로 구분된 하나의 문자열로 결합
+	    String combinedInterests = String.join(",", interests);
+	    logger.info("Combined interests: " + combinedInterests);
+	    //HashMap에서 값을 집어 넣을 때 put 사용
+	    //combinedInterests 값을 interests라는 이름으로 집어넣음
+	    params.put("inetersts", combinedInterests);
+	    logger.info("params : "+params);
+		String msg = service.signup(params);
+		model.addAttribute("msg", msg);
 		
 		return "main";
 	}
-	
-	
-	//임시
+		
 	/*
-	@RequestMapping(value = "/member/join")
-	@ResponseBody
-	public Map<String, Object> join(@RequestParam String email,@RequestParam String add) {
-		
-		logger.info("join 입장  ");
-		logger.info("email : "+email);
-		logger.info("add : "+add);
-		
-		String trueemail = email+"@"+add;
-		logger.info("trueemail : "+trueemail);
-		
-		
-		 return null;
+	@GetMapping("/signup")
+	public String signup(@RequestParam List<String> interests){
+	    for (String interest : interests) {
+	        service.signup(interest);
+	    }
+	    return "main";
 	}
 	*/
+
 	
 	
 	//이거 수정해야됨!!!!!!!!!!!!!!!!!
-	//@Autowired  
-	//private JavaMailSender mailSender;
+	@Autowired  
+	private JavaMailSender mailSender;
 	
 	//이메일 인증
 	@RequestMapping(value = "/mailCheck", method = RequestMethod.GET)
@@ -132,7 +131,8 @@ public class MemberController {
 	public String mailCheck(@RequestParam("sm_email") String sm_email) throws Exception{
 	    int serti = (int)((Math.random()* (99999 - 10000 + 1)) + 10000);
 	    
-	    JavaMailSenderImpl mailSender = null;
+	    //JavaMailSenderImpl mailSender = null;
+	    mailSender = null;
 	    
 	    String from = "rlaalswll25@naver.com";//보내는 이 메일주소
 	    String to = sm_email;
