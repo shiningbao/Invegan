@@ -210,7 +210,9 @@ function buildCalendar() {
 
 // 날짜 선택
 function choiceDate(nowColumn) {
-	 let existingChoiceDay = document.querySelector(".choiceDay");
+		
+	 	let existingChoiceDay = document.querySelector(".choiceDay");
+	 	
 	    if (existingChoiceDay) {
 	        existingChoiceDay.classList.remove("choiceDay");
 	    }
@@ -222,8 +224,11 @@ function choiceDate(nowColumn) {
 	    else {
 	        nowColumn.classList.add("choiceDay");
 	    }
-	    dietMgmt();
-	}       
+
+	    // 클릭한 날짜 값
+        selectDate = $('#calYear').text()+"-"+$('#calMonth').text()+"-"+$('.choiceDay').text();
+	    console.log(selectDate);
+	    
 
 
 // 이전달 버튼 클릭
