@@ -61,7 +61,7 @@
     
   </body>
   <script>
-
+  var loginInfo;
 
   // feedDetail 처리
   $(document).on('click', '.post-link', function() {
@@ -83,6 +83,8 @@
              console.log(data.user_no);
              drawdetailList(data.detailList,data.findBoardUserno,data.user_no);
              drawcommentList(data.commentList);
+             loginInfo = data.loginInfo;
+             console.log(loginInfo);
              
              $('.feedDetailModal').css({ 'display': 'block' });
          },
@@ -114,15 +116,16 @@
       var content = '';
 
       detailList.forEach(function (item) {
+    	  
           content += '<div class="post">';
           content += '<div class="post-header">';
           content += '<div class="user-profile"><img src="/photo/' + item.profile_image + '"></div>';
           content += '<span class="username">' + item.nickname + '</span>';
           content += '</div>';
-          if (user_no == findBoardUserno) {
+           if (loginInfo != null && user_no == findBoardUserno) {
         	  
-        	  content += '<button class="post-edit-btn" data-post-id="' + item.post_id + '" data-feed-content="' + item.content + '">수정</button>';
-              content += '<button class="post-del-btn" data-post-id="' + item.post_id + '">삭제</button>';
+         	  content += '<button class="post-edit-btn" data-post-id="' + item.post_id + '" data-feed-content="' + item.content + '">수정</button>';
+               content += '<button class="post-del-btn" data-post-id="' + item.post_id + '">삭제</button>';
               
           }
           
@@ -151,13 +154,25 @@
           content += '<div class="tag-content">' + item.tag_content + '</div>';
           content += '<div class="post-time">' + dateStr + '</div>';
           content += '</div>';
-          content += '<div class="comment-box">';
+          
+       	  content += '<div class="comment-box">';
           content += '<input type="text" class="feedComment" name="feedComment" placeholder="댓글을 입력하세요...">';
           content += '<button class="commentFeedWrite" data-post-id="' + item.post_id + '">작성</button>';
           content += '</div>';
+          
+          
           content += '<hr>';
       });
       $('#feedDetail').html(content);
+      // 비회원이 댓글작성했을떄 이벤트
+      $('#feedDetail').on('click', '.commentFeedWrite', function () {
+		    if (loginInfo == null) {
+		        alert('로그인이 필요합니다.');
+		        location.href="/invegan/member/login.go";
+		    } else {
+		        
+		    }
+		})
       // "수정" 버튼 클릭 이벤트 핸들러 등록
       $('.post-edit-btn').on('click', function () {
     	  if(confirm("게시글을 수정하시겠습니까?")){
@@ -175,7 +190,8 @@
               // 저장 버튼과 취소 버튼 추가
               feed_content.append('<button class="save-button" data-post-id="' + post_id + '">저장</button>');
               feed_content.append('<button class="cancel-button">취소</button>');
-          
+              feed_content.append('<input type="file" id="photos" name="photos" values="사진 수정" multiple>');
+          	 
               // 수정 버튼 비활성화
               $(this).prop('disabled', true);
               
@@ -219,7 +235,15 @@
                   
               });
               $('.cancel-button').on('click', function () {
+            	  if(confirm("게시글 수정을 취소하시겠습니까?")){
+            		  var feedContent = '<span class="feed-content">' + originalContent + '</span>'; // 원본 내용으로 복원
+                      $('#feedDetail .post-caption').html(feedContent);
+                      $('.post-edit-btn').prop('disabled', false);
+            	  }else{
+            		  
+            	  }
                   console.log('click');
+                  
                   
               });
     	  }else{

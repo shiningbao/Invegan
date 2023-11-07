@@ -68,7 +68,8 @@ WHERE
     b.category = '피드'
 GROUP BY b.post_id
 ORDER BY
-    b.date DESC;
+    b.date DESC
+    LIMIT 0,#{limitcnt};
     
 </select>
 

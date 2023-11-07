@@ -30,7 +30,7 @@ public class FeedService {
    
    @Autowired FeedDAO dao;
    PhotoDTO photodto = new PhotoDTO();
-
+   FeedListDTO feedlistdto = new FeedListDTO();
    private String root = "C:/upload/";
    
    public void write(int userno, HashMap<String, String> params, MultipartFile[] uploadimages) throws Exception {
@@ -114,11 +114,11 @@ public class FeedService {
       
       
    }
-   public ArrayList<FeedListDTO> list() {
+   public ArrayList<FeedListDTO> list(int limitcnt) {
       
       logger.info("service list 접근");
       
-      return dao.list();
+      return dao.list(limitcnt);
    }
    
    public ArrayList<FeedListDTO> detailList(int post_id) {
@@ -159,21 +159,16 @@ public class FeedService {
 		
 	}
 	
-//	public void feedUpdatePost(String feed_content, int post_id) {
-//		logger.info("feedUpdate 서비스 접근");
-//		logger.info("feed_content:"+feed_content);
-//		logger.info("post_id:"+post_id);
-//		dao.feedUpdatePost(feed_content,post_id);
-//		
-//	}
+
 	public void feedUpdatePost(HashMap<String, String> params) {
-//		FeedDTO dto = new FeedDTO();
-//		dto.setFeed_content(params.get("feed_content"));
-//		dto.setPost_id(params.get("post_id"));
-//		
+
 		dao.feedUpdatePost(params);
 		
 	}
+//	public ArrayList<FeedListDTO> searchByTag(String searchbt) {
+//		
+//		return null;
+//	}
 	
 	   
 }

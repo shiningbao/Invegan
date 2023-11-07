@@ -24,13 +24,14 @@ import kr.co.invegan.board.dto.FeedDTO;
 import kr.co.invegan.board.dto.FeedListDTO;
 import kr.co.invegan.board.dto.PhotoDTO;
 import kr.co.invegan.board.service.FeedService;
+import kr.co.invegan.member.dto.MemberDTO;
 
 @Controller
 @RequestMapping("/feed")
 public class FeedController {
    @Autowired FeedService service;
    org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
-   
+   MemberDTO memberdto = new MemberDTO();
 
    
    
@@ -50,11 +51,18 @@ public class FeedController {
        logger.info("내용:" + params.get("content"));
        logger.info("태그:" + params.get("feedTag"));
        logger.info("이미지:" + uploadimages);
-       int userno = 2;
-       session.setAttribute("user_no", userno);
+       memberdto =  (MemberDTO) session.getAttribute("loginInfo");
+       
+       int user_no = memberdto.getUser_no();
+       session.setAttribute("user_no", user_no);
+       
        
        // 나머지 로직
-       service.write(userno,params,uploadimages);
+       logger.info("loginInfo:"+memberdto);
+       if(memberdto!=null) {
+    	   service.write(user_no,params,uploadimages);
+       }
+       
        
        return "success";
    }
@@ -69,12 +77,19 @@ public class FeedController {
    
    @RequestMapping(value="feedListCall")
    @ResponseBody
-   public HashMap<String, Object> feedListCall(HttpSession session){
+   public HashMap<String, Object> feedListCall(HttpSession session, @RequestParam("limitcnt") int limitcnt){
       
       HashMap<String, Object> result = new HashMap<String, Object>();
-      ArrayList<FeedListDTO> list = service.list();
+      logger.info("controller feedListCall 접근");
+      logger.info("limitcnt :"+limitcnt);
+      
+      
+      ArrayList<FeedListDTO> list = service.list(limitcnt);
+      
       result.put("list", list);
-      logger.info("list :"+ list);
+      result.put("listSize", list.size());
+      result.put("limitcnt",limitcnt);
+      result.put("loginInfo", session.getAttribute("loginInfo"));
       logger.info("list size:"+ list.size());
       return result;
    }
@@ -96,8 +111,14 @@ public class FeedController {
 		   
       logger.info("상세보기 접근");
       logger.info("post id:"+post_id);
-      int user_no = 2;
-      session.setAttribute("user_no", user_no);
+      memberdto =  (MemberDTO) session.getAttribute("loginInfo");
+      int user_no =0;
+      if(memberdto != null) {
+    	  user_no = memberdto.getUser_no();
+          session.setAttribute("user_no", user_no);
+          
+      }
+      
       HashMap<String, Object> result = new HashMap<String, Object>();
       ArrayList<FeedListDTO> detailList = service.detailList(post_id);
       ArrayList<FeedListDTO> commentList = service.commentList(post_id);
@@ -110,6 +131,7 @@ public class FeedController {
 //      logger.info("현재관리자여부:"+ is_admin);
       logger.info("현재 로그인세션 :"+user_no);
       logger.info("게시물 로그인 세션 :"+findBoardUserno);
+      result.put("loginInfo", session.getAttribute("loginInfo"));
       result.put("detailList", detailList);
       result.put("commentList", commentList);
       result.put("findBoardUserno", findBoardUserno);
@@ -125,10 +147,19 @@ public class FeedController {
 	   logger.info("feedWriteComment 컨트롤러 접근");
 	   
 	   // user_no 로그인 로직설정
-	   int user_no = 2;
-       session.setAttribute("user_no", user_no);
-       user_no = (int) session.getAttribute("user_no");      
-	   service.feedWriteComment(user_no,params);
+	   
+	   memberdto =  (MemberDTO) session.getAttribute("loginInfo");
+	   
+	   
+	   int user_no =0;
+	      if(memberdto != null) {
+	    	  user_no = memberdto.getUser_no();
+	          session.setAttribute("user_no", user_no);
+	          service.feedWriteComment(user_no,params);
+	          
+	      }
+          
+	   
 	   logger.info("params :"+params);
 	   logger.info("user_no:"+user_no);
 	   
@@ -176,6 +207,19 @@ public class FeedController {
       return "feed/feedUpdate";
    }
    
+//   @RequestMapping(value = "searchByTag")
+//   @ResponseBody
+//   public HashMap<String, Object> searchByTag(@RequestParam("searchbt") String searchbt) {
+//       HashMap<String, Object> result = new HashMap<String, Object>();
+//       logger.info("Searching by tag: " + searchbt);
+//
+//       // 검색어(searchbt)를 이용하여 게시물을 검색하고 결과를 가져옵니다.
+//       ArrayList<FeedListDTO> searchResult = service.searchByTag(searchbt);
+//
+//       result.put("list", searchResult);
+//       return result;
+//   }
+//   
    
 
       
