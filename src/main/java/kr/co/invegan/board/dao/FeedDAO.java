@@ -24,7 +24,7 @@ public interface FeedDAO {
    
    void feedWritePhoto(@Param("postidx") int postidx, @Param("server_file_name") String server_file_name);
 
-   ArrayList<FeedListDTO> list();
+   ArrayList<FeedListDTO> list(int limitcnt);
 
    ArrayList<FeedListDTO> detailList(int post_id);
 
@@ -44,7 +44,9 @@ public interface FeedDAO {
 
    
 
-void feedUpdatePost(HashMap<String, String> params);
+   void feedUpdatePost(HashMap<String, String> params);
+
+   ArrayList<FeedListDTO> searchByTag(String searchbt);
 
 
 
