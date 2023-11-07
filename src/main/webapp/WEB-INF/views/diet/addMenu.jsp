@@ -28,8 +28,6 @@
 		border: none;
 		font-size: 25px;
 	}
-		
-}
 	
 </style>
 

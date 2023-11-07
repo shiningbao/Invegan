@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.invegan.diet.dao.MyRecipeDAO;
+import kr.co.invegan.diet.dto.DietDTO;
 
 @Service
 public class MyRecipeService {
@@ -47,8 +48,8 @@ public class MyRecipeService {
 		return dao.rMaterial(menu_id);
 	}
 
-	public boolean mdelete(int food_id, int menu_id) {
-		return dao.mdelete(food_id, menu_id);
+	public boolean mdelete(int material_id) {
+		return dao.mdelete(material_id);
 	}
 
 	public boolean rdelete(int menu_id) {
@@ -61,6 +62,14 @@ public class MyRecipeService {
 
 	public ArrayList<HashMap<String, Object>> rNutrido(int menu_id) {
 		return dao.rNutrido(menu_id);
+	}
+
+	public String addMenuDo(DietDTO dietDTO) {
+		logger.info("diteDTO : "+dietDTO);
+		String msg = "메뉴 등록 성공";
+		dao.dinsert(dietDTO);
+		dao.dcinsert(dietDTO);
+		return msg;
 	}
 
 

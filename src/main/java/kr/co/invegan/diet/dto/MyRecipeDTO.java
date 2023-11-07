@@ -2,6 +2,7 @@ package kr.co.invegan.diet.dto;
 
 public class MyRecipeDTO {
 	
+	private int material_id;
 	private int menu_id;
 	private String recipe_name;
 	private String food_name;
@@ -9,6 +10,13 @@ public class MyRecipeDTO {
 	private int kcal;
 	private int food_id;
 	
+	
+	public int getMaterial_id() {
+		return material_id;
+	}
+	public void setMaterial_id(int material_id) {
+		this.material_id = material_id;
+	}
 	public String getFood_name() {
 		return food_name;
 	}

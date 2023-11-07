@@ -101,7 +101,6 @@ public class DietController {
 		// 추후 페이지 접근 제한에도 chk 활용
 		session.setAttribute("upsertSort", sort);
 		model.addAttribute("date", date);
-
 		return "diet/addMenu";
 	}
 	
