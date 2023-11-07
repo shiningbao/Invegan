@@ -207,19 +207,19 @@ public class FeedController {
       return "feed/feedUpdate";
    }
    
-//   @RequestMapping(value = "searchByTag")
-//   @ResponseBody
-//   public HashMap<String, Object> searchByTag(@RequestParam("searchbt") String searchbt) {
-//       HashMap<String, Object> result = new HashMap<String, Object>();
-//       logger.info("Searching by tag: " + searchbt);
-//
-//       // 검색어(searchbt)를 이용하여 게시물을 검색하고 결과를 가져옵니다.
-//       ArrayList<FeedListDTO> searchResult = service.searchByTag(searchbt);
-//
-//       result.put("list", searchResult);
-//       return result;
-//   }
-//   
+   @RequestMapping(value = "searchByTag")
+   @ResponseBody
+   public HashMap<String, Object> searchByTag(@RequestParam("searchbt") String searchbt) {
+       HashMap<String, Object> result = new HashMap<String, Object>();
+       logger.info("Searching by tag: " + searchbt);
+
+       // 검색어(searchbt)를 이용하여 게시물을 검색하고 결과를 가져옵니다.
+       ArrayList<FeedListDTO> searchResult = service.searchByTag(searchbt);
+
+       result.put("list", searchResult);
+       return result;
+   }
+   
    
 
       

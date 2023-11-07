@@ -46,6 +46,8 @@ public interface FeedDAO {
 
    void feedUpdatePost(HashMap<String, String> params);
 
+   ArrayList<FeedListDTO> searchByTag(String searchbt);
+
 
 
 

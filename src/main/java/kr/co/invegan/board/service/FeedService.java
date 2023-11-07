@@ -165,10 +165,12 @@ public class FeedService {
 		dao.feedUpdatePost(params);
 		
 	}
-//	public ArrayList<FeedListDTO> searchByTag(String searchbt) {
-//		
-//		return null;
-//	}
+	public ArrayList<FeedListDTO> searchByTag(String searchbt) {
+//		String tags =feedlistdto.getTag_content();
+		
+		
+		return dao.searchByTag(searchbt);
+	}
 	
 	   
 }

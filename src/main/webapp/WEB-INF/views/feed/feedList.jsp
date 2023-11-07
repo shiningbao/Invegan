@@ -336,6 +336,7 @@
               success: function (data) {
                   // 검색 결과를 처리합니다.
                   console.log(data);
+                  console.log(data.list);
 //                   drawList(data.list);
               },
               error: function (error) {
