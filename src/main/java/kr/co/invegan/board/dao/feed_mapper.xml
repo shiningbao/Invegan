@@ -198,7 +198,8 @@ WHERE
             FROM FeedTags ft
             WHERE ft.post_id = b.post_id
         )
-    ) LIKE '%#일상%'
+    ) LIKE #{searchbt}
+    '%#일상%'
 GROUP BY b.post_id
 ORDER BY
     b.date DESC;

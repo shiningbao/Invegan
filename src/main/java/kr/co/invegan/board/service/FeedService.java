@@ -167,7 +167,7 @@ public class FeedService {
 	}
 	public ArrayList<FeedListDTO> searchByTag(String searchbt) {
 //		String tags =feedlistdto.getTag_content();
-		
+		searchbt = "%" + searchbt + "%";
 		
 		return dao.searchByTag(searchbt);
 	}
