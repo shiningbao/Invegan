@@ -85,7 +85,7 @@ public class DietController {
 		int loginUser_no = loginInfo.getUser_no();
 		
 		FoodDataDTO nutriInfo = dietService.getNutri(loginUser_no, selectDate, dietCate);
-		logger.info("getKcal : "+nutriInfo.getKcal());
+		 logger.info("getKcal : "+nutriInfo.getKcal()); 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("nutriInfo", nutriInfo);
 		return result;

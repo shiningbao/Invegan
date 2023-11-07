@@ -217,10 +217,12 @@ function choiceDate(nowColumn) {
 
 	    if (nowColumn.classList.contains("pastDay")) {
 	        nowColumn.classList.add("choiceDay");
+	       	
 	    }
 	    else {
 	        nowColumn.classList.add("choiceDay");
 	    }
+	    dietMgmt();
 	}       
 
 
