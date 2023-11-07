@@ -7,7 +7,6 @@
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <title>Calander</title>
     <style>
-    
     	table td{
     		border: 1px solid black;
     		border-collapse: collapse;
@@ -58,8 +57,6 @@
             border : 2px solid aquamarine;
         }
     </style>
-
-
 </head>
 <body>
  	<div id="container">
@@ -92,6 +89,9 @@
  	</div>
 </body>
 <script>
+
+	window.onload = function () { buildCalendar(); }  
+
 	
 	var selectDate = "";
 	
@@ -102,7 +102,6 @@
 	}
 	
 	
-    window.onload = function () { buildCalendar(); }   
 
     let nowMonth = new Date();  // 현재 달을 페이지를 로드한 날의 달로 초기화
     let today = new Date();    

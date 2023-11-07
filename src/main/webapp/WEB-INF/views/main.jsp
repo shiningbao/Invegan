@@ -88,15 +88,9 @@
 </head>
 <body>
 
-
-	  
 	<c:import url="/main/header"/>
-	
-		<p><a href = "<c:url value='/member/signup'/>">회원가입</a></p>
-				<p><a href = "<c:url value='/member/login.go'/>">로그인</a></p>
 
-
-	<div class="banner"><p>${loginInfo.getIs_admin()}</p></div>
+	<div class="banner"><p>배너</p></div>
 	<br>
 	
 	<!-- 맞춤 정보 제공 -->
@@ -254,7 +248,7 @@
 		
 	<div class="blank"></div>
 	
-	<c:import url="/main/footer"/>
+<c:import url="/main/footer"/>
 
 </body>
 
