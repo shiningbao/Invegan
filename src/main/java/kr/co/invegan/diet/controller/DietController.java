@@ -70,12 +70,13 @@ public class DietController {
 	}
 	
 	@RequestMapping(value = "diet/addMenu.go")
-	public String addMenuGo(HttpSession session,@RequestParam String sort, @RequestParam String date) {
+	public String addMenuGo(HttpSession session, Model model, @RequestParam String sort, @RequestParam String date) {
 		logger.info("메뉴 추가 페이지 요청 || sort값 = " + sort);
 		// chk = true 이면 메뉴 추가
 		// chk = false 이면 메뉴 수정
 		// 추후 페이지 접근 제한에도 chk 활용
 		session.setAttribute("upsertSort", sort);
+		model.addAttribute("date", date);
 		
 		return "diet/addMenu";
 	}

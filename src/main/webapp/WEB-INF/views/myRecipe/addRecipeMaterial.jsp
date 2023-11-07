@@ -172,6 +172,9 @@
         		$('input[name="gram"]').val('');
         	}
         	
+        	var modal = document.getElementById("mModal");
+        	modal.style.display = "none";
+       	
         	$.ajax({
         		type:'get',
         		url:'mMaterial',
@@ -182,9 +185,9 @@
         		},
         		error:function(e) {
         			console.log(e);
-        		}
+        		} 
         	});
-			location.href='MyRecipeList.go';
+			
         });
 		
 	</script>

@@ -35,6 +35,7 @@
 
 </head>
 <body style="overflow-x:hidden; overflow-y:auto;">
+	<input id="getDate" type="text" type="hidden" value="${date} "/>
 	<div id="top">
 		<input type="button" value="Χ" onclick="winClose()"/>
 	</div>

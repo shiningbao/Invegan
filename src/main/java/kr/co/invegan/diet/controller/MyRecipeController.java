@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.co.invegan.diet.dto.DietDTO;
 import kr.co.invegan.diet.service.MyRecipeService;
 import kr.co.invegan.member.dto.MemberDTO;
 
@@ -33,6 +34,7 @@ public class MyRecipeController {
 		logger.info("나만의 레시피 페이지 이동");
 		String page = "redirect:member/login.go";
 		loginInfo = (MemberDTO) session.getAttribute("loginInfo");
+
 		if (loginInfo != null) {
 			logger.info("User_no : " + loginInfo.getUser_no());
 			page = "myRecipe/MyRecipeList";
@@ -112,14 +114,16 @@ public class MyRecipeController {
 	
 	// 나만의 레시피 이름 입력창
 	@RequestMapping(value="*/rlistUpdate.do", method = RequestMethod.POST)
-	public HashMap<String, Object> rListUpdate(@RequestParam HashMap<String, Object> params) {
+	public HashMap<String, Object> rListUpdate(HttpSession session, @RequestParam HashMap<String, Object> params) {
+		
+		loginInfo = (MemberDTO) session.getAttribute("loginInfo");
+		params.put("user_no", loginInfo.getUser_no());
 		
 		logger.info("params : "+params);
-		
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		service.rListUpdate(params);
 		return result;
-	}
+	}	
 
 	// 나만의 레시피 리스트 출력
 	@RequestMapping(value="*/mrlistCall", method = RequestMethod.POST)
@@ -159,12 +163,11 @@ public class MyRecipeController {
 	// 레시피 재료 제거
 	@RequestMapping(value="*/mdelete.do")
 	@ResponseBody
-	public HashMap<String, Object> mdelete(@RequestParam int food_id, @RequestParam int menu_id) {
-		logger.info("food_id : "+food_id);
-		logger.info("menu_id : "+menu_id);
+	public HashMap<String, Object> mdelete(@RequestParam int material_id) {
+		logger.info("material_id : "+material_id);
 		
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		boolean mdelete = service.mdelete(food_id, menu_id);
+		boolean mdelete = service.mdelete(material_id);
 		
 		result.put("mdelete", mdelete);
 	
@@ -199,6 +202,26 @@ public class MyRecipeController {
 		
 		result.put("rNutri", rNutrido);
 		
+		return result;
+	}
+	
+	// 식단에 나만의 레시피 입력
+	@RequestMapping(value="*/dinsert")
+	public HashMap<String, Object> dinsert(HttpSession session, @RequestParam HashMap<String, Object> params){
+		loginInfo = (MemberDTO) session.getAttribute("loginInfo");
+		params.put("user_no", loginInfo.getUser_no());
+		
+		logger.info("params : "+params);
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		
+		DietDTO dietDTO = new DietDTO();
+		dietDTO.setUser_no(params.get("user_no").toString());
+		dietDTO.setDate((String) params.get("date"));
+		dietDTO.setDiet_category((String) params.get("diet_category"));
+		dietDTO.setMenu_id(Integer.parseInt(params.get("menu_id").toString()));
+		
+		String successMsg = service.addMenuDo(dietDTO);
+
 		return result;
 	}
 }

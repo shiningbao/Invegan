@@ -22,7 +22,7 @@
 	
 	<insert id="rListUpdate" parameterType="map">
 	    INSERT INTO Menu (recipe_name, user_no, category)
-	    VALUES (#{recipe_name}, #{user_no}, #{category})
+	    VALUES (#{recipe_name}, #{user_no}, '나만의레시피')
 	</insert>
 
 	<select id = "mrlist" parameterType="int" resultType="kr.co.invegan.diet.dto.MyRecipeDTO">
@@ -37,13 +37,13 @@
 	</select>
 	
 	<select id = "rMaterial" parameterType="int" resultType="kr.co.invegan.diet.dto.MyRecipeDTO">
-		SELECT m.food_id, fd.food_name, m.grams, ROUND((m.grams / fd.serving_size) * fd.kcal, 0) AS kcal
+		SELECT m.material_id, m.food_id, fd.food_name, m.grams, ROUND((m.grams / fd.serving_size) * fd.kcal, 0) AS kcal
 			FROM Material m JOIN FoodData fd ON m.food_id = fd.food_id 
 		WHERE menu_id = #{menu_id};
 	</select>
 	
-	<delete id = "mdelete" parameterType="map">
-		DELETE FROM Material WHERE food_id = #{param1} AND menu_id = #{param2};
+	<delete id = "mdelete" parameterType="int">
+		DELETE FROM Material WHERE material_id = #{material_id};
 	</delete>
 	
 	<delete id = "rmdelete" parameterType="int">
@@ -83,4 +83,18 @@
 						   			ON m.menu_id = m2.menu_id
 		WHERE m.menu_id = #{menu_id}
 	</select>
+	
+	<insert 
+      useGeneratedKeys="true"
+      keyColumn="diet_id"
+      keyProperty="diet_id"
+      id="dinsert" parameterType="kr.co.invegan.diet.dto.DietDTO">
+      INSERT INTO Diet(user_no, date, diet_category) 
+         VALUES(#{user_no}, #{date}, #{diet_category});
+   </insert>
+
+	<insert id="dcinsert" parameterType="hashmap">
+      INSERT INTO Diet_composition(diet_id,menu_id)
+         VALUES(#{diet_id},#{menu_id});
+   </insert>
 </mapper>
