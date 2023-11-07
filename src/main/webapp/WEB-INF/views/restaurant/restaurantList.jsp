@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -14,20 +14,23 @@
 
 </head>
 <body>
-<%@include file="/WEB-INF/views/main/header.jsp"%>
+<c:import url="/main/header"/>
 <h1>식당 리스트</h1>
 <button type="button" onclick="location.href='write.go'">식당 작성</button>
 <button type="button" onclick="location.href='detail?post_id=145'">식당 상세보기</button>
 
 	<table>
 		<tr>
-			<th>사진</th>
+			<th>포스트 아이디</th>
 			<th>식당명</th>
 		</tr>
-		<tr>
-			<td><div></div></td>
-			<td></td>
+		<c:forEach items="${restaurantList}" var = "restaurant">
+			<tr>
+				<td><a href = "detail?post_id=${restaurant.getPost_id()}">${restaurant.getPost_id()}</a></td>
+			<td><a href = "detail?post_id=${restaurant.getPost_id()}">${restaurant.getTitle()}</a></td>
+			<tr>
 		</tr>
+		</c:forEach>
 	</table>
 <%@include file="/WEB-INF/views/main/footer.jsp"%>
 </body>

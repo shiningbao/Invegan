@@ -4,10 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <title>Calander</title>
-    <style>
+<style>
+    	table td{
+    		border: 1px solid black;
+    		border-collapse: collapse;
+    	}
         td {
             width: 50px;
             height: 50px;
@@ -17,7 +20,6 @@
         	width: 40px;
         	font-size: 30px;
         }
-        
         #day{
         	text-align: center;
         }
@@ -29,7 +31,9 @@
             height: 700px;
         }
 
-        .Calendar>thead>tr:first-child>td { font-weight: bold; }
+        .Calendar>thead>tr:first-child>td { 
+        	font-weight: bold;
+		}
 
         .Calendar>thead>tr:last-child>td {
             background-color: gray;
@@ -49,7 +53,6 @@
             font-size: 20px;
             
         }
-
         .futureDay{            
             background-color: white;
             cursor: pointer;
@@ -99,9 +102,16 @@
 		}
 		}
         
-    </style>
+        .futureDay.choiceDay{            
+           	background-color:transparent;           
+            cursor: pointer;
+            border : 2px solid aquamarine;
+        }
+</style>
 </head>
 <body>
+<div id="container">
+
 <table class="Calendar">
         <thead>
             <tr>
@@ -130,14 +140,20 @@
         </tbody>
     </table>
 
-	
-	<!--도훈이 테스트 영역-->
-    <input id="selectDate" name="selectDate" type="date" value="2023-10-31"/>
-		<input class="dietMgmt"type="button" onclick="dietMgmt()" value="식단관리 페이지"/>
-	 
+ 	</div>
 </body>
+
 <script>
 window.onload = function () { buildCalendar(); }   
+
+var selectDate = "";
+
+// 날짜 클릭시 실행
+
+function dietMgmt() {
+	console.log('go mgmt click')
+	location.href="dietMgmt?date="+selectDate;
+}
 
 let nowMonth = new Date();  // 현재 달을 페이지를 로드한 날의 달로 초기화
 let today = new Date();    
@@ -255,12 +271,6 @@ document.getElementById("calYear").addEventListener("click", function(event) {
     });
 });
 
-
-	//도훈이 테스트 영역
-    function dietMgmt() {
-		console.log('go mgmt click')
-		location.href="dietMgmt?date="+$(selectDate).val();
-	}
 
 
 </script>

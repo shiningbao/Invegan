@@ -19,7 +19,7 @@
 		text-align: right;
 		float: right;
 		position: relative;
-		top:-10px;
+		top:-35px;
 		right: 20px;
 	}
 	#top input{
@@ -35,20 +35,21 @@
 
 </head>
 <body style="overflow-x:hidden; overflow-y:auto;">
-	<div id="top">
-		<input type="button" value="Χ" onclick="winClose()"/>
-	</div>
+	<input id="getDate" type=hidden value="${date} "/>
 	<div id="tapMenu">
 		<ul>
 			<li id="default" onclick="defaultMenu()">기본메뉴</li>
 			<li id="myRecipe" onclick="myRecipeMenu()">나만의 레시피 메뉴</li>
 		</ul>
-		
+	</div>
+	<div id="top">
+		<input type="button" value="Χ" onclick="winClose()"/>
 	</div>
 	<div id="contents">
 	</div>
 </body>
 <script>
+	var selectDate = $('#getDate').val();
 	defaultMenu();
 	
 	function winClose(){

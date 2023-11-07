@@ -17,23 +17,24 @@ public class MyRecipeService {
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
 
-	public ArrayList<HashMap<String, Object>> mlist(String fname) {
+	public ArrayList<HashMap<String, Object>> mlist(String fName) {
 		
-		logger.info("fname :"+fname);
-		return dao.mlist(fname);
+		logger.info("fName :"+fName);
+		return dao.mlist(fName);
 	}
 
-	public ArrayList<HashMap<String, Object>> mMaterial(String mName, int gram) {
-		logger.info("mName : " + mName);
-		logger.info("gram : "+gram);
+	public void  mMaterial(int food_id, int grams, int menu_id) {
+		logger.info("food_id : " + food_id);
+		logger.info("gram : "+grams);
+		logger.info("menu_id : "+menu_id);
 		
-		return dao.mMaterial(mName);
+		dao.mMaterial(food_id, grams, menu_id);
 	}
 
 	public void rListUpdate(HashMap<String, Object> params) {
 		
 		logger.info("params : "+params);
-		int row = dao.rListUpdate(params);
+		dao.rListUpdate(params);
 	}
 
 	public ArrayList<HashMap<String, Object>> mrlist(int user_no) {
@@ -57,6 +58,11 @@ public class MyRecipeService {
 	public boolean rmdelete(int menu_id) {
 		return dao.rmdelete(menu_id);
 	}
+
+	public ArrayList<HashMap<String, Object>> rNutrido(int menu_id) {
+		return dao.rNutrido(menu_id);
+	}
+
 
 
 

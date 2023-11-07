@@ -251,6 +251,7 @@
     </style>
 </head>
 <body>
+<c:import url="/main/header" />
  <h3>마이페이지</h3>
  
  	<c:set var="profileImage" value="${dto.profile_image}" />
@@ -414,7 +415,7 @@
 			<ul class="pagination" id="pagination"></ul>
 		</nav>					
 	</div>
-	
+<c:import url="/main/footer" />	
 </body>
 	
 <script>
