@@ -1,6 +1,10 @@
 package kr.co.invegan.member.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletResponse;
@@ -10,9 +14,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,10 +39,7 @@ public class MemberController {
 	@RequestMapping(value="/member/login.go")
 	public String loginPage() {
 		return "member/login";
-	}
-	
-
-	
+	}	
 	
 	//로그인
 	@RequestMapping(value="/member/login", method = RequestMethod.POST)
@@ -67,61 +72,53 @@ public class MemberController {
 
 		return "member/findId";
 	}
+
 	
-	@RequestMapping(value = {"/member/findId"}, method = RequestMethod.POST)
+	
+	@RequestMapping(value = {"/member/findId2"}, method = RequestMethod.POST)
 	public String findId(HttpServletResponse response, 
-			@RequestParam String nickname, @RequestParam String email, 
+			@RequestParam String email, 
 			Model model) throws Exception {
 		logger.info("email : "+email);
 		model.addAttribute("fid", service.findId(response, email));
-		return "/member/findInfo";
+		return "member/findId";
 	}
 	
-	/*
-	@RequestMapping(value = { "/member/home2" }, method = RequestMethod.GET)
-	public String home2() {
-
-		return "member/home2";
-	}
-	*/
-	
-	
-	//임시
-	/*
-	@RequestMapping(value = "/member/join")
-	@ResponseBody
-	public Map<String, Object> join(@RequestParam String email,@RequestParam String add) {
-		
-		logger.info("join 입장  ");
-		logger.info("email : "+email);
-		logger.info("add : "+add);
-		
-		String trueemail = email+"@"+add;
-		logger.info("trueemail : "+trueemail);
-		
-		
-		 return null;
-	}
-	*/
 	
 	//회원가입
-	
 	@RequestMapping(value = { "/member/signup" }, method = RequestMethod.GET)
 	public String signupPage() {
 
 		return "member/signup";
 	}
 
+		
 	@RequestMapping(value = "/member/signup2", method = RequestMethod.POST)
-	public String signup(Model model, @RequestParam HashMap<String, String> params) {
-		logger.info("params : "+params);
+	public String signup(Model model, @RequestParam HashMap<String, String> params, @RequestParam String[] interests) {
 		
+		// "interests" 배열을 쉼표로 구분된 하나의 문자열로 결합
+	    String combinedInterests = String.join(",", interests);
+	    logger.info("Combined interests: " + combinedInterests);
+	    //HashMap에서 값을 집어 넣을 때 put 사용
+	    //combinedInterests 값을 interests라는 이름으로 집어넣음
+	    params.put("inetersts", combinedInterests);
+	    logger.info("params : "+params);
 		String msg = service.signup(params);
-		
 		model.addAttribute("msg", msg);
 		
 		return "main";
 	}
+		
+	/*
+	@GetMapping("/signup")
+	public String signup(@RequestParam List<String> interests){
+	    for (String interest : interests) {
+	        service.signup(interest);
+	    }
+	    return "main";
+	}
+	*/
+
 	
 	
 	//이거 수정해야됨!!!!!!!!!!!!!!!!!
@@ -133,6 +130,9 @@ public class MemberController {
 	@ResponseBody
 	public String mailCheck(@RequestParam("sm_email") String sm_email) throws Exception{
 	    int serti = (int)((Math.random()* (99999 - 10000 + 1)) + 10000);
+	    
+	    //JavaMailSenderImpl mailSender = null;
+	    mailSender = null;
 	    
 	    String from = "rlaalswll25@naver.com";//보내는 이 메일주소
 	    String to = sm_email;

@@ -5,7 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>MyPage</title>
-<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<!-- bootstrap : 디자인을 위한 프레임워크 -->
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<!-- jquery 는 사용하는 플러그인과 다른 라이브러리와의 충돌 여부를 확인해야 한다. -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="<c:url value='/resources/js/jquery.twbsPagination.js'/>" type="text/javascript"></script>
 <style>
 
 		.container {
@@ -56,7 +61,7 @@
         
         .changeInfo{
 	         position: absolute;
-			 top: 294px; 
+			 top: 324px; 
 			 left: 1032px;
 			 cursor: pointer;
 			 font-size: 18px;
@@ -230,15 +235,26 @@
 		 .save{
 		 	width: 80px;
 		 }
+		 
+		 .pagination{
+		 	display: none;
+   			padding-left: 0;
+		    margin: 20px 0;
+		    border-radius: 4px;
+		    width: 279px;
+		    position: absolute;
+		    top:700px;
+		    left: 549px;
+		 }
 		
 		
     </style>
 </head>
 <body>
+<c:import url="/main/header" />
  <h3>마이페이지</h3>
-
- 	<c:forEach items="${info}" var="user">
- 	<c:set var="profileImage" value="${user.profile_image}" />
+ 
+ 	<c:set var="profileImage" value="${dto.profile_image}" />
 	<div class="profileContainer">
 	
   	<div class="profileImage">
@@ -246,14 +262,15 @@
     </div>
     
    	<div class="userInfo">
-        <label>가입 날짜 :</label> ${user.join_date}<br>
-        <label>아이디 : </label> ${user.id}<br>
-        <label>생년월일 : </label> ${user.birthdate}<br>
-        <label>성별 : </label> ${user.gender}<br>
+        <label>가입 날짜 :</label> ${dto.join_date}<br>
+        <label>아이디 : </label> ${dto.id}<br>
+        <label>생년월일 : </label> ${dto.birthdate}<br>
+        <label>성별 : </label> ${dto.gender}<br>
     </div>
+    
     <div class="is_admin">
 	    <c:choose>
-	        <c:when test="${user.is_admin eq true}">
+	        <c:when test="${dto.is_admin==1}">
 	            관리자
 	        </c:when>
 	        <c:otherwise>
@@ -263,11 +280,12 @@
     </div>
    
    	<div class="additionalInfo">
-        <label>닉네임 : </label> ${user.nickname}<br>
-        <label>비건타입 : </label> ${user.vegan_type}<br>
-        <label>비건목적 </label><br>${user.vegan_purpose}
-		<input type="hidden" name="id" value="${user.id}"/>
-		<input type="hidden" name="user_no" value="${user.user_no}"/>
+        <label>닉네임 : </label> ${dto.nickname}<br>
+        <label>비건타입 : </label> ${dto.vegan_type}<br>
+        <label>비건목적 </label><br>${dto.vegan_purpose}<br>
+        <label>관심사</label><br>${dto.interests}
+		<input type="hidden" name="id" value="${dto.id}"/>
+		<input type="hidden" name="user_no" value="${dto.user_no}"/>
 
     </div>
 	</div>
@@ -347,11 +365,11 @@
         <span class="close">&times;</span>
     </div>
 	</div>
-	</c:forEach>	  
+	
+	 
 	
 	
-	
-	<div class="container">
+<div class="container">
 	<ul class="tabs">
 		<li class="tab-link current" data-tab="tab-1">작성한 글 모아보기</li>
 		<li class="tab-link" data-tab="tab-2">댓글 모아보기</li>
@@ -376,10 +394,8 @@
 			<input type="button" value="자유게시판"/>
 			<input type="button" value="피드"/>
 		</div>
-		
-		
 	</div>
-	
+		
 	<div id="tab-3" class="tab-content">
 		<h3>내가 스크랩한 글 보기</h3>
 		<div class="button">
@@ -388,25 +404,27 @@
 		</div>
 	</div>
 	
-	
-	
+	<!-- list 그리는 부분 -->
 	<div id="ListContainer">
-	    <table>
-	            <tr>
-	                <td>
-		           	
-	                </td>
-	            </tr>
-	    </table>
+	</div>
 	
+</div> <!-- container영역  -->
+	
+	<div class="pageContainer">									
+		<nav aria-label="Page navigation" style="text-align:center">
+			<ul class="pagination" id="pagination"></ul>
+		</nav>					
 	</div>
-	</div>
-</body>	
+<c:import url="/main/footer" />	
+</body>
+	
 <script>
 var showPage = 1;
+
+
 var modal = document.getElementById("updateModal");
 
-// 클릭시 모달창 열림
+// 회원정보변경 클릭시 모달창 열림
 $('.changeInfo').on('click',function(){
 	modal.style.display = "block";
 });
@@ -423,7 +441,7 @@ window.onclick = function(event) {
     }
 }
 
-$('.profileImgUpdate').on('click', function(){
+/* $('.profileImgUpdate').on('click', function(){
     $('#photos').click();
 });
 
@@ -448,8 +466,9 @@ $('#photos').on('change', function() {
             console.log(error);
         }
     });
-});
+}); */
 
+// 닉네임 중복체크 
 $('#overlay').on('click',function(){
 	var nickname = $('input[name="nickname"]').val();
 	console.log('nickname='+nickname);
@@ -474,7 +493,7 @@ $('#overlay').on('click',function(){
 		}
 	});
 });
-
+// 닉네임 변경 
 $('.updateNickname').on('click',function(){
 	var nickname = $('input[name="nickname"]').val();
 	var user_no = $('input[name="user_no"]').val();
@@ -497,7 +516,7 @@ $('.updateNickname').on('click',function(){
 		},
 	});
 });
-
+// 패스워드 확인
 $('#pwConfirm').on('click',function(){
 	var pw = $('input[name="password"]').val();
 	var user_no = $('input[name="user_no"]').val();
@@ -524,7 +543,7 @@ $('#pwConfirm').on('click',function(){
 		},
 	});
 });
-
+// 패스워드 변경 
 $('.completePw').on('click',function(){
 	var pw = $('input[name="password"]').val();
 	var user_no = $('input[name="user_no"]').val();
@@ -555,7 +574,7 @@ $('.completePw').on('click',function(){
 		},
 	});
 });
-
+// 회원 정보 변경 저장하기 
 $('.save').on('click',function(){
 	modal.style.display = "none";
 	var user_no = $('input[name="user_no"]').val();
@@ -593,6 +612,7 @@ $('.save').on('click',function(){
 	});
 });
 
+// tab 클릭 부분 
 $(document).ready(function(){
 	
 	$('ul.tabs li').click(function(){
@@ -609,77 +629,47 @@ $(document).ready(function(){
 
 });
 
-	
+
+
+
+	let boardType;
+	// 게시판 버튼 클릭
 	$('.button input[type="button"]').on('click', function() {
-		var boardType = $(this).val();
-		var tabType = $('.tabs li.current').text();
-		var user_no = $('input[name="user_no"]').val();
-		console.log(boardType);
-		console.log(tabType);
-		console.log(user_no);
+	    boardType = $(this).val();
+	    const tabType = $('.tabs li.current').text();
+	    const user_no = $('input[name="user_no"]').val();
+	    let page = 1; // 페이지 초기값 설정
+	    console.log(boardType+tabType+user_no);
 
-		
-    $.ajax({
-        type: 'GET',
-        url: 'listCall',
-        data:{
-        	'boardType':boardType,
-        	'tabType':tabType,
-        	'user_no':user_no
-
-        },
-        dataType: 'JSON',
-        success: function(data) {
-          console.log(data);
-          drawList(data.list);
-          $('#ListContainer').show();
-        },
-        error: function(error) {
-            console.log(error);
-        }
-    });
+    	listCall(boardType,tabType,user_no,page);
 });
 
-	function drawList(list) {
-	    console.log(list);
-	    var content = '';
-	    
-	    var activeButton = $('.button input[type="button"]:focus').val();
-	    
-	    list.forEach(function(item, idx) {
-	    	
-	    	content += '<tr>';
-	        switch (activeButton) {
-	            case '요청':
-	                content += '<td>' + item.req_title + '</td>';
-	                break;
-	            case '레시피':
-	            case '자유게시판':
-	                content += '<td>' + item.title + '</td>';
-	                break;
-	            case '피드':
-	                content += '<td><img src="/photo/' + item.server_file_name + '" alt="image"></td>';
-	                content += '<td>' + item.content + '</td>';
-	                content += '<td class="profile"><img src="/photo/' + item.profile_image + '" alt="image">' + item.nickname + '</td>';
-	                break;
-	            case '식당':
-	                content += '<td><img src="/photo/' + item.server_file_name + '" alt="image"></td>';
-	                content += '<td>' + item.title + '</td>';
-	                content += '<td>' + item.vegan_type + '</td>';
-	                content += '<td>' + item.rating + '</td>';
-	                break;
-	                
-	            default:
-	                break;
-	        }
-	        content += '<td>' + '조회수 ' + item.views + '</td>';
-	        content += '</tr>';
-	    });
+	// 리스트 
+	function listCall(boardType,tabType,user_no,page){
 
-	    $('#ListContainer').html(content);
-	   
-	        	}
+	$.ajax({
+	    type: 'GET',
+	    url: 'listCall',
+	    data:{
+	    	'boardType':boardType,
+	    	'tabType':tabType,
+	    	'user_no':user_no,
+	    	'page':page
+	    },
+	    dataType: 'JSON',
+	    success: function(data) {
+	      console.log(data);
+	      drawList(data);
+	      $('#ListContainer').show(); // 리스트 보여주기
+	      $('.pagination').show(); 
+	    },
+	    error: function(error) {
+	        console.log(error);
+	    }
+	});
+	}
 
+	// 회원탈퇴
 	function confirmDelete(user_no) {
 	    var result = confirm('정말 탈퇴하시겠습니까? "확인"을 선택하시면 탈퇴가 완료 됩니다.');
 
@@ -691,7 +681,83 @@ $(document).ready(function(){
 	        // 사용자가 '취소'를 눌렀을 때의 처리
 	        alert('탈퇴가 취소 되었습니다.');
 	    }
-	}
+}
+	        
+	function drawList(list) {
+	    console.log(list);
+	    var content = '';
+	    
+	    var activeButton = $('.button input[type="button"]:focus').val();
+	    
+	     /*  if (!Array.isArray(list)) {
+	        list = Object.values(list); // 객체의 값들을 배열로 변환
+	    }   */
+	    
+	    list.forEach(function(item, idx) {
+	    	
+	    	content += '<tr>';
+	        switch (activeButton) {
+	            case '요청':
+	                content += '<td>' + item.req_title + '</td>';
+	                console.log(item.req_title);
+	                break;
+	           /*  case '레시피':
+	            case '자유게시판': 
+	                content += '<td>' + item.title + '</td>';
+	                break; */
+	            /* case '피드':
+	                content += '<td><img src="/photo/' + item.server_file_name + '" alt="image"></td>';
+	                content += '<td>' + item.content + '</td>';
+	                content += '<td class="profile"><img src="/photo/' + item.profile_image + '" alt="image">' + item.nickname + '</td>';
+	                break;
+	            case '식당':
+	                content += '<td><img src="/photo/' + item.server_file_name + '" alt="image"></td>';
+	                content += '<td>' + item.title + '</td>';
+	                content += '<td>' + item.vegan_type + '</td>';
+	                content += '<td>' + item.rating + '</td>';
+	                break; */
+	                
+	            default:
+	                break;
+	        }
+	        content += '<td>' + '조회수 ' + item.views + '</td>';
+	        content += '</tr>';
+	    });
+	    $('#ListContainer').empty(); // empty() 내가 선택한 요소의 자식요소들을 비운다.
+	    $('#ListContainer').append(content);
+	   
+	    $('#pagination').twbsPagination({
+			startPage: showPage, // 보여줄 페이지
+			totalPages:list.pages>0?list.pages:1, // 총 페이지 수 (총갯수/페이지당 보여줄 게시물 수 ) : 서버에서 계산해서 가져와야함
+			visiblePages:5, // [1][2][3][4][5] 
+			onPageClick:function(e,page){ // 번호 클릭시 실행할 내용
+				// console.log(e);
+				if(showPage != page){
+				console.log(page);
+				showPage = page;
+				listCall(page);
+				}
+			}
+		});
+	    
+	    
+/* 	    $('#ListContainer').html(content);
+ */	    
+	 // 페이징 처리 UI 그리기(플러그인 사용)
+		/* $('#pagination').twbsPagination({
+			startPage: showPage, // 보여줄 페이지
+			totalPages:list.pages>0?list.pages:1, // 총 페이지 수 (총갯수/페이지당 보여줄 게시물 수 ) : 서버에서 계산해서 가져와야함
+			visiblePages:5, // [1][2][3][4][5] 
+			onPageClick:function(e,page){ // 번호 클릭시 실행할 내용
+				// console.log(e);
+				if(showPage != page){
+				console.log(page);
+				showPage = page;
+				pageList(page);
+				}
+			}
+		}); */
+	        	}
 	
  
 </script>

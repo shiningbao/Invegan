@@ -16,6 +16,13 @@
 	</select>
 	
 	<select id="findId" parameterType="String" resultType="String">
+		SELECT * FROM Members WHERE email=#{email} 
+	</select>
+	
+	
+	
+	
+	<select id="findId2" parameterType="String" resultType="String">
 		SELECT * FROM Members WHERE email=#{email}
 	</select>
 	
