@@ -51,12 +51,13 @@ public class MemberService {
 
     public String signup(HashMap<String, String> params) {
         String msg = "회원 가입이 실패하였습니다";
-
+        logger.info("service 접근");
         int row = dao.signup(params);
         if (row > 0) {
             msg = "회원 가입이 성공하였습니다";
         }
-
+        logger.info("row : "+row);
+        
         return msg;
     }
 

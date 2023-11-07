@@ -101,7 +101,7 @@ public class MemberController {
 	    logger.info("Combined interests: " + combinedInterests);
 	    //HashMap에서 값을 집어 넣을 때 put 사용
 	    //combinedInterests 값을 interests라는 이름으로 집어넣음
-	    params.put("inetersts", combinedInterests);
+	    params.put("interests", combinedInterests);
 	    logger.info("params : "+params);
 		String msg = service.signup(params);
 		model.addAttribute("msg", msg);
