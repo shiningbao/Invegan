@@ -12,7 +12,9 @@
 	</insert>
 	
 	<select id="login" parameterType="map" resultType="kr.co.invegan.member.dto.MemberDTO">
-		SELECT  user_no, id, nickname, is_admin FROM Members WHERE id=#{id} AND pw=#{pw}
+		SELECT m.user_no, m.id , m.nickname, m.is_admin, img.profile_img from Members m 
+			LEFT JOIN (SELECT it.idx, it.server_file_name AS profile_img FROM ImageTable it WHERE category = '회원') AS img 
+			ON m.user_no = img.idx WHERE id=#{id} AND pw=#{pw}
 	</select>
 	
 	<select id="findId" parameterType="String" resultType="String">

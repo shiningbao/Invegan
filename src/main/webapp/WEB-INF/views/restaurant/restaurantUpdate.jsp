@@ -1,8 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -36,13 +33,16 @@
 		resize: none;
 		display: inline-block;
 	}
-	#restaurantImg{
+	.restaurantImg{
 		width: 780px;
 		white-space: nowrap;
 		overflow-x: scroll;
 		background-color: grey;
 	}
-	#preview{
+	.restaurantImg > *{
+		display: inline-block;
+	}
+	.preview{
 		font-size: 2vw;
 		text-align: center;
 		align-items: center;
@@ -52,7 +52,6 @@
 		width: 300px;
 		border: 1px solid black;
 		margin: 1px;
-		display: inline-block;
 	}
 	.previewImg{
 		width: 300px;
@@ -102,7 +101,12 @@
 		<th class="restaurantWriteHead">영업시간</th>
 		<td class="restaurantWriteCon"><input class="restaurnatInput" type="text" name="hours" value="${restaurant.getHours()}"/></td>
 	</tr>
-	
+	<tr>
+		<th class="restaurantWriteHead">등록된 사진</th>
+		<td class="restaurantWriteCon">
+			<div class="restaurantImg" id="restaurantImg_saved"><p class="preview">등록된 사진이 없습니다.</p></div>
+		</td>
+	</tr>
 	<tr>
 		<th class="restaurantWriteHead">사진 등록</th>
 		<td class="restaurantWriteCon"><input type="file" name="images" id="restarunatWriteImg" multiple="multiple"/></td>
@@ -110,7 +114,7 @@
 	<tr>
 		<th class="restaurantWriteHead"></th>
 		<td  class="restaurantWriteCon">
-			<div id="restaurantImg"><p id="preview">등록된 사진이 없습니다.</p></div>
+			<div class="restaurantImg" id="restaurantImg_upload"><p class="preview">등록된 사진이 없습니다.</p></div>
 		</td>
 	</tr>	
 	<tr>
@@ -119,40 +123,10 @@
 	</tr>
 	<tr>
 		<th></th>
-		<td class="restaurantWriteCon" id="menu">
-			<div class="menuDiv">
-				<table class="menuTable">
-					<tr>
-						<th>메뉴명</th>
-						<td><input class="restaurnatInput" type="text" name="menu_name"/></td>
-						<th rowspan="3"><button onclick="menuDel(this)">삭제</button></th>
-					</tr>
-					<tr>
-						<th>가격</th>
-						<td><input class="restaurnatInput" type="text" name="price"/></td>		
-					</tr>	
-					<tr>
-						<th>비건단계</th>
-						<td>
-							<select name="vegan_type">
-								<option value="1">플루테리언</option>
-								<option value="2">비건</option>
-								<option value="3">락토</option>
-								<option value="4">오보</option>
-								<option value="5">락토오보</option>
-								<option value="6">폴로</option>
-								<option value="7">페스코</option>
-								<option value="8">폴로페스코</option>
-								<option value="9">플렉시테리언</option>
-							</select>
-						</td>
-					</tr>
-				</table>
-			</div>
-		</td>
+		<td class="restaurantWriteCon" id="menu"></td>
 	</tr>
 	<tr>
-	<th colspan="2"><button type="button" id="write">작성</button></th>
+	<th colspan="2"><button type="button" id="write">수정</button>  <button type="button" id="cancle">취소</button></th>
 	</tr>
 </table>
 <c:import url="/main/footer"/>
@@ -160,140 +134,175 @@
 
 <script>
 
-var imgArr= [];
+//저장된 사진 불러오기
+	var imgDelList = [];
+	var $restaurantImg_saved = document.getElementById('restaurantImg_saved');
 
-var $restaurantImg = document.getElementById('restaurantImg');
-
-var photoArr = [];
-<c:forEach items="${photo}" var ='item'>
-	photoArr.push("${item}");
-</c:forEach>
-console.log(photoArr);
-
-updateImage(photoArr);
-
-$('#restarunatWriteImg').on('change',function(){
-	//console.log("img change 감지");
-	var uploadImages = $('#restarunatWriteImg')[0].files;
-	upload(uploadImages);
-});
-
-function upload(uploadImages){
-	//console.log('upload 펑션 시작');
-	//console.log(uploadImages);
-	$restaurantImg.innerHTML = '';
-	imgArr= [];
-	var imageType = 'image';
-	for(var i = 0; i < uploadImages.length; i++){
-		var imgFile = uploadImages[i];
-		imgArr.push(imgFile);
-
-		if(imgFile.type.includes('image')){
-			
-			var delButton = document.createElement('button');
-			delButton.type= 'button';
-			delButton.id = 'delButton_'+i;
-			delButton.onclick = function(){delImg(this);};
-			delButton.textContent = '삭제';
-			$restaurantImg.appendChild(delButton);
-			
-			var divTag = document.createElement('div');
-			divTag.id = 'img_id_'+i;
-			divTag.className = 'divImg';
-			$restaurantImg.appendChild(divTag);
-
-			var img = new Image();
-			img.className = 'previewImg';
-			img.src = window.URL.createObjectURL(imgFile);
-			divTag.appendChild(img);	
-			
-			var nameTag = document.createElement('p');
-			nameTag.className = 'nameImg';
-			nameTag.textContent = imgFile.name;
-			divTag.appendChild(nameTag);
+	var photoArr = []; //서버에서 받아온 사진 배열로 다시 담는 과정
+	<c:forEach items="${photo}" var ='item'>
+		photoArr.push("${item}");
+	</c:forEach>
+	console.log(photoArr);
 	
+	photoView(photoArr);
+	
+	function photoView(photoArr){
+		if(photoArr.length >= 1){
+			$restaurantImg_saved.innerHTML = '';
+			for(var i = 0; i < photoArr.length; i++){
+				var divTag = document.createElement('div');
+				divTag.className = 'divImg';
+				divTag.id = photoArr[i];
+				$restaurantImg_saved.appendChild(divTag);
+				
+				var delButton = document.createElement('button');
+				delButton.type= 'button';
+				delButton.onclick = function(){savedDelImg(this);};
+				delButton.textContent = '삭제';
+				divTag.appendChild(delButton);
+				
+				var img = new Image();
+				img.className = 'previewImg';
+				img.src = '/photo/'+photoArr[i];
+				divTag.appendChild(img);
+			}
 		}else{
-			alert('이미지 파일 아님');
-			$('#restarunatWriteImg')[0].files = new DataTransfer().files;
-			$restaurantImg.innerHTML='<p id="preview">등록된 사진이 없습니다.</p>';
-			break;
+			$restaurantImg_saved.innerHTML = '<p class="preview">등록된 사진이 없습니다.</p>';
 		}
 	}
-	//console.log('upload 펑션 종료');
-	//console.log(imgArr);
-	}
-
-function delImg(e){
-	var idx = e.id[e.id.length -1];
-	imgArr.splice(idx,1);
-	//console.log('해당 이미지 삭제');
-	//console.log(imgArr);
-	var dataTranster = new DataTransfer();
-	for(var i = 0; i < imgArr.length; i++){
-		dataTranster.items.add(imgArr[i]);
-	}
-	$('#restarunatWriteImg')[0].files = dataTranster.files;
-	//console.log($('#restarunatWriteImg')[0].files);
-	upload($('#restarunatWriteImg')[0].files);
-}
-
-function updateImage(photoArr){
-	var dataTranster = new DataTransfer();
-	var reader = new Reader();
-	reader.
 	
-	dataTranster.
-}
-
-
-
-
-
-
-
-
-
-// 메뉴 추가 작성 항목
-$('#menuAdd').on('click',function(){
-	var menuContent = '<div class="menuDiv"><table class="menuTable"><tr><th>메뉴명</th><td><input class="restaurnatInput" type="text" name="menu_name"/>';
-		menuContent += '</td><th rowspan="3"><button onclick="menuDel(this)">삭제</button></th></tr><tr><th>가격</th><td>';
-		menuContent += '<input class="restaurnatInput" type="text" name="price"/></td></tr><tr><th>비건단계</th><td>';
+	function savedDelImg(e){
+		var delId = $(e).parent().attr('id');
+		imgDelList.push(delId);
+		for (var i = 0; i < photoArr.length; i++){
+			if(photoArr[i] == delId){
+				photoArr.splice(i, 1);
+			}
+		}
+		/*
+		console.log('imgDelList');
+		console.log(imgDelList);
+		console.log('photoArr');
+		console.log(photoArr);
+		console.log('-------------');
+		*/
+		photoView(photoArr);
+	}
+	
+	
+// 저장된 메뉴 불러오기
+	<c:forEach items="${menu}" var ='item'>
+		var menuContent = '<div class="menuDiv"><table class="menuTable"><tr><th>메뉴명</th><td>';
+		menuContent += '<input class="restaurnatInput" type="text" name="menu_name" value="${item.getMenu_name()}"/></td>';
+		menuContent += '<th rowspan="3"><button onclick="menuDel(this)">삭제</button></th></tr><tr><th>가격</th><td>';
+		menuContent += '<input class="restaurnatInput" type="text" name="price" value="${item.getPrice()}"/></td></tr><tr><th>비건단계</th><td>';
 		menuContent += '<select name="vegan_type"><option value="1">플루테리언</option><option value="2">비건</option>';
 		menuContent += '<option value="3">락토</option><option value="4">오보</option><option value="5">락토오보</option>';
 		menuContent += '<option value="6">폴로</option><option value="7">페스코</option><option value="8">폴로페스코</option>';
-		menuContent += '<option value="9">플렉시테리언</option></select></td></tr></table></div';
-	$('#menu').append(menuContent);
-});
+		menuContent += '<option value="9">플렉시테리언</option></select></td></tr></table></div>';
+		$('#menu').append(menuContent);
+		// console.log($('#menu').children().last().find($('select')));
+		$('#menu').children().last().find($('select')).val('${item.getVegan_type()}').prop("selected", true);
+	</c:forEach>
 
-// 메뉴 삭제
-function menuDel(e){
-	$(e).parent().remove();
-};
+// 사진 업로드 관련
+	var imgArr= [];
+	var $restaurantImg_upload = document.getElementById('restaurantImg_upload');
+	
+	$('#restarunatWriteImg').on('change',function(){
+		//console.log("img change 감지");
+		var uploadImages = $('#restarunatWriteImg')[0].files;
+		upload(uploadImages);
+	});
+	
+	function upload(uploadImages){
+		//console.log('upload 펑션 시작');
+		//console.log(uploadImages);
+		$restaurantImg_upload.innerHTML = '';
+		imgArr= [];
+		var imageType = 'image';
+		for(var i = 0; i < uploadImages.length; i++){
+			var imgFile = uploadImages[i];
+			imgArr.push(imgFile);
+	
+			if(imgFile.type.includes('image')){
+				
+				var divTag = document.createElement('div');
+				divTag.id = 'img_id_'+i;
+				divTag.className = 'divImg';
+				$restaurantImg_upload.appendChild(divTag);
+				
+				var delButton = document.createElement('button');
+				delButton.type= 'button';
+				delButton.id = 'delButton_'+i;
+				delButton.onclick = function(){delImg(this);};
+				delButton.textContent = '삭제';
+				divTag.appendChild(delButton);
+				
+				var img = new Image();
+				img.className = 'previewImg';
+				img.src = window.URL.createObjectURL(imgFile);
+				divTag.appendChild(img);	
+				
+				var nameTag = document.createElement('p');
+				nameTag.className = 'nameImg';
+				nameTag.textContent = imgFile.name;
+				divTag.appendChild(nameTag);
+		
+			}else{
+				alert('이미지 파일 아님');
+				$('#restarunatWriteImg')[0].files = new DataTransfer().files;
+				$restaurantImg.innerHTML='<p id="preview">등록된 사진이 없습니다.</p>';
+				break;
+			}
+		}
+		//console.log('upload 펑션 종료');
+		//console.log(imgArr);
+		}
+		
+	//업로드 사진 삭제
+	function delImg(e){
+		var idx = e.id[e.id.length -1];
+		imgArr.splice(idx,1);
+		//console.log('해당 이미지 삭제');
+		//console.log(imgArr);
+		var dataTranster = new DataTransfer();
+		for(var i = 0; i < imgArr.length; i++){
+			dataTranster.items.add(imgArr[i]);
+		}
+		$('#restarunatWriteImg')[0].files = dataTranster.files;
+		//console.log($('#restarunatWriteImg')[0].files);
+		upload($('#restarunatWriteImg')[0].files);
+	}
 
 
+// 메뉴 추가 삭제 
+	$('#menuAdd').on('click',function(){
+		var menuContent = '<div class="menuDiv"><table class="menuTable"><tr><th>메뉴명</th><td><input class="restaurnatInput" type="text" name="menu_name"/>';
+			menuContent += '</td><th rowspan="3"><button onclick="menuDel(this)">삭제</button></th></tr><tr><th>가격</th><td>';
+			menuContent += '<input class="restaurnatInput" type="text" name="price"/></td></tr><tr><th>비건단계</th><td>';
+			menuContent += '<select name="vegan_type"><option value="1">플루테리언</option><option value="2">비건</option>';
+			menuContent += '<option value="3">락토</option><option value="4">오보</option><option value="5">락토오보</option>';
+			menuContent += '<option value="6">폴로</option><option value="7">페스코</option><option value="8">폴로페스코</option>';
+			menuContent += '<option value="9">플렉시테리언</option></select></td></tr></table></div>';
+		$('#menu').append(menuContent);
+	});
 
-
-
-
-
+	function menuDel(e){
+		$(e).closest('div').remove();
+	};
 
 
 // 주소 검색
-$('#daumPostcode').on('click',function(){
-    new daum.Postcode({
-        oncomplete: function(data) {
-        	$('input[name="address"]').val(data.address);
-        }
-    }).open();	
-});
+	$('#daumPostcode').on('click',function(){
+	    new daum.Postcode({
+	        oncomplete: function(data) {
+	        	$('input[name="address"]').val(data.address);
+	        }
+	    }).open();	
+	});
 
-
-
-
-
-
-
-
+// 데이터 전송
 $('#write').on('click',function(e){
 	
 	var $title = $('input[name="title"]');
@@ -377,17 +386,18 @@ $('#write').on('click',function(e){
 			console.log(uploadImages[i]);
 			formData.append('uploadImages', uploadImages[i]);
 		}
-		//formData.append('uploadImages', uploadImages);
+
+		formData.append('post_id', '${restaurant.getPost_id()}');
 		formData.append('title', $title.val());
 		formData.append('address', $address.val());
 		formData.append('content', $content.val());
 		formData.append('phone', $phone.val());
 		formData.append('hours', $hours.val());
 		formData.append('menu', menu);
-		
+		formData.append('imgDelList', imgDelList);
 		$.ajax({
 			type:'post',
-			url:'write.do',
+			url:'update.do',
 			data:formData,
 			contentType:false,
 			processData:false,
@@ -395,7 +405,7 @@ $('#write').on('click',function(e){
 			success:function(data){
 				console.log(data);
 				alert(data.결과);
-				location.href = 'list';
+				location.href = 'detail?post_id=${restaurant.getPost_id()}';
 			},
 			error:function(e){
 				console.log(e);
@@ -403,6 +413,11 @@ $('#write').on('click',function(e){
 		});	
 	}
 });
+
+$('#cancle').on('click', function(){
+	location.href = 'detail?post_id=${restaurant.getPost_id()}';
+});
+
 
 </script>
 

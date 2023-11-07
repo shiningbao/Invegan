@@ -15,10 +15,4 @@ public class MainService {
 	
 	@Autowired MainDAO dao;
 
-	public MemberDTO merberInfo(String user_no) {
-		MemberDTO meberInfo = dao.memberInfo(user_no);
-		logger.info("meberInfo : "+meberInfo);
-		return meberInfo;
-	}
-
 }

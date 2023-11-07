@@ -13,22 +13,59 @@
 		height: 600px;	
 		margin: 0 auto;
 	}
-	.restaurantMenuList{
-		background-color: orange;
-		width: 1000px;
-		height: 600px;
-		margin: 0 auto;
+	.restaurantImg_main{
+	
 	}
-	.restaurantImg{
-		background-color: yellow;
-		width: 1000px;
-		height: 600px;
-		margin: 0 auto;
-	}
-	.imgDetail{
+	#img_main{
 		width: 330px;
 		height: 330px;		
 	}
+	.restaurantContent{
+	}
+	
+	.restaurantMenuList{
+		background-color: orange;
+		width: 1000px;
+		margin: 0 auto;
+	}
+	.menuTable {
+		width: 1000px;
+		border: 1px solid black;
+		border-collapse: collapse;
+		font-size: 20px;
+		text-align: center;
+	}
+	.menuTable tr th, .menuTable tr td{
+		border: 1px solid black;
+		border-collapse: collapse;
+	}
+	
+	
+	.restaurantImg{
+		background-color: yellow;
+		width: 1100px;
+		height: 600px;
+		margin: 0 auto;
+		display: inline-block;
+	}
+	.imgButton{
+		display: inline-block;
+	}
+	#imgList{
+		width: 980px;
+		display: inline-block;
+	}
+	.divImg{
+		width: 320px;
+		margin: 3px;
+		display: inline-block;
+	}
+	.imgDetail{
+		width: 320px;
+		height: 320px;
+	}
+	
+	
 	.restaurantMap{
 		background-color: green;
 		width: 1000px;
@@ -40,34 +77,7 @@
 		height: 600px;
 	}
  
-	#confirmDiv{
-		background-color: grey;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-    	width: 100%;
-    	height: 100%;
-    	display: none;
-		top: 0;
-		left: 0;
-
-	}
-	#updateConfirm, #hiddenConfirm{
-		position: fixed;
-	    align-items: center;
-    	justify-content: center;
-    	border: 1px solid black;
-    	background-color: green;
-    	width: 200px;
-    	height: 200px;
-    	display: none;
-    	top: 50%;
-    	left: 50%;
-	}
-
-	.map{
-
-	}
+ 
 
 </style>
 </head>
@@ -79,7 +89,7 @@ ${menuDetail}
 ${photoList}
 
 	<div class="restaurantTop">
-		<div class="restaurantMainImg"><img class="imgDetail" src = "/photo/${photoList[0]}" alt="restaurantImg"/></div>
+		<div class="restaurantImg_main"><img id="img_main" src = "/photo/${photoList[0]}" alt="restaurantImg"/></div>
 		<div class="restaurantContent">
 			비건 단계
 			${restaurantDetail.getTitle()} 즐겨찾기
@@ -89,7 +99,7 @@ ${photoList}
 				<button id="hidden">숨김</button>
 				<button id="report">신고</button>
 			</div>
-			<table>
+			<table >
 				<tr>
 					<th>식당 소개</th>
 					<td>${restaurantDetail.getContent()}</td>
@@ -113,7 +123,7 @@ ${photoList}
 	
 	
 	<div class="restaurantMenuList">
-		<table>
+		<table class="menuTable">
 			<tr>
 				<th>메뉴</th>
 				<th>가격</th>
@@ -126,42 +136,50 @@ ${photoList}
 					<td>${menu.getVegan_type()}</td>
 				</tr>
 			</c:forEach>
-		
-		
 		</table>
 	</div>
-
-	<button id = "prevButton">뒤</button>
+	
+	
 	<div id="restaurantImg">
+		<div class="imgButton"><button id = "prevButton">뒤</button></div>
+		<div id="imgList"></div>
+		<div class="imgButton"><button id = "nextButton">앞</button></div>
 	</div>
-	<button id = "nextButton">앞</button>
+	
 	
 	<div class="restaurantMap">
-	<div id="map"></div>
+		<h2>식당 위치</h2>  <p>${restaurantDetail.getAddress()}</p>
+		<div id="map"></div>
+	</div>
+	
+	<button id="review">리뷰</button>
+	<button id="feed">관련 피드</button>
+	
+	<div class="reviewDiv">
+		<p>리뷰</p>
+		<p>리뷰 작성자 닉네임 : </p>
+		
+		<p>리뷰 작성 : ${loginInfo.getNickname()}</p>
+		<input name="wirteReview" type="text"/>
+		<select name="rating">
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+		</select>
+		<button id="send_writeReview">리뷰 작성</button>
 	</div>
 	
 	
-
-<div id="confirmDiv">
-	<div id="updateConfirm">
-		<p>"게시글을 수정하시겠습니까?"</p>
-		<button id="updateConfirmYes">확인</button>
-		<button id="updateConfirmNo">취소</button>
-	</div>
-	<div id="hiddenConfirm">
-		<p>"게시글을 숨기시겠습니까?"</p>
-		<button id="hiddenConfirmYes">확인</button>
-		<button id="hiddenConfirmNo">취소</button>
-	</div>
-</div>
-
-
+	
+	
 <c:import url="/main/footer"/>
 </body>
 
 <script>
 
-var $restaurantImg = document.getElementById('restaurantImg');
+var $imgList = document.getElementById('imgList');
 
 var photoArr = [];
 <c:forEach items="${photoList}" var ='item'>
@@ -173,13 +191,13 @@ var cnt = 0;
 photoView(cnt);
 
 function photoView(cnt){
-	$restaurantImg.innerHTML = '';
+	$imgList.innerHTML = '';
 	for(var i = 0; i < 3; i++){
 		var idx = cnt+i;
 		if(idx < photoArr.length){
 			var divTag = document.createElement('div');
 			divTag.className = 'divImg';
-			$restaurantImg.appendChild(divTag);
+			$imgList.appendChild(divTag);
 			
 			var img = new Image();
 			img.className = 'imgDetail';
@@ -204,19 +222,61 @@ $('#nextButton').on('click', function(){
 // 수정
 $('#update').on('click',function(){
 	console.log('update click');
-	$('#confirmDiv').css({'display':'block'});
-	$('#updateConfirm').css({'display':'block'});
-})
-$('#updateConfirmYes').on('click',function(){
-	console.log('수정 페이지 이동');
-	var post_id = ${restaurantDetail.getPost_id()}
-	location.href="update?post_id="+post_id;
+	if(confirm('수정하시겠습니까?')){
+		location.href='update.go?post_id='+${restaurantDetail.getPost_id()};
+	}else{
+		console.log('수정 취소 클릭');
+	}
 });
-$('#updateConfirmNo').on('click',function(){
-	console.log('취소');
-	$('#confirmDiv').css({'display':'none'});
-	$('#updateConfirm').css({'display':'none'});
+
+// 숨김
+$('#hidden').on('click',function(){
+	console.log('hidden click');
+	if(confirm('숨기시겠습니까?')){
+		console.log('숨김 확인 클릭');
+		//location.href="update.go?post_id="+post_id;
+	}else{
+		console.log('숨김 취소 클릭');
+	}
 });
+
+$('#send_writeReview').on('click',function(){
+	if($('input[name="wirteReview"]').val() != ''){
+		if(confirm('리뷰를 작성하시겠습니까?')){
+			console.log('리뷰 확인 클릭');
+			var param = {};
+			param.user_no = '${loginInfo.getUser_no()}';
+			param.comment_text = $('input[name="wirteReview"]').val();
+			param.rating = $('select[name="rating"]').val();
+			param.post_id = '${restaurantDetail.getPost_id()}';
+			
+			console.log(param);
+			
+			$.ajax({
+				type:'post',
+				url:'reviewWrite',
+				data:param,
+				dataType:'JSON',
+				success:function(data){
+					console.log(data);
+				},
+				error:function(e){
+					console.log(e);
+				}
+			});
+			
+			
+			
+		}else{
+			console.log('리뷰 취소 클릭');
+		}
+	}else{
+		alert('리뷰를 입력해주세요');
+	}
+});
+
+
+
 /*
 //지도 부분
 var title = '${restaurantDetail.getTitle()}'; // 식당 이름

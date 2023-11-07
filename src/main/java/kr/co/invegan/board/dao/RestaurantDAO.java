@@ -12,7 +12,7 @@ public interface RestaurantDAO {
 
 	void restaurantWrite(RestaurantDTO dto);
 
-	void menuWrite(MenuDTO dto);
+	int menuWrite(MenuDTO dto);
 
 	void photoWrite(String post_id, String server_file_name, String category);
 
@@ -23,6 +23,14 @@ public interface RestaurantDAO {
 	ArrayList<String> photoList(int post_id);
 
 	ArrayList<RestaurantDTO> restaurantList();
+
+	int boardUpdate(RestaurantDTO dto);
+
+	int restaurantUpdate(RestaurantDTO dto);
+
+	void menuDel(int post_id);
+
+	int photoDel(String idx, String img);
 
 
 }

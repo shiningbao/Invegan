@@ -57,12 +57,19 @@ public class MemberController {
 		}else {
 			result.put("msg", "로그인에 성공 하였습니다.");
 			result.put("loginInfo", loginInfo);
+			if(loginInfo.getProfile_img() == null) {
+				loginInfo.setProfile_img("profile.jpg");
+			}
 			session.setAttribute("loginInfo", loginInfo);
 			logger.info("로그인 id :"+loginInfo.getId()+" 관리자 여부 : "+loginInfo.getIs_admin());
 		}
-		
-		return result;
-		
+		return result;	
+	}
+	
+	@RequestMapping(value = "/member/logout")
+	public String logout(HttpSession session) {
+		session.removeAttribute("loginInfo");
+		return "redirect:/";
 	}
 
 	

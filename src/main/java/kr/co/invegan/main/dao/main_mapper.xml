@@ -5,13 +5,4 @@
 
 <mapper namespace="kr.co.invegan.main.dao.MainDAO">
 
-	<select id="memberInfo" resultType="kr.co.invegan.member.dto.MemberDTO">
-		SELECT m.user_no, m.id , m.nickname, m.is_admin, img.profile_img 
-			FROM Members m
-			LEFT JOIN (SELECT it.idx, it.server_file_name AS profile_img FROM ImageTable it WHERE category = '회원') AS img
-			ON m.user_no = img.idx
-			WHERE m.user_no = #{param1}
-	</select>
-
-
 </mapper>

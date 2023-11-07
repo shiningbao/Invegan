@@ -33,7 +33,7 @@
 		resize: none;
 		display: inline-block;
 	}
-	#restaurantImg{
+	.restaurantImg{
 		width: 780px;
 		white-space: nowrap;
 		overflow-x: scroll;
@@ -107,7 +107,7 @@
 	<tr>
 		<th class="restaurantWriteHead"></th>
 		<td  class="restaurantWriteCon">
-			<div id="restaurantImg"><p id="preview">등록된 사진이 없습니다.</p></div>
+			<div class="restaurantImg" id="restaurantImg_upload"><p id="preview">등록된 사진이 없습니다.</p></div>
 		</td>
 	</tr>	
 	<tr>
@@ -149,7 +149,7 @@
 		</td>
 	</tr>
 	<tr>
-	<th colspan="2"><button type="button" id="write">작성</button></th>
+	<th colspan="2"><button type="button" id="write">작성</button>  <button type="button" id="cancle">취소</button></th>
 	</tr>
 </table>
 <c:import url="/main/footer"/>
@@ -158,9 +158,7 @@
 <script>
 
 var imgArr= [];
-
-var $restaurantImg = document.getElementById('restaurantImg');
-
+var $restaurantImg_upload = document.getElementById('restaurantImg_upload');
 
 $('#restarunatWriteImg').on('change',function(){
 	//console.log("img change 감지");
@@ -171,7 +169,7 @@ $('#restarunatWriteImg').on('change',function(){
 function upload(uploadImages){
 	//console.log('upload 펑션 시작');
 	//console.log(uploadImages);
-	$restaurantImg.innerHTML = '';
+	$restaurantImg_upload.innerHTML = '';
 	imgArr= [];
 	var imageType = 'image';
 	for(var i = 0; i < uploadImages.length; i++){
@@ -180,18 +178,18 @@ function upload(uploadImages){
 
 		if(imgFile.type.includes('image')){
 			
+			var divTag = document.createElement('div');
+			divTag.id = 'img_id_'+i;
+			divTag.className = 'divImg';
+			$restaurantImg_upload.appendChild(divTag);
+			
 			var delButton = document.createElement('button');
 			delButton.type= 'button';
 			delButton.id = 'delButton_'+i;
 			delButton.onclick = function(){delImg(this);};
 			delButton.textContent = '삭제';
-			$restaurantImg.appendChild(delButton);
+			divTag.appendChild(delButton);
 			
-			var divTag = document.createElement('div');
-			divTag.id = 'img_id_'+i;
-			divTag.className = 'divImg';
-			$restaurantImg.appendChild(divTag);
-
 			var img = new Image();
 			img.className = 'previewImg';
 			img.src = window.URL.createObjectURL(imgFile);
@@ -241,11 +239,12 @@ $('#menuAdd').on('click',function(){
 
 // 메뉴 삭제
 function menuDel(e){
-	$(e).parent().remove();
+	$(e).closest('div').remove();
 };
 
 // 주소 검색
 $('#daumPostcode').on('click',function(){
+	console.log("주소검색 클릭");
     new daum.Postcode({
         oncomplete: function(data) {
         	$('input[name="address"]').val(data.address);
@@ -371,6 +370,10 @@ $('#write').on('click',function(e){
 			}
 		});	
 	}
+});
+
+$('#cancle').on('click', function(){
+	location.href = 'detail?post_id=${restaurant.getPost_id()}';
 });
 
 </script>

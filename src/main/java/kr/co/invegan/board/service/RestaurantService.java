@@ -1,5 +1,6 @@
 package kr.co.invegan.board.service;
 
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -26,20 +27,11 @@ public class RestaurantService {
 
 	private String root = "C:/upload/";
 	
-	
-	public void restaurantWrite(String user_no, MultipartFile[] uploadImages, HashMap<String, Object> param){
+	// 작성 메서드
+	public void restaurantWrite(int user_no, MultipartFile[] uploadImages, HashMap<String, Object> param){
 		logger.info("restaurantWrite");
 		
-		int intUser_no = Integer.parseInt(user_no);
-		
-		RestaurantDTO dto = new RestaurantDTO();
-		dto.setUser_no(intUser_no);
-		dto.setCategory("식당");
-		dto.setTitle((String) param.get("title"));
-		dto.setAddress((String) param.get("address"));
-		dto.setContent((String) param.get("content"));
-		dto.setPhone((String) param.get("phone"));
-		dto.setHours((String) param.get("hours"));
+		RestaurantDTO dto = insert_RestaurantDTO(user_no, param);
 		
 		// Board 인서트
 		dao.boardWrite(dto);
@@ -48,34 +40,105 @@ public class RestaurantService {
 		
 		int post_id = dto.getPost_id();
 		logger.info("post_id : "+post_id);
-
-		String menu = (String) param.get("menu");	
-		logger.info("menu : "+menu);
 		
-		menuWrite(post_id,menu);
+		boolean menuChk = menuWrite(post_id, param.get("menu"));
 		
 		try {
 			saveFile(post_id,uploadImages);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}	
+		}
+		
+		
 	}
 	
-	// 메뉴를 DB에 인서트하는 메서드
-	private void menuWrite(int post_id, String menu) {
-		String[] menuArr= menu.split(",");
-		for (int i = 0; i < menuArr.length; i+=3) {
-			MenuDTO dto = new MenuDTO();
-			dto.setPost_id(post_id);
-			dto.setMenu_name(menuArr[i]);
-			dto.setPrice(menuArr[i+1]);
-			String vt = menuArr[i+2];
-			int i_vt = Integer.parseInt(vt);
-			dto.setVegan_type(i_vt);
-			dao.menuWrite(dto);
+	// 수정 메서드
+	public String restaurantUpdate(int user_no, MultipartFile[] uploadImages, HashMap<String, Object> param) {
+		String msg = "수정 실패";
+		// 업데이트
+		logger.info("restaurantUpdate");
+		// 1. RestaurantDTO에 담기
+		RestaurantDTO dto = insert_RestaurantDTO(user_no, param);
+		int post_id = Integer.parseInt(""+param.get("post_id"));
+		logger.info("post_id 형변환");
+		dto.setPost_id(post_id);
+		// 2. 보드테이블, 레스토랑 테이블 업데이트
+		int result_board = dao.boardUpdate(dto);
+		logger.info("result_board: "+result_board);
+		int result_restaurant = dao.restaurantUpdate(dto);
+		logger.info("result_restaurant: "+result_restaurant);
+		// 3. 기존 메뉴 삭제 -> 새로운 메뉴 인서트
+		dao.menuDel(post_id);
+		boolean menuChk = menuWrite(post_id, param.get("menu"));
+		logger.info("menuChk: "+menuChk);
+		// 4. imgDelList 의 사진 삭제
+		boolean imgChk = delFile(post_id, param.get("imgDelList"));
+		logger.info("imgChk: "+imgChk);
+		try {
+			saveFile(post_id,uploadImages);
+		} catch (Exception e) {
+			logger.info("saveFile 에러");
+			e.printStackTrace();
 		}
+		if(result_board == 1 && result_restaurant == 1 && menuChk && imgChk) {
+			msg = "수정 완료";
+		}else {
+			logger.info("수정 중 문제 발생 : "+result_board+result_restaurant+menuChk+imgChk);
+		}
+		return msg;
+	}
+	
+	// 수정하는 과정에서 이미지를 DB와 로컬에서 삭제하는 메서드
+	private boolean delFile(int post_id, Object object_imgDel) {
+		String idx = ""+post_id;
+		String imgDel = ""+object_imgDel;
+		String[] imgDelArr = imgDel.split(",");
+		int len = imgDelArr.length;
+		int delImgChk = 0;
+		if(len > 0 && !imgDelArr[0].equals("")) {
+			for (String img : imgDelArr) {
+				int delChk = dao.photoDel(idx, img);
+				boolean delFileChk = false;
+				File delFile = new File(root+img);
+				if(delFile.exists()) {
+					delFileChk = delFile.delete();
+				}
+				if(delFileChk && delChk == 1) {
+					delImgChk ++;
+				}else {
+					logger.info("이미지 삭제 실패 : "+img);
+				}
+			}
+		}
+		return len == delImgChk;	
+	}
+	
+	
+	// 메뉴를 DB에 인서트하는 메서드	
+	private boolean menuWrite(int post_id, Object object_menu) {
+		String menu = (String) object_menu;	
+		String[] menuArr= menu.split(",");
+		int len = menuArr.length;
+		logger.info("menuArr : "+menuArr+" / len : "+len);
+		int chk = 0;
+		if(len > 0) {
+			for (int i = 0; i < len; i+=3) {
+				MenuDTO dto = new MenuDTO();
+				dto.setPost_id(post_id);
+				dto.setMenu_name(menuArr[i]);
+				dto.setPrice(menuArr[i+1]);
+				String vt = menuArr[i+2];
+				int i_vt = Integer.parseInt(vt);
+				dto.setVegan_type(i_vt);
+				int result = dao.menuWrite(dto);
+				chk += result;
+			}
+		}
+		return (len/3) == chk;
+	
 	}
 
+	
 	// 서버에 파일 저장하고 DB에 인서트하는 메서드
 	private void saveFile(int post_id, MultipartFile[] uploadImages) throws Exception {
 		
@@ -102,8 +165,9 @@ public class RestaurantService {
 		}
 	}
 	
-	
+	//상세보기 메서드 들
 	public RestaurantDTO restaurantDetail(int post_id) {
+		logger.info("rD");
 		return dao.restaurantDetail(post_id);		
 	}
 
@@ -117,6 +181,27 @@ public class RestaurantService {
 
 	public ArrayList<RestaurantDTO> restaurantList() {
 		return dao.restaurantList();
+	}
+	
+	
+	// param 의 값을 RestaurantDTO 에 담아주는 메서드
+	private RestaurantDTO insert_RestaurantDTO(int user_no, HashMap<String, Object> param) {
+		RestaurantDTO dto = new RestaurantDTO();
+		dto.setUser_no(user_no);
+		dto.setCategory("식당");
+		dto.setTitle((String) param.get("title"));
+		dto.setAddress((String) param.get("address"));
+		dto.setContent((String) param.get("content"));
+		dto.setPhone((String) param.get("phone"));
+		dto.setHours((String) param.get("hours"));
+		return dto;
+	}
+
+	public int reviewWrite(HashMap<String, String> param) {
+		
+		
+		
+		return 0;
 	}
 	
 

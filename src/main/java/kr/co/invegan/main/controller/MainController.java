@@ -21,26 +21,20 @@ public class MainController {
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
-	@RequestMapping(value = "/")
-	public String main() {
-		logger.info("REQUEST MAIN PAGE :: TEST");
-
+	@RequestMapping(value = {"/","/main"})
+	public String main(HttpSession session) {
 		return "main";
 	}
 	
 	@RequestMapping(value = "/main/header")
 	public String mainHeader(Model model, HttpSession session) {
-		MemberDTO loginInfo = null;
-		logger.info("loginInfo: "+session.getAttribute("loginInfo"));
-		if(session.getAttribute("loginInfo") != null) {			
-			loginInfo = (MemberDTO) session.getAttribute("loginInfo");
-			logger.info("loginId : "+loginInfo.getId()+" / admin : "+loginInfo.getIs_admin());
+		MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
+		if(loginInfo != null) {			
+			logger.info("loginId: "+loginInfo.getId()+" / user_no: "+loginInfo.getUser_no()+" / admin: "+loginInfo.getIs_admin());
+			logger.info(loginInfo.getProfile_img());
 		}else {
-			logger.info("로그인 X");
+			logger.info("비회원");
 		}
-		
-		model.addAttribute("loginInfo", loginInfo);
-		
 		
 		/*
 		if(loginInfo != null) {

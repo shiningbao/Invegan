@@ -54,13 +54,15 @@ public class RestaurantController {
 		return page;
 	}
 
-	// 작성 페이지 이동 요청
+	// 작성 페이지 이동
 	@RequestMapping(value = "/restaurant/write.go")
 	public String restaurantWriteGo(Model model, HttpSession session) {
 		String page = "/";
 		MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
 		if(loginInfo.getIs_admin() == 1) {
 			page = "restaurant/restaurantWrite";
+		}else {
+			page = "restaurant/list";
 		}
 		return page;
 	}
@@ -68,13 +70,15 @@ public class RestaurantController {
 	// 작성 요청
 	@RequestMapping(value = "/restaurant/write.do", method = RequestMethod.POST)
 	@ResponseBody
-	public HashMap<String, Object> restaurantWrite(MultipartFile[] uploadImages, @RequestParam HashMap<String, Object> param, HttpSession session) throws Exception {
+	public HashMap<String, Object> restaurantWrite(
+			MultipartFile[] uploadImages, @RequestParam HashMap<String, Object> param, HttpSession session)
+			throws Exception {
 		
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		
 		MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
 		
-		String user_no = ""+loginInfo.getUser_no();
+		int user_no = loginInfo.getUser_no();
 		logger.info("param : "+param);
 		logger.info("uploadImages : "+uploadImages);
 		
@@ -83,31 +87,67 @@ public class RestaurantController {
 		return result;
 	}
 	
-	// 상세보기 요청
-	@RequestMapping(value = "/restaurant/detail")
+	// 상세보기 페이지 이동
+	@RequestMapping(value = "/restaurant/detail", method = RequestMethod.GET)
 	public String restaurantDetail(@RequestParam int post_id, Model model, HttpSession session) {
-		
+		logger.info("restaurant/detail 접근");
 		model.addAttribute("restaurantDetail", service.restaurantDetail(post_id));
 		model.addAttribute("menuDetail", service.menuDetail(post_id));
 		model.addAttribute("photoList", service.photoList(post_id));
-
 		return "restaurant/restaurantDetail";
 	}
 	
-	// 수정 요청
-	@RequestMapping(value = "/restaurant/update")
+	// 수정 페이지 이동
+	@RequestMapping(value = "/restaurant/update.go", method = RequestMethod.GET)
 	public String restaurantUpdate(HttpSession session, Model model, @RequestParam int post_id) {
-		
+		logger.info("restaurant/update.go 접근");
 		MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
 		
-		model.addAttribute("restaurant", service.restaurantDetail(post_id));
-		model.addAttribute("men", service.menuDetail(post_id));
-		model.addAttribute("photo", service.photoList(post_id));	
+		logger.info("input post_id : "+post_id);
+		RestaurantDTO output = service.restaurantDetail(post_id);
+		logger.info("output post_id: "+ output.getPost_id());
 		
+		model.addAttribute("restaurant", service.restaurantDetail(post_id));
+		model.addAttribute("menu", service.menuDetail(post_id));
+		model.addAttribute("photo", service.photoList(post_id));	
+		logger.info("페이지에 데이터 전송 및 이동");
 		String page = "restaurant/restaurantUpdate";
 		return page;
 	}
 	
+	// 수정 요청
+	@RequestMapping(value = "/restaurant/update.do")
+	@ResponseBody
+	public HashMap<String, Object> restaurantUpdate(
+			MultipartFile[] uploadImages, @RequestParam HashMap<String, Object> param, HttpSession session)
+			throws Exception {
+		
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		
+		MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
+		int user_no = loginInfo.getUser_no();
+		
+		// logger.info("param : "+param);
+		// logger.info("uploadImages : "+uploadImages);
+		
+		String msg = service.restaurantUpdate(user_no,uploadImages, param);
+		result.put("결과", "수정 완료");
+		
+		return result;
+	}
+	
+	@RequestMapping(value = "/restaurant/reviewWrite")
+	@ResponseBody
+	public HashMap<String, String> reviewWrite(@RequestParam HashMap<String, String> param) {
+		
+		HashMap<String, String> result = new HashMap<String, String>();
+		
+		logger.info("param commemt_text : "+param.get("comment_text"));
+		int success = service.reviewWrite(param);
+		return result;
+		
+		
+	}
 	
 	
 	
