@@ -17,7 +17,8 @@
 		display: inline-block;
 	}
 	#listArea{
-		margin: 0px 10px 0px 30px
+		margin: 0px 10px 0px 30px;
+		border-right: 2px solid lightgray;
 	}
 	
 	#tapMenu{
@@ -40,9 +41,13 @@
 	.mealBtn:hover{
 		cursor: pointer;
 	}
+	#listBox{
+		width: 810px;
+		margin: 0;
+	}
 	#foodListHead{
 		height: 30px;
-		width: 840px;
+		width: 95%;
 		border: 1px solid black;
 	}
 	#foodListHead th{
@@ -51,7 +56,7 @@
 	}
 	#foodListBox{
 		height: 430px;
-		width: 840px;
+		width: 94.8%;
 		overflow: auto;
 		overflow-x:hidden; 
 		border: 1px solid black;
@@ -69,7 +74,7 @@
 		width: 3px;
 	} */
 	#foodList{
-		width: inherit;
+		width: 95%;
 	}
 	#showNutri table{
 		width: 300px;
@@ -81,13 +86,7 @@
 	#gBox{
 		width: 30px;
 	}
-	
-
-
-
-	
 </style>
-
 </head>
 <body>
 	<div id="defaultMenuBox">
@@ -102,7 +101,7 @@
 				<li><input type="button" value="완료" onclick="addMenu()"/></li>
 			</ul>
 			
-			<div>
+			<div id="listBox">
 				<table id="foodListHead">
 					<colgroup>
 						<col width="5%">
@@ -161,13 +160,9 @@
 	</div>
 </body>
 <script>
-	var selectDate = opener.document.getElementById('selectDate').value;
 	var foodId = 0;;
 	var diet_category = ''; // 아침/ 점심 /저녁/ 기타
 	var gram = 0;
-	
-	
-	
 	
 	function addMenu() {
 		gram = $('#gBox').val();
@@ -185,29 +180,31 @@
 			if(!confirm($('#food_name').text()+" "+gram+"g 을 "+diet_category+"에 추가하시겠습니까?")){
 				return false;
 			}else{
-				self.close();
+				var params = { };
+				params.select_date = selectDate;
+				params.food_id = foodId;
+				params.diet_category = diet_category;
+				params.menu_category = menu_category;
+				params.recipe_name = recipe_name; 
+				params.gram = gram;
+				
+				$.ajax({
+					type:'get',
+					url:'addMenu.do',
+					data:params,
+					dataType:'JSON',
+					success:function(data){
+						opener.location.reload();
+						self.close();
+					},
+					error:function(data){
+					}
+				});
 			}
 		}
 		
 		
-		var params = { };
-		params.select_date = selectDate;
-		params.food_id = foodId;
-		params.diet_category = diet_category;
-		params.menu_category = menu_category;
-		params.recipe_name = recipe_name; 
-		params.gram = gram;
 		
-		$.ajax({
-			type:'get',
-			url:'addMenu.do',
-			data:params,
-			dataType:'JSON',
-			success:function(data){
-			},
-			error:function(data){
-			}
-		});
 		
 		
 	}

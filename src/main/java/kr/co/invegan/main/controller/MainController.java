@@ -44,7 +44,7 @@ public class MainController {
 		
 		/*
 		if(loginInfo != null) {
-			memberInfo = service.merberInfo(loginInfo.getId());			
+			memberInfo = service.merberInfo(loginInfo.getId());
 		}
 		session.setAttribute("memberInfo", memberInfo);
 		session.setAttribute("id", memberInfo.getId());

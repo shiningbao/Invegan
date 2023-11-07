@@ -6,6 +6,30 @@
 		<title>Insert title here</title>
 		<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 		<style>
+				
+			ul{
+				padding: 0;
+			}
+			
+			li{
+				display: inline-block;
+			}
+			
+			#top {
+				text-align: right;
+				float: right;
+				position: relative;
+				top:-10px;
+				right: 20px;
+			}
+			
+			#top input{
+				cursor: pointer;
+				background: none;
+				border: none;
+				font-size: 25px;
+			}
+					
 			table{
 				border : solid 1px black;
 				border-collapse: collapse;
@@ -24,18 +48,24 @@
 				width : 400px;
 			}
 			
+			input[name="meal"] {
+				  width: 20px;
+				  height: 20px; 
+				  background-color: #007BFF;
+				  border-radius: 50%;
+				  display: inline-block;
+				  margin-right: 10px;
+				  cursor: pointer;
+				}
+			
 		</style>
 	</head>
 	<body>
-		<h2>메뉴추가</h2>
-		<h4>기본 메뉴 | 나만의 레시피 메뉴</h4>
-		<button>취소</button>
-		<hr>
 		<div>		
-			<button>아침</button>
-			<button>점심</button>
-			<button>저녁</button>
-			<button>기타</button>
+			<label><input type="radio" name="meal"/>아침</label>
+			<label><input type="radio" name="meal"/>점심</label>
+			<label><input type="radio" name="meal"/>저녁</label>
+			<label><input type="radio" name="meal"/>기타</label>
 			<button onclick="rinsert()">+</button>
 			<button onclick="rdel()">-</button>
 			<table id = "mRecipeList">	
@@ -74,17 +104,10 @@
 			</tbody>
 		</table>
 		<br>
-		<button>완료</button>
+		<input type="button" name="dinsert"value="완료"/>
 		<br>
-		<table>
-			<tr>
-				<th colspan="2">
-					해바라기 씨를 곁들인 콩나물 감자볶음
-				</th>
-			</tr>
-			<tr>
-				<td>아무튼 영양소</td>
-			</tr>
+		<table id = "rNutriList">
+			<!-- 레시피 영양소 출력 -->
 		</table>
 	</body>
 	<script>
@@ -96,12 +119,10 @@
 		// 레시피 리스트 불러오기
 		function listCall() {
 			
-			var rparam = {};
-			
 			$.ajax({
 				type:'post',
-				url:'listCall',
-				data:{'user_no' : 1},
+				url:'mrlistCall',
+				data:{},
 				dataType:'json',
 				success:function(data){
 					console.log(data);
@@ -128,21 +149,12 @@
 		    // 나만의 레시피 이름 입력창
 		    $('#rNameinsert').on('click', function(){
 				var recipe_name = $('input[name="recipe_name"]').val();
-				// 추후 수정
-				var user_no = "1";
 				console.log("레시피 이름 : "+recipe_name);
-				console.log(user_no);
-				console.log(category);
-				
-				var param = {};
-				param.recipe_name = recipe_name;
-				param.user_no = user_no;
-				param.category = category;
 				
 				$.ajax({
 					type:'post',
 					url:'rlistUpdate.do',
-					data:param,
+					data:{"recipe_name" : recipe_name},
 					success:function(data){
 						console.log(data);
 					},
@@ -150,6 +162,7 @@
 						console.log(e);
 					}
 				});
+				$('#mrList').empty();
 				listCall();
 				$('#rinsertbox').empty();
 			});
@@ -196,7 +209,54 @@
             		console.log(e);
             	}
             });
+            
+            $.ajax({
+            	type:'get',
+            	url:'rNutri.do',
+            	data:{"menu_id":menu_id},
+            	success:function(data){
+            		console.log(data);
+            		drawrNList(data.rNutri);
+            	},
+            	error:function(e) {
+            		console.log(e);
+            	}
+            });
        });
+		
+		// 레시피 영양소 그리기
+		function drawrNList(rNutri) {
+			console.log(rNutri);
+			var content = "";
+			rNutri.forEach(function(item, idx){
+				content += '<tr>';
+				content += '<td>'+item.recipe_name+'</td>';
+				content += '<td>'+'제공량 '+item.grams+'g'+'</td>';
+				content += '<td>'+'열량 '+item.kcal+'kcal'+'</td>';
+				content += '<td>'+'탄수화물 '+item.carb+'g'+'</td>';
+				content += '<td>'+'단백질 '+item.prot+'g'+'</td>';
+				content += '<td>'+'지방 '+item.fat+'g'+'</td>';
+				content += '<td>'+'수분 '+item.h2o+'g'+'</td>';			
+				content += '<td>'+'총 당류 '+item.sugar+'g'+'</td>';
+				content += '<td>'+'총 식이섬유 '+item.fiber+'g'+'</td>';
+				content += '<td>'+'칼슘 '+item.ca+'mg'+'</td>';
+				content += '<td>'+'철 '+item.fe+'mg'+'</td>';
+				content += '<td>'+'마그네슘 '+item.mg+'mg'+'</td>';
+				content += '<td>'+'인 '+item.p+'mg'+'</td>';
+				content += '<td>'+'칼륨 '+item.k+'mg'+'</td>';
+				content += '<td>'+'나트륨 '+item.na+'mg'+'</td>';
+				content += '<td>'+'아연 '+item.zn+'mg'+'</td>';
+				content += '<td>'+'비타민A '+item.vit_a+'ug'+'</td>';
+				content += '<td>'+'비타민B6 '+item.vit_b6+'mg'+'</td>';
+				content += '<td>'+'비타민B12 '+item.vit_b12+'mg'+'</td>';
+				content += '<td>'+'비타민C '+item.vit_c+'mg'+'</td>';
+				content += '<td>'+'필수 아미노산 '+item.essential+'mg'+'</td>';
+				content += '<td>'+'오메가3 '+item.omega3+'mg'+'</td>';
+				content += '</tr>';
+			});
+			$('#rNutriList').empty();
+			$('#rNutriList').append(content);
+		};
 		
 		// 재료 리스트 그리기
 		function drawmList(rMaterial) {
@@ -224,7 +284,23 @@
 		});
 		
 		function minsert() {
-			
+			if (menu_id == null){
+				alert('재료를 추가할 레시피를 선택해주세요');
+			} else {
+				$.ajax({
+					type:'post',
+					url:'minsert.do',
+					data:{"menu_id" : menu_id},
+					dataType:'json',
+					success:function(data){
+						console.log(data);
+					},
+					error:function(e){
+						console.log(e);
+					}
+				});
+				location.href = 'addRecipeMaterial';
+			}
 		}
 		
         function mdel() {
