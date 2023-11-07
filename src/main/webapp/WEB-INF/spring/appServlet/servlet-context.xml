@@ -65,9 +65,10 @@
 
 	<!-- navermail설정 -->
 	<beans:bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<beans:property name="host" value="smtp.naver.com" /> <!-- 메이서버 호스트 -->
-		<beans:property name="port" value="587" /> <!-- 메일서버 포트번호 -->
-		<beans:property name="username" value="rlaalswll25" /> <!-- 자신의 이메일 아이디 -->
+		<beans:property name="host" value="smtp.naver.com" /> <!-- 메일서버 호스트 -->
+		<!-- <beans:property name="port" value="587" /> --> <!-- 메일서버 포트번호 : 네이버 설정에 포트가 587로 되어있어서 587로하면 SSL오류가 뜬다. 그러니 465로 설정해주자 -->
+		<beans:property name="port" value="465" /> <!-- 메일서버 포트번호 -->
+		<beans:property name="username" value="rlaalswll25" /> <!-- 자신의 이메일 아이디? 메일주소? -->
 		<beans:property name="password" value="y046121@" /> <!-- 자신의 비밀번호 -->
 		<!-- 보안연결 SSL과 관련된 설정 -->
 		<beans:property name="javaMailProperties">

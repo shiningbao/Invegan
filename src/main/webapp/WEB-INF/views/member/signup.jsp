@@ -36,7 +36,7 @@ input[type=password] {
 				<p id="validationMessage"></p>
 				</td>
 			</tr>
-			
+	
 			<tr>
 				<th><label for="userpass">비밀번호</label></th>
 				<td colspan="2">
@@ -49,10 +49,11 @@ input[type=password] {
 					<span class="point successPwChk"></span>
 				</td>
 			</tr>
-			
+		 
 			<tr>
 				<th>이메일</th>				
 				<th colspan="2">
+				<!--
 				<input class="box" id="domain-txt" type="text" name="email" value=""/>@ 
 				<select class="box" id="domain-list">
 						<option value="naver.com">naver.com</option>
@@ -61,24 +62,28 @@ input[type=password] {
 						<option value="nate.com">nate.com</option>
 						<option value="kakao.com">kakao.com</option>
 				</select>
+				 -->
+				 <input id="email" type="text" name="email" placeholder="0000@0000 형식으로 입력"/>
 				</th>
 			</tr>
 			<tr>
 				<th>닉네임</th>
 				<th colspan="2">
-				<input type="text" name="nickname" /></th>
+				<input type="text" name="nickname" required/>
+				</th>
 			</tr>
 			<tr>
 				<th>생년월일</th>
 				<th colspan="2">
-				<input id="year" name="birthdate" type="text" placeholder="yyyy-mm-dd 형식으로 입력"/>
-				</span></th>
+				<input id="year" name="birthdate" type="text" placeholder="yyyy-mm-dd 형식으로 입력" required/>
+				</th>
 			</tr>
 			<tr>
 				<th>성별</th>
 				<td colspan="2">
 					<input type="radio" name="gender" value="남" checked />남자 
-					<input type="radio" name="gender" value="여" />여자</td>
+					<input type="radio" name="gender" value="여" />여자
+				</td>
 			</tr>
 			<tr>
 			<th><label for"vegan_type">식단 유형</label></th>
@@ -94,7 +99,7 @@ input[type=password] {
 				        <option value="8">폴로페스코</option>
 				        <option value="9">플렉시테리언</option>
 				    </select>
-				    </td>
+				 </td>
 			</tr>
 			<tr>
 				<th>비건 목적</th>
@@ -119,42 +124,44 @@ input[type=password] {
 			<tr>
 				<th>관심사</th>
 				<td colspan="2">
-				
-				<input type="checkbox" name="interests" value="식당" id="interests"/> 식당
-				<input type="checkbox" name="interests" value="레시피" id="interests"/> 레시피
-				<input type="checkbox" name="interests" value="식품" id="interests"/> 식품
+				 
+				<input type="checkbox" name="interests" value="식당" id="interests1"/> 식당
+				<input type="checkbox" name="interests" value="레시피" id="interest2"/> 레시피
+				<input type="checkbox" name="interests" value="식품" id="interests3"/> 식품
 				<p>
-				<input type="checkbox" name="interests" value="뷰티" id="interests"/> 뷰티
-				<input type="checkbox" name="interests" value="패션" id="interests"/> 패션
-				<input type="checkbox" name="interests" value="일상" id="interests"/> 일상
-				<button id="submitButton">Submit</button>
+				<input type="checkbox" name="interests" value="뷰티" id="interests4"/> 뷰티
+				<input type="checkbox" name="interests" value="패션" id="interests5"/> 패션
+				<input type="checkbox" name="interests" value="일상" id="interests6"/> 일상
 				
-					<!-- <input  type="text"  id="interests"name="interests"  /> -->
+				
+				
 				</td>
 			</tr>
+			
+			
 			<tr>
 				<td colspan="3">
 				<label for="agree">
 						<p>
-							<input type="checkbox" name="agree" value="1"/> 
+							<input type="checkbox" name="agree" value="1" required/> 
 							<span>이용약관 동의<strong></strong>
 							</span>
 				</label> 
 				<label for="agree">
 						<p>
-							<input type="checkbox" name="agree" value="2"/> 
+							<input type="checkbox" name="agree" value="2" required/> 
 							<span>개인정보 수집, 이용 동의<strong></strong>
 							</span>
 				</label> 
 				<label for="agree">
 						<p>
-							<input type="checkbox" name="agree" value="3"/> 
+							<input type="checkbox" name="agree" value="3" required/> 
 							<span>개인정보 이용 동의<strong></strong>
 							</span>
 			</tr>
 			<tr>
 				<th colspan="3">
-					<input type="submit" value="회원가입" />
+					<input type="submit"  value="회원가입" />
 					<!-- <input type="button" id="join" value="회원가입"/> -->
 				</th>
 			</tr>
@@ -164,46 +171,27 @@ input[type=password] {
 <script>
 
 
-document.getElementById('submitButton').addEventListener('click', function() {
-    var selectedInterests = [];
-    var checkboxes = document.getElementsByName('interests');
+/*	
+ $('input[type="submit"]').on('click', function() {
+     var selectedInterests = [];
+     var checkboxes = document.getElementsByName('interests');
     for (var i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].checked) {
-            selectedInterests.push(checkboxes[i].value);
+         if (checkboxes[i].checked) {
+             selectedInterests.push(checkboxes[i].value);
         }
     }
     var combinedInterests = selectedInterests.join(',');
-    
+     // alert('선택한 관심 분야: ' + combinedInterests);
     console.log(combinedInterests);
     
-   //관심사 다중선택 콘솔에는 찍히는 거 확인 완료 
-   //다른 값과 한번에 같이 보내는 부분 구현 못함
-});
+    //관심사 다중선택 콘솔에는 찍히는 거 확인 완료 
+    //다른 값과 한번에 같이 보내는 부분 구현 못함
+   
+   
+ });
 
-
-//임시
-/*
-$('#join').on('click', function(){
-	var email = $('input[name="email"]').val();
-	var add =$('#domain-list').val();
-	console.log(email);
-	console.log(add);
-	
-	$.ajax({
-		type:'get',
-		url:'join',
-		data:{'email':email,'add':add},
-		dataType:'JSON',
-		success:function(data){
-			console.log(data);
-		},
-		error:function(e){
-			console.log(e);
-		}
-	});
-	
-})
 */
+
 	//팝업으로 조건문 실행
 	//유효성 검사 
 	document.getElementById("validateId").addEventListener("click", function() {

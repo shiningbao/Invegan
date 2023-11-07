@@ -74,12 +74,12 @@ $('#login').on('click',function(){
 
 
 	$('#signup').on('click',function(){
-		console.log('a');
+		console.log('회원가입 페이지 진입');
 		location.href='signup';
 	});
 	
 	$('#findId').on('click',function(){
-		console.log('b');
+		console.log('아이디 비밀번호 찾기 페이지 진입');
 		location.href='findId';
 	});
 	
