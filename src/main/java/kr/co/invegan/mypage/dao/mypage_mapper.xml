@@ -5,7 +5,7 @@
 
 <mapper namespace="kr.co.invegan.mypage.dao.MyPageDAO">
 
-	<select id="userInfo" resultType="map">
+	<select id="userInfo" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
     SELECT 
         DATE_FORMAT(m1.join_date, '%Y-%m-%d') AS join_date, 
         m1.id, 
@@ -16,6 +16,7 @@
         m1.vegan_purpose, 
         m1.user_no,
         m1.is_admin,
+        m1.interests,
         it.server_file_name AS profile_image
     FROM 
         Members m1
@@ -30,7 +31,7 @@
 	</select>
 	
 	<select id="requestBoardList" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
-    	SELECT req_title,views FROM Request WHERE user_no=#{param1}
+		select req_title,views from Request  WHERE user_no=#{param1} limit 5 OFFSET #{param3}
 	</select>
 	
 	<select id="recipeBoardList" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
@@ -172,16 +173,13 @@
     UPDATE ImageTable 
     SET server_file_name = #{server_file_name} 
     WHERE idx = #{idx} AND category = '회원'
-	</update>
+	</update> -->
 	
-	<select id="list" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
-		select title,views from Board limit #{param1} 
-			OFFSET #{param2}
-	</select>
+	
+	
 	
 	<select id="totalPage" resultType="int">
-		select ceil(count(post_id)/#{param1}) as pages from Board param : pagePerNum
-	</select> -->
+		select ceil(count(req_id)/5) as pages from Request
+	</select>
  	
-	
 </mapper>
