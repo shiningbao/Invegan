@@ -3,32 +3,28 @@
 
   <html>
   <style>
-    /* 이미지 컨테이너를 왼쪽으로 이동 */
-    .previews {
-      overflow: hidden;
-      position: relative;
-      width: 450px;
-      /* 원하는 너비로 설정 */
-      height: 450px;
-      /* 원하는 높이로 설정 */
-      float: left;
-      /* 왼쪽 정렬 추가 */
-      margin-right: 20px;
-      /* 슬라이드와의 간격을 설정 */
-    }
+     /*이미지 컨테이너를 왼쪽으로 이동 */
+     .previews {  
+        overflow: hidden;  
+        position: relative;  
+        width: 450px;  
+        height: 450px;  
+        float: left;  
+        margin-right: 20px;  
+        }  
 
     /* 슬라이드 이미지 스타일 */
 
-    .slide {
-      width: 100%;
-      /* 슬라이드를 100% 너비로 설정하여 부모에 맞게 크기 조절 */
-      height: 100%;
-      /* 슬라이드를 100% 높이로 설정하여 부모에 맞게 크기 조절 */
-      display: none;
-      float: left;
-      margin-right: 10px;
-      /* 슬라이드 간의 간격 조정 */
-    }
+/*     .slide { */
+/*       width: 100%; */
+/*       /* 슬라이드를 100% 너비로 설정하여 부모에 맞게 크기 조절 */ */
+/*       height: 100%; */
+/*       /* 슬라이드를 100% 높이로 설정하여 부모에 맞게 크기 조절 */ */
+/*       display: none; */
+/*       float: left; */
+/*       margin-right: 10px; */
+/*       /* 슬라이드 간의 간격 조정 */ */
+/*     } */
   </style>
 
   <head>
@@ -88,7 +84,7 @@
               </tr>
               <tr>
                 <th colspan="2">
-                  <input type="button" value="취소" id="feedWriteCancle" />
+                  <input type="button" value="취소" id="feedWriteCancle"/>
                   <button id="feedSave">작성</button>
                 </th>
               </tr>
@@ -105,6 +101,7 @@
 
 
     $(document).ready(function () {
+    	
       // 모달을 초기화
 
 //       $('#writeModal').modal();
@@ -114,68 +111,114 @@
 //         // 모달 창이 닫힐 때 수행할 작업
 //         //             location.href = "list.go"; // 현재 있는 feedList 페이지로 이동
 //       });
-      var currentSlide = 0;
-      var totalSlides = 0; // 이미지 슬라이드의 총 개수
-      // 이미지 선택시 미리보기
-      $('#photos').on('change', function (e) {
-        var files = e.target.files;
-        var previews = $('.previews');
-        previews.empty();
-        for (var i = 0; i < files.length; i++) {
-          var file = files[i];
-          if (file) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-              var slide = $('<div class="slide"></div>');
-              var preview = $('<img>').attr('src', e.target.result);
-              slide.append(preview);
-              previews.append(slide);
+//       var currentSlide = 0;
+//       var totalSlides = 0; // 이미지 슬라이드의 총 개수
+//       // 이미지 선택시 미리보기
 
-              // 이미지 로드 후 이미지 크기를 조절
-              preview.on('load', function () {
-                var img = $(this);
-                var slide = img.closest('.slide');
-                var previews = img.closest('.previews');
+//        $('#photos').on('change', function (e) {
+//         var files = e.target.files;
+//         var previews = $('.previews');
+//         previews.empty();
+        
+//         var loadCounter = 0; // 로딩된 이미지 수를 추적
+//         var totalImages = files.length;
+        
+//         for (var i = 0; i < files.length; i++) {
+//           var file = files[i];
+//           if (file) {
+//             var reader = new FileReader();
+//             reader.onload = function (e) {
+//               var slide = $('<div class="slide"></div>');
+//               var preview = $('<img>').attr('src', e.target.result);
+//               slide.append(preview);
+//               previews.append(slide);
 
-                // 이미지의 너비와 높이를 previews에 맞게 조절
-                var maxWidth = previews.width();
-                var maxHeight = previews.height();
+//               // 이미지 로드 후 이미지 크기를 조절
+//               preview.on('load', function () {
+//             	  loadCounter++;
+            	
+//                 var img = $(this);
+//                 var slide = img.closest('.slide');
+//                 var previews = img.closest('.previews');
 
-                var width = img.width();
-                var height = img.height();
+//                 // 이미지의 너비와 높이를 previews에 맞게 조절
+//                 var maxWidth = previews.width();
+//                 var maxHeight = previews.height();
 
-                var newWidth, newHeight;
+//                 var width = img.width();
+//                 var height = img.height();
 
-                // 이미지 비율 유지하며 크기 조절
-                if (width / maxWidth > height / maxHeight) {
-                  newWidth = maxWidth;
-                  newHeight = (height / width) * maxWidth;
-                } else {
-                  newHeight = maxHeight;
-                  newWidth = (width / height) * maxHeight;
-                }
+//                 var newWidth, newHeight;
 
-                // 이미지 크기 조절
-                img.width(newWidth);
-                img.height(newHeight);
+//                 // 이미지 비율 유지하며 크기 조절
+//                 if (width / maxWidth > height / maxHeight) {
+//                   newWidth = maxWidth;
+//                   newHeight = (height / width) * maxWidth;
+//                 } else {
+//                   newHeight = maxHeight;
+//                   newWidth = (width / height) * maxHeight;
+//                 }
 
-                // 슬라이드 크기 조절
-                slide.width(newWidth);
-                slide.height(newHeight);
+//                 // 이미지 크기 조절
+//                 img.width(newWidth);
+//                 img.height(newHeight);
 
-                // 슬라이드 추가 후 슬라이드 표시
-                totalSlides++;
-                showSlide(currentSlide);
-              });
+//                 // 슬라이드 크기 조절
+//                 slide.width(newWidth);
+//                 slide.height(newHeight);
 
-              reader.readAsDataURL(file);
-            };
-            reader.readAsDataURL(file);
-          }
-        }
-        showSlide(currentSlide);
-      });
+//                 // 슬라이드 추가 후 슬라이드 표시
+//                 totalSlides++;
+//                 showSlide(currentSlide);
+//               });
 
+//               reader.readAsDataURL(file);
+//             };
+//             reader.readAsDataURL(file);
+//           }
+//         }
+//         showSlide(currentSlide);
+//       });
+// 	  function setTumbnail(event){
+// 		  for (var photos of event.target.files){
+// 			  var reader = new FileReader();
+			  
+// 			  reader.onload=function(event){
+// 				  var img = document.createElement("img");
+// 				  img.setAttribute("src",event.target.result);
+// 				  document.querySelector("div#image_container").appendChild(img);
+				 
+// 			  };
+// 			  console.log(image);
+// 			  reader.readAsDataURL(image);
+// 		  }
+// 	  }
+	 
+	 $("#photos").on('change',function(e){
+		 var files = e.target.files;
+		 var previews = $('.previews');
+		 previews.empty();
+		 console.log(files);
+		 for(var i =0; i <files.length; i++){
+			 var file = files[i];
+			 if(file){
+				 var reader = new FileReader();
+				 reader.onload = function(e){
+					 var img = document.createElement("img");
+					 img.setAttribute("src",e.target.result);
+					 $('.previews').append(img);
+				 
+			 }
+				 reader.readAsDataURL(file);
+		 }
+		 
+		 
+		 
+		 
+		 
+		
+		 }
+	 })
       // "이전" 버튼 클릭 시
       $('#prevButton').on('click', function () {
         currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
@@ -197,7 +240,7 @@
 
       // 버튼클릭 이벤트
       $('.writefood').click(function () {
-
+    	  
         var $foodbtn = $('.writefood').text();
         addToTextArea($foodbtn);
       });
@@ -244,51 +287,55 @@
 
       // 작성 버튼 클릭 시 이벤트 처리
       $('#feedSave').click(function () {
-        var content = $('textarea[name="content"]').val();
-        var feedTag = $('textarea[name="feedTag"]').val();
-        var photos = $('#photos')[0].files;
+    		
+    		 var content = $('textarea[name="content"]').val();
+    	        var feedTag = $('textarea[name="feedTag"]').val();
+    	        var photos = $('#photos')[0].files;
+				
+    	        if (content.trim() === "") {
+    	          alert("내용을 입력하세요.");
+    	        } else if (feedTag.trim() === "") {
+    	          alert("피드 태그를 입력하세요.");
+    	        } else if (photos.length === 0) {
+    	          alert("파일을 선택하세요.");
+    	        } else if (
+    	          !feedTag.includes("#식품") &&
+    	          !feedTag.includes("#패션") &&
+    	          !feedTag.includes("#일상") &&
+    	          !feedTag.includes("#레시피") &&
+    	          !feedTag.includes("#뷰티") &&
+    	          !feedTag.includes("#식당")
+    	        ) {
+    	          alert("6개의 태그 중 하나 이상을 입력해주세요.");
+    	          return;
+    	        } else {
+    	          var formData = new FormData();
+    	          formData.append("content", content);
+    	          formData.append("feedTag", feedTag);
 
-        if (content.trim() === "") {
-          alert("내용을 입력하세요.");
-        } else if (feedTag.trim() === "") {
-          alert("피드 태그를 입력하세요.");
-        } else if (photos.length === 0) {
-          alert("파일을 선택하세요.");
-        } else if (
-          !feedTag.includes("#식품") &&
-          !feedTag.includes("#패션") &&
-          !feedTag.includes("#일상") &&
-          !feedTag.includes("#레시피") &&
-          !feedTag.includes("#뷰티") &&
-          !feedTag.includes("#식당")
-        ) {
-          alert("6개의 태그 중 하나 이상을 입력해주세요.");
-          return;
-        } else {
-          var formData = new FormData();
-          formData.append("content", content);
-          formData.append("feedTag", feedTag);
+    	          for (var i = 0; i < photos.length; i++) {
+    	            formData.append("photos", photos[i]);
+    	          }
 
-          for (var i = 0; i < photos.length; i++) {
-            formData.append("photos", photos[i]);
-          }
-
-          // 이제 formData에 데이터가 정상적으로 추가되었으므로 서버로 요청을 보냅니다.
-          $.ajax({
-            type: 'post',
-            url: 'write',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function (e) {
-              console.log(e);
-            },
-            error: function (e) {
-              console.log(e);
-            }
-          });
-          location.href = "list.go";
-        }
+    	          // 이제 formData에 데이터가 정상적으로 추가되었으므로 서버로 요청을 보냅니다.
+    	          $.ajax({
+    	            type: 'post',
+    	            url: 'write',
+    	            data: formData,
+    	            processData: false,
+    	            contentType: false,
+    	            success: function (e) {
+    	              console.log(e);
+    	            },
+    	            error: function (e) {
+    	              console.log(e);
+    	            }
+    	          });
+    	          location.href = "list.go";
+    	        }
+    	  
+    	 
+              
       });
 
 

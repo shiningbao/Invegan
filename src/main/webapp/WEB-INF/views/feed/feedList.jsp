@@ -11,10 +11,10 @@
       <style>
         /* 왼쪽 사이드바 메뉴 스타일 */
         
-        body { 
-       margin: 0 auto;
-         width: 1000px;/
-       } 
+/        body {  
+        margin: 0 auto; 
+          
+        }  
       input[type="text"] {
         width: 100%;
       }
@@ -31,7 +31,7 @@
         }
         
         .post img {
-          max-width: 100%;
+          max-width: 50%;
           height: auto;
         }
         .mainFeedPhoto{
@@ -56,19 +56,22 @@
           font-weight: bold;
         }
 
-        .user-profile,
-        .post-image {
-          max-width: 100%;
-          height: auto;
-          display: block;
-          /* 이미지를 블록 요소로 표시하여 여백을 적용합니다. */
+        .user-profile{
         }
+       
         
-        hr {
-		    border: none;
-		    height: 3px; 
-		    background-color: #000; 
-		  }
+/*         hr { */
+/* 		    border: none; */
+/* 		    height: 3px;  */
+/* 		    background-color: #000;  */
+/* 		  } */
+		#feedList {
+		    text-align: center; /* 가로 가운데 정렬 */
+		    display: flex;
+		    flex-direction: column;
+		    align-items: center; /* 세로 가운데 정렬 */
+		    justify-content: center;
+		}
 
         .feedWriteModal {  
           display: none;  
@@ -92,7 +95,8 @@
     </head>
 
     <body>
-    
+   <c:import url="/main/header"/>
+   
    <div class="body">
    
       <div id="feedWriteModal" class="feedWriteModal">
@@ -108,69 +112,104 @@
        
       
 
-        <div class="row">
-          <div class="col-2 sidebar">
-            <!-- 사이드바 메뉴 내용 -->
-            <h4>기본태그</h4>
-            <button type="button" class="searchtag" name="food">#식품</button>
-            <button type="button" class="searchtag" name="beauty">#뷰티</button>
-            <button type="button" class="searchtag" name="fashion">#패션</button>
-            <button type="button" class="searchtag" name="daily">#일상</button>
-            <button type="button" class="searchtag" name="restaurant">#식당</button>
-            <button type="button" class="searchtag" name="recipe">#레시피</button>
-            <!-- 원하는 메뉴 항목 추가 -->
-            <h4>검색</h4>
-            <button>검색</button>
-            <button type="button" id="write-btn" class="btn btn-primary" data-toggle="modal"
-              data-target=".bd-example-modal-xl">피드 게시글 작성</button>        
-          </div>
-          
-          
-            <div id="feedList" class="feedListPost">
-            <!-- 피드 리스트  -->
-            </div>          
-         
+        <div class="container-fluid">
+		    <div class="row">
+		        <!-- 왼쪽에 메뉴 배치 -->
+		       
+		            <h4>기본태그</h4>
+		            <button type="button" class="searchtag" name="food">#식품</button>
+		            <button type="button" class="searchtag" name="beauty">#뷰티</button>
+		            <button type="button" class="searchtag" name="fashion">#패션</button>
+		            <button type="button" class="searchtag" name="daily">#일상</button>
+		            <button type="button" class="searchtag" name="restaurant">#식당</button>
+		            <button type="button" class="searchtag" name="recipe">#레시피</button>
+		            <!-- 원하는 메뉴 항목 추가 -->
+		            
+		            <input type="text" id="search" placeholder="검색하고싶은 태그를 입력해주세요. ex) #식당">
+		            <button id="search-button">검색</button>
+		            <button type="button" id="write-btn" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl">피드 게시글 작성</button>
+		        
+		        </div>
+        
+        <!-- 가운데에 내용 배치 -->
+		        <div class="col-10">
+		            <div id="feedList" class="feedListPost">
+		                <!-- 피드 리스트  -->
+		            </div>
+		        </div>
+		    
+		</div>          
+         <button id="addBtn"><span>더보기</span></button>	
   </div>
-</div>
+
             <!-- 위와 같은 구조의 다른 Instagram 피드 게시물들을 추가 -->
 
       
 
-
+	<c:import url="/main/footer"/>
     </body>
     <script>
-    
-      $(document).ready(function () {
+    var loginInfo;	
+    var limitcnt = 10;
+	$(document).ready(function () {
         feedListCall();
-        
-        
-        
+//         moreList(); 
+       
+       
         $('body').css('overflow', 'auto');
         $('#write-btn').on('click', function () {
-
-          $('#writeModal').modal('dispose');
-          $('#writeModal').modal();
-          $('.feedWriteModal').css({ 'display': 'block' });
-          $('.modal-backdrop').css({ 'display': 'block' });
-          $('body').css('overflow', 'hidden');
+        	console.log('a'); 
+            console.log(loginInfo);
+            if(loginInfo==null){
+            	alert('로그인 해주세요 !');
+            	location.href="/invegan/member/login.go";
+            }else{
+            	$('#writeModal').modal('dispose');
+                $('#writeModal').modal();
+                $('.feedWriteModal').css({ 'display': 'block' });
+                $('.modal-backdrop').css({ 'display': 'block' });
+                $('body').css('overflow', 'hidden');
+            }
+        		 
 
         })
-        
-      
+      console.log('a'); 
+      console.log(loginInfo);
 // feedList 처리
+		
+		
+		
         function feedListCall() {
+         // 한 번에 불러올 게시물 개수
+       
           $.ajax({
             type: 'get',
             url: 'feedListCall',
-            data: {},
+            data: {'limitcnt' : limitcnt},
             success: function (data) {
               console.log(data);
-              drawList(data.list);
+              console.log(data.listSize);
+              console.log(data.loginInfo);
+			  drawList(data.list);
+			  if (limitcnt > data.listSize) {
+			      $('#addBtn').prop('disabled', true); // 더보기 버튼 비활성화
+			    }
+			  
+			  
+			  loginInfo = data.loginInfo;
+			  console.log(loginInfo);
+              
             },
             error: function (error) {
               console.log(error);
             }
           });
+//           $("#addBtn").on("click", function() {
+//               limitcnt += 10;
+//               feedListCall(limitcnt);
+//               console.log(limitcht);
+//             });
+          
         };
         function drawList(list) {
           console.log(list);
@@ -233,7 +272,18 @@
           
         }
         
-        
+        $('#addBtn').on('click',function(){
+        	console.log('click');
+        	limitcnt += 10;
+        	feedListCall();
+        	
+        })
+     $('#search-button').on('click', function () {
+    var searchTerm = $('#search').val();
+    console.log(searchTerm);
+    
+    
+});
     
         
         
@@ -279,6 +329,21 @@
         $(document).on('click', '.searchtag', function () {
           var searchbt = $(this).text();
           console.log(searchbt);
+          $.ajax({
+              type: 'GET',
+              url: 'searchByTag', // 서버의 @RequestMapping 경로
+              data: { searchbt: searchbt }, // 검색어를 서버로 보냅니다
+              success: function (data) {
+                  // 검색 결과를 처리합니다.
+                  console.log(data);
+                  console.log(data.list);
+//                   drawList(data.list);
+              },
+              error: function (error) {
+                  console.log(error);
+              }
+          });
+          
         });
         $(document).on('click', '.tag-button', function () {
           var tagbt = $(this).text();
@@ -286,8 +351,9 @@
         });
         
         
+        
       });
-   
+   	
       
 
 
