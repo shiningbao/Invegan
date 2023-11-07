@@ -113,6 +113,11 @@
 	padding-left: 0;
 }
 
+/* 세로 줄 */
+.li-vertical-line {
+	border-right: 1px solid black;
+}
+
 /* 영양성분 */
 #contents-right-header {
 	border-bottom: 1px solid gray;
@@ -141,10 +146,52 @@
 #contents-right-header ul li:not(.li-vertical-line):hover {
 	border-bottom: 2px solid #95df95;
 }
-
-.li-vertical-line {
-	border-right: 1px solid black;
+#contents-right-content{
+	width: 100%;
+	padding: 10px 0px;
+	text-align: center;
 }
+#contents-right-content h4, #contents-right-content label{
+	margin: 8px auto;
+}
+
+
+
+/* 원형 그래프*/
+
+#kcal, #carb, #prot, #fat  {
+    width: calc(83% - 0px);
+    padding-bottom: calc(97% - 19px);
+    margin: 7px auto;
+    border-radius: 50%;
+    position: relative;
+    text-align: center;
+    transition: background .3s ease-in-out;
+    background: conic-gradient(#3F8BC9 0% 72%, #F2F2F2 72% 100%); 
+}
+
+#kcal::before, #carb::before, #prot::before, #fat::before {
+    color: #black;
+    width: 68%;
+    padding: calc(35%   - 1.3vw) 0;
+    background: #FFFFFF;
+    border-radius: 50%;
+    position: absolute;
+    left: 16%;
+    top: 15%;
+    content: attr(data-percent)'%';
+    transform: skew(-0.03deg);
+    margin: auto;
+    font-size: 1.1vw;
+    font-size: 23px;
+    padding: calc(43% - 1.3vw) 0;
+}
+
+.graph-box{
+	display: inline-block;
+	width: 23%;
+}
+
 </style>
 </head>
 <body>
@@ -305,7 +352,52 @@
 				</ul>
 			</div>
 			<div id="contents-right-content">
+				<div id="graph-area">
+				<div class="graph-box">
+					<label>열량</label>
+					<div id="kcal" class="circle"></div>
+					<h4 id="kcal-data"></h4>
+				</div>
+				<div class="graph-box">
+					<label>탄수화물</label>
+					<div id="carb" class="circle"></div>
+					<h4 id="carb-data"></h4>
+				</div>
+				<div class="graph-box">
+					<label>단백질</label>
+					<div id="prot" class="circle"></div>
+					<h4 id="prot-data"></h4>
+				</div>
+				<div class="graph-box">
+					<label>지방</label>
+					<div id="fat" class="circle"></div>
+					<h4 id="fat-data"></h4>
+				</div>
+				</div>
+			
+				<table id="nutri-bottom">
 				<!-- 그려질 영역 -->
+					<tr>
+						<td>열량</td>
+						<td>탄수화물</td>
+						<td>단백질</td>
+						<td>지방</td>
+					</tr>
+					<tr>
+						<td>열량</td>
+						<td>탄수화물</td>
+						<td>단백질</td>
+						<td>지방</td>
+					</tr>
+					<tr>
+						<td>열량</td>
+						<td>탄수화물</td>
+						<td>단백질</td>
+						<td>지방</td>
+					</tr>
+				</table>
+				
+				
 			</div>
 		</div>
 	</div>
@@ -316,6 +408,8 @@
 
 	// 페이지 로드시 바로 실행
 	getNutri($('#contents-right-header ul li:first'));
+	
+	
 
 	// 캘린더 화면으로 이동
 	$('#selectDate').on('click', function() {
@@ -348,12 +442,57 @@
 			dataType : 'JSON',
 			success : function(data) {
 				console.log(data.nutriInfo);
-				
+				drawNutri(data.nutriInfo);
 			},
 			error : function(data) {
 
 			}
 		});
+	}
+	
+			
+			
+	function drawNutri(nutr) {
+		console.log(nutr);
+		// 태그 가져오기
+		var kcal = document.querySelector("#kcal");
+		var carb = document.querySelector("#carb");
+		var prot = document.querySelector("#prot");
+		var fat = document.querySelector("#fat");
+		console.log("가져온 태그 확인 : "+kcal+"/"+carb+"/"+prot+"/"+fat);
+		
+		// 가져온 태그에 data-percent 속성 추가
+		kcal.setAttribute("data-percent",56);
+		carb.setAttribute("data-percent",100);
+		prot.setAttribute("data-percent",24);
+		fat.setAttribute("data-percent",47);
+		
+		// 태그의 data-percent 속성의 값을 변수에 저장
+		var percentKcal = kcal.getAttribute("data-percent");
+		var percentCarb = carb.getAttribute("data-percent");
+		var percentProt = prot.getAttribute("data-percent");
+		var percentFat = fat.getAttribute("data-percent");
+		console.log(percentKcal+"/"+percentCarb+"/"+percentProt+"/"+percentFat);
+		
+		
+		// 태그의 background 속성 변경
+		kcal.style.background = 'conic-gradient(#3F8BC9 0% '+percentKcal+'%, rgb(222 222 222) '+percentKcal+'% 100%)';
+		carb.style.background = 'conic-gradient(#3F8BC9 0% '+percentCarb+'%, rgb(222 222 222) '+percentCarb+'% 100%)';
+		prot.style.background = 'conic-gradient(#3F8BC9 0% '+percentProt+'%, rgb(222 222 222) '+percentProt+'% 100%)';
+		fat.style.background = 'conic-gradient(#3F8BC9 0% '+percentFat+'%, rgb(222 222 222) '+percentFat+'% 100%)';
+		
+		$('#kcal-data').empty();
+		$('#kcal-data').append('<h4>'+nutr.kcal+'<br/>/ 2700kcal</h4>');
+		
+		$('#carb-data').empty();
+		$('#carb-data').append('<h4>'+nutr.carb+'<br/>/ 100g</h4>');
+		
+		$('#prot-data').empty();
+		$('#prot-data').append('<h4>'+nutr.prot+'<br/>/ 55g</h4>');
+		
+		$('#fat-data').empty();
+		$('#fat-data').append('<h4>'+nutr.fat+'<br/>/ 60g</h4>');
+		
 	}
 </script>
 </html>
