@@ -31,12 +31,12 @@ public class DietService{
 		return dietDAO.showNutri(foodId);
 	}
 
-	public String addMenuDo(String addMenuChk, DietDTO dietDTO){
+	public String addMenuDo(String upsertSort, DietDTO dietDTO){
 		logger.info("addMenuDo() 실행");
 		int row = 0;
 		String msg = "메뉴 등록 실패";
 		
-		if(addMenuChk.equals("add")) {		// =true || insert
+		if(upsertSort.equals("0")) {		// =true || insert
 			logger.info("메뉴 추가 기능 실행");
 			row += dietDAO.addDiet(dietDTO);
 			row += dietDAO.addMenu(dietDTO);
@@ -61,6 +61,27 @@ public class DietService{
 		return dietDAO.getDietList(params);
 		
 	}
+
+	public FoodDataDTO getNutri(int loginUser_no, String selectDate, String dietCate) {
+		logger.info("getNutri() 실행 || prameter : "+ loginUser_no +" / "+selectDate+" / "+dietCate);
+		
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("loginUser_no", loginUser_no);
+		params.put("selectDate", selectDate);
+		
+		FoodDataDTO getNutriInfo = null;
+		if(dietCate.equals("전체")) {
+			logger.info("전체 영양소 불러오기");
+			getNutriInfo = dietDAO.getAllNutri(params);
+		}else{
+			logger.info("특정 식단 영양소 불러오기");
+			params.put("dietCate", dietCate);
+			getNutriInfo = dietDAO.getNutri(params);
+		}
+		return getNutriInfo;
+	}
+	
+	
 
 
 }

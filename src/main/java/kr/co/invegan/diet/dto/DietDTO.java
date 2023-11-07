@@ -16,12 +16,12 @@ public class DietDTO {
 	
 	private int food_id;
 	private String food_name;
-	private float kcal;
+	private int kcal;
 	
-	public float getKcal() {
+	public int getKcal() {
 		return kcal;
 	}
-	public void setKcal(float kcal) {
+	public void setKcal(int kcal) {
 		this.kcal = kcal;
 	}
 	public String getFood_name() {

@@ -33,6 +33,14 @@
 		INSERT INTO ImageTable(idx,server_file_name,category) VALUES(#{param1},#{param2},#{param3})
 	</insert>
 	
+	
+	
+	<select id="restaurantList" resultType="kr.co.invegan.board.dto.RestaurantDTO">
+		SELECT * FROM Board WHERE category = '식당'
+	</select>
+	
+	
+	
 	<select id="restaurantDetail" resultType="kr.co.invegan.board.dto.RestaurantDTO">
 		SELECT * from Board b natural join Restaurant r WHERE post_id = #{param1}
 	</select>

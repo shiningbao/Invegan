@@ -114,6 +114,10 @@ public class RestaurantService {
 	public ArrayList<String> photoList(int post_id) {
 		return dao.photoList(post_id);
 	}
+
+	public ArrayList<RestaurantDTO> restaurantList() {
+		return dao.restaurantList();
+	}
 	
 
 	

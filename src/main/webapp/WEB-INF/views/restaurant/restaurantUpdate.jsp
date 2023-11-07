@@ -1,5 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -77,27 +80,27 @@
 <table class = "restaurantWriteTable">
 	<tr>
 		<th class="restaurantWriteHead">식당 이름</th>
-		<td class="restaurantWriteCon"><input class="restaurnatInput" type="text" name="title"/></td>
+		<td class="restaurantWriteCon"><input class="restaurnatInput" type="text" name="title" value="${restaurant.getTitle()}"></td>
 	</tr>
 	<tr>
 		<th class="restaurantWriteHead">식당 주소</th>
 		<td class="restaurantWriteCon">
 			<button type="button" id="daumPostcode">주소 검색</button>
 			<br/>
-			<input class="restaurnatInput" type="text" name="address"/>
+			<input class="restaurnatInput" type="text" name="address" value="${restaurant.getAddress()}"/>
 		</td>
 	</tr>
 	<tr>
 		<th class="restaurantWriteHead">식당 소개</th>
-		<td class="restaurantWriteCon"><textarea class="restaurnatInput" name="content"/></textarea></td>
+		<td class="restaurantWriteCon"><textarea class="restaurnatInput" name="content">${restaurant.getContent()}</textarea></td>
 	</tr>
 	<tr>
 		<th class="restaurantWriteHead">연락처</th>
-		<td class="restaurantWriteCon"><input class="restaurnatInput" type="text" name="phone"/></td>
+		<td class="restaurantWriteCon"><input class="restaurnatInput" type="text" name="phone" value="${restaurant.getPhone()}"/></td>
 	</tr>
 	<tr>
 		<th class="restaurantWriteHead">영업시간</th>
-		<td class="restaurantWriteCon"><input class="restaurnatInput" type="text" name="hours"/></td>
+		<td class="restaurantWriteCon"><input class="restaurnatInput" type="text" name="hours" value="${restaurant.getHours()}"/></td>
 	</tr>
 	
 	<tr>
@@ -161,6 +164,13 @@ var imgArr= [];
 
 var $restaurantImg = document.getElementById('restaurantImg');
 
+var photoArr = [];
+<c:forEach items="${photo}" var ='item'>
+	photoArr.push("${item}");
+</c:forEach>
+console.log(photoArr);
+
+updateImage(photoArr);
 
 $('#restarunatWriteImg').on('change',function(){
 	//console.log("img change 감지");
@@ -227,6 +237,22 @@ function delImg(e){
 	upload($('#restarunatWriteImg')[0].files);
 }
 
+function updateImage(photoArr){
+	var dataTranster = new DataTransfer();
+	var reader = new Reader();
+	reader.
+	
+	dataTranster.
+}
+
+
+
+
+
+
+
+
+
 // 메뉴 추가 작성 항목
 $('#menuAdd').on('click',function(){
 	var menuContent = '<div class="menuDiv"><table class="menuTable"><tr><th>메뉴명</th><td><input class="restaurnatInput" type="text" name="menu_name"/>';
@@ -244,6 +270,14 @@ function menuDel(e){
 	$(e).parent().remove();
 };
 
+
+
+
+
+
+
+
+
 // 주소 검색
 $('#daumPostcode').on('click',function(){
     new daum.Postcode({
@@ -252,6 +286,13 @@ $('#daumPostcode').on('click',function(){
         }
     }).open();	
 });
+
+
+
+
+
+
+
 
 $('#write').on('click',function(e){
 	
@@ -319,16 +360,6 @@ $('#write').on('click',function(e){
 
 		// 메뉴 배열-맵 묶기
 		var menu = new Array(len);
-		/*
-		for(var i = 0; i < len; i++){
-			menu[i] = new Map();
-			menu[i].set('menu_name',$('input[name="menu_name"]').eq(i).val());
-			menu[i].set('price',$('input[name="price"]').eq(i).val());
-			menu[i].set('vegan_type',$('input[name="vegan_type"]').eq(i).val());
-			
-		}
-		
-		*/
 		for(var i = 0; i < len; i++){
 			menu[i] = new Array(3);
 			menu[i][0] = $('input[name="menu_name"]').eq(i).val();

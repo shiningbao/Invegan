@@ -27,7 +27,21 @@ public class FoodDataDTO {
 	private float vit_c;
 	private float essential;
 	private float omega3;
+	private int grams;
+	private String recipe_name;
 	
+	public String getRecipe_name() {
+		return recipe_name;
+	}
+	public void setRecipe_name(String recipe_name) {
+		this.recipe_name = recipe_name;
+	}
+	public int getGrams() {
+		return grams;
+	}
+	public void setGrams(int grams) {
+		this.grams = grams;
+	}
 	public int getFood_id() {
 		return food_id;
 	}

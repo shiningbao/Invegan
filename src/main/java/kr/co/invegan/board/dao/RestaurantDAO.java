@@ -22,5 +22,7 @@ public interface RestaurantDAO {
 
 	ArrayList<String> photoList(int post_id);
 
+	ArrayList<RestaurantDTO> restaurantList();
+
 
 }
