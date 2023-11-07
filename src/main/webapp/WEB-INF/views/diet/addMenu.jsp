@@ -29,6 +29,19 @@
 		font-size: 25px;
 	}
 	
+	#tapMenu{
+		width: inherit;
+		height: 30px;
+		border-bottom: 1px solid black; 
+		text-align: center;
+	}
+	#tapMenu li{
+		margin: 0 10px;
+	}
+	#tapMenu li:hover{
+		cursor: pointer;
+	}
+	
 </style>
 
 </head>
