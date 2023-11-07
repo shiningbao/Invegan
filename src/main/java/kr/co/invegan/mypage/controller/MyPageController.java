@@ -26,15 +26,17 @@ public class MyPageController {
 	
 	@Autowired MyPageService service;
 	
+	MyPageDTO dto = new MyPageDTO();
+	
 	@RequestMapping(value="/myPage/info.go")
 	public String infoGo(Model model, HttpSession session) {
 
 		int user_no = ((MemberDTO) session.getAttribute("loginInfo")).getUser_no();
 		
 	    if (user_no != 0) {
-	        ArrayList<MyPageDTO> info = service.userInfo(user_no);
-	        model.addAttribute("info", info);
-	        logger.info("info:"+info);
+	        MyPageDTO dto = service.userInfo(user_no);
+	        model.addAttribute("dto", dto);
+	        logger.info("dto:"+dto);
 	        return "myPage/mypage";
 	    } else {
 	    	return "redirect:/login"; 
@@ -43,57 +45,45 @@ public class MyPageController {
 	
 	@RequestMapping(value="/myPage/listCall")
 	@ResponseBody
-	public HashMap<String, Object> listCall(@RequestParam String boardType, @RequestParam String tabType, @RequestParam Integer user_no) {
+	public HashMap<String, Object> listCall(@RequestParam String boardType, @RequestParam String tabType, @RequestParam Integer user_no, @RequestParam String page) {
 		
 	    HashMap<String, Object> result = new HashMap<String, Object>();
-	    ArrayList<MyPageDTO> list = null;
 	    
 	    switch (boardType) {
         case "요청":
             if ("작성한 글 모아보기".equals(tabType)) {
-                list = service.requestBoardList(user_no);
+                result.put("list", service.requestBoardList(user_no,page)); 
             }
             break;
-        case "레시피":
-            if ("작성한 글 모아보기".equals(tabType)) {
-                list = service.recipeBoardList(user_no);
-            } else if ("댓글 모아보기".equals(tabType)) {
-                list = service.recipeComments(user_no);
-            } else if ("나의 스크랩".equals(tabType)) {
-                list = service.recipeFavorite(user_no);
-            }
-            break;
-        case "자유게시판":
-            if ("작성한 글 모아보기".equals(tabType)) {
-                list = service.freeBoardList(user_no);
-            } else if ("댓글 모아보기".equals(tabType)) {
-                list = service.freeComments(user_no);
-            }
-            break;
-        case "피드":
-        	if ("작성한 글 모아보기".equals(tabType)) {
-                list = service.feedList(user_no);
-            } else if ("댓글 모아보기".equals(tabType)) {
-                list = service.feedComments(user_no);
-            }
-            break;
-        case "식당":
-        	if ("댓글 모아보기".equals(tabType)) {
-                list = service.restaurantComments(user_no);
-            } else if ("나의 스크랩".equals(tabType)) {
-                list = service.restaurantFavorite(user_no);
-            }
-        	break;
+		/*
+		 * case "레시피": if ("작성한 글 모아보기".equals(tabType)) { result =
+		 * service.recipeBoardList(user_no,page); } else if ("댓글 모아보기".equals(tabType))
+		 * { result = service.recipeComments(user_no,page); } else if
+		 * ("나의 스크랩".equals(tabType)) { result = service.recipeFavorite(user_no,page); }
+		 * break;
+		 */
+		/*
+		 * case "자유게시판": if ("작성한 글 모아보기".equals(tabType)) { list =
+		 * service.freeBoardList(user_no); } else if ("댓글 모아보기".equals(tabType)) { list
+		 * = service.freeComments(user_no); } break; case "피드": if
+		 * ("작성한 글 모아보기".equals(tabType)) { list = service.feedList(user_no); } else if
+		 * ("댓글 모아보기".equals(tabType)) { list = service.feedComments(user_no); } break;
+		 * case "식당": if ("댓글 모아보기".equals(tabType)) { list =
+		 * service.restaurantComments(user_no); } else if ("나의 스크랩".equals(tabType)) {
+		 * list = service.restaurantFavorite(user_no); } break;
+		 */
         default:
         	
             break;
     }
-	    
+	    result.put("user_no", user_no);
+	    result.put("page", page);
 
-	    result.put("list", list);
-	    logger.info("list:"+list);
+	    logger.info("user_no:" + user_no);
+	    logger.info("보여줄 페이지 : " + page);
 	    logger.info("user_no:"+user_no);
-
+	    logger.info("보여줄 페이지 : "+page);
+	    
 	    return result;
 	}
 
@@ -169,6 +159,8 @@ public class MyPageController {
 	
 		return map;
 	}
+	
+	
 	/*
 	 * @RequestMapping(value="/myPage/imgUpload",method=RequestMethod.POST)
 	 * 
