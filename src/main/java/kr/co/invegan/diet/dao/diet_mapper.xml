@@ -62,7 +62,7 @@
 <!-- 식단 불러오기 -->
 	<select id="getDietList" parameterType="hashmap" resultType="kr.co.invegan.diet.dto.DietDTO">
 		SELECT d.date, d.diet_id, d.diet_category, m.menu_id, m.recipe_name, m.category ,fd.food_id ,fd.food_name, 
-			SUM(mt.grams) AS grams , SUM(ROUND((fd.kcal * mt.grams / fd.serving_size),2))AS kcal
+			SUM(mt.grams) AS grams , SUM(ROUND((fd.kcal * mt.grams / fd.serving_size),0))AS kcal
 		FROM Diet d
 			INNER JOIN Diet_composition dc ON d.diet_id = dc.diet_id
 			INNER JOIN Menu m ON dc.menu_id = m.menu_id
@@ -75,7 +75,7 @@
 <!-- 영양소 총 합계 불러오기 -->
 	<select id="getAllNutri" parameterType="hashMap" resultType="kr.co.invegan.diet.dto.FoodDataDTO">
 		SELECT
-		    SUM(ROUND((fd.kcal * mt.grams / fd.serving_size), 2)) AS kcal,
+		    SUM(ROUND((fd.kcal * mt.grams / fd.serving_size), 0)) AS kcal,
 		    SUM(ROUND((fd.carb * mt.grams / fd.serving_size), 2)) AS carb,
 		    SUM(ROUND((fd.prot * mt.grams / fd.serving_size), 2)) AS prot,
 		    SUM(ROUND((fd.fat * mt.grams / fd.serving_size), 2)) AS fat,
@@ -102,12 +102,10 @@
 		WHERE 
 			d.user_no = #{loginUser_no} AND d.date = #{selectDate};
 	</select>
-
-<!-- 특정 식단 영양소 불러오기 -->
+	<!-- 특정 식단 영양소 불러오기 -->
 	<select id="getNutri" parameterType="hashmap" resultType="kr.co.invegan.diet.dto.FoodDataDTO">
 		SELECT
-  			SUM(mt.grams) AS grams,
-		    SUM(ROUND((fd.kcal * mt.grams / fd.serving_size), 2)) AS kcal,
+		    SUM(ROUND((fd.kcal * mt.grams / fd.serving_size), 0)) AS kcal,
 		    SUM(ROUND((fd.carb * mt.grams / fd.serving_size), 2)) AS carb,
 		    SUM(ROUND((fd.prot * mt.grams / fd.serving_size), 2)) AS prot,
 		    SUM(ROUND((fd.fat * mt.grams / fd.serving_size), 2)) AS fat,
