@@ -137,6 +137,7 @@
         </thead>
 
         <tbody>
+        	
         </tbody>
     </table>
 
@@ -144,7 +145,10 @@
 </body>
 
 <script>
-window.onload = function () { buildCalendar(); }   
+
+window.onload = function () { 
+	buildCalendar(); 
+}   
 
 var selectDate = "";
 
@@ -156,7 +160,8 @@ function dietMgmt() {
 }
 
 let nowMonth = new Date();  // 현재 달을 페이지를 로드한 날의 달로 초기화
-let today = new Date();    
+let today = new Date();
+let selectYear = new Date();
 today.setHours(0,0,0,0);   
 
 
@@ -183,7 +188,7 @@ function buildCalendar() {
 
         let nowColumn = nowRow.insertCell();        // 새 열을 추가하고
         nowColumn.innerText = leftPad(nowDay.getDate());      // 추가한 열에 날짜 입력
-
+	
     
         if (nowDay.getDay() == 0) {                
             nowColumn.style.color = "red";
@@ -219,6 +224,7 @@ function choiceDate(nowColumn) {
 
 	    if (nowColumn.classList.contains("pastDay")) {
 	        nowColumn.classList.add("choiceDay");
+	       	
 	    }
 	    else {
 	        nowColumn.classList.add("choiceDay");
@@ -226,23 +232,23 @@ function choiceDate(nowColumn) {
 	    // 클릭한 날짜 값
         selectDate = $('#calYear').text()+"-"+$('#calMonth').text()+"-"+$('.choiceDay').text();
 	    console.log(selectDate);
-	    
 	    dietMgmt();
-	}       
+}
+	    
 
 
-// 이전달 버튼 클릭
+// 이전달 버튼 클릭할 때 함수
 function prevCalendar() {
     nowMonth = new Date(nowMonth.getFullYear(), nowMonth.getMonth() - 1, nowMonth.getDate());   // 현재 달을 1 감소
     buildCalendar();    // 달력 다시 생성
 }
-// 다음달 버튼 클릭
+// 다음달 버튼 클릭할 때 함수
 function nextCalendar() {
     nowMonth = new Date(nowMonth.getFullYear(), nowMonth.getMonth() + 1, nowMonth.getDate());   // 현재 달을 1 증가
     buildCalendar();    // 달력 다시 생성
 }
 
-
+// 숫자가 10보다 작을 때 앞에 0을 붙여서 반환
 function leftPad(value) {
     if (value < 10) {
         value = "0" + value;
@@ -255,28 +261,41 @@ document.getElementById("calYear").addEventListener("click", function(event) {
     // 클릭한 위치에 새로운 <select> 요소 생성
     var selectElement = document.createElement("select");
 
-    // 현재 년도 가져오기
+    // 현재 해 가져오기
     var currentYear = new Date().getFullYear();
 
-    // -2부터 +2까지의 년도 
+    // 현재 해의 -2부터 +2까지의 년도 
     for (var i = -2; i <= 2; i++) {
         var optionElement = document.createElement("option"); // 선택할 옵션 생성
         optionElement.textContent = currentYear + i; 
         selectElement.appendChild(optionElement); // 옵션 추가
     }
+    // select 요소의 값 설정을 아무것도 없게 
+    selectElement.selectedIndex = -1;
 
     // 새로운 <select> 요소를 클릭한 <div> 요소 안에 추가
     this.appendChild(selectElement);
 
     selectElement.addEventListener("change", function() {
-        var selectedYear = parseInt(this.value);
+    	var selectedYear = parseInt(this.value);
         console.log("선택년도: " + selectedYear);
-   
-        // <select> 없애기 (됐다가 안됨,, )
+
+ 
+        // <select> 없애기
     	this.remove();
         
+    	loadSelectedYear();
+        
+        function loadSelectedYear(){
+        	nowMonth = new Date(selectedYear, nowMonth.getMonth());
+        	buildCalendar();
+        }
+   		
     });
 });
+
+	
+
 
 
 
