@@ -2,6 +2,8 @@ package kr.co.invegan.board.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -16,12 +18,8 @@ public interface FeedDAO {
 
    void tagWrite(FeedDTO dto);
 
-
    void feedtagWrite(FeedDTO dto);
 
-
-   
-   
    void feedWritePhoto(@Param("postidx") int postidx, @Param("server_file_name") String server_file_name);
 
    ArrayList<FeedListDTO> list(int limitcnt);
@@ -30,23 +28,25 @@ public interface FeedDAO {
 
    ArrayList<FeedListDTO> commentList(int post_id);
 
-
-
    void feedWriteComment(FeedListDTO dto);
 
    String findCommentUserNickName(int user_no);
 
    int findBoardUserno(int post_id);
 
-   
    void feedDelComments(int post_id);
-   void feedDelPost(int post_id);
-
    
+   void feedDelPost(int post_id);
 
    void feedUpdatePost(HashMap<String, String> params);
 
-   ArrayList<FeedListDTO> searchByTag(String searchbt);
+   ArrayList<FeedListDTO> searchByTag(String searchbt, int limitcnt);
+
+   List<Map<String, Object>> autocomplete(Map<String, Object> paramMap);
+
+ 
+
+   ArrayList<FeedListDTO> autoSearchTag(String autoText, int parseInt);
 
 
 
