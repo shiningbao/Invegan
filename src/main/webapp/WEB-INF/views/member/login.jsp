@@ -38,7 +38,7 @@
 	        <tr>
 	            <th colspan="3">
 	                <input id="signup" type="button" value="회원가입"/>
-	                <input id="findId" type="button" value="아이디/비밀번호 찾기"/>
+	                <input id="find" type="button" value="아이디/비밀번호 찾기"/>
 	            </th>    
 	        </tr>
 	    </table>
@@ -78,9 +78,9 @@ $('#login').on('click',function(){
 		location.href='signup';
 	});
 	
-	$('#findId').on('click',function(){
+	$('#find').on('click',function(){
 		console.log('아이디 비밀번호 찾기 페이지 진입');
-		location.href='findId';
+		location.href='find';
 	});
 	
 	var msg = "${msg}";

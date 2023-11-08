@@ -53,11 +53,11 @@ public class MemberService {
 
     //비밀번호 찾기
     /*
-    public String findPw(HttpServletResponse response, String id, String email2) throws Exception {
+    public String findPw(HttpServletResponse response, String id, String email) throws Exception {
 		 response.setContentType("text/html;charset=utf-8");
 	     PrintWriter out = response.getWriter();
 	     logger.info("service.findPw 접근");
-	     String pw = dao.findPw(id, email2);
+	     String pw = dao.findPw(id, email);
 	     logger.info("pw : "+pw);
 	     if (pw == null) {
 	          out.println("<script>");
@@ -71,6 +71,24 @@ public class MemberService {
 	        return pw;
 	}
 	*/
+    /*
+    public String findPw(String id, String email) throws Exception {
+	     PrintWriter out = response.getWriter();
+	     logger.info("service.findPw 접근");
+	     String pw = dao.findPw(id, email);
+	     logger.info("pw : "+pw);
+	     if (pw == null) {
+	          out.println("<script>");
+	          out.println("alert('가입된 계정이 없습니다.');");
+	          out.println("history.go(-1);");
+	          out.println("</script>");
+	          out.close();
+	      } else {
+	    	  logger.info("pw : "+pw);   
+	        }
+	        return pw;
+	}
+    */
     
     public String findPw(String id, String email) throws Exception {
     	logger.info("service 접근");
@@ -116,12 +134,5 @@ public class MemberService {
         return msg;
 	}
 */
-/*
-	public void signup(Map<String, String> params, String combinedInterests, String birthdateString) {
-        MemberDTO member = new MemberDTO();
-        // DAO 메서드를 호출하여 데이터를 전달
-        dao.signup(member);
-    }
-    */
 
 }

@@ -36,7 +36,7 @@ input[type=text] {
 
 	
 </form>
-
+<!-- 
 <hr/>
 
 	<c:if test="${not empty pw}">
@@ -59,6 +59,7 @@ input[type=text] {
         </p>
     </div>
 </form>
+ -->
 <!-- 
 	<p>
 		<input id="enter" type="button" name="enter" value="확인" >

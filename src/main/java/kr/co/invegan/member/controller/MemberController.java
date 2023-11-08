@@ -72,6 +72,12 @@ public class MemberController {
 		return "redirect:/";
 	}
 
+	//아이디 비밀번호 찾기
+		@RequestMapping(value = { "/member/find" }, method = RequestMethod.GET)
+		public String find() {
+
+			return "member/find";
+		}
 	
 	//아이디 찾기
 	@RequestMapping(value = { "/member/findId" }, method = RequestMethod.GET)
@@ -98,7 +104,7 @@ public class MemberController {
 	@RequestMapping(value = { "/member/findPw" }, method = RequestMethod.GET)
 	public String findPw() {
 
-		return "member/findId";
+		return "member/findPw";
 	}
 	
 	/*
@@ -116,6 +122,7 @@ public class MemberController {
 		return "member/findId";
 	}
 	*/
+	
 	@RequestMapping(value = {"/member/findPw2"}, method = RequestMethod.POST)
 	public String findPw(HttpServletResponse response, 
 	        @RequestParam String id, @RequestParam String email, Model model) throws Exception {
@@ -129,9 +136,25 @@ public class MemberController {
 	        model.addAttribute("pw", pw);
 	    }
 	    
-	    return "member/findId"; 
+	    return "member/findPw"; 
 	}
 	
+	/*
+	@RequestMapping(value = {"/member/findPw"}, method = RequestMethod.POST)
+	public HashMap<String, Object> findPw(@RequestParam String id, @RequestParam String email, Model model) throws Exception {
+		logger.info("id : " + id);
+	    logger.info("email : " + email);
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		//String pw = service.findPw(id, email);
+		result = service.findPw(id, email);
+		if (result != null) {
+			result.put("msg", result);
+		} else {
+			result.put("msg", "다시 시도해주세요");
+		}
+		return result;
+	} 
+	*/
 	//회원가입
 	@RequestMapping(value = { "/member/signup" }, method = RequestMethod.GET)
 	public String signupPage() {
