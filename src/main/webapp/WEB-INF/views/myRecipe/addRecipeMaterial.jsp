@@ -61,10 +61,22 @@
 			  #mMaterial {
 			  	float : right;
 			  }
+			  
+			  #close input {
+			  	cursor: pointer;
+				background: none;
+				border: none;
+				font-size: 25px;
+			  	margin-left: 10px;
+			  	float: right;
+			  }
 		</style>
 	</head>
 	<body>
 		<div id = "box">
+			<div id="close">
+				<input type="button" value="Χ" onclick="closeModal()"/>
+			</div>
 			<div id = "sbutton">
 				<input type="text" name="fname" placeholder="재료 검색"/> <input type="button" id="msearch" value="검색"/>
 			</div>
@@ -186,33 +198,38 @@
         	console.log('입력한 grams 수 : '+grams);
         	
         	// gram에 문자가 있을경우 alert
-        	var regex = new RegExp('[a-zA-Zㄱ-ㅎ가-힣]');
-        	var match = regex.test(grams);
-        	if (match) {
-        		alert('숫자만 넣어주세요');
-        		$('input[name="gram"]').val('');
-        	}
-        	
-        	closeModal();
-       	
-        	$.ajax({
-        		type:'get',
-        		url:'mMaterial',
-        		data:{"food_id":food_id, "grams":grams},
-        		dataType:'JSON',
-        		success:function(data){
-        			console.log(data);
-        		},
-        		error:function(e) {
-        			console.log(e);
-        		} 
-        	});
+			var regex = new RegExp('[^0-9\\s]');
+			var match = regex.test(grams);
 			
+			if (match || grams === '0' || grams.trim() === '') {
+			    alert('0이 아닌 숫자만 입력해 주세요');
+			    $('input[name="gram"]').val('');
+			} else {	
+	        	closeModal();
+	           	
+	        	$.ajax({
+	        		type:'get',
+	        		url:'mMaterial',
+	        		data:{"food_id":food_id, "grams":grams},
+	        		dataType:'JSON',
+	        		success:function(data){
+	        			console.log(data);
+	        		},
+	        		error:function(e) {
+	        			console.log(e);
+	        		} 
+	        	});
+			}			
         });
         
     	function closeModal() {
-    		var modal = document.getElementById("mModal");
-    		modal.style.display = "none";
+        	var modal = document.getElementById("mModal");
+        	modal.style.display = "none";
+        	if (food_id != null && grams != 0 && match == false){
+        		alert('레시피에 재료가 추가되었습니다.');
+        	}
+
+        	myRecipeMenu();
     	}
 		
 	</script>
