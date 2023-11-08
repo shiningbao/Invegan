@@ -9,6 +9,7 @@
 <style></style>
 </head>
 <body>
+	<h2>비밀번호 찾기 결과</h2>
 	
 	<c:if test="${not empty pw}">
         <p>찾은 비밀번호: ${pw}</p>

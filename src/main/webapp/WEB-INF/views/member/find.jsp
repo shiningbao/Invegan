@@ -9,10 +9,13 @@
 <style></style>
 </head>
 <body>
-
+	<h2>아이디/비밀번호 찾기</h2>
+	<h4>아이디 찾기 또는 비밀번호 찾기 버튼을 클릭해주세요</h4>
+	
 	<input id="findId" type="button" name="findId" value="아이디 찾기" >
 	<input id="findPw" type="button" name="findPw" value="비밀번호 찾기" >
 </body>
+
 <script>
 $('#findId').on('click',function(){
 	console.log('아이디 찾기 페이지 진입');

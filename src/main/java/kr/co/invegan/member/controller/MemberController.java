@@ -86,8 +86,6 @@ public class MemberController {
 		return "member/findId";
 	}
 
-	
-	
 	@RequestMapping(value = {"/member/findId2"}, method = RequestMethod.POST)
 	public String findId(HttpServletResponse response, 
 			@RequestParam String email, 
@@ -100,7 +98,6 @@ public class MemberController {
 	
 
 	//비밀번호 찾기
-	
 	@RequestMapping(value = { "/member/findPw" }, method = RequestMethod.GET)
 	public String findPw() {
 
@@ -123,21 +120,6 @@ public class MemberController {
 	    return "member/findPw"; 
 	}
 	
-		/*
-	@RequestMapping(value = {"/member/findPw2"}, method = RequestMethod.POST)
-	public String findPw(HttpServletResponse response, 
-			@RequestParam String id, @RequestParam String email2	,
-			Model model) throws Exception {
-		logger.info("id : "+id);
-		logger.info("email : "+email2);
-		
-		//이거 id+email 가져오게 고치기
-		//model.addAttribute("id", service.findId(response, email));
-		service.findPw(response, id, email2);
-		
-		return "member/findId";
-	}
-	*/
 	//회원가입
 	@RequestMapping(value = { "/member/signup" }, method = RequestMethod.GET)
 	public String signupPage() {

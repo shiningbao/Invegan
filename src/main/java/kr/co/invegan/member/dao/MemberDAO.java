@@ -21,9 +21,4 @@ public interface MemberDAO {
 	
 	String findPw(@Param("id") String id, @Param("email") String email);
 	
-	//String findPw(@Param("id") String id, @Param("email") String email);
-
-	//String findId(@Param("nickname") String nickname, @Param("birthdate") String birthdate);
-
-
 }
