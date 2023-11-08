@@ -107,7 +107,23 @@ public class MemberController {
 		return "member/findPw";
 	}
 	
-	/*
+	@RequestMapping(value = {"/member/findPw2"}, method = RequestMethod.POST)
+	public String findPw(HttpServletResponse response, 
+	        @RequestParam String id, @RequestParam String email, 
+	        Model model) throws Exception {
+	    logger.info("id : " + id);
+	    logger.info("email : " + email);
+	    
+	    String pw = service.findPw(response, id, email);
+	    logger.info("service.findPw(id, email)을 실행해서 pw변수에 담음");
+	    if (pw != null) {
+	        model.addAttribute("pw", pw);
+	    }
+	    
+	    return "member/findPw"; 
+	}
+	
+		/*
 	@RequestMapping(value = {"/member/findPw2"}, method = RequestMethod.POST)
 	public String findPw(HttpServletResponse response, 
 			@RequestParam String id, @RequestParam String email2	,
@@ -121,39 +137,6 @@ public class MemberController {
 		
 		return "member/findId";
 	}
-	*/
-	
-	@RequestMapping(value = {"/member/findPw2"}, method = RequestMethod.POST)
-	public String findPw(HttpServletResponse response, 
-	        @RequestParam String id, @RequestParam String email, Model model) throws Exception {
-	    logger.info("id : " + id);
-	    logger.info("email : " + email);
-	    
-	    String pw = service.findPw(id, email);
-	    logger.info("service.findPw(id, email)");
-	    if (pw != null) {
-	    	
-	        model.addAttribute("pw", pw);
-	    }
-	    
-	    return "member/findPw"; 
-	}
-	
-	/*
-	@RequestMapping(value = {"/member/findPw"}, method = RequestMethod.POST)
-	public HashMap<String, Object> findPw(@RequestParam String id, @RequestParam String email, Model model) throws Exception {
-		logger.info("id : " + id);
-	    logger.info("email : " + email);
-		HashMap<String, Object> result = new HashMap<String, Object>();
-		//String pw = service.findPw(id, email);
-		result = service.findPw(id, email);
-		if (result != null) {
-			result.put("msg", result);
-		} else {
-			result.put("msg", "다시 시도해주세요");
-		}
-		return result;
-	} 
 	*/
 	//회원가입
 	@RequestMapping(value = { "/member/signup" }, method = RequestMethod.GET)
