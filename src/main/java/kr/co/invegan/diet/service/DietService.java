@@ -73,6 +73,7 @@ public class DietService{
 		if(dietCate.equals("전체")) {
 			logger.info("전체 영양소 불러오기");
 			getNutriInfo = dietDAO.getAllNutri(params);
+			logger.info("getAllNutri out");
 		}else{
 			logger.info("특정 식단 영양소 불러오기");
 			params.put("dietCate", dietCate);
