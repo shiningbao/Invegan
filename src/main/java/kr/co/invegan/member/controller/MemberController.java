@@ -80,10 +80,50 @@ public class MemberController {
 			@RequestParam String email, 
 			Model model) throws Exception {
 		logger.info("email : "+email);
-		model.addAttribute("fid", service.findId(response, email));
+		model.addAttribute("id", service.findId(response, email));
+		
 		return "member/findId";
 	}
 	
+
+	//비밀번호 찾기
+	
+	@RequestMapping(value = { "/member/findPw" }, method = RequestMethod.GET)
+	public String findPw() {
+
+		return "member/findId";
+	}
+	
+	/*
+	@RequestMapping(value = {"/member/findPw2"}, method = RequestMethod.POST)
+	public String findPw(HttpServletResponse response, 
+			@RequestParam String id, @RequestParam String email2	,
+			Model model) throws Exception {
+		logger.info("id : "+id);
+		logger.info("email : "+email2);
+		
+		//이거 id+email 가져오게 고치기
+		//model.addAttribute("id", service.findId(response, email));
+		service.findPw(response, id, email2);
+		
+		return "member/findId";
+	}
+	*/
+	@RequestMapping(value = {"/member/findPw2"}, method = RequestMethod.POST)
+	public String findPw(HttpServletResponse response, 
+	        @RequestParam String id, @RequestParam String email, Model model) throws Exception {
+	    logger.info("id : " + id);
+	    logger.info("email : " + email);
+	    
+	    String pw = service.findPw(id, email);
+	    logger.info("service.findPw(id, email)");
+	    if (pw != null) {
+	    	
+	        model.addAttribute("pw", pw);
+	    }
+	    
+	    return "member/findId"; 
+	}
 	
 	//회원가입
 	@RequestMapping(value = { "/member/signup" }, method = RequestMethod.GET)
@@ -109,59 +149,5 @@ public class MemberController {
 		return "main";
 	}
 		
-	/*
-	@GetMapping("/signup")
-	public String signup(@RequestParam List<String> interests){
-	    for (String interest : interests) {
-	        service.signup(interest);
-	    }
-	    return "main";
-	}
-	*/
-
-	
-	
-	//이거 수정해야됨!!!!!!!!!!!!!!!!!
-	@Autowired  
-	private JavaMailSender mailSender;
-	
-	//이메일 인증
-	@RequestMapping(value = "/mailCheck", method = RequestMethod.GET)
-	@ResponseBody
-	public String mailCheck(@RequestParam("sm_email") String sm_email) throws Exception{
-	    int serti = (int)((Math.random()* (99999 - 10000 + 1)) + 10000);
-	    
-	    //JavaMailSenderImpl mailSender = null;
-	    mailSender = null;
-	    
-	    String from = "rlaalswll25@naver.com";//보내는 이 메일주소
-	    String to = sm_email;
-	    String title = "회원가입시 필요한 인증번호 입니다.";
-	    String content = "[인증번호] "+ serti +" 입니다. <br/> 인증번호 확인란에 기입해주십시오.";
-	    String num = "";
-	    try {
-	    	MimeMessage mail = mailSender.createMimeMessage();
-	        MimeMessageHelper mailHelper = new MimeMessageHelper(mail, true, "UTF-8");
-	        
-	        mailHelper.setFrom(from);
-	        mailHelper.setTo(to);
-	        mailHelper.setSubject(title);
-	        mailHelper.setText(content, true);       
-	        
-	        mailSender.send(mail);
-	        num = Integer.toString(serti);
-	        
-	    } catch(Exception e) {
-	        num = "error";
-	    }
-	    return num;
-	}
-
-	//여기!!!!!!!!!!!
-	@RequestMapping(value = { "/member/mailCheck" }, method = RequestMethod.GET)
-	public String mailCheck() {
-
-		return "main";
-	}
 	
 }
