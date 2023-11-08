@@ -15,6 +15,18 @@
 	li{
 		display: inline-block;
 	}
+	#tapMenu{
+		width: inherit;
+		height: 30px;
+		border-bottom: 1px solid black; 
+		text-align: center;
+	}
+	#tapMenu li{
+		margin: 0 10px;
+	}
+	#tapMenu li:hover{
+		cursor: pointer;
+	}
 	#top {
 		text-align: right;
 		float: right;
@@ -29,6 +41,19 @@
 		font-size: 25px;
 	}
 	
+	#tapMenu{
+		width: inherit;
+		height: 30px;
+		border-bottom: 1px solid black; 
+		text-align: center;
+	}
+	#tapMenu li{
+		margin: 0 10px;
+	}
+	#tapMenu li:hover{
+		cursor: pointer;
+	}
+	
 </style>
 
 </head>
@@ -39,11 +64,12 @@
 			<li id="default" onclick="defaultMenu()">기본메뉴</li>
 			<li id="myRecipe" onclick="myRecipeMenu()">나만의 레시피 메뉴</li>
 		</ul>
-	</div>
-	<div id="top">
-		<input type="button" value="Χ" onclick="winClose()"/>
+		<div id="top">
+			<input type="button" value="Χ" onclick="winClose()"/>
+		</div>
 	</div>
 	<div id="contents">
+	
 	</div>
 </body>
 <script>

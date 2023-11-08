@@ -8,7 +8,6 @@ public class FoodDataDTO {
 	private String food_category;
 	private int serving_size;
 	private int kcal;
-	private float h2o;
 	private float prot;
 	private float fat;
 	private float carb;
@@ -77,12 +76,6 @@ public class FoodDataDTO {
 	}
 	public void setKcal(int kcal) {
 		this.kcal = kcal;
-	}
-	public float getH2o() {
-		return h2o;
-	}
-	public void setH2o(float h2o) {
-		this.h2o = h2o;
 	}
 	public float getProt() {
 		return prot;

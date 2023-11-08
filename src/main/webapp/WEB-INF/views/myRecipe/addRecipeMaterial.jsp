@@ -6,30 +6,32 @@
 		<title>Insert title here</title>
 		<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 		<style>	
-			   table {
-			    border-collapse: collapse;
-			    white-space: nowrap;
-			  }
-			
-			  th, td {
-			    padding: 8px;
-			    text-align: left;
-			    height: 40px;
-			  }
 			  
 			  div.scrollbar{
 			  	overflow : auto;
-			  	width : 1000px;
+			  	width : 800px;
 			  	height: 457.6px;
 			  	border: 1px solid black;
 			  }
-			  
-			  #box {
-			  	width : 1000px;
+			  div.scrollbar table{
+			  	white-space: nowrap;
+			  	border-collapse: collapse;
+			    text-align: center;
 			  }
 			  
-			  #name {
-			  	width : 300px;
+			  div.scrollbar th{
+			  	padding: 8px;
+			    height: 30px;
+			  }
+
+			  
+			  .scrollbar td {
+			  	height: 20px;
+			  	font-size: 15px;
+			  }
+			  
+			  #box {
+			  	width :  800px;
 			  }
 			  
 			  #sbutton, #gram {
@@ -37,8 +39,27 @@
 			  	padding : 0px 0px 5px 0px;
 			  }
 			  
+			  #sbutton {
+			  	margin-bottom: 10px;
+			  }
+			  
+			  #msearch {
+			  	height: 25px;
+			  }
+			  
+			  input[name="fname"]{
+			  	margin-bottom: 2px;
+			  	height:19.8px;
+			  }
+			  
+			  
 			  #down {
 			  	padding : 5px 0px 0px 0px;
+			  	margin-top: 10px;
+			  }
+			  
+			  #mMaterial {
+			  	float : right;
 			  }
 		</style>
 	</head>
@@ -51,12 +72,11 @@
 				<table>
 					<thead>
 						<tr>
-							<th>No.</th>
-							<th>식품명</th>
-							<th>분류</th>
-							<th>1회 제공량(g)</th>
+							<th width="50px">No.</th>
+							<th width="50%">식품명</th>
+							<th width="220px">분류</th>
+							<th width="150px">1회 제공량(g)</th>
 							<th>에너지(kcal)</th>
-							<th>수분(g)</th>
 							<th>단백질(g)</th>
 							<th>지방(g)</th>
 							<th>탄수화물(g)</th>
@@ -85,8 +105,8 @@
 			<div id="down">
 				<a href='#'>찾으시는 식재료가 없으신가요?</a>
 				<a><input type="text" name="gram"/> g</a>	
-			</div>
-			<input type="button" id ="mMaterial" value="완료"/>
+				<input type="button" id ="mMaterial" value="완료"/>
+			</div>	
 		</div>
 	</body>
 	<script>
@@ -95,6 +115,7 @@
 		var mName; // material_name
 		var grams; // gram
 
+		// 재료 검색
 		$('#msearch').on('click', function(){
 			fName = $('input[name="fname"]').val();
 			
@@ -115,6 +136,7 @@
 				});
 		});
 		
+		// 재료 리스트 그리기
 		function drawList(mlist) {
 			console.log(mlist);
 			var content = '';
@@ -126,7 +148,6 @@
 					content += '<td>'+item.food_category+'</td>';
 					content += '<td>'+item.serving_size+'</td>';
 					content += '<td>'+item.kcal+'</td>';
-					content += '<td>'+item.h2o+'</td>';
 					content += '<td>'+item.prot+'</td>';
 					content += '<td>'+item.fat+'</td>';
 					content += '<td>'+item.carb+'</td>';
@@ -172,8 +193,7 @@
         		$('input[name="gram"]').val('');
         	}
         	
-        	var modal = document.getElementById("mModal");
-        	modal.style.display = "none";
+        	closeModal();
        	
         	$.ajax({
         		type:'get',
@@ -189,6 +209,11 @@
         	});
 			
         });
+        
+    	function closeModal() {
+    		var modal = document.getElementById("mModal");
+    		modal.style.display = "none";
+    	}
 		
 	</script>
 </html>

@@ -13,26 +13,29 @@
 		font-size: 13px;
 	}
 	
+	/*영양소 리스트 위치잡기*/
+	#defaultMenuBox{
+		position: relative;
+	}
+	#listArea{
+		position: absolute;
+	}
+	
+	#showNutri table{
+	position: absolute;
+		right: 10px;
+		top:10px;
+	}
+	/**/
 	#listArea, #showNutri, #layerBox{
 		display: inline-block;
 	}
 	#listArea{
-		margin: 0px 10px 0px 30px;
+		margin: 20px 10px 0px 30px;
 		border-right: 2px solid lightgray;
+		position: relative;
 	}
 	
-	#tapMenu{
-		width: inherit;
-		height: 30px;
-		border-bottom: 1px solid black; 
-		text-align: center;
-	}
-	#tapMenu li{
-		margin: 0 10px;
-	}
-	#tapMenu li:hover{
-		cursor: pointer;
-	}
 	.mealBtn{
 		border: 1px solid black;
 		background-color: white;
@@ -74,8 +77,9 @@
 		width: 3px;
 	} */
 	#foodList{
-		width: 95%;
+		width: 103%;
 	}
+	
 	#showNutri table{
 		width: 300px;
 		height:540px;
@@ -154,7 +158,6 @@
 				<tr> <td>필수 아미노산</td> <td id="essential">0 mg</td> </tr>
 				<tr> <td>오메가3</td> <td id="omega3">0 g</td> </tr>
 			</table>
-			
 		</div>
 		
 	</div>
