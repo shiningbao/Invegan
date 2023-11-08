@@ -102,8 +102,7 @@
 		WHERE 
 			d.user_no = #{loginUser_no} AND d.date = #{selectDate};
 	</select>
-
-<!-- 특정 식단 영양소 불러오기 -->
+	<!-- 특정 식단 영양소 불러오기 -->
 	<select id="getNutri" parameterType="hashmap" resultType="kr.co.invegan.diet.dto.FoodDataDTO">
 		SELECT
 		    SUM(ROUND((fd.kcal * mt.grams / fd.serving_size), 0)) AS kcal,
