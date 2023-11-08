@@ -166,7 +166,6 @@
     border-radius: 50%;
     position: relative;
     text-align: center;
-    transition: background .3s ease-in-out;
     background: conic-gradient(#3F8BC9 0% 72%, #F2F2F2 72% 100%); 
 }
 
@@ -185,11 +184,30 @@
     font-size: 1.1vw;
     font-size: 23px;
     padding: calc(43% - 1.3vw) 0;
+    
 }
-
 .graph-box{
 	display: inline-block;
 	width: 23%;
+}
+
+/*막대 그래프*/
+.graph-bar{
+	height: 20px;
+	background-color: skyblue;
+	border-radius: 20px;
+}
+.graph-bar span{
+	display: block;
+	padding: 0px 10px;
+	width: 75%;
+	height: 20px;
+	line-height: 20px;
+	text-align: right;
+	background: blue;
+	border-radius: 20px;
+	box-sizing: border-box;
+	color: #FFF; 
 }
 
 </style>
@@ -351,8 +369,8 @@
 					<li onclick="getNutri(this)">기타</li>
 				</ul>
 			</div>
+			<!-- 영양성분 / 원형 그래프  -->
 			<div id="contents-right-content">
-				<div id="graph-area">
 				<div class="graph-box">
 					<label>열량</label>
 					<div id="kcal" class="circle"></div>
@@ -373,31 +391,28 @@
 					<div id="fat" class="circle"></div>
 					<h4 id="fat-data"></h4>
 				</div>
+				<!-- 영양성분 - 막대 그래프 -->
+				<div>
+					<h4>총 당류</h4>
+					<div id="sugar-bar" class="graph-bar">
+						<span>85%</span>
+					</div>
+					<h4>85 / 100</h4>
 				</div>
-			
-				<table id="nutri-bottom">
-				<!-- 그려질 영역 -->
-					<tr>
-						<td>열량</td>
-						<td>탄수화물</td>
-						<td>단백질</td>
-						<td>지방</td>
-					</tr>
-					<tr>
-						<td>열량</td>
-						<td>탄수화물</td>
-						<td>단백질</td>
-						<td>지방</td>
-					</tr>
-					<tr>
-						<td>열량</td>
-						<td>탄수화물</td>
-						<td>단백질</td>
-						<td>지방</td>
-					</tr>
-				</table>
-				
-				
+				<div>
+					<h4>총 식이섬유</h4>
+					<div id="fiber-bar" class="graph-bar">
+						<span>45%</span>
+					</div>
+					<h4>45 / 100</h4>
+				</div>
+				<div>
+					<h4>칼슘</h4>
+					<div id="cal-bar" class="graph-bar">
+						<span>25%</span>
+					</div>
+					<h4>25 / 100</h4>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -476,22 +491,27 @@
 		
 		
 		// 태그의 background 속성 변경
-		kcal.style.background = 'conic-gradient(#3F8BC9 0% '+percentKcal+'%, rgb(222 222 222) '+percentKcal+'% 100%)';
+		kcal.style.background = 'conic-gradient(#3F8BC9 0% '+percentKcal+'%, transparent 10% 15%, rgb(222 222 222) '+percentKcal+'% 100%)';
 		carb.style.background = 'conic-gradient(#3F8BC9 0% '+percentCarb+'%, rgb(222 222 222) '+percentCarb+'% 100%)';
 		prot.style.background = 'conic-gradient(#3F8BC9 0% '+percentProt+'%, rgb(222 222 222) '+percentProt+'% 100%)';
 		fat.style.background = 'conic-gradient(#3F8BC9 0% '+percentFat+'%, rgb(222 222 222) '+percentFat+'% 100%)';
 		
+		// kcal chk
 		$('#kcal-data').empty();
 		$('#kcal-data').append('<h4>'+nutr.kcal+'<br/>/ 2700kcal</h4>');
-		
+		// kcal chk
 		$('#carb-data').empty();
 		$('#carb-data').append('<h4>'+nutr.carb+'<br/>/ 100g</h4>');
-		
+		// kcal chk
 		$('#prot-data').empty();
 		$('#prot-data').append('<h4>'+nutr.prot+'<br/>/ 55g</h4>');
-		
+		// kcal chk
 		$('#fat-data').empty();
 		$('#fat-data').append('<h4>'+nutr.fat+'<br/>/ 60g</h4>');
+		
+		var sugarBar = document.querySelector($('#sugar-bar'));
+		/* console.log(sugarBar+" / "+fiberBar+" / "+calVar); */
+		sugar.style.width = ntur.sugar;
 		
 	}
 </script>
