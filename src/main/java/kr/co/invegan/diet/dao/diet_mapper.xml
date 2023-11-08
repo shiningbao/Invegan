@@ -75,25 +75,25 @@
 <!-- 영양소 총 합계 불러오기 -->
 	<select id="getAllNutri" parameterType="hashMap" resultType="kr.co.invegan.diet.dto.FoodDataDTO">
 		SELECT
-		    SUM(ROUND(fd.kcal * (mt.grams / fd.serving_size), 0)) AS kcal,
-		    SUM(ROUND(fd.carb * (mt.grams / fd.serving_size), 2)) AS carb,
-		    SUM(ROUND(fd.prot * (mt.grams / fd.serving_size), 2)) AS prot,
-		    SUM(ROUND(fd.fat * (mt.grams / fd.serving_size), 2)) AS fat,
-		    SUM(ROUND(fd.sugar * (mt.grams / fd.serving_size), 2)) AS sugar,
-		    SUM(ROUND(fd.fiber * (mt.grams / fd.serving_size), 2)) AS fiber,
-		    SUM(ROUND(fd.ca * (mt.grams / fd.serving_size), 2)) AS ca,
-		    SUM(ROUND(fd.fe * (mt.grams / fd.serving_size), 2)) AS fe,
-		    SUM(ROUND(fd.mg * (mt.grams / fd.serving_size), 2)) AS mg,
-		    SUM(ROUND(fd.p * (mt.grams / fd.serving_size), 2)) AS p,
-		    SUM(ROUND(fd.k * (mt.grams / fd.serving_size), 2)) AS k,
-		    SUM(ROUND(fd.na * (mt.grams / fd.serving_size), 2)) AS na,
-		    SUM(ROUND(fd.zn * (mt.grams / fd.serving_size), 2)) AS zn,
-		    SUM(ROUND(fd.vit_a * (mt.grams / fd.serving_size), 2)) AS vit_a,
-		    SUM(ROUND(fd.vit_b6 * (mt.grams / fd.serving_size), 2)) AS vit_b6,
-		    SUM(ROUND(fd.vit_b12 * (mt.grams / fd.serving_size), 2)) AS vit_b12,
-		    SUM(ROUND(fd.vit_c * (mt.grams / fd.serving_size), 2)) AS vit_c,
-		    SUM(ROUND(fd.essential * (mt.grams / fd.serving_size), 2)) AS essential,
-		    SUM(ROUND(fd.omega3 * (mt.grams / fd.serving_size), 2)) AS omega3
+		    SUM(ROUND((fd.kcal * mt.grams / fd.serving_size), 0)) AS kcal,
+		    SUM(ROUND((fd.carb * mt.grams / fd.serving_size), 2)) AS carb,
+		    SUM(ROUND((fd.prot * mt.grams / fd.serving_size), 2)) AS prot,
+		    SUM(ROUND((fd.fat * mt.grams / fd.serving_size), 2)) AS fat,
+		    SUM(ROUND((fd.sugar * mt.grams / fd.serving_size), 2)) AS sugar,
+		    SUM(ROUND((fd.fiber * mt.grams / fd.serving_size), 2)) AS fiber,
+		    SUM(ROUND((fd.ca * mt.grams / fd.serving_size), 2)) AS ca,
+		    SUM(ROUND((fd.fe * mt.grams / fd.serving_size), 2)) AS fe,
+		    SUM(ROUND((fd.mg * mt.grams / fd.serving_size), 2)) AS mg,
+		    SUM(ROUND((fd.p * mt.grams / fd.serving_size), 2)) AS p,
+		    SUM(ROUND((fd.k * mt.grams / fd.serving_size), 2)) AS k,
+		    SUM(ROUND((fd.na * mt.grams / fd.serving_size), 2)) AS na,
+		    SUM(ROUND((fd.zn * mt.grams / fd.serving_size), 2)) AS zn,
+		    SUM(ROUND((fd.vit_a * mt.grams / fd.serving_size), 2)) AS vit_a,
+		    SUM(ROUND((fd.vit_b6 * mt.grams / fd.serving_size), 2)) AS vit_b6,
+		    SUM(ROUND((fd.vit_b12 * mt.grams / fd.serving_size), 2)) AS vit_b12,
+		    SUM(ROUND((fd.vit_c * mt.grams / fd.serving_size), 2)) AS vit_c,
+		    SUM(ROUND((fd.essential * mt.grams / fd.serving_size), 2)) AS essential,
+		    SUM(ROUND((fd.omega3 * mt.grams / fd.serving_size), 2)) AS omega3
 		FROM Diet d
 			INNER JOIN Diet_composition dc ON d.diet_id = dc.diet_id
 			INNER JOIN Menu m ON dc.menu_id = m.menu_id
@@ -106,26 +106,25 @@
 <!-- 특정 식단 영양소 불러오기 -->
 	<select id="getNutri" parameterType="hashmap" resultType="kr.co.invegan.diet.dto.FoodDataDTO">
 		SELECT
-  			SUM(mt.grams) AS grams,
-		    SUM(ROUND((fd.kcal * (mt.grams / fd.serving_size), 0)) AS kcal,
-		    SUM(ROUND((fd.carb * (mt.grams / fd.serving_size), 2)) AS carb,
-		    SUM(ROUND((fd.prot * (mt.grams / fd.serving_size), 2)) AS prot,
-		    SUM(ROUND((fd.fat * (mt.grams / fd.serving_size), 2)) AS fat,
-		    SUM(ROUND((fd.sugar * (mt.grams / fd.serving_size), 2)) AS sugar,
-		    SUM(ROUND((fd.fiber * (mt.grams / fd.serving_size), 2)) AS fiber,
-		    SUM(ROUND((fd.ca * (mt.grams / fd.serving_size), 2)) AS ca,
-		    SUM(ROUND((fd.fe * (mt.grams / fd.serving_size), 2)) AS fe,
-		    SUM(ROUND((fd.mg * (mt.grams / fd.serving_size), 2)) AS mg,
-		    SUM(ROUND((fd.p * (mt.grams / fd.serving_size), 2)) AS p,
-		    SUM(ROUND((fd.k * (mt.grams / fd.serving_size), 2)) AS k,
-		    SUM(ROUND((fd.na * (mt.grams / fd.serving_size), 2)) AS na,
-		    SUM(ROUND((fd.zn * (mt.grams / fd.serving_size), 2)) AS zn,
-		    SUM(ROUND((fd.vit_a * (mt.grams / fd.serving_size), 2)) AS vit_a,
-		    SUM(ROUND((fd.vit_b6 * (mt.grams / fd.serving_size), 2)) AS vit_b6,
-		    SUM(ROUND((fd.vit_b12 * (mt.grams / fd.serving_size), 2)) AS vit_b12,
-		    SUM(ROUND((fd.vit_c * (mt.grams / fd.serving_size), 2)) AS vit_c,
-		    SUM(ROUND((fd.essential * (mt.grams / fd.serving_size), 2)) AS essential,
-		    SUM(ROUND((fd.omega3 * (mt.grams / fd.serving_size), 2)) AS omega3
+		    SUM(ROUND((fd.kcal * mt.grams / fd.serving_size), 2)) AS kcal,
+		    SUM(ROUND((fd.carb * mt.grams / fd.serving_size), 2)) AS carb,
+		    SUM(ROUND((fd.prot * mt.grams / fd.serving_size), 2)) AS prot,
+		    SUM(ROUND((fd.fat * mt.grams / fd.serving_size), 2)) AS fat,
+		    SUM(ROUND((fd.sugar * mt.grams / fd.serving_size), 2)) AS sugar,
+		    SUM(ROUND((fd.fiber * mt.grams / fd.serving_size), 2)) AS fiber,
+		    SUM(ROUND((fd.ca * mt.grams / fd.serving_size), 2)) AS ca,
+		    SUM(ROUND((fd.fe * mt.grams / fd.serving_size), 2)) AS fe,
+		    SUM(ROUND((fd.mg * mt.grams / fd.serving_size), 2)) AS mg,
+		    SUM(ROUND((fd.p * mt.grams / fd.serving_size), 2)) AS p,
+		    SUM(ROUND((fd.k * mt.grams / fd.serving_size), 2)) AS k,
+		    SUM(ROUND((fd.na * mt.grams / fd.serving_size), 2)) AS na,
+		    SUM(ROUND((fd.zn * mt.grams / fd.serving_size), 2)) AS zn,
+		    SUM(ROUND((fd.vit_a * mt.grams / fd.serving_size), 2)) AS vit_a,
+		    SUM(ROUND((fd.vit_b6 * mt.grams / fd.serving_size), 2)) AS vit_b6,
+		    SUM(ROUND((fd.vit_b12 * mt.grams / fd.serving_size), 2)) AS vit_b12,
+		    SUM(ROUND((fd.vit_c * mt.grams / fd.serving_size), 2)) AS vit_c,
+		    SUM(ROUND((fd.essential * mt.grams / fd.serving_size), 2)) AS essential,
+		    SUM(ROUND((fd.omega3 * mt.grams / fd.serving_size), 2)) AS omega3
 		FROM Diet d
 			INNER JOIN Diet_composition dc ON d.diet_id = dc.diet_id
 			INNER JOIN Menu m ON dc.menu_id = m.menu_id

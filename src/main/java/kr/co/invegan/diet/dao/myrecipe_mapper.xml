@@ -58,7 +58,6 @@
 		SELECT m.recipe_name,
 			sum(m2.grams) AS grams,
 			SUM(ROUND((m2.grams / fd.serving_size) * fd.kcal, 0)) AS kcal,
-			SUM(ROUND((m2.grams / fd.serving_size) * fd.h2o, 0)) AS h2o,
 			SUM(ROUND((m2.grams / fd.serving_size) * fd.prot, 0)) AS prot,
 			SUM(ROUND((m2.grams / fd.serving_size) * fd.fat, 0)) AS fat,
 			SUM(ROUND((m2.grams / fd.serving_size) * fd.carb, 0)) AS carb,
