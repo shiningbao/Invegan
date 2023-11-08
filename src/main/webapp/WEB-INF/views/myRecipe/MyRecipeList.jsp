@@ -5,92 +5,141 @@
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
 		<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-		<style>
-				
-			ul{
-				padding: 0;
-			}
-			
-			li{
-				display: inline-block;
-			}
-			
-			#top {
-				text-align: right;
-				float: right;
-				position: relative;
-				top:-10px;
-				right: 20px;
-			}
-			
-			#top input{
-				cursor: pointer;
-				background: none;
-				border: none;
-				font-size: 25px;
-			}
-					
+		<style>					
 			table{
 				border-collapse: collapse;
-				padding : 5px 10px;
+			}
+			
+			/* 카테고리 버튼 */
+			.button {
+				height: 22px;
+				border: 1px solid black;
+				background-color: white;
+				border-radius: 4px;
+				cursor: pointer;
+				text-align: center;
+			}
+			
+			/* 큰 테두리 */
+			#main {
+				width: 1200px;
+				height: 600px;
+				margin : 0px 10px 0px 0px;
+				position: relative;
+			}
+			
+			/* r:레시피 */
+			#rbox {
+				width : 720px;
+				margin: 46px 0px 0px 30px;
+			}
+			
+			#rbox table {
 				width: 700px;
 				text-align: center;
+				font-size: 15px;
+			}
+			#rbox th {
+				height: 38px;
 			}
 			
-			tr {
-				height: 30px;
-			}
+			#rbox td {
+				height: 33px;
 			
-			th, td { 
-				border-collapse: collapse;
-				padding : 5px 10px;
-				text-align: center;
 			}
-
 			
 			#thead{
-				width: 710px;
+				width: 718.4px;
+				height: 40px;
 				border : solid 1px black;
+				margin: 15px 0px 0px 0px;
 			}
 			
 			#mrbody {
-				width : 710px;
-				height: 186px;
+				width : 718.4px;
+				height: 210px;
 				border : solid 1px black;
 				border-top: none;
 				overflow-x : hidden;
 				overflow-y : scroll;	
 			}
 			
-			#food_name {
-				width : 400px;
+			/* rm:재료 */
+			#rmbox {
+				width: 720px;
+				margin: 46px 10px 0px 30px;
+				position: absolute;
+				bottom: 14px;
 			}
 			
-			input[name="meal"] {
-				  width: 20px;
-				  height: 20px; 
-				  background-color: #007BFF;
-				  border-radius: 50%;
-				  display: inline-block;
-				  margin-right: 10px;
-				  cursor: pointer;
+			#rmbox table{
+				width: 700px;
+				text-align: center;
+				font-size : 15px;
+			}
+			#rmbox th {
+				height: 38px;
+			}
+			#rmbox td {
+				height: 33px;
 			}
 			
-			#main {
-				width: 1200px;
+			#rmbody {
+				width: 718.4px;
+				height: 210px;
+				border : 1px solid black;
+				overflow-x : hidden;
+				overflow-y : scroll;	
 			}
 			
-			.button {
-			    background-color : white;
-			    padding: 10px;
-			    margin: 5px;
-			    cursor: pointer;
+			#rmtop {
+				width : 720px;
 			}
 			
-			.button.active {
-				background-color : lightgreen;
+			#rmhead {
+				width: 718.4px;
+				border: solid 1px black;
+				border-bottom: none;
 			}
 			
+			#rmhead table{
+				width: 700px;
+			}
+
+			/* rN:영양소 표시 */			
+			#rNutri {
+				width: 310px;
+				height: 560px;
+				border-left: 2px solid lightgray;
+				position: absolute;
+				top : 24px;
+				right: 100px;
+			}
+			
+			#rNutri table{
+				width: 300px;
+				padding : 5px 10px;
+				margin-left: 10px; 
+			}
+			
+			#rNutri th {
+				height : 29px;
+				font-size: 15px;
+				padding : 3px;
+			}
+			
+			#rNutri td{
+				width : 150px;
+				height: 19px;
+				font-size: 13px;
+				padding : 3px 10px;
+			}
+			
+			td.nutri {
+				text-align: center;
+			}
+			
+			/* 모달창 */		
 			.modal {
 				 display: none;
 				 position: fixed;
@@ -105,28 +154,33 @@
 			#modal-content {
 				 position: absolute;
 				 background-color: #fefefe;
-				 margin: 15% auto;
+				 margin : 5% 0% 5% 11%;
 				 padding: 20px;
 				 border: 1px solid #888;
-				 width: 80%;
+				 width: 800px;
 			}
-			
 
-		</style>
+		</style>	
 	</head>
 	<body>
 		<div id="main">
-			<div>		
-				<button class="button" id="breakfast">아침</button>
-				<button class="button" id="lunch">점심</button>
-				<button class="button" id="dinner">저녁</button>
-				<button class="button" id="other">기타</button>
+			<div id="rbox">		
+				<input type="button" class="button" id="breakfast" value="아침"/>
+				<input type="button" class="button" id="lunch" value="점심"/>
+				<input type="button" class="button" id="dinner" value="저녁"/>
+				<input type="button" class="button" id="other" value="기타"/>
 				<button onclick="rinsert()">+</button>
 				<button onclick="rdel()">-</button>
+				<input type="button" onclick="dinsert()" value="완료"/>
 				<div id = "thead">
 					<table>
+						<colgroup>
+							<col width="50%">
+							<col width="25%">
+							<col width="25%">
+						</colgroup>
 						<tr>
-							<th id = food_name>식품명</th>
+							<th>식품명</th>
 							<th>1회 제공량(g)</th>
 							<th>에너지(kcal)</th>
 						</tr>
@@ -144,32 +198,51 @@
 				</div>
 			</div>
 			<br>
-			<table>
-				<thead>
-					<tr>
-						<th colspan="2"  style="width : 350px;">재료</th>
-						<th>
-							<button onclick="minsert()">+</button>
-							<button onclick="mdel()">-</button>
-						</th>
-					</tr>
-					<tr>
-						<th style="width : 300px;">재료 이름</th>
-						<th>1회 제공량(g)</th>
-						<th>에너지(kcal)</th>
-					</tr>
-				<tbody  id = "rMaterialList">
-					<!-- 재료 출력 -->
-				</tbody>
-			</table>
+			<div id="rmbox">
+				<div id="mtop">
+					<table>
+						<colgroup>
+							<col width="50%">
+							<col width="25%">
+							<col width="25%">
+						</colgroup>
+						<tr>
+							<th colspan="2"  style="width : 350px;">재료</th>
+							<th>
+								<button onclick="minsert()">+</button>
+								<button onclick="mdel()">-</button>
+							</th>
+						</tr>
+					</table>
+				</div>
+				<div id="rmhead">
+					<table>
+						<colgroup>
+							<col width="50%">
+							<col width="25%">
+							<col width="25%">
+						</colgroup>
+						<tr>
+							<th>재료 이름</th>
+							<th>1회 제공량(g)</th>
+							<th>에너지(kcal)</th>
+						</tr>
+					</table>				
+				</div>
+				<div id="rmbody">
+					<table  id = "rMaterialList">
+						<!-- 재료 출력 -->
+					</table>
+				</div>
+			</div>
 			<br>
-			<input type="button" onclick="dinsert()" value="완료"/>
 			<br>
-			<table id = "rNutriList">
-				<!-- 레시피 영양소 출력 -->
-			</table>
+			<div id="rNutri">
+				<table id = "rNutriList">
+					<!-- 레시피 영양소 출력 -->
+				</table>
+			</div>
 		</div>
-		
 		<div id="mModal" class="modal">
 			<div id="modal-content">
 				<!-- 모달의 내용이 출력됨 -->
@@ -212,6 +285,7 @@
 		    content += '<input type="text" name="recipe_name" placeholder="레시피의 이름을 입력해 주세요" style="border:none; width:300px"/>';
 		    content += '<input type="button" id="rNameinsert" value="확인"/>';
 		    content += '</td>';
+		    content += '<td>'+'</td>'+'<td>'+'</td>';
 		    content += '</tr>';		
 			$('#rinsertbox').empty();
 		    $('#rinsertbox').append(content);
@@ -247,9 +321,9 @@
 			mrlist.forEach(function(item, idx){
 				content += '<tr>';
 				content += '<td style="display : none;">'+item.menu_id+'</td>';
-				content += '<td>'+item.recipe_name+'</td>';
-				content += '<td>'+item.grams+'</td>';
-				content += '<td>'+item.kcal+'</td>';
+				content += '<td width="50%">'+item.recipe_name+'</td>';
+				content += '<td width="25%">'+item.grams+'</td>';
+				content += '<td width="25%">'+item.kcal+'</td>';
 				content += '</tr>';
 			});
 			$('#rMaterialList').empty();
@@ -258,15 +332,16 @@
 		
 		}
 		
-		// 레시피에 들어있는 재료 리스트
+		// 레시피 리스트
 		$('#mrList').on('click', 'tr', function() {
-        	$('#mrList tr').css('border', 'none');
+        	$('#mrList tr').css('background', 'none');
             menu_id = $(this).find('td:eq(0)').text();
             var rName = $(this).find('td:eq(1)').text();
-            $(this).css('border','2px solid green');
+            $(this).css('background','#87878754');
             console.log('클릭한 food_name: ' + rName);
             console.log('클릭한 레시피 번호 :'+menu_id);
 		
+            // 레시리 재료 리스트
             $.ajax({
             	type:'post',
             	url:'rMaterial.do',
@@ -280,6 +355,7 @@
             	}
             });
             
+            // 레시피 영양소
             $.ajax({
             	type:'get',
             	url:'rNutri.do',
@@ -299,28 +375,27 @@
 			console.log(rNutri);
 			var content = "";
 			rNutri.forEach(function(item, idx){
-				content += '<tr>'+ '<td colspan="2">'+item.recipe_name+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'제공량 '+'</td>'+'<td>'+item.grams+'g'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'열량 '+'</td>'+'<td>'+item.kcal+'kcal'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'탄수화물 '+'</td>'+'<td>'+item.carb+'g'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'단백질 '+'</td>'+'<td>'+item.prot+'g'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'지방 '+'</td>'+'<td>'+item.fat+'g'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'수분 '+'</td>'+'<td>'+item.h2o+'g'+'</td>'+'</tr>';			
-				content += '<tr>'+'<td>'+'총 당류 '+'</td>'+'<td>'+item.sugar+'g'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'총 식이섬유 '+'</td>'+'<td>'+item.fiber+'g'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'칼슘 '+'</td>'+'<td>'+item.ca+'mg'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'철 '+'</td>'+'<td>'+item.fe+'mg'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'마그네슘 '+'</td>'+'<td>'+item.mg+'mg'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'인 '+'</td>'+'<td>'+item.p+'mg'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'칼륨 '+'</td>'+'<td>'+item.k+'mg'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'나트륨 '+'</td>'+'<td>'+item.na+'mg'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'아연 '+'</td>'+'<td>'+item.zn+'mg'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'비타민A '+'</td>'+'<td>'+item.vit_a+'ug'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'비타민B6 '+'</td>'+'<td>'+item.vit_b6+'mg'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'비타민B12 '+'</td>'+'<td>'+item.vit_b12+'mg'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'비타민C '+'</td>'+'<td>'+item.vit_c+'mg'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'필수 아미노산 '+'</td>'+'<td>'+item.essential+'mg'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'오메가3 '+'</td>'+'<td>'+item.omega3+'mg'+'</td>'+'</tr>';
+				content += '<tr>'+ '<th colspan="2">'+item.recipe_name+'</th>'+'</tr>';
+				content += '<tr>'+'<td>'+'제공량 '+'</td>'+'<td class="nutri">'+item.grams+'g'+'</td>'+'</tr>';
+				content += '<tr>'+'<td>'+'열량 '+'</td>'+'<td class="nutri">'+item.kcal+'kcal'+'</td>'+'</tr>';
+				content += '<tr>'+'<td>'+'탄수화물 '+'</td>'+'<td class="nutri">'+item.carb+'g'+'</td>'+'</tr>';
+				content += '<tr>'+'<td>'+'단백질 '+'</td>'+'<td class="nutri">'+item.prot+'g'+'</td>'+'</tr>';
+				content += '<tr>'+'<td>'+'지방 '+'</td>'+'<td class="nutri">'+item.fat+'g'+'</td>'+'</tr>';		
+				content += '<tr>'+'<td>'+'총 당류 '+'</td>'+'<td class="nutri">'+item.sugar+'g'+'</td>'+'</tr>';
+				content += '<tr>'+'<td>'+'총 식이섬유 '+'</td>'+'<td class="nutri">'+item.fiber+'g'+'</td>'+'</tr>';
+				content += '<tr>'+'<td>'+'칼슘 '+'</td>'+'<td class="nutri">'+item.ca+'mg'+'</td>'+'</tr>';
+				content += '<tr>'+'<td>'+'철 '+'</td>'+'<td class="nutri">'+item.fe+'mg'+'</td>'+'</tr>';
+				content += '<tr>'+'<td>'+'마그네슘 '+'</td>'+'<td class="nutri">'+item.mg+'mg'+'</td>'+'</tr>';
+				content += '<tr>'+'<td>'+'인 '+'</td>'+'<td class="nutri">'+item.p+'mg'+'</td>'+'</tr>';
+				content += '<tr>'+'<td>'+'칼륨 '+'</td>'+'<td class="nutri">'+item.k+'mg'+'</td>'+'</tr>';
+				content += '<tr>'+'<td>'+'나트륨 '+'</td>'+'<td class="nutri">'+item.na+'mg'+'</td>'+'</tr>';
+				content += '<tr>'+'<td>'+'아연 '+'</td>'+'<td class="nutri">'+item.zn+'mg'+'</td>'+'</tr>';
+				content += '<tr>'+'<td>'+'비타민A '+'</td>'+'<td class="nutri">'+item.vit_a+'ug'+'</td>'+'</tr>';
+				content += '<tr>'+'<td>'+'비타민B6 '+'</td>'+'<td class="nutri">'+item.vit_b6+'mg'+'</td>'+'</tr>';
+				content += '<tr>'+'<td>'+'비타민B12 '+'</td>'+'<td class="nutri">'+item.vit_b12+'mg'+'</td>'+'</tr>';
+				content += '<tr>'+'<td>'+'비타민C '+'</td>'+'<td class="nutri">'+item.vit_c+'mg'+'</td>'+'</tr>';
+				content += '<tr>'+'<td>'+'필수 아미노산 '+'</td>'+'<td class="nutri">'+item.essential+'mg'+'</td>'+'</tr>';
+				content += '<tr>'+'<td>'+'오메가3 '+'</td>'+'<td class="nutri">'+item.omega3+'mg'+'</td>'+'</tr>';
 			});
 			$('#rNutriList').empty();
 			$('#rNutriList').append(content);
@@ -333,30 +408,38 @@
 			rMaterial.forEach(function(item, idx){
 				content += '<tr>';
 				content += '<td style="display : none;">'+item.material_id+'</td>';
-				content += '<td>'+item.food_name+'</td>';
-				content += '<td>'+item.grams+'</td>';
-				content += '<td>'+item.kcal+'</td>';
+				content += '<td width="50%">'+item.food_name+'</td>';
+				content += '<td width="25%">'+item.grams+'</td>';
+				content += '<td width="25%">'+item.kcal+'</td>';
 				content += '</tr>';
 			});
 			$('#rMaterialList').empty();
 			$('#rMaterialList').append(content);	
 		};
 		
+		// 레시피 재료 클릭
 		$('#rMaterialList').on('click', 'tr', function() {
-	       	$('#rMaterialList tr').css('border', 'none');
+	       	$('#rMaterialList tr').css('background', 'none');
 	       	material_id = $(this).find('td:eq(0)').text();
-	        $(this).css('border','2px solid green');
+	        $(this).css('background-color','#87878754');
 	        console.log('클릭한 재료의 id : '+material_id);
 		});
 		
+		// 재료 추가
 		function minsert() {
 			if (menu_id == null){
 				alert('재료를 추가할 레시피를 선택해주세요');
 			} else {
 				
+				// 재료추가 모달창
 				var modal = document.getElementById("mModal");
 				modal.style.display = "block";		
 				$('#modal-content').load("<c:url value='../myRecipe/addRecipeMaterial'/>");
+				$(document).click(function(event) {
+					  if (event.target === document.getElementById("myModal")) {
+					    closeModal(); // 모달 외부 클릭 시 모달 닫기
+					  }
+				});
 				
 				$.ajax({
 					type:'post',
@@ -374,6 +457,7 @@
 			}
 		}
 		
+		// 재료 삭제
         function mdel() {
         	
 			if (material_id == null) {
@@ -404,6 +488,7 @@
 			}
         }
         
+        // 레시피 삭제
 		function rdel(){
 			if (menu_id == null) {
 				alert('제거하실 레시피를 선택해주세요');
@@ -421,7 +506,7 @@
 		        			if (data.rdelete == true) {
 		        				alert('레시피가 삭제되었습니다.');
 		        				listCall();
-		        			}
+		        			}	
 
 		        		},
 		        		error:function(e){
@@ -435,18 +520,14 @@
 		}
 		
 		// 아,점,저,기 버튼
-		var buttons = document.querySelectorAll('.button');
-		buttons.forEach(button => {
-		    button.addEventListener('click', () => {
-		        buttons.forEach(b => b.classList.remove('active'));
-		        button.classList.add('active');
-		        
-		        diet_category = button.innerText;
-		        console.log("클릭한 버튼의 텍스트 : "+diet_category);
-		        console.log("날짜 : " + selectDate);
-		    });
+		$('.button').on('click', function(){
+			$('.button').css('background-color','');
+			diet_category = $(this).val();
+			console.log("식단의 카테고리 : "+diet_category);
+			$(this).css('background-color','lightgreen');
 		});
 		
+		// 식단 추가
 		function dinsert() {
 			if (diet_category == null) {
 				alert('아침, 점심, 저녁, 기타 중 하나를 선택해주세요');

@@ -21,18 +21,6 @@
 		border-right: 2px solid lightgray;
 	}
 	
-	#tapMenu{
-		width: inherit;
-		height: 30px;
-		border-bottom: 1px solid black; 
-		text-align: center;
-	}
-	#tapMenu li{
-		margin: 0 10px;
-	}
-	#tapMenu li:hover{
-		cursor: pointer;
-	}
 	.mealBtn{
 		border: 1px solid black;
 		background-color: white;
@@ -74,7 +62,7 @@
 		width: 3px;
 	} */
 	#foodList{
-		width: 95%;
+		width: 104%;
 	}
 	#showNutri table{
 		width: 300px;
