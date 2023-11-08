@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
 
@@ -14,8 +15,15 @@ public interface MemberDAO {
 
 	MemberDTO login(HashMap<String, String> params);
 
-	String findId(String email);
-
 	int signup(HashMap<String, String> params);
+	
+	String findId(String email2);
+	
+	String findPw(String id, String email);
+	
+	//String findPw(@Param("id") String id, @Param("email") String email);
+
+	//String findId(@Param("nickname") String nickname, @Param("birthdate") String birthdate);
+
 
 }
