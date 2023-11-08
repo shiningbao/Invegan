@@ -26,7 +26,7 @@ input[type=text] {
 
 	<div>
     <label for="email">이메일:</label>
-    <input type="text" id="email2" name="email" required placeholder="이메일을 입력해주세요">
+    <input type="text" id="email" name="email" required placeholder="이메일을 입력해주세요">
     
     <p>
     <br>
@@ -51,7 +51,7 @@ input[type=text] {
         </p>
         <label for="email2">이메일:</label>
         <p>
-            <input type="text" id="email" name="email2" placeholder="이메일을 입력해주세요">
+            <input type="text" id="email2" name="email2" placeholder="이메일을 입력해주세요">
         </p>
         <p>
             <br>
