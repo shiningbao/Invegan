@@ -31,7 +31,7 @@
 		    margin: 67px 0;
         }
 
-        .profileImage {
+        .myPageImg {
             top: -10px;
     		right: 1123px;
     		position: absolute;
@@ -61,8 +61,8 @@
         
         .changeInfo{
 	         position: absolute;
-			 top: 324px; 
-			 left: 1032px;
+			 top: 534px; 
+			 left: 1079px;
 			 cursor: pointer;
 			 font-size: 18px;
 			 font-weight: bold;
@@ -210,16 +210,16 @@
 			border-collapse : collapse;
 		}
 		
-		 #profileImg{
+		 #updateImg{
 			border-radius: 50%;
 			margin: 5px;
 		 }
 		 
-		 .profileImgUpdate{
+		 .plusImg{
 		 	font-weight: bold;
 		 	font-size: 70px;
-		 	top: 76px;
-		 	right : 710px;
+		 	top: 86px;
+		 	right : 695px;
 		 	position : absolute;
 		 	cursor : pointer;
 		 }
@@ -254,11 +254,11 @@
 <c:import url="/main/header" />
  <h3>마이페이지</h3>
  
- 	<c:set var="profileImage" value="${dto.profile_image}" />
+ 	<c:set var="myPageImg" value="${dto.profile_image}" />
 	<div class="profileContainer">
-	
-  	<div class="profileImage">
-        <img src="/photo/${profileImage}" width="200" height="200">
+
+  	<div class="myPageImg">
+        <img src="/photo/${myPageImg}" width="200" height="200">
     </div>
     
    	<div class="userInfo">
@@ -290,16 +290,16 @@
     </div>
 	</div>
 	<div class="changeInfo">회원정보 변경</div>
-	<div class="delUser" onclick="confirmDelete(${user.user_no})">회원탈퇴</div>
+	<div class="delUser" onclick="confirmDelete(${dto.user_no})">회원탈퇴</div>
 	
 	<div class="modal" id="updateModal">
     <div class="modal-content">
         <h1>회원정보변경</h1>
         <hr>
-        	<img src="" id= profileImg width="150" height="150">
-        	<div class="profileImgUpdate">+</div>
-        	<input type="file" id="photos" name="photos" style="display: none">
-        	<label>닉네임 : <input type="text" name="nickname" value="${user.nickname}"/></label>
+        	<img src="/photo/${myPageImg}" id= updateImg width="150" height="150">
+        	<div class="plusImg">+</div>
+        	<input type="file" id="photo" name="photo" style="display: none">
+        	<label>닉네임 : <input type="text" name="nickname" value="${dto.nickname}"/></label>
         	<input type="button" id="overlay" value="중복체크"/>
         	<p>
         	<div class= "updateNickname" style= cursor:pointer>닉네임변경</div>
@@ -421,7 +421,6 @@
 <script>
 var showPage = 1;
 
-
 var modal = document.getElementById("updateModal");
 
 // 회원정보변경 클릭시 모달창 열림
@@ -431,27 +430,35 @@ $('.changeInfo').on('click',function(){
     
 // x 클릭시 모달창 닫힘
 $('.close').on('click',function(){
+	location.reload();
 	modal.style.display = "none";
 });
 
 // 다른 영역 클릭시 모달창 닫힘
 window.onclick = function(event) {
     if (event.target == modal) {
+    	location.reload();
         modal.style.display = "none";
     }
 }
 
-/* $('.profileImgUpdate').on('click', function(){
-    $('#photos').click();
-});
 
-$('#photos').on('change', function() {
+	 var image = '${dto.profile_image}';
+	 console.log(image);
+
+ $('.plusImg').on('click', function(){
+    $('#photo').click();
+    
+});
+// mypage profileImage가 비어있는 상태에서 +버튼 클릭시 profileImage 등록 가능 
+if(image==''){
+$('#photo').on('change', function() {
     var user_no = $('input[name="user_no"]').val();
-    var photos = $('#photos')[0].files[0];
+    var photo = $('#photo')[0].files[0];
     
     var formData = new FormData();
     formData.append('user_no', user_no);
-    formData.append('photos', photos);
+    formData.append('photo', photo);
 
     $.ajax({
         type: 'post',
@@ -466,7 +473,33 @@ $('#photos').on('change', function() {
             console.log(error);
         }
     });
-}); */
+}); // profileImage가 비어있지 않은상태에서 + 클릭 시 profileImage 수정 가능
+}else if(image!=''){
+	$('#photo').on('change', function() {
+	    var user_no = $('input[name="user_no"]').val();
+	    var photo = $('#photo')[0].files[0];
+	    
+	    var formData = new FormData();
+	    formData.append('user_no', user_no);
+	    formData.append('photo', photo);
+
+	    $.ajax({
+	        type: 'post',
+	        url: 'imgModify',
+	        data: formData,
+	        contentType: false,
+	        processData: false,
+	        success: function(data) {
+	            console.log(data);
+	        },
+	        error: function(error) {
+	            console.log(error);
+	        }
+	    });
+	    
+	});
+	
+}
 
 // 닉네임 중복체크 
 $('#overlay').on('click',function(){
@@ -493,6 +526,7 @@ $('#overlay').on('click',function(){
 		}
 	});
 });
+
 // 닉네임 변경 
 $('.updateNickname').on('click',function(){
 	var nickname = $('input[name="nickname"]').val();
@@ -513,9 +547,10 @@ $('.updateNickname').on('click',function(){
 		}, 
 		error: function(error){
 			console.log(error);
-		},
+		}
 	});
 });
+
 // 패스워드 확인
 $('#pwConfirm').on('click',function(){
 	var pw = $('input[name="password"]').val();
@@ -540,9 +575,10 @@ $('#pwConfirm').on('click',function(){
 		}, 
 		error: function(error){
 			console.log(error);
-		},
+		}
 	});
 });
+
 // 패스워드 변경 
 $('.completePw').on('click',function(){
 	var pw = $('input[name="password"]').val();
@@ -571,9 +607,10 @@ $('.completePw').on('click',function(){
 		}, 
 		error: function(error){
 			console.log(error);
-		},
+		}
 	});
 });
+
 // 회원 정보 변경 저장하기 
 $('.save').on('click',function(){
 	modal.style.display = "none";
@@ -608,7 +645,7 @@ $('.save').on('click',function(){
 		}, 
 		error: function(error){
 			console.log(error);
-		},
+		}
 	});
 });
 

@@ -1,6 +1,7 @@
 package kr.co.invegan.board.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import kr.co.invegan.board.dto.MenuDTO;
 import kr.co.invegan.board.dto.RestaurantDTO;
@@ -8,13 +9,13 @@ import kr.co.invegan.member.dto.MemberDTO;
 
 public interface RestaurantDAO {
 
-	void boardWrite(RestaurantDTO dto);
+	int boardWrite(RestaurantDTO dto);
 
-	void restaurantWrite(RestaurantDTO dto);
+	int restaurantWrite(RestaurantDTO dto);
 
-	void menuWrite(MenuDTO dto);
+	int menuWrite(MenuDTO dto);
 
-	void photoWrite(String post_id, String server_file_name, String category);
+	int photoWrite(String post_id, String server_file_name, String category);
 
 	RestaurantDTO restaurantDetail(int post_id);
 
@@ -24,5 +25,20 @@ public interface RestaurantDAO {
 
 	ArrayList<RestaurantDTO> restaurantList();
 
+	int boardUpdate(RestaurantDTO dto);
+
+	int restaurantUpdate(RestaurantDTO dto);
+
+	void menuDel(int post_id);
+
+	int photoDel(String idx, String img);
+
+	int hidden(int post_id);
+
+	int favoriteChk(int user_no, int post_id);
+
+	void favoriteInsert(int user_no, int post_id);
+
+	void favoriteDel(int user_no, int post_id);
 
 }

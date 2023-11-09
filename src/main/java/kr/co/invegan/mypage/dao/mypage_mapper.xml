@@ -160,24 +160,24 @@
  		WHERE user_no=#{user_no}
  	</update>
  	
-<!-- 	<insert 
+	<insert 
  		useGeneratedKeys="true"
 		keyColumn="image_id"
 		keyProperty="image_id"
  	id="uploadProfile" parameterType="kr.co.invegan.mypage.dto.MyPageDTO">
-    INSERT INTO ImageTable (server_file_name, idx, category) 
-    VALUES (#{server_file_name}, #{idx}, '회원')
+    INSERT INTO ImageTable (idx,category) 
+    VALUES (#{user_no},'회원')
 	</insert>
 	
-	<update id="uploadProfileImg" parameterType="kr.co.invegan.mypage.dto.MyPageDTO">
-    UPDATE ImageTable 
-    SET server_file_name = #{server_file_name} 
-    WHERE idx = #{idx} AND category = '회원'
-	</update> -->
+	<update id="saveProfileImg" parameterType="kr.co.invegan.mypage.dto.MyPageDTO">
+    UPDATE ImageTable SET server_file_name=#{param2},idx=#{param3} 
+    WHERE image_id=#{param1}
+	</update>
 	
-	
-	
-	
+	<update id="imgModify" parameterType="kr.co.invegan.mypage.dto.MyPageDTO">
+    UPDATE ImageTable SET server_file_name=#{param1} WHERE idx=#{param2}
+	</update>
+	 
 	<select id="totalPage" resultType="int">
 		select ceil(count(req_id)/5) as pages from Request
 	</select>

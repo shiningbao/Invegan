@@ -31,34 +31,67 @@ public class MemberService {
         return dto;
     }
 
-    // 여기 이메일 인증으로 바꾸기!!!!!!!!!
-    public Object findId(HttpServletResponse response, String email) throws Exception {
+    //아이디 찾기
+    public String findId(HttpServletResponse response, String email) throws Exception {
         response.setContentType("text/html;charset=utf-8");
         PrintWriter out = response.getWriter();
         String id = dao.findId(email);
-
+        logger.info("id : "+id);
         if (id == null) {
             out.println("<script>");
             out.println("alert('가입된 아이디가 없습니다.');");
             out.println("history.go(-1);");
             out.println("</script>");
             out.close();
-            return null;
+//            return null;
         } else {
-            return id;
+        	logger.info("id : "+id);
+            
         }
+        return id;
     }
 
+    //비밀번호 찾기
+    /*
+    public String findPw(HttpServletResponse response, String id, String email2) throws Exception {
+		 response.setContentType("text/html;charset=utf-8");
+	     PrintWriter out = response.getWriter();
+	     logger.info("service.findPw 접근");
+	     String pw = dao.findPw(id, email2);
+	     logger.info("pw : "+pw);
+	     if (pw == null) {
+	          out.println("<script>");
+	          out.println("alert('가입된 계정이 없습니다.');");
+	          out.println("history.go(-1);");
+	          out.println("</script>");
+	          out.close();
+	      } else {
+	    	  logger.info("pw : "+pw);   
+	        }
+	        return pw;
+	}
+	*/
+    
+    public String findPw(String id, String email) throws Exception {
+    	logger.info("service 접근");
+        String pw = dao.findPw(id, email);
+        logger.info("pw : "+pw);
+        return pw;
+    }
+    
     public String signup(HashMap<String, String> params) {
         String msg = "회원 가입이 실패하였습니다";
-
+        logger.info("service 접근");
         int row = dao.signup(params);
         if (row > 0) {
             msg = "회원 가입이 성공하였습니다";
         }
-
+        logger.info("row : "+row);
+        
         return msg;
     }
+
+
 
     /*
 	public String signup(Map<String, String> params) {

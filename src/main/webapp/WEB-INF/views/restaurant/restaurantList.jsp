@@ -23,11 +23,15 @@
 		<tr>
 			<th>포스트 아이디</th>
 			<th>식당명</th>
+			<th>작성자</th>
+			<th>숨김여부</th>
 		</tr>
 		<c:forEach items="${restaurantList}" var = "restaurant">
 			<tr>
 				<td><a href = "detail?post_id=${restaurant.getPost_id()}">${restaurant.getPost_id()}</a></td>
-			<td><a href = "detail?post_id=${restaurant.getPost_id()}">${restaurant.getTitle()}</a></td>
+				<td><a href = "detail?post_id=${restaurant.getPost_id()}">${restaurant.getTitle()}</a></td>
+				<td><a href = "detail?post_id=${restaurant.getPost_id()}">${restaurant.getUser_no()}</a></td>
+				<td><a href = "detail?post_id=${restaurant.getPost_id()}">${restaurant.getIs_hidden()}</a></td>
 			<tr>
 		</tr>
 		</c:forEach>

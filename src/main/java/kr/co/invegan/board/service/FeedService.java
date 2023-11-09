@@ -7,7 +7,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import java.util.HashMap;
-
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -114,12 +115,12 @@ public class FeedService {
       
       
    }
-   public ArrayList<FeedListDTO> list(int limitcnt) {
-      
-      logger.info("service list 접근");
-      
-      return dao.list(limitcnt);
-   }
+//   public ArrayList<FeedListDTO> list(int limitcnt) {
+//      
+//      logger.info("service list 접근");
+//      
+//      return dao.list(limitcnt);
+//   }
    
    public ArrayList<FeedListDTO> detailList(int post_id) {
       logger.info("service detailList 접근");
@@ -165,11 +166,34 @@ public class FeedService {
 		dao.feedUpdatePost(params);
 		
 	}
-	public ArrayList<FeedListDTO> searchByTag(String searchbt) {
+	public ArrayList<FeedListDTO> searchByTag(HashMap<String, String> params) {
 //		String tags =feedlistdto.getTag_content();
+		String searchbt= params.get("searchbt");
 		
+		logger.info("limit cnt : "+params.get("limitcnt"));
+		ArrayList<FeedListDTO> searchResult = new ArrayList<FeedListDTO>();	
 		
-		return dao.searchByTag(searchbt);
+		        if (searchbt.equals("#전체리스트")) {
+		        	logger.info("전체리스트 뿌려주기");
+		            searchResult = dao.list(Integer.parseInt(params.get("limitcnt")));
+		        }else{
+		        	logger.info("태그선택리스트 뿌려주기");
+		        	searchbt = "%" + params.get("searchbt")+ "%";
+		        	searchResult =dao.searchByTag(searchbt,Integer.parseInt(params.get("limitcnt")));
+		        }
+		    
+		
+		return searchResult;
+	}
+	public List<Map<String, Object>> autocomplete(Map<String, Object> paramMap) {
+		logger.info("검색자동완성기능 서비스");
+		
+		return dao.autocomplete(paramMap);
+	}
+	public ArrayList<FeedListDTO> autoSearchTag(HashMap<String, String> params) {
+		String autoText = params.get("autoText");
+		logger.info("자동완성 검색버튼클릭 서비스");
+		return dao.autoSearchTag(autoText,Integer.parseInt(params.get("limitcnt")));
 	}
 	
 	   

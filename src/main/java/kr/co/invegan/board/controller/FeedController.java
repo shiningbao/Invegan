@@ -5,6 +5,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -74,25 +77,44 @@ public class FeedController {
       logger.info("controller list 접근");
       return "feed/feedList";
    }
-   
-   @RequestMapping(value="feedListCall")
+   // 전체 리스트불러오기와 Tag를 선택했을떄 리스트불러오기
+   @RequestMapping(value = "searchByTag")
    @ResponseBody
-   public HashMap<String, Object> feedListCall(HttpSession session, @RequestParam("limitcnt") int limitcnt){
-      
-      HashMap<String, Object> result = new HashMap<String, Object>();
-      logger.info("controller feedListCall 접근");
-      logger.info("limitcnt :"+limitcnt);
-      
-      
-      ArrayList<FeedListDTO> list = service.list(limitcnt);
-      
-      result.put("list", list);
-      result.put("listSize", list.size());
-      result.put("limitcnt",limitcnt);
-      result.put("loginInfo", session.getAttribute("loginInfo"));
-      logger.info("list size:"+ list.size());
-      return result;
+   public HashMap<String, Object> searchByTag(HttpSession session,@RequestParam HashMap<String, String> params) {
+	   logger.info("SearByTag 컨트롤러 접근");
+	   HashMap<String, Object> result = new HashMap<String, Object>();
+       logger.info("Searching by tag: " + params);
+       logger.info("searcbt :"+params.get("searchbt"));
+       logger.info("limintCnt :"+params.get("limitcnt"));
+       
+       
+       
+       ArrayList<FeedListDTO> searchResult = new ArrayList<FeedListDTO>();
+       logger.info("search:"+searchResult);
+       searchResult= service.searchByTag(params);
+       logger.info("search:"+searchResult);
+       result.put("loginInfo", session.getAttribute("loginInfo"));
+       result.put("list", searchResult);
+       result.put("listSize",searchResult.size());
+       result.put("limitcnt",params.get("limitcnt"));
+       return result;
    }
+   
+   @RequestMapping(value ="autoSearchTag")
+   @ResponseBody
+   public HashMap<String, Object> autoSearchTag(HttpSession session,@RequestParam HashMap<String, String> params){
+	   HashMap<String, Object> result = new HashMap<String, Object>();
+	   logger.info("자동완성 검색버튼클릭 컨트롤러");
+	   logger.info("autoText :"+params.get("autoText"));
+	   logger.info("limitcnt :"+params.get("limitcnt"));
+	   ArrayList<FeedListDTO> searchResult = service.autoSearchTag(params);
+	   result.put("loginInfo", session.getAttribute("loginInfo"));
+	   result.put("list", searchResult);
+	   result.put("listSize",searchResult.size());
+	   result.put("limitcnt",params.get("limitcnt"));
+	   return result;
+   }
+   
    
    
    @RequestMapping(value="detail.go")
@@ -206,19 +228,19 @@ public class FeedController {
       
       return "feed/feedUpdate";
    }
-   
-   @RequestMapping(value = "searchByTag")
+   @RequestMapping(value = "feed/autocomplete.do")
    @ResponseBody
-   public HashMap<String, Object> searchByTag(@RequestParam("searchbt") String searchbt) {
-       HashMap<String, Object> result = new HashMap<String, Object>();
-       logger.info("Searching by tag: " + searchbt);
+	public Map<String, Object> autocomplete(@RequestParam Map<String, Object> paramMap) throws Exception{
+	   logger.info("검색자동완성기능 컨트롤러");
+	   logger.info("paramMap :"+paramMap);
+		List<Map<String, Object>> resultList = service.autocomplete(paramMap);
+		logger.info("paramMap :"+paramMap);
+		paramMap.put("resultList", resultList);
 
-       // 검색어(searchbt)를 이용하여 게시물을 검색하고 결과를 가져옵니다.
-       ArrayList<FeedListDTO> searchResult = service.searchByTag(searchbt);
-
-       result.put("list", searchResult);
-       return result;
-   }
+		return paramMap;
+	}
+   
+  
    
    
 

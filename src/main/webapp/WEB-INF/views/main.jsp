@@ -1,15 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>인비건 INVEGAN</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-
-<!-- 
-<link rel="stylesheet" href="resources/css/common.css" type="text/css">
- -->
 
 <style>
 	.banner{
@@ -91,7 +86,10 @@
 	  
 	<c:import url="/main/header"/>
 
-	<div class="banner"><p>배너</p></div>
+	<div class="banner">
+		<p id="status"></p>
+		<a id="map-link" target="_blank"></a>
+	</div>
 	<br>
 	<input type="button" id="login" name="로그인"/>
 	
@@ -266,6 +264,31 @@ if(msg != ""){
 $('#login').on('click',function(){
 	location.href='member/login.go';
 });
+
+
+navigator.geolocation.getCurrentPosition(geoSuccess, getError);
+function geoSuccess(position){
+	lat = position.coords.latitude;
+	lng = position.coords.longitude;
+	var data = {};
+	data.lat = lat;
+	data.lng = lng;
+	$.ajax({
+		type:'post',
+		url:'geo',
+		data:data,
+		dataType:'JSON',
+		success:function(data){
+			console.log("dd");
+		},
+		error:function(e){
+			console.log(e);
+		}
+	});
+}
+function getError() {
+	  alert('Geolocation Error');
+}
 
 
 </script>

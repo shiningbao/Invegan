@@ -50,17 +50,13 @@ public interface MyPageDAO {
 	 * 
 	 * int totalPage(int i);
 	 */
-	/*
-	 * void uploadProfileImg(int idx, String server_file_name, Integer user_no);
-	 * 
-	 * void uploadProfile(MyPageDTO dto);
-	 * 
-	 * ArrayList<MyPageDTO> list(int ppn, int offset);
-	 * 
-	 * int totalPage(int ppn);
-	 */
+	
+	 void saveProfileImg(int image_id, String server_file_name, Integer user_no);
 
+	void uploadProfile(MyPageDTO dto);
 
+	void imgModify(String server_file_name, Integer user_no);
+	
 
 
 }

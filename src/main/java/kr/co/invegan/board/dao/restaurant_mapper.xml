@@ -54,13 +54,37 @@
 			ORDER BY image_id ASC;
 	</select>
 	
+	<update id="boardUpdate" parameterType="kr.co.invegan.board.dto.RestaurantDTO">
+		UPDATE Board SET title=#{title},content=#{content} WHERE post_id=#{post_id}
+	</update>
 	
+	<update id="restaurantUpdate" parameterType="kr.co.invegan.board.dto.RestaurantDTO">
+		UPDATE Restaurant set address=#{address},phone=#{phone},hours=#{hours} WHERE post_id=#{post_id}
+	</update>
 
+	<delete id="menuDel">
+		DELETE FROM RestaurantMenu WHERE post_id=#{param1}
+	</delete>
+	
+	<delete id="photoDel">
+		DELETE FROM ImageTable WHERE category='식당' AND idx=#{param1} AND server_file_name=#{param2}
+	</delete>
 
+	<update id="hidden">
+		UPDATE Board SET is_hidden = 1 WHERE post_id =#{param1}
+	</update>
 
-
-
-
+	<select id="favoriteChk" parameterType="int" resultType="int">
+		SELECT count(*) AS cnt FROM Favorite WHERE user_no =#{param1} AND post_id=#{param2}
+	</select>
+	
+	<insert id="favoriteInsert" parameterType="int">
+		INSERT INTO Favorite(user_no,post_id) VALUES(#{param1},#{param2});
+	</insert>
+	
+	<delete id="favoriteDel" parameterType="int">
+		DELETE FROM Favorite WHERE user_no =#{param1} AND post_id=#{param2}
+	</delete>
 	
 </mapper>
 

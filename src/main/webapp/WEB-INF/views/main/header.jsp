@@ -3,7 +3,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+ <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style>
 	.top {
 		clear: both;
@@ -32,6 +35,12 @@
 		background-color: grey;
 		z-index: 100;
 
+	}
+	#profileImg {
+	   width: 50px;
+	   height: 50px;
+	   border-radius: 50%;
+	   margin-right: 10px;
 	}
 	.sideBar{
 		width: 60px;
@@ -101,13 +110,13 @@
 		
 			<!-- 로그인 했을 때 -->
  			<c:if test="${not empty loginInfo}">
-				<p>프로필사진</p>
+				<p><img id="profileImg" src="/photo/${loginInfo.getProfile_img()}" /></p>
 				<p id="loginNickname">${loginInfo.getNickname()}</p>
 				<p id="loginId">${loginInfo.getId()}</p>
 				<div class="infoMB">
 					<button id="infoButton">@</button>
 					<div class="infoModal">
-						<div class="infoModalList"><a href = "<c:url value='/member/signup'/>">로그아웃</a></div>
+						<div class="infoModalList"><a href = "<c:url value='/member/logout'/>">로그아웃</a></div>
 						<div class="infoModalList"><a href = "<c:url value='/myPage/info.go'/>">마이페이지</a></div>
 						<c:if test="${loginInfo.getIs_admin() eq '1'}">
 							<div class="infoModalList_admin"><a href = "<c:url value='/member/signup'/>">회원 관리</a></div>
