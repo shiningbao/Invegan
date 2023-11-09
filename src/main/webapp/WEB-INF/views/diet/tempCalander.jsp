@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-<title>Calander</title>
+<title>Calendar</title>
 <style>
 table td {
 	border: 1px solid black;
@@ -113,33 +113,41 @@ select {
 </style>
 </head>
 <body>
-	<div id="container">
-		<table class="Calendar">
-			<thead>
-				<tr>
-					<td onClick="prevCalendar();" id="prev" style="cursor: pointer;">&#60;</td>
+<c:import url="/main/header" />
+<div id="container">
 
-					<td colspan="5" id="yearMonth">
-						<div id="calYear"></div>
-						<div id="calMonth"></div>월
-					</td>
+<table class="Calendar">
+        <thead>
+            <tr>
+                <td onClick="prevCalendar();" id="prev" style="cursor:pointer;">&#60;</td>
+               
+                <td colspan="5" id= "yearMonth">
+                    <div id="calYear"></div>
+                    <div id="calMonth"><br/></div>월
+                </td>
+       
+                <td onClick="nextCalendar();" id="next" style="cursor:pointer;">&#62;</td>
+            </tr>
+            <tr id="day">
+                <td>일</td>
+                <td>월</td>
+                <td>화</td>
+                <td>수</td>
+                <td>목</td>
+                <td>금</td>
+                <td>토</td>
+            </tr>
 
-					<td onClick="nextCalendar();" id="next" style="cursor: pointer;">&#62;</td>
-				</tr>
-				<tr id="day">
-					<td>일</td>
-					<td>월</td>
-					<td>화</td>
-					<td>수</td>
-					<td>목</td>
-					<td>금</td>
-					<td>토</td>
-				</tr>
-			</thead>
-			<tbody>
-			</tbody>
-		</table>
-	</div>
+			
+        </thead>
+
+        <tbody>
+        
+        </tbody>
+    </table>
+
+ 	</div>
+<c:import url="/main/footer" />	
 </body>
 
 <script>
@@ -248,6 +256,20 @@ select {
 				nowMonth.getDate()); // 현재 달을 1 증가
 		buildCalendar(); // 달력 다시 생성
 	}
+	    if (nowColumn.classList.contains("pastDay")) {
+	        nowColumn.classList.add("choiceDay");
+	       	
+	    }
+	    else {
+	        nowColumn.classList.add("choiceDay");
+	    }
+	    // 클릭한 날짜 값
+        selectDate = $('#calYear').text()+"-"+$('#calMonth').text()+"-"+$('.choiceDay').text();
+	    console.log(selectDate);
+	    
+	    dietMgmt();
+
+	    
 
 	// 숫자가 10보다 작을 때 앞에 0을 붙여서 반환
 	function leftPad(value) {

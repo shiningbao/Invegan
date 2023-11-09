@@ -62,7 +62,6 @@ public class DietController {
 			// 로그인 정보 체크
 			logger.info("로그인된 회원번호 : " + loginInfo.getUser_no());
 			logger.info("로그인된 아이디 : " + loginInfo.getId());
-			model.addAttribute("date", date);
 			ArrayList<DietDTO> dietList = dietService.getDietList(date, loginInfo.getUser_no());
 
 			model.addAttribute("dietList", dietList);
@@ -89,6 +88,9 @@ public class DietController {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("nutr", nutriInfo);
 		result.put("daily", getDailyNutri);
+		session.setAttribute("nutriInfo", nutriInfo);
+        FoodDataDTO var =  (FoodDataDTO) result.get("nutriInfo");
+        logger.info(" result kcal : "+var.getKcal());
 		return result;
 	}
 		

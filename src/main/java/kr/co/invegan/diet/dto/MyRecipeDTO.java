@@ -9,8 +9,14 @@ public class MyRecipeDTO {
 	private int grams;
 	private int kcal;
 	private int food_id;
+	private int hidden;
 	
-	
+	public int getHidden() {
+		return hidden;
+	}
+	public void setHidden(int hidden) {
+		this.hidden = hidden;
+	}
 	public int getMaterial_id() {
 		return material_id;
 	}

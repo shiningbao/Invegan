@@ -6,6 +6,7 @@ import java.util.HashMap;
 import kr.co.invegan.diet.dto.DietDTO;
 
 public interface MyRecipeDAO {
+
 	ArrayList<HashMap<String, Object>> mlist(String fName);
 
 	void mMaterial(int food_id, int grams, int menu_id);

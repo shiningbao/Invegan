@@ -61,7 +61,6 @@
 	height: auto;
 	margin: 20px auto;
 	padding: 0 10px;
-	]
 }
 
 #emptyList {
@@ -119,7 +118,7 @@
 
 /* 세로 줄 */
 .li-vertical-line {
-	border-right: 1px solid black;
+    border-right: 1px solid black;
 }
 
 /* 영양성분 */
@@ -150,16 +149,13 @@
 #contents-right-header ul li:not(.li-vertical-line):hover {
 	border-bottom: 2px solid #95df95 !important;
 }
-
-#contents-right-content {
-	width: 100%;
-	padding: 10px 0px;
-	text-align: center;
+#contents-right-content{
+    width: 100%;
+    padding: 10px 0px;
+    text-align: center;
 }
-#circle-graph-box{
-	border-bottom: 2px solid lightgray; 
-	padding-bottom: 5px;
-	margin-bottom: 5px;
+#contents-right-content h4, #contents-right-content label{
+    margin: 8px auto;
 }
 
 #contents-right-content h4, #contents-right-content label {
@@ -178,7 +174,7 @@
 }
 
 #kcal::before, #carb::before, #prot::before, #fat::before {
-	color: #black;
+	color: black;
 	width: 68%;
 	padding: calc(35% - 1.3vw) 0;
 	background: #FFFFFF;
@@ -193,12 +189,10 @@
 	font-size: 23px;
 	padding: calc(43% - 1.3vw) 0;
 }
-
-.graph-box {
-	display: inline-block;
-	width: 23%;
+.graph-box{
+    display: inline-block;
+    width: 23%;
 }
-
 /*막대 그래프*/
 .graph-bar {
 	height: 18px;
@@ -441,7 +435,6 @@
 						<div id="fat" class="circle" data-percent=0></div>
 						<h4 id="fat-data"></h4>
 					</div>
-				</div>
 				<!-- 영양성분 - 막대 그래프 -->
 				<div class="bar-graph-box">
 					<div class="bar-graph-box-txt">

@@ -9,10 +9,13 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <style>
-	.restaurantWriteTable {
-		border: 1px solid black;
+	.container{
 		width: 1000px;
-		margin: 0 auto;
+		margin: 0px auto;
+	}
+	.restaurantWriteTable {
+		width: 100%;
+
 	}
 	.restaurantWriteHead{
 		width: 20%;
@@ -34,29 +37,42 @@
 		display: inline-block;
 	}
 	.restaurantImg{
-		width: 780px;
+		width: 800px;
 		white-space: nowrap;
 		overflow-x: scroll;
-		background-color: grey;
+		background-color: #E0E0E0;
 	}
 	#preview{
 		font-size: 2vw;
 		text-align: center;
 		align-items: center;
-		
+		overflow: hidden;
 	}
 	.divImg{
+		position: relative;
 		width: 300px;
 		border: 1px solid black;
 		margin: 1px;
+		padding: 2px;
 		display: inline-block;
 	}
 	.previewImg{
 		width: 300px;
 		height: 300px;
+		
+	}
+	.delImgButton{
+		position: absolute;
+		top: 3px;
+		right: 3px;
+		z-index: 10;
 	}
 	.nameImg{
-		text-align: center;
+		width: 100%;
+		padding-top: 5px;
+		padding-left: 5px;
+		text-overflow: ellipsis;
+		overflow: hidden;
 	}
 	.menuDiv {
 		margin: 2px 0px;
@@ -73,7 +89,7 @@
 </head>
 <body>
 <c:import url="/main/header"/>
-
+<div class="container">
 <table class = "restaurantWriteTable">
 	<tr>
 		<th class="restaurantWriteHead">식당 이름</th>
@@ -152,6 +168,7 @@
 	<th colspan="2"><button type="button" id="write">작성</button>  <button type="button" id="cancle">취소</button></th>
 	</tr>
 </table>
+</div>
 <c:import url="/main/footer"/>
 </body>
 
@@ -177,29 +194,28 @@ function upload(uploadImages){
 		imgArr.push(imgFile);
 
 		if(imgFile.type.includes('image')){
-			
 			var divTag = document.createElement('div');
 			divTag.id = 'img_id_'+i;
 			divTag.className = 'divImg';
 			$restaurantImg_upload.appendChild(divTag);
-			
-			var delButton = document.createElement('button');
-			delButton.type= 'button';
-			delButton.id = 'delButton_'+i;
-			delButton.onclick = function(){delImg(this);};
-			delButton.textContent = '삭제';
-			divTag.appendChild(delButton);
 			
 			var img = new Image();
 			img.className = 'previewImg';
 			img.src = window.URL.createObjectURL(imgFile);
 			divTag.appendChild(img);	
 			
-			var nameTag = document.createElement('p');
+			var nameTag = document.createElement('div');
 			nameTag.className = 'nameImg';
 			nameTag.textContent = imgFile.name;
 			divTag.appendChild(nameTag);
 	
+			var delButton = document.createElement('button');
+			delButton.className = 'delImgButton';
+			delButton.type= 'button';
+			delButton.id = 'delButton_'+i;
+			delButton.onclick = function(){delImg(this);};
+			delButton.textContent = '삭제';
+			divTag.appendChild(delButton);
 		}else{
 			alert('이미지 파일 아님');
 			$('#restarunatWriteImg')[0].files = new DataTransfer().files;
@@ -233,7 +249,7 @@ $('#menuAdd').on('click',function(){
 		menuContent += '<select name="vegan_type"><option value="1">플루테리언</option><option value="2">비건</option>';
 		menuContent += '<option value="3">락토</option><option value="4">오보</option><option value="5">락토오보</option>';
 		menuContent += '<option value="6">폴로</option><option value="7">페스코</option><option value="8">폴로페스코</option>';
-		menuContent += '<option value="9">플렉시테리언</option></select></td></tr></table></div';
+		menuContent += '<option value="9">플렉시테리언</option></select></td></tr></table></div>';
 	$('#menu').append(menuContent);
 });
 
@@ -265,7 +281,7 @@ $('#write').on('click',function(e){
 
 	var blankcnt = 0;
 	var len = $menu_name.length;
-/*	
+
 	if($title.val() == ''){
 		alert('식당 이름');
 		blankcnt ++;
@@ -309,25 +325,15 @@ $('#write').on('click',function(e){
 			}
 		}
 	}
-	
 	console.log("공백 및 패턴 확인 blankcnt : ");
 	console.log(blankcnt);	
-*/	
+	
 	if(blankcnt == 0){
 		var formData = new FormData();
 
 		// 메뉴 배열-맵 묶기
 		var menu = new Array(len);
-		/*
-		for(var i = 0; i < len; i++){
-			menu[i] = new Map();
-			menu[i].set('menu_name',$('input[name="menu_name"]').eq(i).val());
-			menu[i].set('price',$('input[name="price"]').eq(i).val());
-			menu[i].set('vegan_type',$('input[name="vegan_type"]').eq(i).val());
-			
-		}
-		
-		*/
+
 		for(var i = 0; i < len; i++){
 			menu[i] = new Array(3);
 			menu[i][0] = $('input[name="menu_name"]').eq(i).val();
@@ -335,7 +341,6 @@ $('#write').on('click',function(e){
 			menu[i][2] = $('select[name="vegan_type"]').eq(i).val();
 			console.log($('select[name="vegan_type"]').eq(i).val());
 		}
-		
 		console.log(menu);
 		
 		// ajax 전송할 폼데이터
@@ -345,7 +350,6 @@ $('#write').on('click',function(e){
 			console.log(uploadImages[i]);
 			formData.append('uploadImages', uploadImages[i]);
 		}
-		//formData.append('uploadImages', uploadImages);
 		formData.append('title', $title.val());
 		formData.append('address', $address.val());
 		formData.append('content', $content.val());
@@ -361,9 +365,14 @@ $('#write').on('click',function(e){
 			processData:false,
 			enctype : 'multipart/form-data',
 			success:function(data){
-				console.log(data);
-				alert(data.결과);
-				location.href = 'list';
+				var result = data.result;
+				console.log(result);
+				alert(result);
+				if(result == '권한없음'){
+					location.href = '/main'
+				}else if(result == '식당 작성 완료'){
+					location.href = 'list';
+				}
 			},
 			error:function(e){
 				console.log(e);
