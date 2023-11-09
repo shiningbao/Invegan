@@ -22,11 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-<<<<<<< HEAD
 import kr.co.invegan.admin.service.FoodService;
-=======
 import kr.co.invegan.diet.dto.DailyNutriDTO;
->>>>>>> origin/master
 import kr.co.invegan.diet.dto.DietDTO;
 import kr.co.invegan.diet.dto.FoodDataDTO;
 import kr.co.invegan.diet.service.DietService;
@@ -63,6 +60,7 @@ public class DietController {
 	@RequestMapping(value = "diet/dietMgmt")
 	public String dietMgmt(HttpSession session, @RequestParam String date, Model model) {
 		logger.info("식단관리 페이지 이동 요청");
+		logger.info("parameter chk : "+ date);
 		loginInfo = (MemberDTO) session.getAttribute("loginInfo");
 		String page = "redirect:/member/login.go";
 		if (loginInfo == null) {
@@ -75,8 +73,9 @@ public class DietController {
 			logger.info("로그인된 아이디 : " + loginInfo.getId());
 			ArrayList<DietDTO> dietList = dietService.getDietList(date, loginInfo.getUser_no());
 
+			model.addAttribute("date", date);
+			logger.info("date : "+date);
 			model.addAttribute("dietList", dietList);
-
 			model.addAttribute("dietListSize", dietList.size());
 			logger.info("리스트 개수 : " + dietList.size());
 		}
@@ -92,38 +91,28 @@ public class DietController {
 
 		loginInfo = (MemberDTO) session.getAttribute("loginInfo");
 		int loginUser_no = loginInfo.getUser_no();
-<<<<<<< HEAD
 
-		FoodDataDTO nutriInfo = dietService.getNutri(loginUser_no, selectDate, dietCate);
-		// logger.info("getKcal : "+nutriInfo.getKcal());
-=======
 		// 회원이 섭취한 영양소 합 가져오기
 		FoodDataDTO nutriInfo = dietService.getNutri(loginUser_no, selectDate, dietCate);
 		// 회원별 권장 섭취량 가져오기
 		DailyNutriDTO getDailyNutri = dietService.getDailyNutri(loginUser_no);
+		logger.info("dailyNutri chk : "+getDailyNutri);
 		logger.info("dailyNutri result check member's age : "+ getDailyNutri.getAge());
->>>>>>> origin/master
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("nutr", nutriInfo);
+		logger.info("result - nutriInfo : " + nutriInfo.getKcal() );
 		result.put("daily", getDailyNutri);
 		session.setAttribute("nutriInfo", nutriInfo);
-		FoodDataDTO var = (FoodDataDTO) result.get("nutriInfo");
-		logger.info(" result kcal : " + var.getKcal());
 		return result;
 	}
-<<<<<<< HEAD
 
-=======
 		
 	
->>>>>>> origin/master
 	// 메뉴 추가 페이지 이동
 	@RequestMapping(value = "diet/addMenu.go")
-	public String addMenuGo(HttpSession session, Model model, @RequestParam String sort, @RequestParam String date) {
+	public String addMenuGo(HttpSession session, Model model, 
+			@RequestParam String sort, @RequestParam String date) {
 		logger.info("메뉴 추가 페이지 요청 || sort값 = " + sort + " / date : " + date);
-		// chk = true 이면 메뉴 추가
-		// chk = false 이면 메뉴 수정
-		// 추후 페이지 접근 제한에도 chk 활용
 		session.setAttribute("upsertSort", sort);
 		model.addAttribute("date", date);
 		return "diet/addMenu";
@@ -190,6 +179,7 @@ public class DietController {
 		result.put("showNutri", showNutri);
 		return result;
 	}
+	
 
 	@RequestMapping(value = "diet/addMaterial.go")
 	public String addMaterial(@RequestParam HashMap<String, Object> params) {
