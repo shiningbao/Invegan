@@ -73,7 +73,7 @@
 	</table>
 		<div class="pageContainer">									
 			<nav aria-label="Page navigation" style="text-align:center">
-				<ul class="pagination" id="pagination"></ul>
+				<ul class="paging" id="pagination"></ul>
 			</nav>					
 		</div>
 </div>
@@ -123,8 +123,8 @@ $('#adminSort').on('change', function () {
 	}
  
 	
-	function drawMemberList(obj,memberList){
-		console.log(memberList);
+	function drawMemberList(obj){
+		console.log(obj);
 		var content = '';
 		
 			obj.memberList.forEach(function(item,idx) {
@@ -151,13 +151,15 @@ $('#adminSort').on('change', function () {
             $('#list').append(content);
             
             $('#pagination').twbsPagination({
-    			startPage: showPage,
-    			totalPages:obj.memberList.pages>0?obj.memberList.pages:1, 
+    			startPage: obj.currPage,
+    			totalPages:obj.pages, 
     			visiblePages:5,
+    			onPageClick:function(e,page){ // 번호 클릭시 실행할 내용
+    				//console.log(e);
     				if(showPage != page){
-    				console.log(page);
-    				showPage = page;
-    				memberListCall(page);
+    					console.log(page);
+    					showPage = page; // 클릭해서 다른 페이지를 보여주게 되면 현재 보고 있는 페이지 번호도 변경해 준다.
+    					memberListCall(page);
     				}
     			}
     		});
