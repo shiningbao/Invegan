@@ -93,7 +93,7 @@ public class DietController {
         logger.info(" result kcal : "+var.getKcal());
 		return result;
 	}
-	
+		
 	
 	// 메뉴 추가 페이지 이동
 	@RequestMapping(value = "diet/addMenu.go")

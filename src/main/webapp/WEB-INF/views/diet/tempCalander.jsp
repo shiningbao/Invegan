@@ -154,7 +154,7 @@ select {
 	window.onload = function() {
 		buildCalendar();
 	}
-	var selectDate = "";
+	var selectDate = "";	
 
 	// 날짜 클릭시 실행
 	function dietMgmt() {

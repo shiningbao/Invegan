@@ -571,27 +571,29 @@
 						<span>0%</span>
 					</div>
 				</div>
-				<div class="graph-box">
-                    <label>열량</label>
-                    <div id="kcal" class="circle"></div>
-                    <h4 id="kcal-data"></h4>
-                </div>
-                <div class="graph-box">
-                    <label>탄수화물</label>
-                    <div id="carb" class="circle"></div>
-                    <h4 id="carb-data"></h4>
-                </div>
-                <div class="graph-box">
-                    <label>단백질</label>
-                    <div id="prot" class="circle"></div>
-                    <h4 id="prot-data"></h4>
-                </div>
-                <div class="graph-box">
-                    <label>지방</label>
-                    <div id="fat" class="circle"></div>
-                    <h4 id="fat-data"></h4>
-                </div>
-                <!-- 영양성분 - 막대 그래프 -->
+			</div>
+		</div>
+	</div>
+	<c:import url="/main/footer" />	
+</body>
+<script>
+	// 페이지 로드시 바로 실행
+	getNutri($('#contents-right-header ul li:first'));
+
+	// 캘린더 화면으로 이동
+	$('#selectDate').on('click', function() {
+		console.log('date click');
+		location.href = "tempCalander";
+	});
+
+	// 메뉴 등록 팝업 창 열기
+	function upsertMenu(sort) {
+		var sort = sort;
+		var selectDate = $('#selectDate').text();
+		console.log("upsert 분류 : " + sort);
+		window.open("addMenu.go?sort=" + sort + "&date=" + selectDate, "pop",
+				"width=1200,height=700,top=100,left=300,scrollbals=no");
+	}
 	
 	// 메뉴 수정 삭제
 	function submenu(e,obj) {
