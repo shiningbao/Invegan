@@ -1,5 +1,7 @@
 package kr.co.invegan.diet.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -36,7 +38,7 @@ public class DietController {
 	Logger logger = LoggerFactory.getLogger(getClass());
 
 	MemberDTO loginInfo = null;
-	
+
 	// 캘린더 페이지로 이동
 	@RequestMapping(value = "diet/tempCalander")
 	public String tempCalander(HttpSession session, RedirectAttributes reAttr) {
@@ -53,7 +55,7 @@ public class DietController {
 		}
 		return page;
 	}
-	
+
 	// 식단관리 페이지로 이동
 	@RequestMapping(value = "diet/dietMgmt")
 	public String dietMgmt(HttpSession session, @RequestParam String date, Model model) {
@@ -77,27 +79,27 @@ public class DietController {
 		}
 		return page;
 	}
+
 	// 영양소 합계 불러오기
 	@RequestMapping(value = "diet/getNutri")
 	@ResponseBody
-	public HashMap<String, Object> getNutri(HttpSession session, 
-			@RequestParam String selectDate, @RequestParam String dietCate) {
+	public HashMap<String, Object> getNutri(HttpSession session, @RequestParam String selectDate,
+			@RequestParam String dietCate) {
 		logger.info("영양소 정보 불러오기 요청");
-		
+
 		loginInfo = (MemberDTO) session.getAttribute("loginInfo");
 		int loginUser_no = loginInfo.getUser_no();
-		
+
 		FoodDataDTO nutriInfo = dietService.getNutri(loginUser_no, selectDate, dietCate);
-		// logger.info("getKcal : "+nutriInfo.getKcal()); 
+		// logger.info("getKcal : "+nutriInfo.getKcal());
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("nutriInfo", nutriInfo);
 		session.setAttribute("nutriInfo", nutriInfo);
-        FoodDataDTO var =  (FoodDataDTO) result.get("nutriInfo");
-        logger.info(" result kcal : "+var.getKcal());
+		FoodDataDTO var = (FoodDataDTO) result.get("nutriInfo");
+		logger.info(" result kcal : " + var.getKcal());
 		return result;
 	}
-	
-	
+
 	// 메뉴 추가 페이지 이동
 	@RequestMapping(value = "diet/addMenu.go")
 	public String addMenuGo(HttpSession session, Model model, @RequestParam String sort, @RequestParam String date) {
@@ -109,14 +111,14 @@ public class DietController {
 		model.addAttribute("date", date);
 		return "diet/addMenu";
 	}
-	
+
 	// 메뉴 추가 페이지에 기본메뉴 탭 페이지
 	@RequestMapping(value = "diet/defaultMenu.go")
 	public String defaultMenuGo() {
 		logger.info("기본메뉴 페이지 요청 || ");
 		return "diet/defaultMenu";
 	}
-	
+
 	// 메뉴추가 하기
 	@RequestMapping(value = "diet/addMenu.do")
 	@ResponseBody
@@ -140,7 +142,7 @@ public class DietController {
 		logger.info(successMsg);
 		return result;
 	}
-	
+
 	// 메뉴추가 페이지에서 식품 검색
 	@RequestMapping(value = "diet/searchFood")
 	@ResponseBody
@@ -160,7 +162,7 @@ public class DietController {
 
 		return result;
 	}
-	
+
 	// 검색한 식품 영양소 보기
 	@RequestMapping(value = "diet/showNutri")
 	@ResponseBody
@@ -172,19 +174,34 @@ public class DietController {
 		return result;
 	}
 
-	@RequestMapping(value="diet/addMaterial.go")
-    public String addMaterial(@RequestParam HashMap<String, Object> params) {
-       logger.info("params:"+params);
+	@RequestMapping(value = "diet/addMaterial.go")
+	public String addMaterial(@RequestParam HashMap<String, Object> params) {
+		//logger.info("페이지 이동 params:" + params);
+		logger.info("addMaterial 페이지로 이동");
+		return "diet/addMaterial";
+	}
 
-        return "diet/addMaterial"; 
-    }
-	
-	@RequestMapping(value="diet/addMaterial.do")
-    public String food_addM(@RequestParam HashMap<String, Object> params) {
-       logger.info("params:"+params);
-		//DietService.-----(FoodDataDTO);
-		dietService.addMaterialAdm(params);
-        return "redirect:/main"; 
-    }
-	
+	@RequestMapping(value = "diet/addMaterial.do")
+	public String food_addM(@RequestParam HashMap<String, Object> params, HttpSession session, Model model) {
+		MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
+		logger.info("food_addM 함수 접근");
+
+		if (loginInfo == null) {
+			String msg = "관리자만 접근할 수 있습니다.(비회원 상태)";
+			logger.info("관리자가 아니면 접근 불가(비회원 상태)");
+			model.addAttribute("msg", msg);
+			return "main";
+		} else if (loginInfo.getIs_admin() == 0) {
+			String msg = "관리자만 접근할 수 있습니다.(일반회원 상태)";
+			logger.info("관리자가 아니면 접근 불가(일반회원 상태)");
+			model.addAttribute("msg", msg);
+			return "main";
+		} else {
+			logger.info("관리자 접근");
+			logger.info("do params:" + params);
+			String msg = "관리자 계정에 접근하셨습니다.";
+			dietService.addMaterialAdm(params);
+			return "redirect:/main";
+		}
+	}
 }

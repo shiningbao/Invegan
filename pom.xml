@@ -135,17 +135,6 @@
 		<dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-context-support</artifactId>
-		    <version>5.2.9.RELEASE</version>
-		</dependency>
-<<<<<<< HEAD
- 		
-
-=======
--->
-		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
-		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-context-support</artifactId>
 		    <version>5.3.24</version>
 		</dependency>
 		
@@ -156,7 +145,6 @@
 		    <artifactId>geocoder-java</artifactId>
 		    <version>0.16</version>
 		</dependency>
->>>>>>> origin/master
 
 
 

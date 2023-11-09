@@ -4,6 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>아이디 찾기 결과</title>
+    <link rel="stylesheet" href="style.css">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <style>
@@ -11,6 +14,46 @@ input[type=text] {
 	width: 300px;
 	height: 25px;
 }
+
+body {
+    background-color: #edf0ef; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.find-result-container {
+    background-color: #fffacd; 
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+}
+
+h2, p, label {
+    color: #333; /* 검은색 텍스트 */
+}
+
+input {
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input[type="submit"] {
+    background-color: #4682b4; /* 골드 색상 */
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #36648b; /* 더 어두운 골드로 변경 (hover 시) */
+}
+
 </style>
 </head>
 <body>

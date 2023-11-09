@@ -4,7 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>회원가입</title>
+<link rel="stylesheet" href="style.css">
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <style>
 table, th, td {
@@ -22,6 +24,9 @@ input[type=password] {
 	width: 60%;
 	height: 100%;
 }
+
+
+
 
 </style>
 </head>
@@ -104,8 +109,10 @@ input[type=password] {
 			<tr>
 				<th>비건 목적</th>
 				<td colspan="2">
+					<p>
 					<input type="radio" name="vegan_purpose" value="질병으로 인해" />질병으로 인해
 					동물성 식품을 먹지 못함
+					</p>
 					<p>
 						<input type="radio" name="vegan_purpose" value="건강 개선" />건강 개선
 					</p>
@@ -118,21 +125,24 @@ input[type=password] {
 					<p>
 						<input type="radio" name="vegan_purpose" value="환경 문제" />환경 문제
 					</p> 
+					<p>
 					<input type="radio" name="vegan_purpose" value="개인적인 신념이나 종교" />개인적인 신념이나 종교
+					</p>
 				</td>
 			</tr>
 			<tr>
 				<th>관심사</th>
 				<td colspan="2">
-				 
+				 <p>
 				<input type="checkbox" name="interests" value="식당" id="interests1"/> 식당
 				<input type="checkbox" name="interests" value="레시피" id="interest2"/> 레시피
 				<input type="checkbox" name="interests" value="식품" id="interests3"/> 식품
+				</p>
 				<p>
 				<input type="checkbox" name="interests" value="뷰티" id="interests4"/> 뷰티
 				<input type="checkbox" name="interests" value="패션" id="interests5"/> 패션
 				<input type="checkbox" name="interests" value="일상" id="interests6"/> 일상
-				
+				</p>
 				
 				
 				</td>
@@ -146,18 +156,21 @@ input[type=password] {
 							<input type="checkbox" name="agree" value="1" required/> 
 							<span>이용약관 동의<strong></strong>
 							</span>
+						</p>
 				</label> 
 				<label for="agree">
 						<p>
 							<input type="checkbox" name="agree" value="2" required/> 
 							<span>개인정보 수집, 이용 동의<strong></strong>
 							</span>
+						</p>
 				</label> 
 				<label for="agree">
 						<p>
 							<input type="checkbox" name="agree" value="3" required/> 
 							<span>개인정보 이용 동의<strong></strong>
 							</span>
+						</p>
 			</tr>
 			<tr>
 				<th colspan="3">

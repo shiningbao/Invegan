@@ -91,8 +91,8 @@
 		<a id="map-link" target="_blank"></a>
 	</div>
 	<br>
-	<input type="button" id="login" name="로그인"/>
-	<input type="button" id="addMaterial" name="addMaterial"/>
+	<input type="button" id="login" name="로그인" value="로그인"/>
+	<input type="button" id="addMaterial" name="addMaterial" value="관리자 식재료 추가"/>
 	<!-- 맞춤 정보 제공 -->
 
 	<div class="custom">
