@@ -15,6 +15,7 @@ public class FeedDTO {
 	private int user_no;
 	private int tag_id;
 	private String tag_content;
+	
 
 	
 
