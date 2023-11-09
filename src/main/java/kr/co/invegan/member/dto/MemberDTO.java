@@ -21,7 +21,24 @@ public class MemberDTO {
 	private Timestamp join_date;
 	private int is_admin;
 	private int is_suspended;
+	private String profile_image;
+	private String server_file_name;
 	
+	public String getProfile_image() {
+		return profile_image;
+	}
+	public void setProfile_image(String profile_image) {
+		this.profile_image = profile_image;
+	}
+	public String getServer_file_name() {
+		return server_file_name;
+	}
+	public void setServer_file_name(String server_file_name) {
+		this.server_file_name = server_file_name;
+	}
+	public void setSession(HttpSession session) {
+		this.session = session;
+	}
 	/*
 	public String[] getInterests() {
 		return interests;

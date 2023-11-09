@@ -4,15 +4,33 @@
   <html>
   <style>
      /*이미지 컨테이너를 왼쪽으로 이동 */
-     .previews {  
-        overflow: hidden;  
-        position: relative;  
-        width: 450px;  
-        height: 450px;  
-        float: left;  
-        margin-right: 20px;  
-        }  
-
+/*      .previews {   */
+/*         overflow: hidden;   */
+/*         position: relative;   */
+/*         width: 450px;   */
+/*         height: 450px;   */
+/*         float: left;   */
+/*         margin-right: 20px;   */
+/*         }   */
+	.previews {
+        width: 100%;  /* 원하는 너비 설정 */
+        height: 100%; /* 원하는 높이 설정 */
+        border: 1px solid #000;  /* 테두리 스타일 설정 (원하는 스타일로 변경) */
+        padding: 10px;  /* 여백 설정 (원하는 여백으로 변경) */
+    }
+	.previews img {
+        max-width: 100%;  /* 원하는 최대 너비 설정 */
+        max-height: 100%; /* 원하는 최대 높이 설정 */
+        margin: 5px;       /* 이미지 간격 설정 (원하는 크기로 조절) */
+        
+    }
+/* 	.previews::before { */
+/*         content: "사진을 등록해주세요"; /* 표시할 메시지 */ */
+/* /*         position: absolute; /* 절대 위치 설정 */ */ */
+/* /*         top: 50%; /* 상단 위치 조정 (원하는 위치로 변경) */ */ */
+/* /*         left: 50%; /* 왼쪽 위치 조정 (원하는 위치로 변경) */ */ */
+/*         transform: translate(-50%, -50%); /* 중앙 정렬 */ */
+/*     }     */
     /* 슬라이드 이미지 스타일 */
 
 /*     .slide { */
@@ -54,9 +72,13 @@
 
           <div>
 
-            <div class="previews"></div>
-            <button id="prevButton">이전</button>
-            <button id="nextButton">다음</button>
+            <div class="previews">
+            
+            
+            </div>
+            <button class="previews-delbtn">이미지전체삭제</button>
+<!--             <button id="prevButton">이전</button> -->
+<!--             <button id="nextButton">다음</button> -->
             <table>
               
               <tr>
@@ -102,104 +124,23 @@
 
 
     $(document).ready(function () {
-    	
-      // 모달을 초기화
 
-//       $('#writeModal').modal();
+	var previews = $('.previews');
 
-      // 모달 창 닫힐 때 이벤트 처리
-//       $('#writeModal').on('hidden.bs.modal', function () {
-//         // 모달 창이 닫힐 때 수행할 작업
-//         //             location.href = "list.go"; // 현재 있는 feedList 페이지로 이동
-//       });
-//       var currentSlide = 0;
-//       var totalSlides = 0; // 이미지 슬라이드의 총 개수
-//       // 이미지 선택시 미리보기
-
-//        $('#photos').on('change', function (e) {
-//         var files = e.target.files;
-//         var previews = $('.previews');
-//         previews.empty();
-        
-//         var loadCounter = 0; // 로딩된 이미지 수를 추적
-//         var totalImages = files.length;
-        
-//         for (var i = 0; i < files.length; i++) {
-//           var file = files[i];
-//           if (file) {
-//             var reader = new FileReader();
-//             reader.onload = function (e) {
-//               var slide = $('<div class="slide"></div>');
-//               var preview = $('<img>').attr('src', e.target.result);
-//               slide.append(preview);
-//               previews.append(slide);
-
-//               // 이미지 로드 후 이미지 크기를 조절
-//               preview.on('load', function () {
-//             	  loadCounter++;
-            	
-//                 var img = $(this);
-//                 var slide = img.closest('.slide');
-//                 var previews = img.closest('.previews');
-
-//                 // 이미지의 너비와 높이를 previews에 맞게 조절
-//                 var maxWidth = previews.width();
-//                 var maxHeight = previews.height();
-
-//                 var width = img.width();
-//                 var height = img.height();
-
-//                 var newWidth, newHeight;
-
-//                 // 이미지 비율 유지하며 크기 조절
-//                 if (width / maxWidth > height / maxHeight) {
-//                   newWidth = maxWidth;
-//                   newHeight = (height / width) * maxWidth;
-//                 } else {
-//                   newHeight = maxHeight;
-//                   newWidth = (width / height) * maxHeight;
-//                 }
-
-//                 // 이미지 크기 조절
-//                 img.width(newWidth);
-//                 img.height(newHeight);
-
-//                 // 슬라이드 크기 조절
-//                 slide.width(newWidth);
-//                 slide.height(newHeight);
-
-//                 // 슬라이드 추가 후 슬라이드 표시
-//                 totalSlides++;
-//                 showSlide(currentSlide);
-//               });
-
-//               reader.readAsDataURL(file);
-//             };
-//             reader.readAsDataURL(file);
-//           }
-//         }
-//         showSlide(currentSlide);
-//       });
-// 	  function setTumbnail(event){
-// 		  for (var photos of event.target.files){
-// 			  var reader = new FileReader();
-			  
-// 			  reader.onload=function(event){
-// 				  var img = document.createElement("img");
-// 				  img.setAttribute("src",event.target.result);
-// 				  document.querySelector("div#image_container").appendChild(img);
-				 
-// 			  };
-// 			  console.log(image);
-// 			  reader.readAsDataURL(image);
-// 		  }
-// 	  }
-	 
+    // 파일을 선택하기 전에 메시지를 표시
+    var message = document.createElement("div");
+    message.textContent = "사진을 추가해주세요";
+    previews.append(message);
+    
 	 $("#photos").on('change',function(e){
 		 var files = e.target.files;
-		 var previews = $('.previews');
-		 previews.empty();
+		 previews = $('.previews');
+ 		 previews.empty();
 		 console.log(files);
+		 if(files.length == 0){
+			 message.textContent = "사진을 추가해주세요";
+		 }else{
+			 message.textContent = "";
 		 for(var i =0; i <files.length; i++){
 			 var file = files[i];
 			 if(file){
@@ -209,34 +150,22 @@
 					 img.setAttribute("src",e.target.result);
 					 $('.previews').append(img);
 				 
-			 }
+			 		}
 				 reader.readAsDataURL(file);
+			 }
 		 }
-		 
-		 
-		 
-		 
-		 
-		
 		 }
 	 })
-      // "이전" 버튼 클릭 시
-      $('#prevButton').on('click', function () {
-        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-        showSlide(currentSlide);
-      });
-
-      // "다음" 버튼 클릭 시
-      $('#nextButton').on('click', function () {
-        currentSlide = (currentSlide + 1) % totalSlides;
-        showSlide(currentSlide);
-      });
-
-      // 슬라이드 표시 함수
-      function showSlide(slideIndex) {
-        $('.slide').hide();
-        $('.slide:eq(' + slideIndex + ')').show();
-      }
+     $('.previews-delbtn').on('click',function(){
+    	 if(confirm("이미지를 삭제하시겠습니까? 이미지가 전체삭제됩니다. 다시등록")){
+    		 previews.empty();
+        	 $('#photos').val('');
+    	 }else{
+    		 
+    	 }
+    	 
+    	 
+     });
 
 
       // 버튼클릭 이벤트
