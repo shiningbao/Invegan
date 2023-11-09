@@ -34,31 +34,42 @@
 		display: inline-block;
 	}
 	.restaurantImg{
-		width: 780px;
+		width: 800px;
 		white-space: nowrap;
 		overflow-x: scroll;
-		background-color: grey;
+		background-color: #E0E0E0;
 	}
-	.restaurantImg > *{
-		display: inline-block;
-	}
-	.preview{
+	#preview{
 		font-size: 2vw;
 		text-align: center;
 		align-items: center;
-		
+		overflow: hidden;
 	}
 	.divImg{
-		width: 300px;
+		position: relative;
+		width: 304px;
 		border: 1px solid black;
 		margin: 1px;
+		padding: 2px;
+		display: inline-block;
+		overflow: hidden;
 	}
 	.previewImg{
 		width: 300px;
 		height: 300px;
 	}
+	.delImgButton{
+		position: absolute;
+		top: 3px;
+		right: 3px;
+		z-index: 10;
+	}
 	.nameImg{
-		text-align: center;
+		width: 100%;
+		padding-top: 5px;
+		padding-left: 5px;
+		text-overflow: ellipsis;
+		overflow: hidden;
 	}
 	.menuDiv {
 		margin: 2px 0px;
@@ -104,7 +115,7 @@
 	<tr>
 		<th class="restaurantWriteHead">등록된 사진</th>
 		<td class="restaurantWriteCon">
-			<div class="restaurantImg" id="restaurantImg_saved"><p class="preview">등록된 사진이 없습니다.</p></div>
+			<div class="restaurantImg" id="restaurantImg_saved"><p id="preview">등록된 사진이 없습니다.</p></div>
 		</td>
 	</tr>
 	<tr>
@@ -156,6 +167,7 @@
 				$restaurantImg_saved.appendChild(divTag);
 				
 				var delButton = document.createElement('button');
+				delButton.className = 'delImgButton';
 				delButton.type= 'button';
 				delButton.onclick = function(){savedDelImg(this);};
 				delButton.textContent = '삭제';
@@ -226,29 +238,28 @@
 			imgArr.push(imgFile);
 	
 			if(imgFile.type.includes('image')){
-				
 				var divTag = document.createElement('div');
 				divTag.id = 'img_id_'+i;
 				divTag.className = 'divImg';
 				$restaurantImg_upload.appendChild(divTag);
-				
-				var delButton = document.createElement('button');
-				delButton.type= 'button';
-				delButton.id = 'delButton_'+i;
-				delButton.onclick = function(){delImg(this);};
-				delButton.textContent = '삭제';
-				divTag.appendChild(delButton);
 				
 				var img = new Image();
 				img.className = 'previewImg';
 				img.src = window.URL.createObjectURL(imgFile);
 				divTag.appendChild(img);	
 				
-				var nameTag = document.createElement('p');
+				var nameTag = document.createElement('div');
 				nameTag.className = 'nameImg';
 				nameTag.textContent = imgFile.name;
 				divTag.appendChild(nameTag);
 		
+				var delButton = document.createElement('button');
+				delButton.className = 'delImgButton';
+				delButton.type= 'button';
+				delButton.id = 'delButton_'+i;
+				delButton.onclick = function(){delImg(this);};
+				delButton.textContent = '삭제';
+				divTag.appendChild(delButton);
 			}else{
 				alert('이미지 파일 아님');
 				$('#restarunatWriteImg')[0].files = new DataTransfer().files;

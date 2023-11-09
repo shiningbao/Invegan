@@ -5,4 +5,8 @@
 
 <mapper namespace="kr.co.invegan.main.dao.MainDAO">
 
+	<select id="prf" resultType="kr.co.invegan.board.dto.RestaurantDTO">
+		SELECT post_id, address FROM Restaurant
+	</select>
+	
 </mapper>
