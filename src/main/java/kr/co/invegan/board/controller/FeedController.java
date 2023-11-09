@@ -189,6 +189,17 @@ public class FeedController {
 
 		return result;
 	}
+	
+	@RequestMapping(value = "feedImgDel/delete")
+	@ResponseBody
+	public String feedImgDel(@RequestParam String fileName) {
+		logger.info("삭제 > 이미지삭제 컨트롤러 접근");
+		logger.info("filename:"+fileName);
+
+		service.feedImgDel(fileName);
+
+		return "success";
+	}
 
 	@RequestMapping(value = "feedDelPost/delete")
 	@ResponseBody

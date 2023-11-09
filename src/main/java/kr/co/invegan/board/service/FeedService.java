@@ -200,4 +200,12 @@ public class FeedService {
 
 	}
 
+	
+
+	public void feedImgDel(String fileName) {
+		
+		dao.feedImgDel(fileName);
+		
+	}
+
 }

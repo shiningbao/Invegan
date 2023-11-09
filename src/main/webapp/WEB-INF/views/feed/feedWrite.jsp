@@ -72,9 +72,13 @@
 
           <div>
 
-            <div class="previews"></div>
-            <button id="prevButton">이전</button>
-            <button id="nextButton">다음</button>
+            <div class="previews">
+            
+            
+            </div>
+            <button class="previews-delbtn">이미지전체삭제</button>
+<!--             <button id="prevButton">이전</button> -->
+<!--             <button id="nextButton">다음</button> -->
             <table>
               
               <tr>
@@ -130,8 +134,8 @@
     
 	 $("#photos").on('change',function(e){
 		 var files = e.target.files;
-		 var previews = $('.previews');
-// 		 previews.empty();
+		 previews = $('.previews');
+ 		 previews.empty();
 		 console.log(files);
 		 if(files.length == 0){
 			 message.textContent = "사진을 추가해주세요";
@@ -152,7 +156,17 @@
 		 }
 		 }
 	 })
-    
+     $('.previews-delbtn').on('click',function(){
+    	 if(confirm("이미지를 삭제하시겠습니까? 이미지가 전체삭제됩니다. 다시등록")){
+    		 previews.empty();
+        	 $('#photos').val('');
+    	 }else{
+    		 
+    	 }
+    	 
+    	 
+     });
+
 
       // 버튼클릭 이벤트
       $('.writefood').click(function () {

@@ -28,23 +28,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- 모달 부트스트랩 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<!-- autocomplete 자동완성검색 -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!-- slick 슬라이더 라이브러리 -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" /> 
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
 <title>Feed Detail</title>
 </head>
 
 <body>
-	<!--       <div id="feedUpdateModal" class="feedUpdateModal"> -->
-	<%--         <%@ include file="feedUpdate.jsp" %> --%>
-	<!--       </div> -->
 
-	<!-- detail.jsp -->
 	<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog"
 		aria-labelledby="myExtraLargeModalLabel" aria-hidden="true"
 		data-backdrop="true" id="detailModal">
@@ -57,7 +57,7 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-
+				
 				<div class="modal-body" id="feedDetail"></div>
 
 			</div>
@@ -67,14 +67,21 @@
 
 </body>
 <script>
-  var loginInfo;
 
+	
+
+  var loginInfo;
+  
   // feedDetail 처리
   $(document).on('click', '.post-link', function() {
+	  
      var post_id = $(this).data('post-id');
      console.log(post_id);
+     
 //      $('#detailModal').modal('show');
      $('.modal-backdrop').css({ 'display': 'block' });
+     
+     
      $.ajax({
          type: 'GET',
          url: 'feedDetailCall', // 데이터를 제공하는 서버의 엔드포인트로 변경
@@ -86,12 +93,12 @@
 //              console.log(data.findBoardUserno);
 //              console.log(data.user_no);
 //              console.log(data.findCommentUserno);
-			 	
-			 	for (var i = 0; i < data.commentList.length; i++) {
-			 		console.log("aaaa");
-			 		console.log(data.commentList[i]);
+			 	console.log(data);
+// 			 	for (var i = 0; i < data.commentList.length; i++) {
+// 			 		console.log("aaaa");
+// 			 		console.log(data.commentList[i]);
 					
-				}
+// 				}
              drawdetailList(data.detailList,data.findBoardUserno,data.user_no); // 게시글 상세보기 리스트
              drawcommentList(data.commentList,data.user_no);
              loginInfo = data.loginInfo;
@@ -234,15 +241,23 @@
           content += '</div>';
           
            if (loginInfo != null && user_no == findBoardUserno) {
+        	  content += '<button class="post-img-edit-btn">이미지수정</button>';
         	  content += '<button class="post-del-btn" data-post-id="' + item.post_id + '">삭제</button>';
          	  content += '<button class="post-edit-btn" data-post-id="' + item.post_id + '" data-feed-content="' + item.content + '">수정</button>';     
           }
           
           var imageFiles = item.server_file_name.split(','); // 쉼표로 이미지 파일 이름 분리
-
+          var postImgSlider = $('.post-img-slider');
+          
+         
           for (var i = 0; i < imageFiles.length; i++) {
-              content += '<div class="post-image"><img src="/photo/' + imageFiles[i] + '"></div>';
-          }             
+        	    var imageUrl = '/photo/' + imageFiles[i];
+        	    var imageHTML = '<div class="post-img-slider"><img class="pstimg" src="' + imageUrl + '"></div>';
+        	    content += imageHTML;
+        	}
+         
+
+          
           content += '<div class="post-caption">';
           content += '<span class="feed-content">' + item.content + '</span> ';
           content += '</div>';
@@ -272,6 +287,9 @@
           
           content += '<hr>';
       });
+     
+      
+      
       $('#feedDetail').html(content);
       // 비회원이 댓글작성했을떄 이벤트
       $('#feedDetail').on('click', '.commentFeedWrite', function () {
@@ -282,6 +300,82 @@
 		        
 		    }
 		})
+		
+		
+			$('.post-img-edit-btn').on('click', function () {
+			    if (confirm("이미지를 수정하시겠습니까?")) {
+			        $(this).prop('disabled', true);
+			        $('.post-edit-btn').prop('disabled', true);
+			        
+			        var container = $('<div style="display: flex; align-items: center;"></div>');
+			        var saveButton = $('<button class="img-edit-save-button">저장</button>');
+			        var cancelButton = $('<button class="img-edit-cancel-button">취소</button>');
+			        var fileInput = '<input type="file" id="photos" name="photos" multiple>';
+			        container.append(saveButton);
+			        container.append(cancelButton);
+			        container.append(fileInput);
+			        
+			        
+			        $(this).after(container);
+			        
+			        cancelButton.on('click', function() {
+				          
+			            if(confirm("이미지 수정을 취소하시겠습니까?")){
+			            	container.remove(); //
+				            $('.post-img-edit-btn').prop('disabled', false); 
+				            $('.post-edit-btn').prop('disabled', false);
+			            }else{
+			            	
+			            }
+			            
+			        });
+			        
+			        $('.pstimg').on('click', function () {
+					    console.log(this);
+					    console.log('click');
+					   
+					    if (confirm("이미지를 삭제하시겠습니까?")) {
+					        var imageElement = $(this).closest('.pstimg');
+					        imageElement.hide();      
+					        
+					    } else {
+					        // 추가적인 작업이 필요한 경우 여기에 추가
+					    }
+					});
+			        saveButton.on('click',function(){
+			        	console.log('click');
+			        	    var path = $('.pstimg').attr('src');
+						    var fileName = path.substring(path.lastIndexOf('/') + 1);
+						    console.log(fileName);
+			        	$.ajax({
+			                url: 'feedImgDel/delete',
+			                data: { fileName: fileName },
+			                success: function (data) {
+			                    console.log("사진 삭제 성공");
+			                    console.log(data);
+			                    container.remove(); // 저장 후 컨테이너 제거
+			                    $('.post-img-edit-btn').prop('disabled', false);
+			                    $('.post-edit-btn').prop('disabled', false);
+			                },
+			                error: function (e) {
+			                    console.log("사진삭제에러" + e);
+			                },
+			            });
+			        });
+			        
+			        
+			        
+			        
+			        
+			    } else {
+			        // 추가적인 작업이 필요한 경우 여기에 추가
+				    }
+			});
+		
+		
+		
+		
+		
       // "수정" 버튼 클릭 이벤트 핸들러 등록
       $('.post-edit-btn').on('click', function () {
     	  if(confirm("게시글을 수정하시겠습니까?")){
@@ -290,10 +384,12 @@
               var feed_content = $(this).parent().find('.feed-content');
               
               var postId = $(this).data('post-id');
-            
+              $(this).prop('disabled', true);
+              $('.post-img-edit-btn').prop('disabled', true);
               console.log(feed_content.text());
               console.log(post_id);
               console.log('수정');
+              
               
            	  // 현재 "feed-content"의 텍스트 내용 가져오기
               var originalContent = feed_content.text();
@@ -303,11 +399,13 @@
               // 저장 버튼과 취소 버튼 추가
               feed_content.append('<button class="save-button" data-post-id="' + post_id + '">저장</button>');
               feed_content.append('<button class="cancel-button">취소</button>');
-              feed_content.append('<input type="file" id="photos" name="photos" multiple>');    
+                
+              
               
           	 
               // 수정 버튼 비활성화
-              $(this).prop('disabled', true);
+              
+              
               
               
               
@@ -315,6 +413,7 @@
              	  
             	  if(confirm("게시글을 저장하시겠습니까?")){
             		  console.log('click');
+            		  $('.post-img-edit-btn').prop('disabled',false);
             		  $('.post-edit-btn').prop('disabled', false);
                       console.log(this);
                       var post_id = $(this).data('post-id');
@@ -352,6 +451,7 @@
             		  var feedContent = '<span class="feed-content">' + originalContent + '</span>'; // 원본 내용으로 복원
                       $('#feedDetail .post-caption').html(feedContent);
                       $('.post-edit-btn').prop('disabled', false);
+                      $('.post-img-edit-btn').prop('disabled', false);
             	  }else{
             		  
             	  }
@@ -400,6 +500,8 @@
       
 
     }
+  
+ 	 
 		  //댓글 작성
 		  $(document).on('click', '.commentFeedWrite', function() {
 		    var comment_text = $(this).closest('.comment-box').find('.feedComment').val();
@@ -445,9 +547,7 @@
 		    });
 		    
 		});
-  
-  
-
+		  			 
 
   </script>
 

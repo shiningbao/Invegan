@@ -277,4 +277,8 @@
 		LIMIT 0,#{param2}
 	</select>
 
+
+	<delete id="feedImgDel">
+		DELETE FROM ImageTable WHERE server_file_name=#{fileName}
+	</delete>
 </mapper>

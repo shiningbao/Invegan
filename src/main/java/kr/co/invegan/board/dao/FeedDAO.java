@@ -48,4 +48,8 @@ public interface FeedDAO {
 
 	void feedEditComment(HashMap<String, String> params);
 
+	void feedImgDel(String fileName);
+
+
+
 }
