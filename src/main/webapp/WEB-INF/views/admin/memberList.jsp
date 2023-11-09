@@ -48,13 +48,13 @@
 </style>
 </head>
 <body>
-<c:import url="/main/header"/>
+<%-- <c:import url="/main/header"/> --%>
 <div id="container">
 	<h4 id="order">가입날짜▲</h4>
 	 <select id="adminSort" name="is_admin">
 	 	 <option value="회원종류">회원종류</option>
-	 	  <option value="일반회원">일반회원</option>
-	 	   <option value="관리자">관리자</option>
+	 	 <option value="일반회원">일반회원</option>
+	 	 <option value="관리자">관리자</option>
 	 </select>
 	<h3>회원관리</h3>
 	<table>
@@ -73,13 +73,12 @@
 	</table>
 		<div class="pageContainer">									
 			<nav aria-label="Page navigation" style="text-align:center">
-				<ul class="paging" id="pagination"></ul>
+				<ul class="pagination" id="pagination"></ul>
 			</nav>					
 		</div>
 </div>
-<c:import url="/main/footer" />	
+<%-- <c:import url="/main/footer" />	 --%>
 </body>
-
 <script>
 var showPage = 1;
 
@@ -87,14 +86,14 @@ memberListCall(showPage);
 
 $('#order').on('click', function () {
 	console.log($(this).text());
-	memberListCall();
+	memberListCall(showPage);
 	
 });
 
 // 회원종류 선택/구분해서 리스트 보여주기
 $('#adminSort').on('change', function () {
 	 console.log($(this).val());
-	 memberListCall();
+	memberListCall(showPage);
 
 	});
 
@@ -104,15 +103,16 @@ $('#adminSort').on('change', function () {
 	    $.ajax({
 	        type: 'GET',
 	        url: 'memberListCall',
-	        data: {'page':page,'order':$('#order').val(),'adminSort':$('#adminSort').val()},
+	        data: {'page':page,'order':$('#order').text(),'adminSort':$('#adminSort').text()},
 	        dataType:'JSON',
 	        success: function(data) {
 	        	console.log(data);
 
-	     		if(data.success == -1){
+	     		if(data.success != 1){
 	    			alert('이 페이지의 권한이 없습니다.');
-	    			location.href='./'
+	    			location.href='';
 	    		}else{
+	
 	    			drawMemberList(data);
 	    		} 
 	    			
@@ -124,16 +124,15 @@ $('#adminSort').on('change', function () {
  
 	
 	function drawMemberList(obj){
-		console.log(obj);
 		var content = '';
 		
 			obj.memberList.forEach(function(item,idx) {
             content += '<tr>';
             content += '<td>' + item.user_no + '</td>';
-            content += '<td><a href="/admin/detail?id=' + item.id + '">' + item.id + '</a></td>';
+            content += '<td><a href="/invegan/admin/detail?id=' + item.id + '">' + item.id + '</a></td>';
             content += '<td>' + item.nickname + '</td>';
             var date = new Date(item.join_date);
-			var dateStr = date.toLocaleDateString("ko-KR"); //en-US
+			var dateStr = date.toLocaleDateString("ko-KR");
 			content += '<td>'+dateStr+'</td>';
             if(item.is_suspended==false){
             	content += '<td>' + '-' + '</td>';
@@ -150,10 +149,14 @@ $('#adminSort').on('change', function () {
         	$('#list').empty();
             $('#list').append(content);
             
-            $('#pagination').twbsPagination({
-    			startPage: obj.currPage,
+            console.log(typeof twbsPagination);
+            console.log(obj.pages);
+            console.log(showPage);
+            console.log(obj.page);
+           $('#pagination').twbsPagination({
+    			startPage: showPage, // 보여줄 페이지
     			totalPages:obj.pages, 
-    			visiblePages:5,
+    			visiblePages:10,
     			onPageClick:function(e,page){ // 번호 클릭시 실행할 내용
     				//console.log(e);
     				if(showPage != page){
@@ -161,8 +164,9 @@ $('#adminSort').on('change', function () {
     					showPage = page; // 클릭해서 다른 페이지를 보여주게 되면 현재 보고 있는 페이지 번호도 변경해 준다.
     					memberListCall(page);
     				}
+    				
     			}
-    		});
+    		}); 
  
 	}
  

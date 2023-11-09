@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.invegan.admin.dao.MemberManagementDAO;
 import kr.co.invegan.member.dto.MemberDTO;
+import kr.co.invegan.mypage.dto.MyPageDTO;
 
 @Service
 public class MemberManagementService {
@@ -20,9 +21,9 @@ public class MemberManagementService {
 	MemberManagementDAO dao;
 
 	public HashMap<String, Object> memberList(MemberDTO loginInfo, HashMap<String, String> params) {
-		logger.info(params.get("page"));
 		int p = Integer.parseInt(params.get("page"));
 		int offset = (p-1)*10;
+
 		logger.info("offset:"+offset);
 		ArrayList<MemberDTO> memberList = dao.memberList(offset);
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -34,7 +35,12 @@ public class MemberManagementService {
 		logger.info("만들 수 있는 총 페이지 갯수 : "+pages);
 		map.put("pages", pages);
 		map.put("memberList", memberList);
+		map.put("page", p);
 		return map;
+	}
+
+	public MemberDTO userInfo(String id) {
+		return dao.userInfo(id);
 	}
 
 
