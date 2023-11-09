@@ -115,7 +115,7 @@
 				</table>
 			</div>
 			<div id="down">
-				<a href='#'>찾으시는 식재료가 없으신가요?</a>
+				<a href ="#" onclick ="window.close(); javascript:parent.opener.location.href='../request/requestList'">찾으시는 식재료가 없으신가요?</a>
 				<a><input type="text" name="gram"/> g</a>	
 				<input type="button" id ="mMaterial" value="완료"/>
 			</div>	
@@ -204,9 +204,7 @@
 			if (match || grams === '0' || grams.trim() === '') {
 			    alert('0이 아닌 숫자만 입력해 주세요');
 			    $('input[name="gram"]').val('');
-			} else {	
-	        	closeModal();
-	           	
+			} else {
 	        	$.ajax({
 	        		type:'get',
 	        		url:'mMaterial',
@@ -219,18 +217,18 @@
 	        			console.log(e);
 	        		} 
 	        	});
+            	alert('레시피에 재료가 추가되었습니다.');
+	        	closeModal();
 			}			
         });
         
     	function closeModal() {
         	var modal = document.getElementById("mModal");
         	modal.style.display = "none";
-        	if (food_id != null && grams != 0 && match == false){
-        		alert('레시피에 재료가 추가되었습니다.');
-        	}
-
         	myRecipeMenu();
     	}
+    	
+    	
 		
 	</script>
 </html>
