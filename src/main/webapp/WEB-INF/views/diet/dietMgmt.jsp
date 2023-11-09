@@ -581,7 +581,7 @@
 			</div>
 		</div>
 	</div>
-	<c:import url="/main/footer" />
+	<c:import url="/main/footer" />	
 </body>
 <script>
 	// 페이지 로드시 바로 실행

@@ -362,7 +362,7 @@ table, th, td {
 						content += '<td>' + item.serving_size + '</td>';
 						content += '<td>' + item.kcal + '</td>';
 						content += '</tr>';
-					});
+					}); 	
 		}
 		$('#msg h3').css('display', 'none');
 		$('#foodList').empty();

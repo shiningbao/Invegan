@@ -54,7 +54,7 @@ public class DietService{
 		return msg;  
 	}
 
-
+	
 	public ArrayList<DietDTO> getDietList(String date, int user_no) {
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("date", date);

@@ -8,7 +8,7 @@ import kr.co.invegan.diet.dto.DietDTO;
 import kr.co.invegan.diet.dto.FoodDataDTO;
 
 
-public interface DietDAO {
+public interface DietDAO {	
 
 
 	ArrayList<FoodDataDTO> findFoodList(String keyword);

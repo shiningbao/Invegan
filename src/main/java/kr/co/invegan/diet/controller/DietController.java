@@ -91,7 +91,7 @@ public class DietController {
 		result.put("daily", getDailyNutri);
 		return result;
 	}
-	
+		
 	
 	// 메뉴 추가 페이지 이동
 	@RequestMapping(value = "diet/addMenu.go")
