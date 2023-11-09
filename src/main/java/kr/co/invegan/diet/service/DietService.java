@@ -81,6 +81,16 @@ public class DietService{
 		}
 		return getNutriInfo;
 	}
+
+	public void addMaterialAdm(HashMap<String, Object> params) {
+
+		int row = dietDAO.addMaterialAdm(params);
+		if(row>0) {
+			logger.info("식재료가 정상적으로 추가 되었습니다.");
+		}else {
+			logger.info("식재료 추가에 실패하였습니다.");
+		}
+	}
 	
 	
 

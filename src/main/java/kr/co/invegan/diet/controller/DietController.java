@@ -11,12 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.co.invegan.admin.service.FoodService;
 import kr.co.invegan.diet.dto.DietDTO;
 import kr.co.invegan.diet.dto.FoodDataDTO;
 import kr.co.invegan.diet.service.DietService;
@@ -168,4 +171,19 @@ public class DietController {
 		return result;
 	}
 
+	@RequestMapping(value="diet/addMaterial.go")
+    public String addMaterial(@RequestParam HashMap<String, Object> params) {
+       logger.info("params:"+params);
+
+        return "diet/addMaterial"; 
+    }
+	
+	@RequestMapping(value="diet/addMaterial.do")
+    public String food_addM(@RequestParam HashMap<String, Object> params) {
+       logger.info("params:"+params);
+		//DietService.-----(FoodDataDTO);
+		dietService.addMaterialAdm(params);
+        return "redirect:/main"; 
+    }
+	
 }

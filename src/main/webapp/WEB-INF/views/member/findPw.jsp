@@ -19,11 +19,11 @@
     <div>
         <label for="id">아이디:</label>
         <p>
-            <input type="text" id="id" name="id" placeholder="아이디를 입력해주세요">
+            <input type="text" id="id" name="id" required placeholder="아이디를 입력해주세요">
         </p>
         <label for="email">이메일:</label>
         <p>
-            <input type="text" id="email" name="email" placeholder="이메일을 입력해주세요">
+            <input type="text" id="email" name="email" required placeholder="이메일을 입력해주세요">
         </p>
         <p>
             <br>

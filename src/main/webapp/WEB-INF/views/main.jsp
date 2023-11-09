@@ -94,7 +94,7 @@
 	<div class="banner"><p>배너</p></div>
 	<br>
 	<input type="button" id="login" name="로그인"/>
-	
+	<input type="button" id="addMaterial" name="addMaterial"/>
 	<!-- 맞춤 정보 제공 -->
 
 	<div class="custom">
@@ -265,6 +265,10 @@ if(msg != ""){
 
 $('#login').on('click',function(){
 	location.href='member/login.go';
+});
+
+$('#addMaterial').on('click',function(){
+	location.href='diet/addMaterial.go';
 });
 
 
