@@ -84,7 +84,6 @@ public class DietService{
 		return getNutriInfo;
 	}
 
-<<<<<<< HEAD
 	public void addMaterialAdm(HashMap<String, Object> params) {
 
 		int row = dietDAO.addMaterialAdm(params);
@@ -94,7 +93,6 @@ public class DietService{
 			logger.info("식재료 추가에 실패하였습니다.");
 		}
 	}
-=======
 	public DailyNutriDTO getDailyNutri(int loginUser_no) {
 		logger.info("회원의 영양소별 1회 제공량 가져오기");
 		logger.info("loginuser no : "+loginUser_no);
@@ -102,7 +100,6 @@ public class DietService{
 	}
 
 	
->>>>>>> origin/master
 	
 	
 

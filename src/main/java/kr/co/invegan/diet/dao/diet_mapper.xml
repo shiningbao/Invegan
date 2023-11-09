@@ -133,7 +133,6 @@
 		    d.user_no = #{loginUser_no} AND d.date = #{selectDate} AND d.diet_category = #{dietCate};
 	</select>
 	
-<<<<<<< HEAD
 	<insert id="addMaterialAdm" parameterType="hashMap"  >
 		INSERT INTO FoodData(data_type ,food_name,food_category, serving_size,
 			kcal,carb, prot, fat, 
@@ -147,7 +146,6 @@
 			, #{vit_b12}, #{vit_c}, #{essential}, #{omega3}
 		)
 		</insert>
-=======
 <!-- 회원별 1일 권장 섭취량 불러오기 -->	
 	<select id="getDailyNutri" parameterType="int" resultType="kr.co.invegan.diet.dto.DailyNutriDTO">
 		SELECT * FROM DailyNutrition dn INNER JOIN Members m
@@ -165,6 +163,5 @@
 	
 	
 	
->>>>>>> origin/master
 	
 </mapper>
