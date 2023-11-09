@@ -143,8 +143,6 @@ public class MyRecipeController {
 			ArrayList<HashMap<String, Object>> mrlist = service.mrlist(loginInfo.getUser_no());
 			result.put("mrlist", mrlist);
 		}
-
-		
 		return result;
 	}
 	

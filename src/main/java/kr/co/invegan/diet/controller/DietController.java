@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.co.invegan.diet.dto.DailyNutriDTO;
 import kr.co.invegan.diet.dto.DietDTO;
 import kr.co.invegan.diet.dto.FoodDataDTO;
 import kr.co.invegan.diet.service.DietService;
 import kr.co.invegan.member.dto.MemberDTO;
 
 @Controller
-
 public class DietController {
 
 	@Autowired
@@ -80,11 +80,14 @@ public class DietController {
 		
 		loginInfo = (MemberDTO) session.getAttribute("loginInfo");
 		int loginUser_no = loginInfo.getUser_no();
-		
+		// 회원이 섭취한 영양소 합 가져오기
 		FoodDataDTO nutriInfo = dietService.getNutri(loginUser_no, selectDate, dietCate);
-		// logger.info("getKcal : "+nutriInfo.getKcal()); 
+		// 회원별 권장 섭취량 가져오기
+		DailyNutriDTO getDailyNutri = dietService.getDailyNutri(loginUser_no);
+		logger.info("dailyNutri result check member's age : "+ getDailyNutri.getAge());
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		result.put("nutriInfo", nutriInfo);
+		result.put("nutr", nutriInfo);
+		result.put("daily", getDailyNutri);
 		session.setAttribute("nutriInfo", nutriInfo);
         FoodDataDTO var =  (FoodDataDTO) result.get("nutriInfo");
         logger.info(" result kcal : "+var.getKcal());

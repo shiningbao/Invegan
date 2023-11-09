@@ -3,6 +3,7 @@ package kr.co.invegan.diet.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import kr.co.invegan.diet.dto.DailyNutriDTO;
 import kr.co.invegan.diet.dto.DietDTO;
 import kr.co.invegan.diet.dto.FoodDataDTO;
 
@@ -25,6 +26,8 @@ public interface DietDAO {
 
 	FoodDataDTO getAllNutri(HashMap<String, Object> params);
 	FoodDataDTO getNutri(HashMap<String, Object> params);
+
+	DailyNutriDTO getDailyNutri(int loginUser_no);
 
 
 
