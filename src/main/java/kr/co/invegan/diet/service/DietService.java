@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.invegan.diet.dao.DietDAO;
+import kr.co.invegan.diet.dto.DailyNutriDTO;
 import kr.co.invegan.diet.dto.DietDTO;
 import kr.co.invegan.diet.dto.FoodDataDTO;
 
@@ -53,7 +54,7 @@ public class DietService{
 		return msg;  
 	}
 
-
+	
 	public ArrayList<DietDTO> getDietList(String date, int user_no) {
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("date", date);
@@ -61,7 +62,7 @@ public class DietService{
 		return dietDAO.getDietList(params);
 		
 	}
-
+	
 	public FoodDataDTO getNutri(int loginUser_no, String selectDate, String dietCate) {
 		logger.info("getNutri() 실행 || prameter : "+ loginUser_no +" / "+selectDate+" / "+dietCate);
 		
@@ -70,10 +71,11 @@ public class DietService{
 		params.put("selectDate", selectDate);
 		
 		FoodDataDTO getNutriInfo = null;
+		
 		if(dietCate.equals("전체")) {
 			logger.info("전체 영양소 불러오기");
+			// 전체 총합 가져오기
 			getNutriInfo = dietDAO.getAllNutri(params);
-			logger.info("getAllNutri out");
 		}else{
 			logger.info("특정 식단 영양소 불러오기");
 			params.put("dietCate", dietCate);
@@ -81,6 +83,13 @@ public class DietService{
 		}
 		return getNutriInfo;
 	}
+
+	public DailyNutriDTO getDailyNutri(int loginUser_no) {
+		logger.info("회원의 영양소별 1회 제공량 가져오기");
+		return dietDAO.getDailyNutri(loginUser_no);
+	}
+
+	
 	
 	
 

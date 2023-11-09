@@ -15,7 +15,7 @@ public class FoodDataDTO {
 	private float fiber;
 	private float ca;
 	private float fe;
-	private float mg;
+	private float mg;	
 	private float p;
 	private float k;
 	private float na;

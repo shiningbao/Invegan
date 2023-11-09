@@ -56,7 +56,7 @@
 		INSERT INTO Diet_composition(diet_id,menu_id)
 			VALUES(#{diet_id},#{menu_id});
 	</insert>
-<!--  -->
+<!--  -->	
 	
 	
 <!-- 식단 불러오기 -->
@@ -102,7 +102,7 @@
 		WHERE 
 			d.user_no = #{loginUser_no} AND d.date = #{selectDate};
 	</select>
-	<!-- 특정 식단 영양소 불러오기 -->
+<!-- 특정 식단 영양소 불러오기 -->
 	<select id="getNutri" parameterType="hashmap" resultType="kr.co.invegan.diet.dto.FoodDataDTO">
 		SELECT
 		    SUM(ROUND((fd.kcal * mt.grams / fd.serving_size), 0)) AS kcal,
@@ -133,6 +133,18 @@
 		    d.user_no = #{loginUser_no} AND d.date = #{selectDate} AND d.diet_category = #{dietCate};
 	</select>
 	
+<!-- 회원별 1일 권장 섭취량 불러오기 -->	
+	<select id="getDailyNutri" parameterType="int" resultType="kr.co.invegan.diet.dto.DailyNutriDTO">
+		SELECT * FROM DailyNutrition dn INNER JOIN Members m
+		ON m.user_no = #{loginUser_no} AND dn.gender = m.gender 
+		WHERE (
+			select ROUND( DATEDIFF( CURDATE(), m.birthdate ) /365 , 0)+1 AS age 
+			FROM Members m 
+			WHERE user_no = #{loginUser_no}
+		) 
+		BETWEEN CAST(SUBSTRING_INDEX(dn.age,'-',1)AS INT) 
+		AND CAST(SUBSTRING_INDEX(dn.age,'-',-1)AS INT);
+	</select>
 	
 	
 	

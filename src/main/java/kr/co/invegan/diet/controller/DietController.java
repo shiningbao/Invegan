@@ -10,20 +10,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.co.invegan.diet.dto.DailyNutriDTO;
 import kr.co.invegan.diet.dto.DietDTO;
 import kr.co.invegan.diet.dto.FoodDataDTO;
 import kr.co.invegan.diet.service.DietService;
 import kr.co.invegan.member.dto.MemberDTO;
 
 @Controller
-
 public class DietController {
 
 	@Autowired
@@ -64,7 +62,6 @@ public class DietController {
 			// 로그인 정보 체크
 			logger.info("로그인된 회원번호 : " + loginInfo.getUser_no());
 			logger.info("로그인된 아이디 : " + loginInfo.getId());
-			model.addAttribute("date", date);
 			ArrayList<DietDTO> dietList = dietService.getDietList(date, loginInfo.getUser_no());
 
 			model.addAttribute("dietList", dietList);
@@ -83,16 +80,20 @@ public class DietController {
 		
 		loginInfo = (MemberDTO) session.getAttribute("loginInfo");
 		int loginUser_no = loginInfo.getUser_no();
-		
+		// 회원이 섭취한 영양소 합 가져오기
 		FoodDataDTO nutriInfo = dietService.getNutri(loginUser_no, selectDate, dietCate);
-
+		// 회원별 권장 섭취량 가져오기
+		DailyNutriDTO getDailyNutri = dietService.getDailyNutri(loginUser_no);
+		logger.info("dailyNutri result check member's age : "+ getDailyNutri.getAge());
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		result.put("nutriInfo", nutriInfo);
-		FoodDataDTO var =  (FoodDataDTO) result.get("nutriInfo");
-		logger.info(" result kcal : "+var.getKcal());
+		result.put("nutr", nutriInfo);
+		result.put("daily", getDailyNutri);
+		session.setAttribute("nutriInfo", nutriInfo);
+        FoodDataDTO var =  (FoodDataDTO) result.get("nutriInfo");
+        logger.info(" result kcal : "+var.getKcal());
 		return result;
 	}
-	
+		
 	
 	// 메뉴 추가 페이지 이동
 	@RequestMapping(value = "diet/addMenu.go")
