@@ -30,5 +30,22 @@
 		</div>
 		<%@include file="/WEB-INF/views/main/footer.jsp"%>
 	</body>
-	<script></script>
+	<script>
+		listCall();
+		
+		function listCall(){
+			$.ajax({
+				type:'get',
+				url:'requestList.do',
+				data:{},
+				dataType:'json',
+				success:function(data) {
+					console.log(data);
+				},
+				error:function(e){
+					console.log(e);
+				}
+			});
+		}
+	</script>
 </html>
