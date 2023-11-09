@@ -64,6 +64,14 @@
 				overflow-y : scroll;	
 			}
 			
+			.ibutton {
+				margin-left: 405px;
+			}
+			
+			.fbutton {
+				margin-left: 35px;
+			}
+			
 			/* rm:재료 */
 			#rmbox {
 				width: 720px;
@@ -169,9 +177,9 @@
 				<input type="button" class="button" id="lunch" value="점심"/>
 				<input type="button" class="button" id="dinner" value="저녁"/>
 				<input type="button" class="button" id="other" value="기타"/>
-				<button onclick="rinsert()">+</button>
+				<button class="ibutton" onclick="rinsert()">+</button>
 				<button onclick="rdel()">-</button>
-				<input type="button" onclick="dinsert()" value="완료"/>
+				<input type="button" class="fbutton" onclick="dinsert()" value="완료"/>
 				<div id = "thead">
 					<table>
 						<colgroup>
@@ -258,6 +266,7 @@
 		var material_id;
 		var diet_category;
 		var selectDate = $('#getDate').val();
+		var grams;
 		
 		// 레시피 리스트 불러오기
 		function listCall() {
@@ -292,7 +301,7 @@
 
 		    // 나만의 레시피 이름 입력창
 		    $('#rNameinsert').on('click', function(){
-				var recipe_name = $('input[name="recipe_name"]').val();
+				recipe_name = $('input[name="recipe_name"]').val();
 				console.log("레시피 이름 : "+recipe_name);
 				
 				$.ajax({
@@ -306,9 +315,7 @@
 						console.log(e);
 					}
 				});
-				$('#mrList').empty();
-				listCall();
-				$('#rinsertbox').empty();
+				myRecipeMenu();
 			});
 		};
 		
@@ -318,13 +325,15 @@
 		function drawList(mrlist) {
 			console.log(mrlist);
 			var content = "";
-			mrlist.forEach(function(item, idx){
-				content += '<tr>';
-				content += '<td style="display : none;">'+item.menu_id+'</td>';
-				content += '<td width="50%">'+item.recipe_name+'</td>';
-				content += '<td width="25%">'+item.grams+'</td>';
-				content += '<td width="25%">'+item.kcal+'</td>';
-				content += '</tr>';
+			mrlist.forEach(function(item, idx){	
+				if (item.hidden == 0){
+					content += '<tr>';
+					content += '<td style="display : none;">'+item.menu_id+'</td>';
+					content += '<td width="50%">'+item.recipe_name+'</td>';
+					content += '<td width="25%">'+item.grams+'</td>';
+					content += '<td width="25%">'+item.kcal+'</td>';
+					content += '</tr>';
+				}
 			});
 			$('#rMaterialList').empty();
 			$('#mrList').empty();
@@ -334,12 +343,15 @@
 		
 		// 레시피 리스트
 		$('#mrList').on('click', 'tr', function() {
+			$('#rNutriList').empty();
         	$('#mrList tr').css('background', 'none');
             menu_id = $(this).find('td:eq(0)').text();
             var rName = $(this).find('td:eq(1)').text();
+            grams = $(this).find('td:eq(2)').text();
             $(this).css('background','#87878754');
-            console.log('클릭한 food_name: ' + rName);
-            console.log('클릭한 레시피 번호 :'+menu_id);
+            console.log('클릭한 레시피 번호: '+menu_id);
+            console.log('클릭한 레시피 이름: ' + rName);
+            console.log('클릭한 레시피 무게: '+grams);
 		
             // 레시리 재료 리스트
             $.ajax({
@@ -362,41 +374,42 @@
             	data:{"menu_id":menu_id},
             	success:function(data){
             		console.log(data);
-            		drawrNList(data.rNutri);
+            		drawrNList(data.rNutri, data.success);
             	},
             	error:function(e) {
             		console.log(e);
+        			$('#rNutriList').empty();
             	}
             });
        });
 		
 		// 레시피 영양소 그리기
-		function drawrNList(rNutri) {
+		function drawrNList(rNutri, success) {
 			console.log(rNutri);
-			var content = "";
-			rNutri.forEach(function(item, idx){
-				content += '<tr>'+ '<th colspan="2">'+item.recipe_name+'</th>'+'</tr>';
-				content += '<tr>'+'<td>'+'제공량 '+'</td>'+'<td class="nutri">'+item.grams+'g'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'열량 '+'</td>'+'<td class="nutri">'+item.kcal+'kcal'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'탄수화물 '+'</td>'+'<td class="nutri">'+item.carb+'g'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'단백질 '+'</td>'+'<td class="nutri">'+item.prot+'g'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'지방 '+'</td>'+'<td class="nutri">'+item.fat+'g'+'</td>'+'</tr>';		
-				content += '<tr>'+'<td>'+'총 당류 '+'</td>'+'<td class="nutri">'+item.sugar+'g'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'총 식이섬유 '+'</td>'+'<td class="nutri">'+item.fiber+'g'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'칼슘 '+'</td>'+'<td class="nutri">'+item.ca+'mg'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'철 '+'</td>'+'<td class="nutri">'+item.fe+'mg'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'마그네슘 '+'</td>'+'<td class="nutri">'+item.mg+'mg'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'인 '+'</td>'+'<td class="nutri">'+item.p+'mg'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'칼륨 '+'</td>'+'<td class="nutri">'+item.k+'mg'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'나트륨 '+'</td>'+'<td class="nutri">'+item.na+'mg'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'아연 '+'</td>'+'<td class="nutri">'+item.zn+'mg'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'비타민A '+'</td>'+'<td class="nutri">'+item.vit_a+'ug'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'비타민B6 '+'</td>'+'<td class="nutri">'+item.vit_b6+'mg'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'비타민B12 '+'</td>'+'<td class="nutri">'+item.vit_b12+'mg'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'비타민C '+'</td>'+'<td class="nutri">'+item.vit_c+'mg'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'필수 아미노산 '+'</td>'+'<td class="nutri">'+item.essential+'mg'+'</td>'+'</tr>';
-				content += '<tr>'+'<td>'+'오메가3 '+'</td>'+'<td class="nutri">'+item.omega3+'mg'+'</td>'+'</tr>';
-			});
+				var content = '';
+				rNutri.forEach(function(item, idx){
+					content += '<tr>'+ '<th colspan="2">'+item.recipe_name+'</th>'+'</tr>';
+					content += '<tr>'+'<td>'+'제공량 '+'</td>'+'<td class="nutri">'+item.grams+'g'+'</td>'+'</tr>';
+					content += '<tr>'+'<td>'+'열량 '+'</td>'+'<td class="nutri">'+item.kcal+'kcal'+'</td>'+'</tr>';
+					content += '<tr>'+'<td>'+'탄수화물 '+'</td>'+'<td class="nutri">'+item.carb+'g'+'</td>'+'</tr>';
+					content += '<tr>'+'<td>'+'단백질 '+'</td>'+'<td class="nutri">'+item.prot+'g'+'</td>'+'</tr>';
+					content += '<tr>'+'<td>'+'지방 '+'</td>'+'<td class="nutri">'+item.fat+'g'+'</td>'+'</tr>';		
+					content += '<tr>'+'<td>'+'총 당류 '+'</td>'+'<td class="nutri">'+item.sugar+'g'+'</td>'+'</tr>';
+					content += '<tr>'+'<td>'+'총 식이섬유 '+'</td>'+'<td class="nutri">'+item.fiber+'g'+'</td>'+'</tr>';
+					content += '<tr>'+'<td>'+'칼슘 '+'</td>'+'<td class="nutri">'+item.ca+'mg'+'</td>'+'</tr>';
+					content += '<tr>'+'<td>'+'철 '+'</td>'+'<td class="nutri">'+item.fe+'mg'+'</td>'+'</tr>';
+					content += '<tr>'+'<td>'+'마그네슘 '+'</td>'+'<td class="nutri">'+item.mg+'mg'+'</td>'+'</tr>';
+					content += '<tr>'+'<td>'+'인 '+'</td>'+'<td class="nutri">'+item.p+'mg'+'</td>'+'</tr>';
+					content += '<tr>'+'<td>'+'칼륨 '+'</td>'+'<td class="nutri">'+item.k+'mg'+'</td>'+'</tr>';
+					content += '<tr>'+'<td>'+'나트륨 '+'</td>'+'<td class="nutri">'+item.na+'mg'+'</td>'+'</tr>';
+					content += '<tr>'+'<td>'+'아연 '+'</td>'+'<td class="nutri">'+item.zn+'mg'+'</td>'+'</tr>';
+					content += '<tr>'+'<td>'+'비타민A '+'</td>'+'<td class="nutri">'+item.vit_a+'ug'+'</td>'+'</tr>';
+					content += '<tr>'+'<td>'+'비타민B6 '+'</td>'+'<td class="nutri">'+item.vit_b6+'mg'+'</td>'+'</tr>';
+					content += '<tr>'+'<td>'+'비타민B12 '+'</td>'+'<td class="nutri">'+item.vit_b12+'mg'+'</td>'+'</tr>';
+					content += '<tr>'+'<td>'+'비타민C '+'</td>'+'<td class="nutri">'+item.vit_c+'mg'+'</td>'+'</tr>';
+					content += '<tr>'+'<td>'+'필수 아미노산 '+'</td>'+'<td class="nutri">'+item.essential+'mg'+'</td>'+'</tr>';
+					content += '<tr>'+'<td>'+'오메가3 '+'</td>'+'<td class="nutri">'+item.omega3+'mg'+'</td>'+'</tr>';
+				});
 			$('#rNutriList').empty();
 			$('#rNutriList').append(content);
 		};
@@ -474,9 +487,9 @@
 		        		dataType:'json',
 		        		success:function(data){
 		        			console.log(data);
-		        			if (data.mdelete == true) {
+		        			if (data.success == true) {
 		        				alert('재료가 삭제되었습니다.');
-		        				listCall();
+		        				myRecipeMenu();
 		        			}
 
 		        		},
@@ -494,8 +507,9 @@
 				alert('제거하실 레시피를 선택해주세요');
 				listCall();
 			} else {
-				var deletechk = confirm('레시피를 삭제하시겠습니까?');
-				if(deletechk == true){
+				if(!confirm('레시피를 삭제하시겠습니까?')){
+					return false
+				}else {
 					$.ajax({
 		        		type:'get',
 		        		url:'rdelete.do',
@@ -503,18 +517,15 @@
 		        		dataType:'json',
 		        		success:function(data){
 		        			console.log(data);
-		        			if (data.rdelete == true) {
+		        			if (data.success == true) {
 		        				alert('레시피가 삭제되었습니다.');
-		        				listCall();
+		        				myRecipeMenu();
 		        			}	
-
 		        		},
 		        		error:function(e){
 		        			console.log(e);
 		        		}
 		        	});
-				} else {
-					listCall();
 				}
 			}
 		}
@@ -529,30 +540,38 @@
 		
 		// 식단 추가
 		function dinsert() {
-			if (diet_category == null) {
+			if (diet_category == '') {
 				alert('아침, 점심, 저녁, 기타 중 하나를 선택해주세요');
 			} else if (menu_id == null) {
 				alert('레시피를 선택해 주세요');
+			} else if (grams == 0) {
+				alert('레시피에 재료를 추가해 주세요');
 			} else {
-				var param = {};
-				param.diet_category = diet_category;
-				param.menu_id = menu_id;
-				param.date = selectDate;
-				
-				console.log(param);
-				
-				$.ajax ({
-					type:'post',
-					url:'dinsert',
-					data:param,
-					dataType:'json',
-					success:function(data) {
-						console.log(data);
-					},
-					error:function(e) {
-						console.log(e);
-					}
-				});
+				if(!confirm("선택한 레시피를 식단에 추가하시겠습니까?")){
+					return false;
+				}else{
+					var param = {};
+					param.diet_category = diet_category;
+					param.menu_id = menu_id;
+					param.date = selectDate;
+					
+					console.log(param);
+					
+					$.ajax ({
+						type:'get',
+						url:'dinsert.do',
+						data:param,
+						dataType:'json',
+						success:function(data) {
+							console.log(data);
+							opener.location.reload();
+							self.close();
+						},
+						error:function(e) {
+							console.log(e);
+						}
+					});
+				}
 			}
 		}
 		

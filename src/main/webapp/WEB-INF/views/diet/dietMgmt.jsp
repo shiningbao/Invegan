@@ -61,7 +61,6 @@
 	height: auto;
 	margin: 20px auto;
 	padding: 0 10px;
-	]
 }
 
 #emptyList {
@@ -119,7 +118,7 @@
 
 /* 세로 줄 */
 .li-vertical-line {
-	border-right: 1px solid black;
+    border-right: 1px solid black;
 }
 
 /* 영양성분 */
@@ -150,16 +149,13 @@
 #contents-right-header ul li:not(.li-vertical-line):hover {
 	border-bottom: 2px solid #95df95 !important;
 }
-
-#contents-right-content {
-	width: 100%;
-	padding: 10px 0px;
-	text-align: center;
+#contents-right-content{
+    width: 100%;
+    padding: 10px 0px;
+    text-align: center;
 }
-#circle-graph-box{
-	border-bottom: 2px solid lightgray; 
-	padding-bottom: 5px;
-	margin-bottom: 5px;
+#contents-right-content h4, #contents-right-content label{
+    margin: 8px auto;
 }
 
 #contents-right-content h4, #contents-right-content label {
@@ -178,7 +174,7 @@
 }
 
 #kcal::before, #carb::before, #prot::before, #fat::before {
-	color: #black;
+	color: black;
 	width: 68%;
 	padding: calc(35% - 1.3vw) 0;
 	background: #FFFFFF;
@@ -193,12 +189,10 @@
 	font-size: 23px;
 	padding: calc(43% - 1.3vw) 0;
 }
-
-.graph-box {
-	display: inline-block;
-	width: 23%;
+.graph-box{
+    display: inline-block;
+    width: 23%;
 }
-
 /*막대 그래프*/
 .graph-bar {
 	height: 18px;
@@ -441,7 +435,6 @@
 						<div id="fat" class="circle" data-percent=0></div>
 						<h4 id="fat-data"></h4>
 					</div>
-				</div>
 				<!-- 영양성분 - 막대 그래프 -->
 				<div class="bar-graph-box">
 					<div class="bar-graph-box-txt">
@@ -578,29 +571,27 @@
 						<span>0%</span>
 					</div>
 				</div>
-			</div>
-		</div>
-	</div>
-	<c:import url="/main/footer" />
-</body>
-<script>
-	// 페이지 로드시 바로 실행
-	getNutri($('#contents-right-header ul li:first'));
-
-	// 캘린더 화면으로 이동
-	$('#selectDate').on('click', function() {
-		console.log('date click');
-		location.href = "tempCalander";
-	});
-
-	// 메뉴 등록 팝업 창 열기
-	function upsertMenu(sort) {
-		var sort = sort;
-		var selectDate = $('#selectDate').text();
-		console.log("upsert 분류 : " + sort);
-		window.open("addMenu.go?sort=" + sort + "&date=" + selectDate, "pop",
-				"width=1200,height=700,top=100,left=300,scrollbals=no");
-	}
+				<div class="graph-box">
+                    <label>열량</label>
+                    <div id="kcal" class="circle"></div>
+                    <h4 id="kcal-data"></h4>
+                </div>
+                <div class="graph-box">
+                    <label>탄수화물</label>
+                    <div id="carb" class="circle"></div>
+                    <h4 id="carb-data"></h4>
+                </div>
+                <div class="graph-box">
+                    <label>단백질</label>
+                    <div id="prot" class="circle"></div>
+                    <h4 id="prot-data"></h4>
+                </div>
+                <div class="graph-box">
+                    <label>지방</label>
+                    <div id="fat" class="circle"></div>
+                    <h4 id="fat-data"></h4>
+                </div>
+                <!-- 영양성분 - 막대 그래프 -->
 	
 	// 메뉴 수정 삭제
 	function submenu(e,obj) {
