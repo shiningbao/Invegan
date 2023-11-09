@@ -5,4 +5,13 @@
 
 <mapper namespace="kr.co.invegan.admin.dao.MemberManagementDAO">
 
+	<select id="memberList" resultType="kr.co.invegan.member.dto.MemberDTO">
+		SELECT user_no,id,nickname,join_date, is_suspended,is_admin FROM Members ORDER BY join_date ASC limit 10 OFFSET #{param2}
+	</select>
+	
+	<select id="totalPage" resultType="int">
+		SELECT ceil(count(user_no)/10) AS pages FROM Members
+	</select>
+	
+
 </mapper>

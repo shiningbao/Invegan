@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-<title>Calander</title>
+<title>Calendar</title>
 <style>
     	table td{
     		border: 1px solid black;
@@ -110,6 +110,7 @@
 </style>
 </head>
 <body>
+<c:import url="/main/header" />
 <div id="container">
 
 <table class="Calendar">
@@ -119,7 +120,7 @@
                
                 <td colspan="5" id= "yearMonth">
                     <div id="calYear"></div>
-                    <div id="calMonth"></div>월
+                    <div id="calMonth"><br/></div>월
                 </td>
        
                 <td onClick="nextCalendar();" id="next" style="cursor:pointer;">&#62;</td>
@@ -133,15 +134,17 @@
                 <td>금</td>
                 <td>토</td>
             </tr>
+
 			
         </thead>
 
         <tbody>
-        	
+        
         </tbody>
     </table>
 
  	</div>
+<c:import url="/main/footer" />	
 </body>
 
 <script>
@@ -232,6 +235,7 @@ function choiceDate(nowColumn) {
 	    // 클릭한 날짜 값
         selectDate = $('#calYear').text()+"-"+$('#calMonth').text()+"-"+$('.choiceDay').text();
 	    console.log(selectDate);
+	    
 	    dietMgmt();
 }
 	    
@@ -293,11 +297,6 @@ document.getElementById("calYear").addEventListener("click", function(event) {
    		
     });
 });
-
-	
-
-
-
 
 </script>
 

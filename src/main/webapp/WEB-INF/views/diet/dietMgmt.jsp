@@ -115,7 +115,7 @@
 
 /* 세로 줄 */
 .li-vertical-line {
-	border-right: 1px solid black;
+    border-right: 1px solid black;
 }
 
 /* 영양성분 */
@@ -147,12 +147,12 @@
 	border-bottom: 2px solid #95df95;
 }
 #contents-right-content{
-	width: 100%;
-	padding: 10px 0px;
-	text-align: center;
+    width: 100%;
+    padding: 10px 0px;
+    text-align: center;
 }
 #contents-right-content h4, #contents-right-content label{
-	margin: 8px auto;
+    margin: 8px auto;
 }
 
 
@@ -187,29 +187,29 @@
     
 }
 .graph-box{
-	display: inline-block;
-	width: 23%;
+    display: inline-block;
+    width: 23%;
 }
-
 /*막대 그래프*/
 .graph-bar{
-	height: 20px;
-	background-color: skyblue;
-	border-radius: 20px;
+    height: 20px;
+    background-color: skyblue;
+    border-radius: 20px;
 }
 .graph-bar span{
-	display: block;
-	padding: 0px 10px;
-	width: 75%;
-	height: 20px;
-	line-height: 20px;
-	text-align: right;
-	background: blue;
-	border-radius: 20px;
-	box-sizing: border-box;
-	color: #FFF; 
+    display: block;
+    padding: 0px 10px;
+    width: 75%;
+    height: 20px;
+    line-height: 20px;
+    text-align: right;
+    background: blue;
+    border-radius: 20px;
+    box-sizing: border-box;
+    color: #FFF; 
+.li-vertical-line {
+	border-right: 1px solid black;
 }
-
 </style>
 </head>
 <body>
@@ -371,48 +371,49 @@
 			</div>
 			<!-- 영양성분 / 원형 그래프  -->
 			<div id="contents-right-content">
-				<div class="graph-box">
-					<label>열량</label>
-					<div id="kcal" class="circle"></div>
-					<h4 id="kcal-data"></h4>
-				</div>
-				<div class="graph-box">
-					<label>탄수화물</label>
-					<div id="carb" class="circle"></div>
-					<h4 id="carb-data"></h4>
-				</div>
-				<div class="graph-box">
-					<label>단백질</label>
-					<div id="prot" class="circle"></div>
-					<h4 id="prot-data"></h4>
-				</div>
-				<div class="graph-box">
-					<label>지방</label>
-					<div id="fat" class="circle"></div>
-					<h4 id="fat-data"></h4>
-				</div>
-				<!-- 영양성분 - 막대 그래프 -->
-				<div>
-					<h4>총 당류</h4>
-					<div id="sugar-bar" class="graph-bar">
-						<span>85%</span>
-					</div>
-					<h4>85 / 100</h4>
-				</div>
-				<div>
-					<h4>총 식이섬유</h4>
-					<div id="fiber-bar" class="graph-bar">
-						<span>45%</span>
-					</div>
-					<h4>45 / 100</h4>
-				</div>
-				<div>
-					<h4>칼슘</h4>
-					<div id="cal-bar" class="graph-bar">
-						<span>25%</span>
-					</div>
-					<h4>25 / 100</h4>
-				</div>
+				                <div class="graph-box">
+                    <label>열량</label>
+                    <div id="kcal" class="circle"></div>
+                    <h4 id="kcal-data"></h4>
+                </div>
+                <div class="graph-box">
+                    <label>탄수화물</label>
+                    <div id="carb" class="circle"></div>
+                    <h4 id="carb-data"></h4>
+                </div>
+                <div class="graph-box">
+                    <label>단백질</label>
+                    <div id="prot" class="circle"></div>
+                    <h4 id="prot-data"></h4>
+                </div>
+                <div class="graph-box">
+                    <label>지방</label>
+                    <div id="fat" class="circle"></div>
+                    <h4 id="fat-data"></h4>
+                </div>
+                <!-- 영양성분 - 막대 그래프 -->
+                <div>
+                    <h4>총 당류</h4>
+                    <div id="sugar-bar" class="graph-bar">
+                        <span>85%</span>
+                    </div>
+                    <h4>85 / 100</h4>
+                </div>
+                <div>
+                    <h4>총 식이섬유</h4>
+                    <div id="fiber-bar" class="graph-bar">
+                        <span>45%</span>
+                    </div>
+                    <h4>45 / 100</h4>
+                </div>
+                <div>
+                    <h4>칼슘</h4>
+                    <div id="cal-bar" class="graph-bar">
+                        <span>25%</span>
+                    </div>
+                    <h4>25 / 100</h4>
+                </div>
+				<!-- 그려질 영역 -->
 			</div>
 		</div>
 	</div>
@@ -423,8 +424,6 @@
 
 	// 페이지 로드시 바로 실행
 	getNutri($('#contents-right-header ul li:first'));
-	
-	
 
 	// 캘린더 화면으로 이동
 	$('#selectDate').on('click', function() {
@@ -457,62 +456,62 @@
 			dataType : 'JSON',
 			success : function(data) {
 				console.log(data.nutriInfo);
-				drawNutri(data.nutriInfo);
+                drawNutri(data.nutriInfo);
 			},
 			error : function(data) {
 
 			}
 		});
 	}
-	
-			
-			
-	function drawNutri(nutr) {
-		console.log(nutr);
-		// 태그 가져오기
-		var kcal = document.querySelector("#kcal");
-		var carb = document.querySelector("#carb");
-		var prot = document.querySelector("#prot");
-		var fat = document.querySelector("#fat");
-		console.log("가져온 태그 확인 : "+kcal+"/"+carb+"/"+prot+"/"+fat);
-		
-		// 가져온 태그에 data-percent 속성 추가
-		kcal.setAttribute("data-percent",56);
-		carb.setAttribute("data-percent",100);
-		prot.setAttribute("data-percent",24);
-		fat.setAttribute("data-percent",47);
-		
-		// 태그의 data-percent 속성의 값을 변수에 저장
-		var percentKcal = kcal.getAttribute("data-percent");
-		var percentCarb = carb.getAttribute("data-percent");
-		var percentProt = prot.getAttribute("data-percent");
-		var percentFat = fat.getAttribute("data-percent");
-		console.log(percentKcal+"/"+percentCarb+"/"+percentProt+"/"+percentFat);
-		
-		
-		// 태그의 background 속성 변경
-		kcal.style.background = 'conic-gradient(#3F8BC9 0% '+percentKcal+'%, transparent 10% 15%, rgb(222 222 222) '+percentKcal+'% 100%)';
-		carb.style.background = 'conic-gradient(#3F8BC9 0% '+percentCarb+'%, rgb(222 222 222) '+percentCarb+'% 100%)';
-		prot.style.background = 'conic-gradient(#3F8BC9 0% '+percentProt+'%, rgb(222 222 222) '+percentProt+'% 100%)';
-		fat.style.background = 'conic-gradient(#3F8BC9 0% '+percentFat+'%, rgb(222 222 222) '+percentFat+'% 100%)';
-		
-		// kcal chk
-		$('#kcal-data').empty();
-		$('#kcal-data').append('<h4>'+nutr.kcal+'<br/>/ 2700kcal</h4>');
-		// kcal chk
-		$('#carb-data').empty();
-		$('#carb-data').append('<h4>'+nutr.carb+'<br/>/ 100g</h4>');
-		// kcal chk
-		$('#prot-data').empty();
-		$('#prot-data').append('<h4>'+nutr.prot+'<br/>/ 55g</h4>');
-		// kcal chk
-		$('#fat-data').empty();
-		$('#fat-data').append('<h4>'+nutr.fat+'<br/>/ 60g</h4>');
-		
-		var sugarBar = document.querySelector($('#sugar-bar'));
-		/* console.log(sugarBar+" / "+fiberBar+" / "+calVar); */
-		sugar.style.width = ntur.sugar;
-		
-	}
+    
+    
+    
+    function drawNutri(nutr) {
+        console.log(nutr);
+        // 태그 가져오기
+        var kcal = document.querySelector("#kcal");
+        var carb = document.querySelector("#carb");
+        var prot = document.querySelector("#prot");
+        var fat = document.querySelector("#fat");
+        console.log("가져온 태그 확인 : "+kcal+"/"+carb+"/"+prot+"/"+fat);
+        
+        // 가져온 태그에 data-percent 속성 추가
+        kcal.setAttribute("data-percent",56);
+        carb.setAttribute("data-percent",100);
+        prot.setAttribute("data-percent",24);
+        fat.setAttribute("data-percent",47);
+        
+        // 태그의 data-percent 속성의 값을 변수에 저장
+        var percentKcal = kcal.getAttribute("data-percent");
+        var percentCarb = carb.getAttribute("data-percent");
+        var percentProt = prot.getAttribute("data-percent");
+        var percentFat = fat.getAttribute("data-percent");
+        console.log(percentKcal+"/"+percentCarb+"/"+percentProt+"/"+percentFat);
+        
+        
+        // 태그의 background 속성 변경
+        kcal.style.background = 'conic-gradient(#3F8BC9 0% '+percentKcal+'%, transparent 10% 15%, rgb(222 222 222) '+percentKcal+'% 100%)';
+        carb.style.background = 'conic-gradient(#3F8BC9 0% '+percentCarb+'%, rgb(222 222 222) '+percentCarb+'% 100%)';
+        prot.style.background = 'conic-gradient(#3F8BC9 0% '+percentProt+'%, rgb(222 222 222) '+percentProt+'% 100%)';
+        fat.style.background = 'conic-gradient(#3F8BC9 0% '+percentFat+'%, rgb(222 222 222) '+percentFat+'% 100%)';
+        
+        // kcal chk
+        $('#kcal-data').empty();
+        $('#kcal-data').append('<h4>'+nutr.kcal+'<br/>/ 2700kcal</h4>');
+        // kcal chk
+        $('#carb-data').empty();
+        $('#carb-data').append('<h4>'+nutr.carb+'<br/>/ 100g</h4>');
+        // kcal chk
+        $('#prot-data').empty();
+        $('#prot-data').append('<h4>'+nutr.prot+'<br/>/ 55g</h4>');
+        // kcal chk
+        $('#fat-data').empty();
+        $('#fat-data').append('<h4>'+nutr.fat+'<br/>/ 60g</h4>');
+        
+        var sugarBar = document.querySelector($('#sugar-bar'));
+        /* console.log(sugarBar+" / "+fiberBar+" / "+calVar); */
+        sugar.style.width = ntur.sugar;
+        
+    }
 </script>
 </html>
