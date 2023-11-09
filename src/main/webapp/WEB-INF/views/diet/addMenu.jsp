@@ -42,7 +42,7 @@
 	}
 	
 	#tapMenu{
-		width: inherit;
+		width: inherit;	
 		height: 30px;
 		border-bottom: 1px solid black; 
 		text-align: center;

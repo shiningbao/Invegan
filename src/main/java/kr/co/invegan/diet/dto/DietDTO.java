@@ -5,7 +5,7 @@ public class DietDTO {
 	private String user_no;
 	
 	private int diet_id;
-	private String date;
+	private String date;	
 	private String diet_category;
 	
 	private int menu_id;
