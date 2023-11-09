@@ -10,11 +10,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -67,7 +68,6 @@ public class DietController {
 			// 로그인 정보 체크
 			logger.info("로그인된 회원번호 : " + loginInfo.getUser_no());
 			logger.info("로그인된 아이디 : " + loginInfo.getId());
-			model.addAttribute("date", date);
 			ArrayList<DietDTO> dietList = dietService.getDietList(date, loginInfo.getUser_no());
 
 			model.addAttribute("dietList", dietList);
@@ -88,11 +88,12 @@ public class DietController {
 		int loginUser_no = loginInfo.getUser_no();
 		
 		FoodDataDTO nutriInfo = dietService.getNutri(loginUser_no, selectDate, dietCate);
-
+		// logger.info("getKcal : "+nutriInfo.getKcal()); 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("nutriInfo", nutriInfo);
-		FoodDataDTO var =  (FoodDataDTO) result.get("nutriInfo");
-		logger.info(" result kcal : "+var.getKcal());
+		session.setAttribute("nutriInfo", nutriInfo);
+        FoodDataDTO var =  (FoodDataDTO) result.get("nutriInfo");
+        logger.info(" result kcal : "+var.getKcal());
 		return result;
 	}
 	

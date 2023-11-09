@@ -36,6 +36,12 @@
 		z-index: 100;
 
 	}
+	#profileImg {
+	   width: 50px;
+	   height: 50px;
+	   border-radius: 50%;
+	   margin-right: 10px;
+	}
 	.sideBar{
 		width: 60px;
 		height: 372px;
@@ -104,7 +110,7 @@
 		
 			<!-- 로그인 했을 때 -->
  			<c:if test="${not empty loginInfo}">
-				<p><img src="/photo/${loginInfo.getProfile_img()}" width="50px" height="50px" /></p>
+				<p><img id="profileImg" src="/photo/${loginInfo.getProfile_img()}" /></p>
 				<p id="loginNickname">${loginInfo.getNickname()}</p>
 				<p id="loginId">${loginInfo.getId()}</p>
 				<div class="infoMB">

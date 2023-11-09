@@ -27,7 +27,7 @@
 
 	<select id = "mrlist" parameterType="int" resultType="kr.co.invegan.diet.dto.MyRecipeDTO">
 		SELECT m.menu_id, m.recipe_name, sum(m2.grams) AS grams,
-			SUM(ROUND((m2.grams / fd.serving_size) * fd.kcal, 0)) AS kcal
+			SUM(ROUND((m2.grams / fd.serving_size) * fd.kcal, 0)) AS kcal, m.hidden
 			FROM Menu m LEFT JOIN Material m2
 									ON m.menu_id = m2.menu_id 
 								  LEFT JOIN FoodData fd 
@@ -46,12 +46,8 @@
 		DELETE FROM Material WHERE material_id = #{material_id};
 	</delete>
 	
-	<delete id = "rmdelete" parameterType="int">
-		DELETE FROM Material WHERE menu_id = #{menu_id};
-	</delete>
-	
-		<delete id = "rdelete" parameterType="int">
-		DELETE FROM Menu WHERE menu_id = #{menu_id};
+	<delete id = "rdelete" parameterType="int">
+		UPDATE Menu SET hidden = 1 WHERE menu_id = #{menu_id};
 	</delete>
 
 	<select id = "rNutrido" parameterType="int" resultType="kr.co.invegan.diet.dto.FoodDataDTO">
@@ -96,4 +92,5 @@
       INSERT INTO Diet_composition(diet_id,menu_id)
          VALUES(#{diet_id},#{menu_id});
    </insert>
+
 </mapper>

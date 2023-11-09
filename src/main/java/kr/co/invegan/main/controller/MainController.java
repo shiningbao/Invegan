@@ -1,6 +1,8 @@
 package kr.co.invegan.main.controller;
 
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -12,7 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 
 import kr.co.invegan.admin.service.FoodService;
 import kr.co.invegan.diet.dto.FoodDataDTO;
@@ -31,6 +33,15 @@ public class MainController {
 	@RequestMapping(value = {"/","/main"})
 	public String main(HttpSession session) {
 		return "main";
+	}
+	
+	@RequestMapping(value = {"/geo"})
+	public HashMap<String, Object> geo(HttpSession session, @RequestParam HashMap<String, String> param) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		double userLat = Double.parseDouble(param.get("lat")) ;
+		double userLng = Double.parseDouble(param.get("lng")) ;
+		service.aaa(userLat, userLng);
+		return result;
 	}
 	
 	@RequestMapping(value = "/main/header")

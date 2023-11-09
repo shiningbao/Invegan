@@ -167,9 +167,9 @@ public class MyRecipeController {
 		logger.info("material_id : "+material_id);
 		
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		boolean mdelete = service.mdelete(material_id);
+		boolean success = service.mdelete(material_id);
 		
-		result.put("mdelete", mdelete);
+		result.put("success", success);
 	
 		return result;
 	}
@@ -181,11 +181,9 @@ public class MyRecipeController {
 		logger.info("menu_id : "+menu_id);
 		
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		boolean rmdelete = service.rmdelete(menu_id);
-		boolean rdelete = service.rdelete(menu_id);
+		boolean success = service.rdelete(menu_id);
 		
-		result.put("rmdelete", rmdelete);
-		result.put("rdelete", rdelete);
+		result.put("success", success);
 	
 		return result;
 	}
@@ -193,7 +191,7 @@ public class MyRecipeController {
 	// 레시피 영양소 출력
 	@RequestMapping(value="*/rNutri.do")
 	@ResponseBody
-	public HashMap<String, Object> rNutrido(@RequestParam int menu_id) {
+	public HashMap<String, Object> rNutrido(@RequestParam int menu_id, HttpSession session) {
 		logger.info("menu_id : "+menu_id);
 		
 		HashMap<String, Object> result = new HashMap<String, Object>();
@@ -206,21 +204,21 @@ public class MyRecipeController {
 	}
 	
 	// 식단에 나만의 레시피 입력
-	@RequestMapping(value="*/dinsert")
+	@RequestMapping(value="*/dinsert.do")
+	@ResponseBody
 	public HashMap<String, Object> dinsert(HttpSession session, @RequestParam HashMap<String, Object> params){
 		loginInfo = (MemberDTO) session.getAttribute("loginInfo");
 		params.put("user_no", loginInfo.getUser_no());
 		
 		logger.info("params : "+params);
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		
 		DietDTO dietDTO = new DietDTO();
 		dietDTO.setUser_no(params.get("user_no").toString());
 		dietDTO.setDate((String) params.get("date"));
 		dietDTO.setDiet_category((String) params.get("diet_category"));
-		dietDTO.setMenu_id(Integer.parseInt(params.get("menu_id").toString()));
-		
-		String successMsg = service.addMenuDo(dietDTO);
+		dietDTO.setMenu_id(Integer.parseInt(params.get("menu_id").toString()))	;		
+		service.addMenuDo(dietDTO);
+
 
 		return result;
 	}

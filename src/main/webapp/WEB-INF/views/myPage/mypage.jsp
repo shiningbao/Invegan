@@ -13,7 +13,12 @@
 <script src="<c:url value='/resources/js/jquery.twbsPagination.js'/>" type="text/javascript"></script>
 <style>
 
-		.container {
+		#container{
+			width: 1000px;
+			margin: 0px auto;
+		}
+
+		.tabContainer {
 		    display: flex;
 		    justify-content: space-evenly;
 		    align-items: baseline;
@@ -142,7 +147,7 @@
 			display: inherit;
 		}
 		
-		.container{
+		.tab-1{
 			display: flex;
 			height: 102px;
 	        width: 1200px;
@@ -252,6 +257,7 @@
 </head>
 <body>
 <c:import url="/main/header" />
+<div id=container>
  <h3>마이페이지</h3>
  
  	<c:set var="myPageImg" value="${dto.profile_image}" />
@@ -369,7 +375,7 @@
 	 
 	
 	
-<div class="container">
+<div class="tabContainer">
 	<ul class="tabs">
 		<li class="tab-link current" data-tab="tab-1">작성한 글 모아보기</li>
 		<li class="tab-link" data-tab="tab-2">댓글 모아보기</li>
@@ -408,13 +414,14 @@
 	<div id="ListContainer">
 	</div>
 	
-</div> <!-- container영역  -->
+</div>
 	
 	<div class="pageContainer">									
 		<nav aria-label="Page navigation" style="text-align:center">
 			<ul class="pagination" id="pagination"></ul>
 		</nav>					
 	</div>
+</div>
 <c:import url="/main/footer" />	
 </body>
 	

@@ -8,12 +8,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.co.invegan.member.dto.MemberDTO;
 import kr.co.invegan.mypage.dao.MyPageDAO;
 import kr.co.invegan.mypage.dto.MyPageDTO;
 
@@ -117,7 +120,7 @@ public class MyPageService {
 	
 	MyPageDTO dto = new MyPageDTO(); 
 	
-	 public void imgUpload(MultipartFile photo, Integer user_no) throws IOException {
+	 public String imgUpload(HttpSession session, MultipartFile photo, Integer user_no) throws IOException {
 	  
 		 dto.setIdx(user_no);
 		 dto.setCategory("회원");
@@ -126,14 +129,16 @@ public class MyPageService {
 	
 	 int image_id = dto.getImage_id(); // dto 에 방금 insert 된 image_id 가져오기
 	 logger.info("image_id:"+image_id);
+	 saveImage(session,photo,image_id,user_no);
 	 
-	 saveImage(photo,image_id,user_no);
+	 return "";
+	 
 	 
 	 }
 	 
 		
 	  // 프로필 이미지 imageTable에 저장 
-	  private void saveImage(MultipartFile photo, int image_id, Integer user_no)
+	  private void saveImage(HttpSession session, MultipartFile photo, int image_id, Integer user_no)
 	  throws IOException {
 	  
 	  String oriFileName = photo.getOriginalFilename(); 
@@ -148,12 +153,16 @@ public class MyPageService {
 	  Files.write(path, arr); 
 	  logger.info("path:"+path); 
 	  
+	  MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo"); 
+	  session.setAttribute("loginInfo", loginInfo);
+	  loginInfo.setProfile_img(server_file_name);
+	  
 	  dao.saveProfileImg(image_id,server_file_name,user_no);
 	  } 
 	 }
 
 	 // 프로필 이미지 수정 
-	 public void imgModify(MultipartFile photo, Integer user_no) throws IOException {
+	 public void imgModify(HttpSession session, MultipartFile photo, Integer user_no) throws IOException {
 		 
 		 String oriFileName = photo.getOriginalFilename(); 
 		  logger.info(oriFileName);
@@ -167,7 +176,11 @@ public class MyPageService {
 		  Files.write(path, arr); 
 		  logger.info("path:"+path); 
 		  
-		  dao.imgModify(server_file_name,user_no);
+		 MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo"); 
+	     session.setAttribute("loginInfo", loginInfo);
+	     loginInfo.setProfile_img(server_file_name);
+	        
+		 dao.imgModify(server_file_name,user_no);
 
 			 
 	 }
