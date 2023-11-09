@@ -66,6 +66,7 @@ public class DietController {
 			ArrayList<DietDTO> dietList = dietService.getDietList(date, loginInfo.getUser_no());
 
 			model.addAttribute("date", date);
+			logger.info("date : "+date);
 			model.addAttribute("dietList", dietList);
 			model.addAttribute("dietListSize", dietList.size());
 			logger.info("리스트 개수 : " + dietList.size());
@@ -98,11 +99,9 @@ public class DietController {
 	
 	// 메뉴 추가 페이지 이동
 	@RequestMapping(value = "diet/addMenu.go")
-	public String addMenuGo(HttpSession session, Model model, @RequestParam String sort, @RequestParam String date) {
+	public String addMenuGo(HttpSession session, Model model, 
+			@RequestParam String sort, @RequestParam String date) {
 		logger.info("메뉴 추가 페이지 요청 || sort값 = " + sort + " / date : " + date);
-		// chk = true 이면 메뉴 추가
-		// chk = false 이면 메뉴 수정
-		// 추후 페이지 접근 제한에도 chk 활용
 		session.setAttribute("upsertSort", sort);
 		model.addAttribute("date", date);
 		return "diet/addMenu";
@@ -169,5 +168,6 @@ public class DietController {
 		result.put("showNutri", showNutri);
 		return result;
 	}
+	
 
 }

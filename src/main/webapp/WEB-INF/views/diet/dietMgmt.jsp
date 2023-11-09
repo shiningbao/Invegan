@@ -10,6 +10,10 @@
 	href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <style>
+body{
+	position: relative;
+}
+
 #container {
 	height: 800px;
 	width: 1000px;
@@ -93,18 +97,16 @@
 .menu-item td {
 	padding-bottom: 7px;
 	padding-left: 5px;
+	cursor: pointer;
+}
+.menu-item td:hover{
+	color:#33b071;
+	
 }
 
 .menu_name {
 	padding-left: 20px;
 	text-align: left;
-}
-.menu_name:hover{
-	color:#33b071;
-}
-
-.menu_name label {
-	cursor: pointer;
 }
 
 .diet-category {
@@ -114,6 +116,16 @@
 	padding-left: 0;
 }
 
+.eventBox-item{
+	width: 100%;
+	margin: 1px;
+	line-height: 25px;
+}
+.eventBox-item:hover{
+	background: #c5fac5;
+	border-radius: 13px;
+	padding: 5px 5px;
+}
 /* 세로 줄 */
 .li-vertical-line {
     border-right: 1px solid black;
@@ -264,9 +276,9 @@
 								<c:when test="${list.diet_category eq'아침'}">
 									<tr class="menu-item">
 										<c:if test="${list.category eq'기본메뉴'}">
-											<td class="menu_name" onclick="submenu(event, this)"><input
-												type="hidden" value="${list.menu_id} " /> <input
-												type="hidden" value="${list.category} " /> <label>${list.food_name }</label>
+											<td class="menu_name" onclick="submenu(event, this)">
+											<input type="hidden" value="${list.menu_id} " /> 
+											<input type="hidden" value="${list.category} " /> <label>${list.food_name }</label>
 											</td>
 										</c:if>
 										<c:if test="${list.category eq'나만의레시피'}">
@@ -569,6 +581,7 @@
 	<c:import url="/main/footer" />
 </body>
 <script>
+
 	// 페이지 로드시 바로 실행
 	getNutri($('#contents-right-header ul li:first'));
 
@@ -582,20 +595,81 @@
 	function upsertMenu(sort) {
 		var sort = sort;
 		var selectDate = $('#selectDate').text();
-		console.log("upsert 분류 : " + sort);
-		window.open("addMenu.go?sort=" + sort + "&date=" + selectDate, "pop",
-				"width=1200,height=700,top=100,left=300,scrollbals=no");
+		window.open("addMenu.go?sort=" + sort + "&date="+selectDate, "pop",
+	    "width=1200,height=700,top=100,left=300,scrollbars=no");
 	}
 	
-	// 메뉴 수정 삭제
+	// 메뉴클릭시 이벤트 메뉴 생성에 사용하는 좌표값
+	var x;	
+	var y;
+	
+	// 삭제 메뉴 박스
 	function submenu(e,obj) {
-		console.log('obj',obj);
-		console.log('event', e);
+		// 기존에 생성된 eventBox 제거
+       	$('.eventBox').remove();
 		
-		var mouseX= e.clientX;
-		var mouseY= e.clientY;
-		console.log(mouseX, mouseY);		
+		//console.log('obj',obj);
+		//console.log('event', e);
+		//console.log(e.target);
+		
+		x= e.clientX;
+		y= e.clientY;
+		//console.log(x, y);	
+		
+		// 클릭시 이벤트 메뉴 생성 
+	  	var newDiv = $('<div>').addClass('eventBox').css({
+            'position': 'absolute',
+            'left': x-10 + 'px',
+            'top': y-10 + 'px',
+            'width':'auto',
+            'box-shadow': '#cfcfcf 6px 2px 13px 1px',
+            'background-color': 'white',
+            'border-radius': '13px',
+            'text-align':'center',
+        });
+		
+		
+	  	var menu_id = $(obj).find('input[type="hidden"]').eq(0).val();
+	    var category = $(obj).find('input[type="hidden"]').eq(1).val();
+	    var food_name = $(obj).find('label').text();
+	    
+	  	/* console.log(menu_id,category,food_name); */
+	  	var content = 
+	  		"<label id='deleteMenu' class='eventBox-item' onclick='deleteMenu()'>메뉴 삭제</label>";
+	  	
+        $('body').append(newDiv);
+	  	$('.eventBox').append(content);	
 	}
+	
+	// 메뉴 삭제
+	function deleteMenu(params){
+		
+		console.log('update click');
+		console.log('param check: ',params);
+		
+		// var selectDate = $('#selectDate').text();  필요한가 ?
+			
+ 		$.ajax({
+			type : 'get',
+			url : 'deleteMenu',
+			data : params,
+			dataType : 'JSON',
+			success : function(data) {
+			},
+			error : function(data) {
+			}
+		}); 
+	} 
+	
+	// 다른영역 클릭시 이벤트 박스 제거
+	$('body').on('click',function(e){
+		var bodyX = e.clientX;
+		var bodyY = e.clientY;
+		//console.log(bodyX,bodyY);
+		if(x != bodyX || y != bodyY){
+		   	$('.eventBox').remove();
+		}
+	});
 
 	// 영양소 가져오기
 	function getNutri(obj) {
@@ -719,7 +793,7 @@
 		$('#vitB6-bar span').append(vitB6Per+'% ');
 		// 비타민 B12
 		var vitB12Per = Math.round(nutr.vit_b12 / daily.recomm_vit_b12 *100);
-		console.log(nutr.vitB12 ,'/', daily.recomm_vit_b12);
+		console.log(nutr.vit_b12 ,'/', daily.recomm_vit_b12);
 		console.log('vitB12 per : ',vitB12Per);
 		$('#vitB12-val').empty(); 
 		$('#vitB12-val').append('<div>' + nutr.vit_b12 + ' / '+daily.recomm_vit_b12+'mg</div>');
@@ -728,7 +802,7 @@
 		$('#vitB12-bar span').append(vitB12Per+'% ');
 		// 비타민 C
 		var vitCPer = Math.round(nutr.vit_c / daily.recomm_vit_c *100);
-		console.log(nutr.vitC ,'/', daily.recomm_vitC);
+		console.log(nutr.vit_c ,'/', daily.recomm_vit_c);
 		console.log('vitC per : ',vitCPer);
 		$('#vitC-val').empty(); 
 		$('#vitC-val').append('<div>' + nutr.vit_c + ' / '+daily.recomm_vit_c+'mg</div>');
