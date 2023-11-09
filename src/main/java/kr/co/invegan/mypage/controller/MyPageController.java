@@ -35,7 +35,7 @@ public class MyPageController {
 	public String infoGo(Model model, HttpSession session) {
 
 		int user_no = ((MemberDTO) session.getAttribute("loginInfo")).getUser_no();
-
+		
 		if (user_no != 0) {
 			MyPageDTO dto = service.userInfo(user_no);
 			model.addAttribute("dto", dto);
@@ -109,17 +109,23 @@ public class MyPageController {
 
 	@RequestMapping(value = "/myPage/updateNickname")
 	@ResponseBody
-	public HashMap<String, Object> updateNickname(@RequestParam String nickname, @RequestParam Integer user_no) {
+	public HashMap<String, Object> updateNickname(HttpSession session, @RequestParam String nickname, @RequestParam Integer user_no) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		logger.info(nickname + "/" + user_no);
-
-		if (service.updateNickname(nickname, user_no) > 0) {
-			logger.info("닉네임 변경 완료");
-		}
+		
 		int cnt = service.updateNickname(nickname, user_no);
-		map.put("cnt", cnt);
-
-		return map;
+	    
+	    if (cnt > 0) {
+	        
+	        MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
+	        loginInfo.setNickname(nickname);
+	        session.setAttribute("loginInfo", loginInfo);
+	        
+	        logger.info("닉네임 변경 완료");
+	    }
+	    
+	    map.put("cnt", cnt);
+	    return map;
 	}
 
 	@RequestMapping(value = "/myPage/pwConfirm")
@@ -163,23 +169,26 @@ public class MyPageController {
 
 		return map;
 	}
-
+		// 프로필 이미지 등록
 		@RequestMapping(value="/myPage/imgUpload",method=RequestMethod.POST)
 		@ResponseBody 
-		public String imgUpload(@RequestParam("photo") MultipartFile photo, @RequestParam Integer user_no) throws IOException {
+		public String imgUpload(HttpSession session, @RequestParam("photo") MultipartFile photo, @RequestParam Integer user_no) throws IOException {
 		logger.info("file :"+photo.getOriginalFilename()+"/user_no : "+user_no);
-		  
-		  service.imgUpload(photo,user_no);
+		
+		
+		  service.imgUpload(session,photo,user_no);
 
 		  return "update 성공"; 
 		}
 		
+		// 프로필 이미지 수정
 		@RequestMapping(value="/myPage/imgModify",method=RequestMethod.POST)
 		@ResponseBody 
-		public String imgModify(@RequestParam("photo") MultipartFile photo, @RequestParam Integer user_no) throws IOException {
+		public String imgModify(HttpSession session, @RequestParam("photo") MultipartFile photo, @RequestParam Integer user_no) throws IOException {
 		logger.info("file :"+photo.getOriginalFilename()+"/user_no : "+user_no);
 		
-		 service.imgModify(photo,user_no);
+		
+		 service.imgModify(session,photo,user_no);
 		 
 
 		  return "update 성공"; 
