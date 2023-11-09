@@ -438,7 +438,7 @@
 	        console.log('클릭한 재료의 id : '+material_id);
 		});
 		
-		// 재료 추가
+		// 재료 추가 모달 이동
 		function minsert() {
 			if (menu_id == null){
 				alert('재료를 추가할 레시피를 선택해주세요');

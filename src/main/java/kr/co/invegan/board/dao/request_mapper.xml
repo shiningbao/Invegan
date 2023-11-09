@@ -5,4 +5,15 @@
 
 <mapper namespace="kr.co.invegan.board.dao.RequestDAO">
 
+	<select id="requestdo" resultType="kr.co.invegan.board.dto.RequestDTO">
+		SELECT req_id, req_title, req_content, views, is_hidden, category, date(`date`) AS date, is_resolved, r.user_no, answer, m.nickname
+			FROM Request r
+			JOIN Members m
+			ON r.user_no = m.user_no
+			ORDER BY req_id DESC limit #{param1} offset #{param2};
+	</select>
+	
+	<select id="totalPage" resultType="int">
+   		SELECT CEIL(COUNT(req_id)/#{param1}) AS pages FROM Request
+    </select>
 </mapper>
