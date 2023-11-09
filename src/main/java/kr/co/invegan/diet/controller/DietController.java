@@ -52,6 +52,7 @@ public class DietController {
 	@RequestMapping(value = "diet/dietMgmt")
 	public String dietMgmt(HttpSession session, @RequestParam String date, Model model) {
 		logger.info("식단관리 페이지 이동 요청");
+		logger.info("parameter chk : "+ date);
 		loginInfo = (MemberDTO) session.getAttribute("loginInfo");
 		String page = "redirect:/member/login.go";
 		if (loginInfo == null) {
@@ -64,8 +65,8 @@ public class DietController {
 			logger.info("로그인된 아이디 : " + loginInfo.getId());
 			ArrayList<DietDTO> dietList = dietService.getDietList(date, loginInfo.getUser_no());
 
+			model.addAttribute("date", date);
 			model.addAttribute("dietList", dietList);
-
 			model.addAttribute("dietListSize", dietList.size());
 			logger.info("리스트 개수 : " + dietList.size());
 		}
@@ -84,13 +85,13 @@ public class DietController {
 		FoodDataDTO nutriInfo = dietService.getNutri(loginUser_no, selectDate, dietCate);
 		// 회원별 권장 섭취량 가져오기
 		DailyNutriDTO getDailyNutri = dietService.getDailyNutri(loginUser_no);
+		logger.info("dailyNutri chk : "+getDailyNutri);
 		logger.info("dailyNutri result check member's age : "+ getDailyNutri.getAge());
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("nutr", nutriInfo);
+		logger.info("result - nutriInfo : " + nutriInfo.getKcal() );
 		result.put("daily", getDailyNutri);
 		session.setAttribute("nutriInfo", nutriInfo);
-        FoodDataDTO var =  (FoodDataDTO) result.get("nutriInfo");
-        logger.info(" result kcal : "+var.getKcal());
 		return result;
 	}
 		

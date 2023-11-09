@@ -86,6 +86,7 @@ public class DietService{
 
 	public DailyNutriDTO getDailyNutri(int loginUser_no) {
 		logger.info("회원의 영양소별 1회 제공량 가져오기");
+		logger.info("loginuser no : "+loginUser_no);
 		return dietDAO.getDailyNutri(loginUser_no);
 	}
 

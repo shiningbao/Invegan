@@ -21,8 +21,6 @@
 .contents {
 	width: 500px;
 	height: 100%;
-	/* 임시 border */
-	border: 1px solid lightgrey;
 	padding: 10px 20px;
 }
 
@@ -264,19 +262,17 @@
 						<c:forEach var="list" items="${dietList}">
 							<c:choose>
 								<c:when test="${list.diet_category eq'아침'}">
-									<tr class="menu-item" >
+									<tr class="menu-item">
 										<c:if test="${list.category eq'기본메뉴'}">
-											<td class="menu_name" onclick="submenu(event, this)">
-												<input type="hidden" value="${list.menu_id} "/>
-												<input type="hidden" value="${list.category} "/>
-												<label >${list.food_name }</label>
+											<td class="menu_name" onclick="submenu(event, this)"><input
+												type="hidden" value="${list.menu_id} " /> <input
+												type="hidden" value="${list.category} " /> <label>${list.food_name }</label>
 											</td>
 										</c:if>
 										<c:if test="${list.category eq'나만의레시피'}">
-											<td class="menu_name" onclick="submenu(event, this)">
-												<input type="hidden" value="${list.menu_id} "/>
-												<input type="hidden" value="${list.category} "/>
-												<label >${list.recipe_name }</label>
+											<td class="menu_name" onclick="submenu(event, this)"><input
+												type="hidden" value="${list.menu_id} " /> <input
+												type="hidden" value="${list.category} " /> <label>${list.recipe_name }</label>
 											</td>
 										</c:if>
 										<td>${list.grams}g</td>
@@ -301,17 +297,15 @@
 								<c:when test="${list.diet_category eq'점심'}">
 									<tr class="menu-item">
 										<c:if test="${list.category eq'기본메뉴'}">
-											<td class="menu_name" onclick="submenu(event, this)">
-												<input type="hidden" value="${list.menu_id} "/>
-												<input type="hidden" value="${list.category} "/>
-												<label>${list.food_name }</label>
+											<td class="menu_name" onclick="submenu(event, this)"><input
+												type="hidden" value="${list.menu_id} " /> <input
+												type="hidden" value="${list.category} " /> <label>${list.food_name }</label>
 											</td>
 										</c:if>
 										<c:if test="${list.category eq'나만의레시피'}">
-											<td class="menu_name" onclick="submenu(event, this)">
-												<input type="hidden" value="${list.menu_id} "/>
-												<input type="hidden" value="${list.category} "/>
-												<label >${list.recipe_name }</label>
+											<td class="menu_name" onclick="submenu(event, this)"><input
+												type="hidden" value="${list.menu_id} " /> <input
+												type="hidden" value="${list.category} " /> <label>${list.recipe_name }</label>
 											</td>
 										</c:if>
 										<td>${list.grams}g</td>
@@ -336,17 +330,15 @@
 								<c:when test="${list.diet_category eq'저녁'}">
 									<tr class="menu-item">
 										<c:if test="${list.category eq'기본메뉴'}">
-											<td class="menu_name" onclick="submenu(event, this)">
-												<input type="hidden" value="${list.menu_id} "/>
-												<input type="hidden" value="${list.category} "/>
-												<label >${list.food_name }</label>
+											<td class="menu_name" onclick="submenu(event, this)"><input
+												type="hidden" value="${list.menu_id} " /> <input
+												type="hidden" value="${list.category} " /> <label>${list.food_name }</label>
 											</td>
 										</c:if>
 										<c:if test="${list.category eq'나만의레시피'}">
-											<td class="menu_name" onclick="submenu(event, this)">
-												<input type="hidden" value="${list.menu_id} "/>
-												<input type="hidden" value="${list.category} "/>
-												<label >${list.recipe_name }</label>
+											<td class="menu_name" onclick="submenu(event, this)"><input
+												type="hidden" value="${list.menu_id} " /> <input
+												type="hidden" value="${list.category} " /> <label>${list.recipe_name }</label>
 											</td>
 										</c:if>
 										<td>${list.grams}g</td>
@@ -371,17 +363,15 @@
 								<c:when test="${list.diet_category eq'기타'}">
 									<tr class="menu-item">
 										<c:if test="${list.category eq'기본메뉴'}">
-											<td class="menu_name" onclick="submenu(event, this)">
-												<input type="hidden" value="${list.menu_id} "/>
-												<input type="hidden" value="${list.category} "/>
-												<label >${list.food_name }</label>
+											<td class="menu_name" onclick="submenu(event, this)"><input
+												type="hidden" value="${list.menu_id} " /> <input
+												type="hidden" value="${list.category} " /> <label>${list.food_name }</label>
 											</td>
 										</c:if>
 										<c:if test="${list.category eq'나만의레시피'}">
-											<td class="menu_name" onclick="submenu(event, this)">
-												<input type="hidden" value="${list.menu_id} "/>
-												<input type="hidden" value="${list.category} "/>
-												<label >${list.recipe_name }</label>
+											<td class="menu_name" onclick="submenu(event, this)"><input
+												type="hidden" value="${list.menu_id} " /> <input
+												type="hidden" value="${list.category} " /> <label>${list.recipe_name }</label>
 											</td>
 										</c:if>
 										<td>${list.grams}g</td>
@@ -435,146 +425,148 @@
 						<div id="fat" class="circle" data-percent=0></div>
 						<h4 id="fat-data"></h4>
 					</div>
-				<!-- 영양성분 - 막대 그래프 -->
-				<div class="bar-graph-box">
-					<div class="bar-graph-box-txt">
-						<div>총 당류</div>
-						<div id="sugar-val" class="nutr-value">0 / 0</div>
+					<!-- 영양성분 - 막대 그래프 -->
+					<div class="bar-graph-box">
+						<div class="bar-graph-box-txt">
+							<div>총 당류</div>
+							<div id="sugar-val" class="nutr-value">0 / 0</div>
+						</div>
+						<div id="sugar-bar" class="graph-bar">
+							<span>0%</span>
+						</div>
 					</div>
-					<div id="sugar-bar" class="graph-bar">
-						<span>0%</span>
+					<div class="bar-graph-box">
+						<div class="bar-graph-box-txt">
+							<div>총 식이섬유</div>
+							<div id="fiber-val" class="nutr-value">0 / 0</div>
+						</div>
+						<div id="fiber-bar" class="graph-bar">
+							<span>0%</span>
+						</div>
 					</div>
-				</div>
-				<div class="bar-graph-box">
-					<div class="bar-graph-box-txt">
-						<div>총 식이섬유</div>
-						<div id="fiber-val" class="nutr-value">0 / 0</div>
+					<div class="bar-graph-box">
+						<div class="bar-graph-box-txt">
+							<div>비타민 A</div>
+							<div id="vitA-val" class="nutr-value">0 / 0</div>
+						</div>
+						<div id="vitA-bar" class="graph-bar">
+							<span>0%</span>
+						</div>
 					</div>
-					<div id="fiber-bar" class="graph-bar">
-						<span>0%</span>
+					<div class="bar-graph-box">
+						<div class="bar-graph-box-txt">
+							<div>비타민 B6</div>
+							<div id="vitB6-val" class="nutr-value">0 / 0</div>
+						</div>
+						<div id="vitB6-bar" class="graph-bar">
+							<span>0%</span>
+						</div>
 					</div>
-				</div>
-				<div class="bar-graph-box">
-					<div class="bar-graph-box-txt">
-						<div>비타민 A</div>
-						<div id="vitA-val" class="nutr-value">0 / 0</div>
+					<div class="bar-graph-box">
+						<div class="bar-graph-box-txt">
+							<div>비타민 B12</div>
+							<div id="vitB12-val" class="nutr-value">0 / 0</div>
+						</div>
+						<div id="vitB12-bar" class="graph-bar">
+							<span>0%</span>
+						</div>
 					</div>
-					<div id="vitA-bar" class="graph-bar">
-						<span>0%</span>
+					<div class="bar-graph-box">
+						<div class="bar-graph-box-txt">
+							<div>비타민 C</div>
+							<div id="vitC-val" class="nutr-value">0 / 0</div>
+						</div>
+						<div id="vitC-bar" class="graph-bar">
+							<span>0%</span>
+						</div>
 					</div>
-				</div>
-				<div class="bar-graph-box">
-					<div class="bar-graph-box-txt">
-						<div>비타민 B6</div>
-						<div id="vitB6-val" class="nutr-value">0 / 0</div>
+					<div class="bar-graph-box">
+						<div class="bar-graph-box-txt">
+							<div>칼슘</div>
+							<div id="ca-val" class="nutr-value">0 / 0</div>
+						</div>
+						<div id="ca-bar" class="graph-bar">
+							<span>0%</span>
+						</div>
 					</div>
-					<div id="vitB6-bar" class="graph-bar">
-						<span>0%</span>
+					<div class="bar-graph-box">
+						<div class="bar-graph-box-txt">
+							<div>아연</div>
+							<div id="zn-val" class="nutr-value">0 / 0</div>
+						</div>
+						<div id="zn-bar" class="graph-bar">
+							<span>0%</span>
+						</div>
 					</div>
-				</div>
-				<div class="bar-graph-box">
-					<div class="bar-graph-box-txt">
-						<div>비타민 B12</div>
-						<div id="vitB12-val" class="nutr-value">0 / 0</div>
+					<div class="bar-graph-box">
+						<div class="bar-graph-box-txt">
+							<div>나트륨</div>
+							<div id="na-val" class="nutr-value">0 / 0</div>
+						</div>
+						<div id="na-bar" class="graph-bar">
+							<span>0%</span>
+						</div>
 					</div>
-					<div id="vitB12-bar" class="graph-bar">
-						<span>0%</span>
+					<div class="bar-graph-box">
+						<div class="bar-graph-box-txt">
+							<div>칼륨</div>
+							<div id="k-val" class="nutr-value">0 / 0</div>
+						</div>
+						<div id="k-bar" class="graph-bar">
+							<span>0%</span>
+						</div>
 					</div>
-				</div>
-				<div class="bar-graph-box">
-					<div class="bar-graph-box-txt">
-						<div>비타민 C</div>
-						<div id="vitC-val" class="nutr-value">0 / 0</div>
+					<div class="bar-graph-box">
+						<div class="bar-graph-box-txt">
+							<div>마그네슘</div>
+							<div id="mg-val" class="nutr-value">0 / 0</div>
+						</div>
+						<div id="mg-bar" class="graph-bar">
+							<span>0%</span>
+						</div>
 					</div>
-					<div id="vitC-bar" class="graph-bar">
-						<span>0%</span>
+					<div class="bar-graph-box">
+						<div class="bar-graph-box-txt">
+							<div>철분</div>
+							<div id="fe-val" class="nutr-value">0 / 0</div>
+						</div>
+						<div id="fe-bar" class="graph-bar">
+							<span>0%</span>
+						</div>
 					</div>
-				</div>
-				<div class="bar-graph-box">
-					<div class="bar-graph-box-txt">
-						<div>칼슘</div>
-						<div id="ca-val" class="nutr-value">0 / 0</div>
+					<div class="bar-graph-box">
+						<div class="bar-graph-box-txt">
+							<div>인</div>
+							<div id="p-val" class="nutr-value">0 / 0</div>
+						</div>
+						<div id="p-bar" class="graph-bar">
+							<span>0%</span>
+						</div>
 					</div>
-					<div id="ca-bar" class="graph-bar">
-						<span>0%</span>
+					<div class="bar-graph-box">
+						<div class="bar-graph-box-txt">
+							<div>필수 아미노산</div>
+							<div id="essential-val" class="nutr-value">0 / 0</div>
+						</div>
+						<div id="essential-bar" class="graph-bar">
+							<span>0%</span>
+						</div>
 					</div>
-				</div>
-				<div class="bar-graph-box">
-					<div class="bar-graph-box-txt">
-						<div>아연</div>
-						<div id="zn-val" class="nutr-value">0 / 0</div>
-					</div>
-					<div id="zn-bar" class="graph-bar">
-						<span>0%</span>
-					</div>
-				</div>
-				<div class="bar-graph-box">
-					<div class="bar-graph-box-txt">
-						<div>나트륨</div>
-						<div id="na-val" class="nutr-value">0 / 0</div>
-					</div>
-					<div id="na-bar" class="graph-bar">
-						<span>0%</span>
-					</div>
-				</div>
-				<div class="bar-graph-box">
-					<div class="bar-graph-box-txt">
-						<div>칼륨</div>
-						<div id="k-val" class="nutr-value">0 / 0</div>
-					</div>
-					<div id="k-bar" class="graph-bar">
-						<span>0%</span>
-					</div>
-				</div>
-				<div class="bar-graph-box">
-					<div class="bar-graph-box-txt">
-						<div>마그네슘</div>
-						<div id="mg-val" class="nutr-value">0 / 0</div>
-					</div>
-					<div id="mg-bar" class="graph-bar">
-						<span>0%</span>
-					</div>
-				</div>
-				<div class="bar-graph-box">
-					<div class="bar-graph-box-txt">
-						<div>철분</div>
-						<div id="fe-val" class="nutr-value">0 / 0</div>
-					</div>
-					<div id="fe-bar" class="graph-bar">
-						<span>0%</span>
-					</div>
-				</div>
-				<div class="bar-graph-box">
-					<div class="bar-graph-box-txt">
-						<div>아연</div>
-						<div id="p-val" class="nutr-value">0 / 0</div>
-					</div>
-					<div id="p-bar" class="graph-bar">
-						<span>0%</span>
-					</div>
-				</div>
-				<div class="bar-graph-box">
-					<div class="bar-graph-box-txt">
-						<div>필수 아미노산</div>
-						<div id="essential-val" class="nutr-value">0 / 0</div>
-					</div>
-					<div id="essential-bar" class="graph-bar">
-						<span>0%</span>
-					</div>
-				</div>
-				<div class="bar-graph-box">
-					<div class="bar-graph-box-txt">
-						<div>오메가3</div>
-						<div id="omega3-val" class="nutr-value">0 / 0</div>
-					</div>
-					<div id="omega3-bar" class="graph-bar">
-						<span>0%</span>
+					<div class="bar-graph-box">
+						<div class="bar-graph-box-txt">
+							<div>오메가3</div>
+							<div id="omega3-val" class="nutr-value">0 / 0</div>
+						</div>
+						<div id="omega3-bar" class="graph-bar">
+							<span>0%</span>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<c:import url="/main/footer" />	
+	
+	<c:import url="/main/footer" />
 </body>
 <script>
 	// 페이지 로드시 바로 실행
@@ -665,7 +657,7 @@
 
 		// 태그의 background 속성 변경
 		kcal.style.background = 'conic-gradient(#3F8BC9 0% ' + percentKcal
-				+ '%, transparent 10% 15%, rgb(222 222 222) ' + percentKcal
+				+ '%, rgb(222 222 222) ' + percentKcal
 				+ '% 100%)';
 		carb.style.background = 'conic-gradient(#3F8BC9 0% ' + percentCarb
 				+ '%, rgb(222 222 222) ' + percentCarb + '% 100%)';
@@ -697,7 +689,7 @@
 		$('#sugar-val').append('<div>' + nutr.sugar + ' / '+daily.recomm_sugar+'g</div>');
 		$('#sugar-bar span').css('width', sugarPer+'%');
 		$('#sugar-bar span').empty(); 
-		$('#sugar-bar span').append(sugarPer+' % ');
+		$('#sugar-bar span').append(sugarPer+'% ');
 		//식이섬유
 		var fiberPer = Math.round(nutr.fiber / daily.fiber *100);
 		console.log(nutr.fiber ,'/', daily.fiber);
@@ -706,115 +698,115 @@
 		$('#fiber-val').append('<div>' + nutr.fiber+ ' / '+daily.fiber+'g</div>');
 		$('#fiber-bar span').css('width', fiberPer+'%');
 		$('#fiber-bar span').empty(); 
-		$('#fiber-bar span').append(fiberPer+' % ');
+		$('#fiber-bar span').append(fiberPer+'% ');
 		// 비타민 A
 		var vitAPer = Math.round(nutr.vit_a / daily.recomm_vit_a *100);
 		console.log(nutr.vit_a ,'/', daily.recomm_vit_a);
 		console.log('vitA per : ',vitAPer);
 		$('#vitA-val').empty(); 
-		$('#vitA-val').append('<div>' + nutr.vit_a + ' / '+daily.recomm_vit_a+'g</div>');
+		$('#vitA-val').append('<div>' + nutr.vit_a + ' / '+daily.recomm_vit_a+'㎍</div>');
 		$('#vitA-bar span').css('width', vitAPer+'%');
 		$('#vitA-bar span').empty(); 
-		$('#vitA-bar span').append(vitAPer+' % ');
+		$('#vitA-bar span').append(vitAPer+'% ');
 		// 비타민 B6
 		var vitB6Per = Math.round(nutr.vit_b6 / daily.recomm_vit_b6 *100);
 		console.log(nutr.vit_b6 ,'/', daily.recomm_vit_b6);
 		console.log('vitA per : ',vitB6Per);
 		$('#vitB6-val').empty(); 
-		$('#vitB6-val').append('<div>' + nutr.vit_b6 + ' / '+daily.recomm_vit_b6+'g</div>');
+		$('#vitB6-val').append('<div>' + nutr.vit_b6 + ' / '+daily.recomm_vit_b6+'mg</div>');
 		$('#vitB6-bar span').css('width', vitB6Per+'%');
 		$('#vitB6-bar span').empty(); 
-		$('#vitB6-bar span').append(vitB6Per+' % ');
+		$('#vitB6-bar span').append(vitB6Per+'% ');
 		// 비타민 B12
 		var vitB12Per = Math.round(nutr.vit_b12 / daily.recomm_vit_b12 *100);
 		console.log(nutr.vitB12 ,'/', daily.recomm_vit_b12);
 		console.log('vitB12 per : ',vitB12Per);
 		$('#vitB12-val').empty(); 
-		$('#vitB12-val').append('<div>' + nutr.vit_b12 + ' / '+daily.recomm_vit_b12+'g</div>');
+		$('#vitB12-val').append('<div>' + nutr.vit_b12 + ' / '+daily.recomm_vit_b12+'mg</div>');
 		$('#vitB12-bar span').css('width', vitB12Per+'%');
 		$('#vitB12-bar span').empty(); 
-		$('#vitB12-bar span').append(vitB12Per+' % ');
+		$('#vitB12-bar span').append(vitB12Per+'% ');
 		// 비타민 C
 		var vitCPer = Math.round(nutr.vit_c / daily.recomm_vit_c *100);
 		console.log(nutr.vitC ,'/', daily.recomm_vitC);
 		console.log('vitC per : ',vitCPer);
 		$('#vitC-val').empty(); 
-		$('#vitC-val').append('<div>' + nutr.vit_c + ' / '+daily.recomm_vit_c+'g</div>');
+		$('#vitC-val').append('<div>' + nutr.vit_c + ' / '+daily.recomm_vit_c+'mg</div>');
 		$('#vitC-bar span').css('width', vitCPer+'%');
 		$('#vitC-bar span').empty(); 
-		$('#vitC-bar span').append(vitCPer+' % ');
+		$('#vitC-bar span').append(vitCPer+'% ');
 		// 칼슘
 		var caPer = Math.round(nutr.ca / daily.recomm_ca *100);
 		console.log(nutr.ca ,'/', daily.recomm_ca);
 		console.log('ca per : ',caPer);
 		$('#ca-val').empty(); 
-		$('#ca-val').append('<div>' + nutr.ca + ' / '+daily.recomm_ca+'g</div>');
+		$('#ca-val').append('<div>' + nutr.ca + ' / '+daily.recomm_ca+'mg</div>');
 		$('#ca-bar span').css('width', caPer+'%');
 		$('#ca-bar span').empty(); 
-		$('#ca-bar span').append(caPer+' % ');
+		$('#ca-bar span').append(caPer+'% ');
 		// 인
 		var pPer = Math.round(nutr.p / daily.recomm_p *100);
 		console.log(nutr.p ,'/', daily.recomm_p);
 		console.log('p per : ',pPer);
 		$('#p-val').empty(); 
-		$('#p-val').append('<div>' + nutr.p + ' / '+daily.recomm_p+'g</div>');
+		$('#p-val').append('<div>' + nutr.p + ' / '+daily.recomm_p+'mg</div>');
 		$('#p-bar span').css('width', pPer+'%');
 		$('#p-bar span').empty(); 
-		$('#p-bar span').append(pPer+' % ');
+		$('#p-bar span').append(pPer+'% ');
 		// 나트륨
 		var naPer = Math.round(nutr.na / daily.na *100);
 		console.log(nutr.na ,'/', daily.na);
 		console.log('na per : ',naPer);
 		$('#na-val').empty(); 
-		$('#na-val').append('<div>' + nutr.na + ' / '+daily.na+'g</div>');
+		$('#na-val').append('<div>' + nutr.na + ' / '+daily.na+'mg</div>');
 		$('#na-bar span').css('width', naPer+'%');
 		$('#na-bar span').empty(); 
-		$('#na-bar span').append(naPer+' % ');
+		$('#na-bar span').append(naPer+'% ');
 		// 칼륨
 		var kPer = Math.round(nutr.k / daily.k *100);
 		console.log(nutr.k ,'/', daily.k);
 		console.log('k per : ',kPer);
 		$('#k-val').empty(); 
-		$('#k-val').append('<div>' + nutr.k + ' / '+daily.k+'g</div>');
+		$('#k-val').append('<div>' + nutr.k + ' / '+daily.k+'mg</div>');
 		$('#k-bar span').css('width', kPer+'%');
 		$('#k-bar span').empty(); 
-		$('#k-bar span').append(kPer+' % ');
+		$('#k-bar span').append(kPer+'% ');
 		// 마그네슘
 		var mgPer = Math.round(nutr.mg / daily.recomm_mg *100);
 		console.log(nutr.mg ,'/', daily.recomm_mg);
 		console.log('mg per : ',mgPer);
 		$('#mg-val').empty(); 
-		$('#mg-val').append('<div>' + nutr.mg + ' / '+daily.recomm_mg+'g</div>');
+		$('#mg-val').append('<div>' + nutr.mg + ' / '+daily.recomm_mg+'mg</div>');
 		$('#mg-bar span').css('width', mgPer+'%');
 		$('#mg-bar span').empty(); 
-		$('#mg-bar span').append(mgPer+' % ');
+		$('#mg-bar span').append(mgPer+'% ');
 		// 철분
 		var fePer = Math.round(nutr.fe / daily.recomm_fe *100);
 		console.log(nutr.fe ,'/', daily.recomm_fe);
 		console.log('fe per : ',fePer);
 		$('#fe-val').empty(); 
-		$('#fe-val').append('<div>' + nutr.fe + ' / '+daily.recomm_fe+'g</div>');
+		$('#fe-val').append('<div>' + nutr.fe + ' / '+daily.recomm_fe+'mg</div>');
 		$('#fe-bar span').css('width', fePer+'%');
 		$('#fe-bar span').empty(); 
-		$('#fe-bar span').append(fePer+' % ');
+		$('#fe-bar span').append(fePer+'% ');
 		// 아연
 		var znPer = Math.round(nutr.zn / daily.recomm_zn *100);
 		console.log(nutr.zn ,'/', daily.recomm_zn);
 		console.log('zn per : ',znPer);
 		$('#zn-val').empty(); 
-		$('#zn-val').append('<div>' + nutr.zn + ' / '+daily.recomm_zn+'g</div>');
+		$('#zn-val').append('<div>' + nutr.zn + ' / '+daily.recomm_zn+'mg</div>');
 		$('#zn-bar span').css('width', znPer+'%');
 		$('#zn-bar span').empty(); 
-		$('#zn-bar span').append(znPer+' % ');
+		$('#zn-bar span').append(znPer+'% ');
 		// 필수 아미노산
 		var essentialPer = Math.round(nutr.essential / daily.recomm_essential *100);
 		console.log(nutr.essential ,'/', daily.recomm_essential);
 		console.log('essential per : ',essentialPer);
 		$('#essential-val').empty(); 
-		$('#essential-val').append('<div>' + nutr.essential + ' / '+daily.recomm_essential+'g</div>');
+		$('#essential-val').append('<div>' + nutr.essential + ' / '+daily.recomm_essential+'mg</div>');
 		$('#essential-bar span').css('width', essentialPer+'%');
 		$('#essential-bar span').empty(); 
-		$('#essential-bar span').append(essentialPer+' % ');
+		$('#essential-bar span').append(essentialPer+'% ');
 		// 오메가3
 		var omega3Per = Math.round(nutr.omega3 / daily.recomm_omega3 *100);
 		console.log(nutr.omega3 ,'/', daily.recomm_omega3);
@@ -823,7 +815,7 @@
 		$('#omega3-val').append('<div>' + nutr.omega3 + ' / '+daily.recomm_omega3+'g</div>');
 		$('#omega3-bar span').css('width', omega3Per+'%');
 		$('#omega3-bar span').empty(); 
-		$('#omega3-bar span').append(omega3Per+' % ');
+		$('#omega3-bar span').append(omega3Per+'% ');
 	}
 </script>
 </html>
