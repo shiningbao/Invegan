@@ -20,8 +20,10 @@ public class MemberManagementService {
 	MemberManagementDAO dao;
 
 	public HashMap<String, Object> memberList(MemberDTO loginInfo, HashMap<String, String> params) {
+		logger.info(params.get("page"));
 		int p = Integer.parseInt(params.get("page"));
 		int offset = (p-1)*10;
+		logger.info("offset:"+offset);
 		ArrayList<MemberDTO> memberList = dao.memberList(offset);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
