@@ -221,7 +221,9 @@ select {
 		var getTotalKcal="";
 		var getStdKcal="";
 		getMonthKcal(yearMonth);
-		console.log('get yearMonth check',yearMonth);
+		
+		
+		console.log('getMonthKcal result', getDate);
 		
 		
 		
@@ -366,6 +368,9 @@ select {
 			dataType : 'JSON',
 			success : function(data) {
 				console.log('getKcal',data.getKcal);
+				var getDate = data.getKcal;
+				var getTotalKcal="";
+				var getStdKcal="";
 			},
 			error : function(data) {
 			}
