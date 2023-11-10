@@ -120,7 +120,7 @@
 						<c:if test="${loginInfo.getIs_admin() eq '1'}">
 							<div class="infoModalList_admin"><a href = "<c:url value='/member/signup'/>">회원 관리</a></div>
 							<div class="infoModalList_admin"><a href = "<c:url value='/member/signup'/>">신고관리</a></div>
-							<div class="infoModalList_admin"><a href = "<c:url value='/member/signup'/>">식재료추가</a></div>
+							<div class="infoModalList_admin"><a href = "<c:url value='/diet/addMaterial.go'/>">식재료추가</a></div>
 						</c:if>
 					</div>
 				</div>
@@ -164,7 +164,7 @@
 			<p>바</p>
 		</div>
 		<div class="sideList">
-			<p>아래</p>
+			<a href="<c:url value='/request/requestList'/>">요청하기</a>
 		</div>
 	</div>
 	

@@ -1,7 +1,5 @@
 package kr.co.invegan.board.dto;
 
-import java.sql.Date;
-
 public class RequestDTO {
 
 	private int req_id;
@@ -10,11 +8,18 @@ public class RequestDTO {
 	private int views;
 	private int is_hidden;
 	private String category;
-	private Date date;
+	private String date;
 	private int is_resolved;
 	private int user_no;
 	private String answer;
+	private String nickname;
 	
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 	public int getReq_id() {
 		return req_id;
 	}
@@ -51,10 +56,10 @@ public class RequestDTO {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	public int getIs_resolved() {

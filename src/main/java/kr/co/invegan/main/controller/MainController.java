@@ -11,9 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.co.invegan.admin.service.FoodService;
+import kr.co.invegan.diet.dto.FoodDataDTO;
+import kr.co.invegan.diet.dto.MyRecipeDTO;
+import kr.co.invegan.diet.service.MyRecipeService;
 import kr.co.invegan.main.service.MainService;
 import kr.co.invegan.member.dto.MemberDTO;
 
@@ -64,4 +70,5 @@ public class MainController {
 		return "main/footer";
 	}
 	
+
 }

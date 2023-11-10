@@ -27,6 +27,7 @@ public interface DietDAO {
 	FoodDataDTO getAllNutri(HashMap<String, Object> params);
 	FoodDataDTO getNutri(HashMap<String, Object> params);
 
+	int addMaterialAdm(HashMap<String, Object> params);
 	DailyNutriDTO getDailyNutri(int loginUser_no);
 
 

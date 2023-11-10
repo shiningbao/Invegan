@@ -62,7 +62,7 @@ public class MyRecipeController {
 		return page;
 	}
 	
-	// 나만의 레시피 재료추가
+	// 재료 추가 모달 이동
 	@RequestMapping(value="*/minsert.do", method = RequestMethod.POST)
 	public HashMap<String, Object> minsert(HttpSession session, @RequestParam(required = false) Integer menu_id) {
 		logger.info("menu_id : "+menu_id);

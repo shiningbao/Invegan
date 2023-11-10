@@ -84,8 +84,18 @@ public class DietService{
 		return getNutriInfo;
 	}
 
+	public void addMaterialAdm(HashMap<String, Object> params) {
+
+		int row = dietDAO.addMaterialAdm(params);
+		if(row>0) {
+			logger.info("식재료가 정상적으로 추가 되었습니다.");
+		}else {
+			logger.info("식재료 추가에 실패하였습니다.");
+		}
+	}
 	public DailyNutriDTO getDailyNutri(int loginUser_no) {
 		logger.info("회원의 영양소별 1회 제공량 가져오기");
+		logger.info("loginuser no : "+loginUser_no);
 		return dietDAO.getDailyNutri(loginUser_no);
 	}
 
