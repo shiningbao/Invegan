@@ -265,14 +265,20 @@ $('#login').on('click',function(){
 	location.href='member/login.go';
 });
 
-
+// 위치 관련
+var geodata = {};
 navigator.geolocation.getCurrentPosition(geoSuccess, getError);
 function geoSuccess(position){
-	lat = position.coords.latitude;
-	lng = position.coords.longitude;
-	var data = {};
-	data.lat = lat;
-	data.lng = lng;
+	geodata.lat = position.coords.latitude;
+	geodata.lng = position.coords.longitude;
+	geoSubmit(geodata);
+}
+function getError() {
+	geodata.lat = 37.4765;
+	geodata.lng = 126.8802;
+	geoSubmit(geodata);
+}
+function geoSubmit(data){
 	$.ajax({
 		type:'post',
 		url:'geo',
@@ -286,10 +292,6 @@ function geoSuccess(position){
 		}
 	});
 }
-function getError() {
-	  alert('Geolocation Error');
-}
-
 
 </script>
 </html>

@@ -9,4 +9,64 @@
 		SELECT post_id, address FROM Restaurant
 	</select>
 	
+	<select id="veganType" resultType="int">
+		SELECT vegan_type FROM Members WHERE user_no = #{param1}
+	</select>
+	
+	<select id="vaeganrangeCnt" resultType="hashmap">
+		SELECT
+		    SUM(CASE WHEN tb.km BETWEEN 1 AND 5 THEN 1 ELSE 0 END) AS '5km'
+		    ,SUM(CASE WHEN tb.km BETWEEN 1 AND 10 THEN 1 ELSE 0 END) AS '10km'
+		    ,SUM(CASE WHEN tb.km BETWEEN 1 AND 500 THEN 1 ELSE 0 END) AS '15km'
+		FROM
+			(SELECT CAST(6371 * ACOS(COS(RADIANS(#{param2})) * COS(RADIANS(lat)) * COS(RADIANS(126.8799225 - #{param3})) + SIN(RADIANS(#{param2})) * SIN(RADIANS(lat))) AS SIGNED)AS km from Restaurant r
+			WHERE r.post_id IN(SELECT post_id FROM RestaurantMenu WHERE vegan_type =#{param1})) AS tb		
+	</select>
+	
+	<select id="rangeCnt" resultType="hashmap">
+		SELECT
+		    SUM(CASE WHEN tb.km BETWEEN 1 AND 5 THEN 1 ELSE 0 END) AS '5km'
+		    ,SUM(CASE WHEN tb.km BETWEEN 1 AND 10 THEN 1 ELSE 0 END) AS '10km'
+		    ,SUM(CASE WHEN tb.km BETWEEN 1 AND 500 THEN 1 ELSE 0 END) AS '15km'
+		FROM
+			(SELECT CAST(6371 * ACOS(COS(RADIANS(#{lat})) * COS(RADIANS(lat)) * COS(RADIANS(#{lng} - lng)) + SIN(RADIANS(#{lat})) * SIN(RADIANS(lat))) AS SIGNED) AS km from Restaurant r
+			WHERE r.post_id IN(SELECT post_id FROM RestaurantMenu WHERE vegan_type IN
+   				<foreach collection="list" item="item" open="(" close=")" separator=",">
+					#{item}
+				</foreach>
+			))	AS tb		
+	</select>
+<!--
+	<select id="restaurantFilterList" resultType="kr.co.invegan.main.dto.restaurantFilterListDTO">
+		SELECT r.post_id, b.title, v.vegan, im.server_file_name
+			,CONVERT(6371 * ACOS(COS(RADIANS(#{lat})) * COS(RADIANS(r.lat)) * COS(RADIANS(#{lng} - r.lng)) + SIN(RADIANS(#{lat})) * SIN(RADIANS(r.lat))) AS SIGNED) AS km
+		FROM Restaurant r 
+		LEFT JOIN (SELECT post_id , GROUP_CONCAT(DISTINCT vegan_type ORDER by vegan_type SEPARATOR ',') AS vegan FROM RestaurantMenu GROUP BY post_id) AS v ON r.post_id =v.post_id
+		LEFT JOIN (SELECT idx, server_file_name FROM ImageTable it WHERE category ='식당' GROUP BY idx) AS im ON r.post_id = im.idx
+		LEFT JOIN Board b ON r.post_id = b.post_id
+		WHERE r.post_id IN(SELECT post_id from RestaurantMenu where vegan_type IN(
+			<foreach collection="list" item="item" separator=",">
+				#{item}
+			</foreach>
+		)) HAVING km <= #{dist}
+	</select>
+  -->	
+	
+	<select id="restaurantFisslterList" resultType="kr.co.invegan.main.dto.restaurantFilterListDTO">
+		SELECT r.post_id, b.title, v.vegan, im.server_file_name
+			,CONVERT(6371 * ACOS(COS(RADIANS(#{lat})) * COS(RADIANS(r.lat)) * COS(RADIANS(#{lng} - r.lng)) + SIN(RADIANS(#{lat})) * SIN(RADIANS(r.lat))) AS SIGNED) AS km
+		FROM Restaurant r 
+		LEFT JOIN (SELECT post_id , GROUP_CONCAT(DISTINCT vegan_type ORDER by vegan_type SEPARATOR ',') AS vegan FROM RestaurantMenu GROUP BY post_id) AS v ON r.post_id =v.post_id
+		LEFT JOIN (SELECT idx, server_file_name FROM ImageTable it WHERE category ='식당' GROUP BY idx) AS im ON r.post_id = im.idx
+		LEFT JOIN Board b ON r.post_id = b.post_id
+		WHERE r.post_id IN(SELECT post_id from RestaurantMenu where vegan_type IN(
+			<foreach collection="list" item="item" separator=",">
+				#{item}
+			</foreach>
+		))
+	</select>
+	
+	
+	
+	
 </mapper>

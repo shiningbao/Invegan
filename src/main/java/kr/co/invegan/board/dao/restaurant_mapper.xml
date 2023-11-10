@@ -20,8 +20,8 @@
 	</insert>
 	
 	<insert id="restaurantWrite" parameterType="kr.co.invegan.board.dto.RestaurantDTO">
-		INSERT INTO Restaurant(post_id,address,phone,hours)
-			VALUES(#{post_id},#{address},#{phone},#{hours})
+		INSERT INTO Restaurant(post_id,address,phone,hours,lat,lng)
+			VALUES(#{post_id},#{address},#{phone},#{hours},#{lat},#{lng})
 	</insert>
 	
 	<insert id="menuWrite" parameterType="kr.co.invegan.board.dto.MenuDTO">
@@ -59,7 +59,8 @@
 	</update>
 	
 	<update id="restaurantUpdate" parameterType="kr.co.invegan.board.dto.RestaurantDTO">
-		UPDATE Restaurant set address=#{address},phone=#{phone},hours=#{hours} WHERE post_id=#{post_id}
+		UPDATE Restaurant set address=#{address},phone=#{phone},hours=#{hours},lat=#{lat},lng=#{lng}
+			WHERE post_id=#{post_id}
 	</update>
 
 	<delete id="menuDel">

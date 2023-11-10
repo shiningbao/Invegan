@@ -1,6 +1,7 @@
 package kr.co.invegan.main.controller;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -14,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.co.invegan.main.dto.restaurantFilterListDTO;
 import kr.co.invegan.main.service.MainService;
 import kr.co.invegan.member.dto.MemberDTO;
 
@@ -34,7 +36,9 @@ public class MainController {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		double userLat = Double.parseDouble(param.get("lat")) ;
 		double userLng = Double.parseDouble(param.get("lng")) ;
-		service.aaa(userLat, userLng);
+		logger.info("latlng: "+userLat+" "+userLng);
+		//ArrayList<restaurantFilterListDTO> RFL = service.restaurantFilterList(session, userLat, userLng);
+		//result.put("RFL", RFL);
 		return result;
 	}
 	
