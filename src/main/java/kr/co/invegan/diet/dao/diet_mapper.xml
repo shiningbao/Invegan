@@ -159,6 +159,24 @@
 		AND CAST(SUBSTRING_INDEX(dn.age,'-',-1)AS INT);
 	</select>
 	
+<!-- 로그인 회원 체크 -->
+	<select id="getUserNo" parameterType="hashmap" resultType="int">
+		SELECT user_no FROM Menu m WHERE menu_id = #{menu_id};
+	</select>
+	
+	<!-- 메뉴 삭제 -->
+	<delete id="delMaterialTbl" parameterType="hashMap">
+		DELETE FROM Material WHERE menu_id = ${menu_id};
+	</delete>
+	<delete id="delDietCompTbl" parameterType="hashMap">
+		DELETE FROM Diet_composition WHERE menu_id = ${menu_id};
+	</delete>
+	<delete id="delMenuTbl" parameterType="hashMap">
+		DELETE FROM Menu WHERE menu_id = ${menu_id};
+	</delete>
+	<delete id="delDietTbl" parameterType="hashMap">
+		DELETE FROM Diet WHERE diet_id = ${diet_id};
+	</delete>
 	
 	
 	
