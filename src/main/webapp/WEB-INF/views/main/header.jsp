@@ -61,7 +61,6 @@
 		width: 100%;
 	}
 	.nav{
-		float: right;
 		margin: 0 auto;
 		width: 1000px;
 	}
