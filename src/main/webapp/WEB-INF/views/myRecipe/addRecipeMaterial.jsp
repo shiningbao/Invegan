@@ -87,6 +87,7 @@
 							<th width="50px">No.</th>
 							<th width="50%">식품명</th>
 							<th width="220px">분류</th>
+							<th>원산지 / 제조사</th>
 							<th width="150px">1회 제공량(g)</th>
 							<th>에너지(kcal)</th>
 							<th>단백질(g)</th>
@@ -158,6 +159,7 @@
 					content += '<td style="display : none;">'+item.food_id+'</td>';
 					content += '<td>'+item.food_name+'</td>';
 					content += '<td>'+item.food_category+'</td>';
+					content += '<td>'+item.production+'</td>';
 					content += '<td>'+item.serving_size+'</td>';
 					content += '<td>'+item.kcal+'</td>';
 					content += '<td>'+item.prot+'</td>';
@@ -192,6 +194,7 @@
             console.log('클릭한 food_name: ' + fName);
         });
         
+        // 재료 추가
         $('#mMaterial').on('click', function() {
         	grams = $('input[name="gram"]').val();
         	console.log('전송한 food_name : ' + mName);
@@ -211,7 +214,8 @@
 	        		data:{"food_id":food_id, "grams":grams},
 	        		dataType:'JSON',
 	        		success:function(data){
-	        			console.log(data);
+	        			console.log(data);				
+
 	        		},
 	        		error:function(e) {
 	        			console.log(e);
@@ -219,6 +223,7 @@
 	        	});
             	alert('레시피에 재료가 추가되었습니다.');
 	        	closeModal();
+
 			}			
         });
         
