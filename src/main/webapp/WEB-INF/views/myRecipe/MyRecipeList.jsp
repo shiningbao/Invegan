@@ -11,7 +11,7 @@
 			}
 			
 			/* 카테고리 버튼 */
-			.button {
+			.cbutton {
 				height: 22px;
 				border: 1px solid black;
 				background-color: white;
@@ -21,7 +21,7 @@
 			}
 			
 			/* 큰 테두리 */
-			#main {
+			#rmain {
 				width: 1200px;
 				height: 600px;
 				margin : 0px 10px 0px 0px;
@@ -32,6 +32,8 @@
 			#rbox {
 				width : 720px;
 				margin: 46px 0px 0px 30px;
+				position: absolute;
+				top: -9px;
 			}
 			
 			#rbox table {
@@ -65,10 +67,18 @@
 			}
 			
 			.ibutton {
-				margin-left: 405px;
+				position: absolute;
+				left: 588px;
+			}
+			
+			.dbutton {
+				position: absolute;
+				left: 616px;
 			}
 			
 			.fbutton {
+				position: absolute;
+				left: 643px;
 				margin-left: 35px;
 			}
 			
@@ -77,7 +87,7 @@
 				width: 720px;
 				margin: 46px 10px 0px 30px;
 				position: absolute;
-				bottom: 14px;
+				bottom: -30px;
 			}
 			
 			#rmbox table{
@@ -120,7 +130,7 @@
 				height: 560px;
 				border-left: 2px solid lightgray;
 				position: absolute;
-				top : 24px;
+				top : 71px;
 				right: 100px;
 			}
 			
@@ -171,14 +181,14 @@
 		</style>	
 	</head>
 	<body>
-		<div id="main">
+		<div id="rmain">
 			<div id="rbox">		
-				<input type="button" class="button" id="breakfast" value="아침"/>
-				<input type="button" class="button" id="lunch" value="점심"/>
-				<input type="button" class="button" id="dinner" value="저녁"/>
-				<input type="button" class="button" id="other" value="기타"/>
+				<input type="button" class="cbutton" id="breakfast" value="아침"/>
+				<input type="button" class="cbutton" id="lunch" value="점심"/>
+				<input type="button" class="cbutton" id="dinner" value="저녁"/>
+				<input type="button" class="cbutton" id="other" value="기타"/>
 				<button class="ibutton" onclick="rinsert()">+</button>
-				<button onclick="rdel()">-</button>
+				<button class="dbutton" onclick="rdel()">-</button>
 				<input type="button" class="fbutton" onclick="dinsert()" value="완료"/>
 				<div id = "thead">
 					<table>
@@ -195,14 +205,14 @@
 					</table>
 				</div>
 				<div id = mrbody>
+					<table id=rinsertbox>
+						<!-- 레시피 이름 입력칸 -->
+					</table>
 					<div id = tbody>
 						<table id=mrList>				
 							<!-- 레시피 데이터 출력 -->
 						</table>
 					</div>
-					<table id=rinsertbox>
-						<!-- 레시피 이름 입력칸 -->
-					</table>
 				</div>
 			</div>
 			<br>
@@ -247,7 +257,27 @@
 			<br>
 			<div id="rNutri">
 				<table id = "rNutriList">
-					<!-- 레시피 영양소 출력 -->
+					<tr><th colspan="2">레시피를 선택해 주세요</th></tr>
+					<tr><td>제공량</td><td class="nutri">0 g</td></tr>
+					<tr><td>열량</td><td class="nutri">0 kcal</td></tr>
+					<tr><td>탄수화물</td><td class="nutri">0 g</td></tr>
+					<tr><td>단백질</td><td class="nutri">0 g</td></tr>
+					<tr><td>지방</td><td class="nutri">0 g</td></tr>
+					<tr><td>총 당류</td><td class="nutri">0 mg</td></tr>
+					<tr><td>총 식이섬유</td><td class="nutri">0 mg</td></tr>
+					<tr><td>칼슘</td><td class="nutri">0 mg</td></tr>
+					<tr><td>철</td><td class="nutri">0 mg</td></tr>
+					<tr><td>마그네슘</td><td class="nutri">0 mg</td></tr>
+					<tr><td>인</td><td class="nutri">0 mg</td></tr>
+					<tr><td>칼륨</td><td class="nutri">0 mg</td></tr>
+					<tr><td>나트륨</td><td class="nutri">0 mg</td></tr>
+					<tr><td>아연</td><td class="nutri">0 mg</td></tr>
+					<tr><td>비타민A</td><td class="nutri">0 ug</td></tr>
+					<tr><td>비타민B6</td><td class="nutri">0 mg</td></tr>
+					<tr><td>비타민B12</td><td class="nutri">0 mg</td></tr>
+					<tr><td>비타민C</td><td class="nutri">0 mg</td></tr>
+					<tr><td>필수 아미노산</td><td class="nutri">0 mg</td></tr>
+					<tr><td>오메가 3</td><td class="nutri">0 mg</td></tr>
 				</table>
 			</div>
 		</div>
@@ -279,6 +309,11 @@
 				success:function(data){
 					console.log(data);
 					drawList(data.mrlist);
+		        	
+					$(document).ready(function(){
+					    var rowToClick = $('#rMaterialList tr:eq(' + data.rowIndex + ')');
+					    rowToClick.trigger('click');
+					});	
 				},
 				error:function(e) {
 					console.log(e);
@@ -347,8 +382,10 @@
         	$('#mrList tr').css('background', 'none');
             menu_id = $(this).find('td:eq(0)').text();
             var rName = $(this).find('td:eq(1)').text();
+            rowIndex = $(this).index();
             grams = $(this).find('td:eq(2)').text();
             $(this).css('background','#87878754');
+            console.log('클릭한 행의 인덱스: ' + rowIndex);
             console.log('클릭한 레시피 번호: '+menu_id);
             console.log('클릭한 레시피 이름: ' + rName);
             console.log('클릭한 레시피 무게: '+grams);
@@ -388,27 +425,29 @@
 			console.log(rNutri);
 				var content = '';
 				rNutri.forEach(function(item, idx){
-					content += '<tr>'+ '<th colspan="2">'+item.recipe_name+'</th>'+'</tr>';
-					content += '<tr>'+'<td>'+'제공량 '+'</td>'+'<td class="nutri">'+item.grams+'g'+'</td>'+'</tr>';
-					content += '<tr>'+'<td>'+'열량 '+'</td>'+'<td class="nutri">'+item.kcal+'kcal'+'</td>'+'</tr>';
-					content += '<tr>'+'<td>'+'탄수화물 '+'</td>'+'<td class="nutri">'+item.carb+'g'+'</td>'+'</tr>';
-					content += '<tr>'+'<td>'+'단백질 '+'</td>'+'<td class="nutri">'+item.prot+'g'+'</td>'+'</tr>';
-					content += '<tr>'+'<td>'+'지방 '+'</td>'+'<td class="nutri">'+item.fat+'g'+'</td>'+'</tr>';		
-					content += '<tr>'+'<td>'+'총 당류 '+'</td>'+'<td class="nutri">'+item.sugar+'g'+'</td>'+'</tr>';
-					content += '<tr>'+'<td>'+'총 식이섬유 '+'</td>'+'<td class="nutri">'+item.fiber+'g'+'</td>'+'</tr>';
-					content += '<tr>'+'<td>'+'칼슘 '+'</td>'+'<td class="nutri">'+item.ca+'mg'+'</td>'+'</tr>';
-					content += '<tr>'+'<td>'+'철 '+'</td>'+'<td class="nutri">'+item.fe+'mg'+'</td>'+'</tr>';
-					content += '<tr>'+'<td>'+'마그네슘 '+'</td>'+'<td class="nutri">'+item.mg+'mg'+'</td>'+'</tr>';
-					content += '<tr>'+'<td>'+'인 '+'</td>'+'<td class="nutri">'+item.p+'mg'+'</td>'+'</tr>';
-					content += '<tr>'+'<td>'+'칼륨 '+'</td>'+'<td class="nutri">'+item.k+'mg'+'</td>'+'</tr>';
-					content += '<tr>'+'<td>'+'나트륨 '+'</td>'+'<td class="nutri">'+item.na+'mg'+'</td>'+'</tr>';
-					content += '<tr>'+'<td>'+'아연 '+'</td>'+'<td class="nutri">'+item.zn+'mg'+'</td>'+'</tr>';
-					content += '<tr>'+'<td>'+'비타민A '+'</td>'+'<td class="nutri">'+item.vit_a+'ug'+'</td>'+'</tr>';
-					content += '<tr>'+'<td>'+'비타민B6 '+'</td>'+'<td class="nutri">'+item.vit_b6+'mg'+'</td>'+'</tr>';
-					content += '<tr>'+'<td>'+'비타민B12 '+'</td>'+'<td class="nutri">'+item.vit_b12+'mg'+'</td>'+'</tr>';
-					content += '<tr>'+'<td>'+'비타민C '+'</td>'+'<td class="nutri">'+item.vit_c+'mg'+'</td>'+'</tr>';
-					content += '<tr>'+'<td>'+'필수 아미노산 '+'</td>'+'<td class="nutri">'+item.essential+'mg'+'</td>'+'</tr>';
-					content += '<tr>'+'<td>'+'오메가3 '+'</td>'+'<td class="nutri">'+item.omega3+'mg'+'</td>'+'</tr>';
+					if (item.grams != 0){
+						content += '<tr>'+ '<th colspan="2">'+item.recipe_name+'</th>'+'</tr>';
+						content += '<tr>'+'<td>'+'제공량 '+'</td>'+'<td class="nutri">'+item.grams+' g'+'</td>'+'</tr>';
+						content += '<tr>'+'<td>'+'열량 '+'</td>'+'<td class="nutri">'+item.kcal+' kcal'+'</td>'+'</tr>';
+						content += '<tr>'+'<td>'+'탄수화물 '+'</td>'+'<td class="nutri">'+item.carb+' g'+'</td>'+'</tr>';
+						content += '<tr>'+'<td>'+'단백질 '+'</td>'+'<td class="nutri">'+item.prot+' g'+'</td>'+'</tr>';
+						content += '<tr>'+'<td>'+'지방 '+'</td>'+'<td class="nutri">'+item.fat+' g'+'</td>'+'</tr>';		
+						content += '<tr>'+'<td>'+'총 당류 '+'</td>'+'<td class="nutri">'+item.sugar+' g'+'</td>'+'</tr>';
+						content += '<tr>'+'<td>'+'총 식이섬유 '+'</td>'+'<td class="nutri">'+item.fiber+' g'+'</td>'+'</tr>';
+						content += '<tr>'+'<td>'+'칼슘 '+'</td>'+'<td class="nutri">'+item.ca+' mg'+'</td>'+'</tr>';
+						content += '<tr>'+'<td>'+'철 '+'</td>'+'<td class="nutri">'+item.fe+' mg'+'</td>'+'</tr>';
+						content += '<tr>'+'<td>'+'마그네슘 '+'</td>'+'<td class="nutri">'+item.mg+' mg'+'</td>'+'</tr>';
+						content += '<tr>'+'<td>'+'인 '+'</td>'+'<td class="nutri">'+item.p+' mg'+'</td>'+'</tr>';
+						content += '<tr>'+'<td>'+'칼륨 '+'</td>'+'<td class="nutri">'+item.k+' mg'+'</td>'+'</tr>';
+						content += '<tr>'+'<td>'+'나트륨 '+'</td>'+'<td class="nutri">'+item.na+' mg'+'</td>'+'</tr>';
+						content += '<tr>'+'<td>'+'아연 '+'</td>'+'<td class="nutri">'+item.zn+' mg'+'</td>'+'</tr>';
+						content += '<tr>'+'<td>'+'비타민A '+'</td>'+'<td class="nutri">'+item.vit_a+' ug'+'</td>'+'</tr>';
+						content += '<tr>'+'<td>'+'비타민B6 '+'</td>'+'<td class="nutri">'+item.vit_b6+' mg'+'</td>'+'</tr>';
+						content += '<tr>'+'<td>'+'비타민B12 '+'</td>'+'<td class="nutri">'+item.vit_b12+' mg'+'</td>'+'</tr>';
+						content += '<tr>'+'<td>'+'비타민C '+'</td>'+'<td class="nutri">'+item.vit_c+' mg'+'</td>'+'</tr>';
+						content += '<tr>'+'<td>'+'필수 아미노산 '+'</td>'+'<td class="nutri">'+item.essential+' mg'+'</td>'+'</tr>';
+						content += '<tr>'+'<td>'+'오메가3 '+'</td>'+'<td class="nutri">'+item.omega3+' mg'+'</td>'+'</tr>';
+					}
 				});
 			$('#rNutriList').empty();
 			$('#rNutriList').append(content);
@@ -432,10 +471,10 @@
 		
 		// 레시피 재료 클릭
 		$('#rMaterialList').on('click', 'tr', function() {
-	       	$('#rMaterialList tr').css('background', 'none');
-	       	material_id = $(this).find('td:eq(0)').text();
-	        $(this).css('background-color','#87878754');
-	        console.log('클릭한 재료의 id : '+material_id);
+			$('#rMaterialList tr').css('background', 'none');
+			material_id = $(this).find('td:eq(0)').text();
+		    $(this).css('background-color','#87878754');
+		    console.log('클릭한 재료의 id : '+material_id);
 		});
 		
 		// 재료 추가 모달 이동
@@ -457,7 +496,7 @@
 				$.ajax({
 					type:'post',
 					url:'minsert.do',
-					data:{"menu_id" : menu_id},
+					data:{"menu_id" : menu_id, "rowIndex":rowIndex},
 					dataType:'json',
 					success:function(data){
 						console.log(data);
@@ -466,7 +505,6 @@
 						console.log(e);
 					}
 				});
-				/* location.href = 'addRecipeMaterial';*/
 			}
 		}
 		
@@ -531,8 +569,8 @@
 		}
 		
 		// 아,점,저,기 버튼
-		$('.button').on('click', function(){
-			$('.button').css('background-color','');
+		$('.cbutton').on('click', function(){
+			$('.cbutton').css('background-color','');
 			diet_category = $(this).val();
 			console.log("식단의 카테고리 : "+diet_category);
 			$(this).css('background-color','lightgreen');
@@ -574,7 +612,7 @@
 				}
 			}
 		}
-		
+
 		
 	</script>
 </html>

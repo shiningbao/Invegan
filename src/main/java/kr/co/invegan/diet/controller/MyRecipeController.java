@@ -64,10 +64,12 @@ public class MyRecipeController {
 	
 	// 재료 추가 모달 이동
 	@RequestMapping(value="*/minsert.do", method = RequestMethod.POST)
-	public HashMap<String, Object> minsert(HttpSession session, @RequestParam(required = false) Integer menu_id) {
+	public HashMap<String, Object> minsert(HttpSession session, 
+			@RequestParam(required = false) Integer menu_id, @RequestParam int rowIndex) {
 		logger.info("menu_id : "+menu_id);
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		session.setAttribute("menu_id", menu_id);
+		session.setAttribute("rowIndex", rowIndex);
 		if (menu_id == null ) {
 			result.put("msg", "레시피를 선택해 주세요");
 		} else {
@@ -132,8 +134,12 @@ public class MyRecipeController {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		// 나중에 지우기
 		loginInfo = (MemberDTO) session.getAttribute("loginInfo");
-		
+		int rowIndex = 0;
+		if (session.getAttribute("rowIndex") != null) {
+			rowIndex = (int) session.getAttribute("rowIndex");
+		}
 		logger.info("user_no : "+loginInfo.getUser_no());
+		logger.info("rowIndex : "+rowIndex);
 		
 		if(loginInfo == null) {
 			logger.info("로그인 되어있지 않음");
@@ -142,6 +148,7 @@ public class MyRecipeController {
 			result.put("login", true);
 			ArrayList<HashMap<String, Object>> mrlist = service.mrlist(loginInfo.getUser_no());
 			result.put("mrlist", mrlist);
+			result.put("rowIndex", rowIndex);
 		}
 		return result;
 	}
@@ -155,6 +162,7 @@ public class MyRecipeController {
 		
 		ArrayList<HashMap<String, Object>> rMaterial = service.rMaterial(menu_id);
 		result.put("rMaterial", rMaterial);
+
 		return result;
 	}
 	
