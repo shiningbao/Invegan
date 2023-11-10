@@ -25,6 +25,8 @@
 		SELECT pw FROM Members WHERE id=#{id} AND email=#{email}
 	</select>
 	
-	
+	<select id="idTrueFalse" resultType="String">
+		SELECT count(id) from Members WHERE id =#{idTrueFalse}
+	</select>
 	
 </mapper>

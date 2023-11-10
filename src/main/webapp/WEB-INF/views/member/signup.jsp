@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>회원가입</title>
-<link rel="stylesheet" href="style.css">
+
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <style>
 table, th, td {
@@ -35,9 +35,9 @@ input[type=password] {
 		<table>
 			<tr>
 				<th>아이디</th>
-				<th><input type="text" name="id" id="id"/></th>
+				<th><input type="text" required name="id" id="id"/></th>
 				<td>
-				<button id="validateId">아이디 유효성 검사</button>
+				<button id="validateId" class="idTrueFalse">아이디 중복체크</button>
 				<p id="validationMessage"></p>
 				</td>
 			</tr>
@@ -174,7 +174,7 @@ input[type=password] {
 			</tr>
 			<tr>
 				<th colspan="3">
-					<input type="submit"  value="회원가입" />
+					<input type="submit" id="submitBtn" value="회원가입" />
 					<!-- <input type="button" id="join" value="회원가입"/> -->
 				</th>
 			</tr>
@@ -182,64 +182,103 @@ input[type=password] {
 	</form>
 </body>
 <script>
+$('.idTrueFalse').on('click', function () {
+    var idTrueFalse = $('#id').val();
+    console.log(idTrueFalse);
+    $.ajax({
+    	data :{idTrueFalse : idTrueFalse},
+    	url : 'idTrueFalse',
+    	success:function(data){
+    		console.log(data.success);
+    		if(data.success=='0'){
+    			alert('가입할 수 있는 아이디입니다.');
+    		}else{
+    			alert('이미 중복된 아이디 입니다.');
+    			$('#id').val('');
+    		}
+    	},
+    	error:function(e){
+    		console.log('아이디 중복 검사 오류 : '+ e);
+    	},
+    });
+});
 
-
-/*	
- $('input[type="submit"]').on('click', function() {
-     var selectedInterests = [];
-     var checkboxes = document.getElementsByName('interests');
-    for (var i = 0; i < checkboxes.length; i++) {
-         if (checkboxes[i].checked) {
-             selectedInterests.push(checkboxes[i].value);
-        }
-    }
-    var combinedInterests = selectedInterests.join(',');
-     // alert('선택한 관심 분야: ' + combinedInterests);
-    console.log(combinedInterests);
+document.getElementById("submitBtn").addEventListener("click", function (event) {
     
-    //관심사 다중선택 콘솔에는 찍히는 거 확인 완료 
-    //다른 값과 한번에 같이 보내는 부분 구현 못함
-   
-   
- });
-
-*/
-
-	//팝업으로 조건문 실행
-	//유효성 검사 
-	document.getElementById("validateId").addEventListener("click", function() {
-    // 입력 필드에서 아이디 값을 가져오기
-    //4글자~12글자 영어, 숫자
-    	var id = document.getElementById("id");
-		var regId = /^[a-zA-Z0-9]{4,12}$/;
-
-		//아이디 확인
-		if (id.value == "") {
-			alert("아이디를 입력하세요.");
-			console.log("아이디를 입력하세요.");
-			id.focus();
-			return false;
-		}
-		//아이디 영어 대소문자 확인
-		 else if (!regId.test(id.value)) {
-			alert("4~12자 영문 대소문자, 숫자만 입력하세요.");
-			console.log("4~12자 영문 대소문자, 숫자만 입력하세요.");
-			id.focus();
-			return false;
-		}
-	});
+	var id = document.getElementById("id");
+    var regId = /^[a-zA-Z0-9]{4,12}$/;
 	
+ 	// 아이디 확인
+    if (id.value == "") {
+        alert("아이디를 입력하세요.");
+        console.log("아이디를 입력하세요.");
+        id.focus();
+        return false;
+    }
+    // 아이디 유효성 검사
+    else if (!regId.test(id.value)) {
+        alert("4~12자 영문 대소문자, 숫자만 입력하세요.");
+        console.log("4~12자 영문 대소문자, 숫자만 입력하세요.");
+        id.focus();
+        return false;
+    }
+	
+	
+	// 이메일 입력 필드
+    var email = document.getElementById("email");
 
-	//비밀번호 확인
-	$("#userpasschk").blur(function() {
-		if ($("#userpasschk").val() == $("#userpass").val()) {
-			$(".successPwChk").text("비밀번호가 일치합니다.");
-			$(".successPwChk").css("color", "green");
-		} else {
-			$(".successPwChk").text("비밀번호가 일치하지 않습니다.");
-			$(".successPwChk").css("color", "red");
-		}
-	});
+    // 이메일에 '@'가 포함되어 있는지 체크
+    if (email.value == "") {
+        alert("이메일을 입력하세요.");
+        console.log("이메일을 입력하세요.");
+        event.preventDefault(); 
+        return false;
+    } else if (!isEmailValid(email.value)) {
+        // '@'가 포함되어 있지 않으면 경고 팝업 띄우기
+        alert("이메일은 id@addr.com 형식으로 입력해주세요");
+        email.focus(); 
+        event.preventDefault(); 
+        return false;
+    }
+
+    // 생년월일 입력 필드
+    var birthdate = document.getElementById("year");
+
+    // 생년월일 형식 체크
+    if (!isValidDate(birthdate.value)) {
+        alert("올바른 생년월일 형식의 (yyyy-mm-dd) 숫자로 입력하세요.");
+        birthdate.focus(); 
+        event.preventDefault(); 
+        return false;
+    }
+
+    alert("회원가입이 완료되었습니다");
+
+    // 이메일 유효성 체크
+    function isEmailValid(email) {
+        var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        return emailRegex.test(email);
+    }
+
+    // 생년월일 형식 체크
+    function isValidDate(dateString) {
+        var dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+        return dateRegex.test(dateString);
+    }
+});
+
+// 비밀번호 확인
+$("#userpasschk").blur(function () {
+    if ($("#userpasschk").val() == $("#userpass").val()) {
+        $(".successPwChk").text("비밀번호가 일치합니다.");
+        $(".successPwChk").css("color", "green");
+    } else {
+        $(".successPwChk").text("비밀번호가 일치하지 않습니다.");
+        $(".successPwChk").css("color", "red");
+    }
+});
+		
+		
 	
 </script>
 </html>

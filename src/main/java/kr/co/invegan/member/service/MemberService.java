@@ -81,4 +81,11 @@ public class MemberService {
         return msg;
     }
 
+	public String idTrueFalse(String idTrueFalse) {
+		
+		
+		return dao.idTrueFalse(idTrueFalse);
+		
+	}
+
 }
