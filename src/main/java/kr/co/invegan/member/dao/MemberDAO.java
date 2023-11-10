@@ -17,13 +17,10 @@ public interface MemberDAO {
 
 	int signup(HashMap<String, String> params);
 	
-	String findId(String email2);
+	String findId(String email);
 	
-	String findPw(String id, String email);
+	String findPw(@Param("id") String id, @Param("email") String email);
+
+	String idTrueFalse(String idTrueFalse);
 	
-	//String findPw(@Param("id") String id, @Param("email") String email);
-
-	//String findId(@Param("nickname") String nickname, @Param("birthdate") String birthdate);
-
-
 }

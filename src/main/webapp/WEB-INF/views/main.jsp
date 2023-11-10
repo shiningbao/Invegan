@@ -91,8 +91,8 @@
 		<a id="map-link" target="_blank"></a>
 	</div>
 	<br>
-	<input type="button" id="login" name="로그인"/>
-	
+	<input type="button" id="login" name="로그인" value="로그인"/>
+	<input type="button" id="addMaterial" name="addMaterial" value="관리자 식재료 추가"/>
 	<!-- 맞춤 정보 제공 -->
 
 	<div class="custom">
@@ -265,8 +265,16 @@ $('#login').on('click',function(){
 	location.href='member/login.go';
 });
 
+<<<<<<< HEAD
 // 위치 관련
 var geodata = {};
+=======
+$('#addMaterial').on('click',function(){
+	location.href='diet/addMaterial.go';
+});
+
+
+>>>>>>> origin/master
 navigator.geolocation.getCurrentPosition(geoSuccess, getError);
 function geoSuccess(position){
 	geodata.lat = position.coords.latitude;

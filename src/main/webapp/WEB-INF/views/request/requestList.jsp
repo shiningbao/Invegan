@@ -12,16 +12,11 @@
 		<!-- 페이징 처리를 위한 라이브러리 -->
 		<script src="../resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
 		<style>
-			table, th, td{
-				border : 1px solid black;
-				border-collapse: collapse;
-				padding: 5px 10px;
-				white-space: nowrap;
-				text-align: center;
-			}
+			
 		</style>
 	</head>
 	<body>
+		<c:import url="/main/header" />
 		<div id = "box">
 			<br>
 			<table>
@@ -44,7 +39,11 @@
 				<nav aria-label="Page navigation" style="text-align:center">
 					<ul class="pagination" id="pagination"></ul>
 				</nav>					
-			</div>	
+			</div>
+			<input type="button" value="글 쓰기" name="rqWrite"/>
+		</div>
+		<div>
+			<c:import url="/main/footer" />	
 		</div>
 	</body>
 	<script>

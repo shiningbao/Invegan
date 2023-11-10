@@ -5,13 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>아이디 찾기 결과</title>
+<title>비밀번호 찾기 결과</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <style>
-input[type=text] {
-	width: 300px;
-	height: 25px;
-}
 
 body {
     background-color: #edf0ef;
@@ -28,7 +24,7 @@ body {
 }
 
 .find-result-container {
-    background-color: #fffacd; 
+    background-color: #ffe4e1; /* 라이트 코랄 색상 */
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
@@ -48,7 +44,7 @@ input {
 
 input[type="submit"] {
     background-color: #4682b4;
-    color: white;
+    color: #fff;
     border: none;
     cursor: pointer;
 }
@@ -60,40 +56,33 @@ input[type="submit"]:hover {
 </style>
 </head>
 <body>
-<div class=all>
-<div class="container">
-<h2>아이디 찾기 결과</h2>
-</div>
-
-<br>
-	<div class="container">
-	<p><br></p>
-    <c:if test="${not empty id}">
-        <p>찾은 아이디: ${id}</p>
-    </c:if>
-    <p><br></p>
-	</div>
-
-<form action="findId2" method="post">
-
-	<div class="container">
-    <label for="email">이메일:</label>
-    <input type="text" id="email" name="email" required placeholder="이메일을 입력해주세요">
-    </div>
-    <p><br></p>
     <div class="container">
-    <input type="submit" name="findIdd" value="아이디 찾기">
-	<p><br></p>
-	</div>
-</div>
-</form>
+        <h2>비밀번호 찾기 결과</h2>
+    </div>
+
+    <div class="container">
+        <c:if test="${not empty pw}">
+            <p>찾은 비밀번호: ${pw}</p>
+        </c:if>
+    </div>
+
+    <form action="findPw2" method="post">
+        <div class="container">
+            <label for="id">아이디:</label>
+            <input type="text" id="id" name="id" required placeholder="아이디를 입력해주세요">
+        </div>
+		<div class="container">
+            <label for="email">이메일:</label>
+            <input type="text" id="email" name="email" required placeholder="이메일을 입력해주세요">
+        </div>
+
+        <div class="container">
+            <p>
+                <br>
+                <input type="submit" name="findPww" value="비밀번호 찾기">
+            </p>
+        </div>
+    </form>
 </body>
-<script>
-
-var msg = "${msg}";
-if(msg != ""){
-	alert(msg);
-}
-
-</script>
+<script></script>
 </html>

@@ -22,22 +22,11 @@
 	</select>
 	
 	<select id="findPw" parameterType="String" resultType="String">
-		SELECT * FROM Members WHERE id=#{id} AND email=#{email}
+		SELECT pw FROM Members WHERE id=#{id} AND email=#{email}
 	</select>
 	
-	
-	
-	
-	
-	<select id="login3" parameterType="map" resultType="map">
-		SELECT m.id, m.name FROM Members m LEFT JOIN author a ON m.id = a.id		
-		 WHERE m.id = #{id} AND m.pw = #{pw}
+	<select id="idTrueFalse" resultType="String">
+		SELECT count(id) from Members WHERE id =#{idTrueFalse}
 	</select>
-	<select id="findId3" parameterType="String" resultType="String">
-		SELECT * FROM Members WHERE nickname =#{nickname} AND email=#{email}
-	</select>
-	
-
-	
 	
 </mapper>

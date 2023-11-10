@@ -72,6 +72,12 @@ public class MemberController {
 		return "redirect:/";
 	}
 
+	//아이디 비밀번호 찾기
+		@RequestMapping(value = { "/member/find" }, method = RequestMethod.GET)
+		public String find() {
+
+			return "member/find";
+		}
 	
 	//아이디 찾기
 	@RequestMapping(value = { "/member/findId" }, method = RequestMethod.GET)
@@ -80,8 +86,6 @@ public class MemberController {
 		return "member/findId";
 	}
 
-	
-	
 	@RequestMapping(value = {"/member/findId2"}, method = RequestMethod.POST)
 	public String findId(HttpServletResponse response, 
 			@RequestParam String email, 
@@ -94,42 +98,26 @@ public class MemberController {
 	
 
 	//비밀번호 찾기
-	
 	@RequestMapping(value = { "/member/findPw" }, method = RequestMethod.GET)
 	public String findPw() {
 
-		return "member/findId";
+		return "member/findPw";
 	}
 	
-	/*
 	@RequestMapping(value = {"/member/findPw2"}, method = RequestMethod.POST)
 	public String findPw(HttpServletResponse response, 
-			@RequestParam String id, @RequestParam String email2	,
-			Model model) throws Exception {
-		logger.info("id : "+id);
-		logger.info("email : "+email2);
-		
-		//이거 id+email 가져오게 고치기
-		//model.addAttribute("id", service.findId(response, email));
-		service.findPw(response, id, email2);
-		
-		return "member/findId";
-	}
-	*/
-	@RequestMapping(value = {"/member/findPw2"}, method = RequestMethod.POST)
-	public String findPw(HttpServletResponse response, 
-	        @RequestParam String id, @RequestParam String email, Model model) throws Exception {
+	        @RequestParam String id, @RequestParam String email, 
+	        Model model) throws Exception {
 	    logger.info("id : " + id);
 	    logger.info("email : " + email);
 	    
-	    String pw = service.findPw(id, email);
-	    logger.info("service.findPw(id, email)");
+	    String pw = service.findPw(response, id, email);
+	    logger.info("service.findPw(id, email)을 실행해서 pw변수에 담음");
 	    if (pw != null) {
-	    	
 	        model.addAttribute("pw", pw);
 	    }
 	    
-	    return "member/findId"; 
+	    return "member/findPw"; 
 	}
 	
 	//회원가입
@@ -153,8 +141,26 @@ public class MemberController {
 		String msg = service.signup(params);
 		model.addAttribute("msg", msg);
 		
-		return "main";
+		return "redirect:/main";
 	}
+	
+		@RequestMapping(value = "/member/idTrueFalse")
+		@ResponseBody
+		public HashMap<String, Object> idTrueFalse(@RequestParam String idTrueFalse) {
+			
+			HashMap<String, Object> result = new HashMap<String, Object>();
+			logger.info("id 값 :"+idTrueFalse);
+			String row =service.idTrueFalse(idTrueFalse);
+			logger.info("row =="+row);
+			String msg ="0";
+				if(row.equals("0")) {
+					 result.put("success", msg);
+				}else {
+					 msg ="1";
+					 result.put("success", msg);
+				}
+				return result;
+		}
 		
 	
 }

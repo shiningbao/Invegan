@@ -129,14 +129,8 @@
 			<version>1.5</version>
 		</dependency>
 
-		<!-- 이거 확실하지 않음!!!!!!!!! -->
-		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support 
-		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-context-support</artifactId>
-		    <version>5.2.9.RELEASE</version>
-		</dependency>
--->
+
+		<!-- 아이디 비밀번호 찾기 관련 -->
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
 		<dependency>
 		    <groupId>org.springframework</groupId>

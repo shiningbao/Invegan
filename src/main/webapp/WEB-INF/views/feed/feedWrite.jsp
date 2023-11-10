@@ -13,17 +13,23 @@
 /*         margin-right: 20px;   */
 /*         }   */
 	.previews {
-        width: 100%;  /* 원하는 너비 설정 */
-        height: 100%; /* 원하는 높이 설정 */
-        border: 1px solid #000;  /* 테두리 스타일 설정 (원하는 스타일로 변경) */
-        padding: 10px;  /* 여백 설정 (원하는 여백으로 변경) */
+        width: 500vw; 
+		transition: transform 0.1s;
     }
+    .img-slider{
+    	width: 100vw; 
+		float:left;
+    }
+    
 	.previews img {
-        max-width: 100%;  /* 원하는 최대 너비 설정 */
-        max-height: 100%; /* 원하는 최대 높이 설정 */
-        margin: 5px;       /* 이미지 간격 설정 (원하는 크기로 조절) */
+        width: 400px;  /* 원하는 최대 너비 설정 */
+        height: 300px; /* 원하는 최대 높이 설정 */      /* 이미지 간격 설정 (원하는 크기로 조절) */
         
     }
+/*     .img-containerbox{ */
+/*     	width:300px; */
+/*     	height:300px; */
+/*     } */
 /* 	.previews::before { */
 /*         content: "사진을 등록해주세요"; /* 표시할 메시지 */ */
 /* /*         position: absolute; /* 절대 위치 설정 */ */ */
@@ -43,6 +49,10 @@
 /*       margin-right: 10px; */
 /*       /* 슬라이드 간의 간격 조정 */ */
 /*     } */
+
+	#writeModal .modal-content{
+		width:1000px;
+	}
   </style>
 
   <head>
@@ -64,55 +74,50 @@
       <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="myExtraLargeModalLabel">피드 게시글 작성</h5>
+            <h5 class="modal-title" id="myExtraLargeModalLabel">피드 게시글</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
 
-          <div>
-
-            <div class="previews">
-            
-            
+          
+			
+	            	<div class="previews">
+	            
+	            	</div>
+            <div>
+	            <button class="past">이전</button>
+	          	<button class="next">다음</button>
+	            <button class="previews-delbtn">이미지전체삭제</button>
             </div>
-            <button class="previews-delbtn">이미지전체삭제</button>
-<!--             <button id="prevButton">이전</button> -->
-<!--             <button id="nextButton">다음</button> -->
-            <table>
-              
-              <tr>
-                <td colspan="2">
-                  <button type="button" class="writefood" name="food">#식품</button>
-                  <button type="button" class="writebeauty" name="beauty">#뷰티</button>
-                  <button type="button" class="writefashion" name="fashion">#패션</button>
-                  <button type="button" class="writedaily" name="daily">#일상</button>
-                  <button type="button" class="writerestaurant" name="restaurant">#식당</button>
-                  <button type="button" class="writerecipe" name="recipe">#레시피</button>
-                </td>
-              </tr>
-              <tr>
-                <th>내용</th>
-                <td><textarea name="content" placeholder="내용을 입력하세요.."></textarea></td>
-              </tr>
-              <tr>
-                <th>태그</th>
-                <td><textarea name="feedTag" placeholder="태그를 입력해주세요"></textarea></td>
-              </tr>
-              <tr>
-                <th>사진</th>
-                <td>
-                  <input type="file" id="photos" name="photos" multiple>
-                </td>
-              </tr>
-              <tr>
-                <th colspan="2">
-                  <input type="button" value="취소" id="feedWriteCancle"/>
-                  <button id="feedSave">작성</button>
-                </th>
-              </tr>
-         </table>
-          </div>
+
+            <div>
+			    <div>
+			        <button type="button" class="btn btn-outline-dark" name="food">#식품</button>
+			        <button type="button" class="btn btn-outline-dark" name="beauty">#뷰티</button>
+			        <button type="button" class="btn btn-outline-dark" name="fashion">#패션</button>
+			        <button type="button" class="btn btn-outline-dark" name="daily">#일상</button>
+			        <button type="button" class="btn btn-outline-dark" name="restaurant">#식당</button>
+			        <button type="button" class="btn btn-outline-dark" name="recipe">#레시피</button>
+			    </div>
+			    <div>
+			        <label>내용</label>
+			        <textarea name="content" placeholder="내용을 입력하세요.."></textarea>
+			    </div>
+			    <div>
+			        <label>태그</label>
+			        <textarea name="feedTag" placeholder="태그를 입력해주세요"></textarea>
+			    </div>
+			    <div>
+			        <label>사진</label>
+			        <input type="file" id="photos" name="photos" multiple>
+			    </div>
+			    <div>
+			        <input type="button" value="취소" id="feedWriteCancle"/>
+			        <button id="feedSave">작성</button>
+			    </div>
+			</div>
+          
 
         </div>
       </div>
@@ -121,84 +126,121 @@
     
   </body>
   <script>
-
+  
 
     $(document).ready(function () {
+    	
+    	var previews = $('.previews');
+        
 
-	var previews = $('.previews');
+        // 파일을 선택하기 전에 메시지를 표시
+        var message = document.createElement("div");
+        message.classList.add("img-containerbox")
+        message.textContent = "사진을 추가해주세요";
+        previews.append(message);
 
-    // 파일을 선택하기 전에 메시지를 표시
-    var message = document.createElement("div");
-    message.textContent = "사진을 추가해주세요";
-    previews.append(message);
-    
-	 $("#photos").on('change',function(e){
-		 var files = e.target.files;
-		 previews = $('.previews');
- 		 previews.empty();
-		 console.log(files);
-		 if(files.length == 0){
-			 message.textContent = "사진을 추가해주세요";
-		 }else{
-			 message.textContent = "";
-		 for(var i =0; i <files.length; i++){
-			 var file = files[i];
-			 if(file){
-				 var reader = new FileReader();
-				 reader.onload = function(e){
-					 var img = document.createElement("img");
-					 img.setAttribute("src",e.target.result);
-					 $('.previews').append(img);
-				 
-			 		}
-				 reader.readAsDataURL(file);
-			 }
-		 }
-		 }
-	 })
-     $('.previews-delbtn').on('click',function(){
-    	 if(confirm("이미지를 삭제하시겠습니까? 이미지가 전체삭제됩니다. 다시등록")){
-    		 previews.empty();
-        	 $('#photos').val('');
-    	 }else{
-    		 
-    	 }
-    	 
-    	 
-     });
+        $("#photos").on('change', function (e) {
+        	var currentImageIndex = 0;
+            var maxImageIndex = 0;
+            var files = e.target.files;
+            var previews = $('.previews'); // .previews 엘리먼트 선택
+            $('.img-slider').empty(); // 기존 내용 비우기
+            maxImageIndex = 0;
+            maxImageIndex = files.length -1;
+        	console.log(maxImageIndex);
+            console.log(files);
+            maxImageCount = 5; // 최대 5개 이미지
+			
+            if (files.length == 0) {
+            	previews.append(message);
+                $(".past, .next").prop("disabled", true);
+            } else if (files.length > maxImageCount) {
+                message.textContent = "최대 5개 이미지까지 선택할 수 있습니다.";
+                alert("최대 5개 이미지까지 선택할 수 있습니다.");
+                // 파일 입력을 비우고 이미지 업로드를 막음
+                $('#photos').val('');
+            } else {
+                message.textContent = "";
+                $(".past, .next").prop("disabled", false);
+                for (var i = 0; i < files.length; i++) {
+                	
+                    var file = files[i];
+                    if (file) {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            var img = document.createElement("img");
+                            img.setAttribute("src", e.target.result);
+
+                            var slider = document.createElement("div");
+                            slider.classList.add("img-slider");
+                            slider.appendChild(img);
+
+                            previews.append(slider);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                }
+                
+             // 이전 버튼 클릭 이벤트 핸들러
+                $(".past").on('click', function () {
+                    if (currentImageIndex > 0) {
+                    	console.log('aa'+currentImageIndex);
+            	    	console.log('bb'+maxImageIndex);
+                        currentImageIndex--;
+                        showCurrentImage();
+                    }
+                    
+                });
+
+                // 다음 버튼 클릭 이벤트 핸들러
+                $(".next").on('click', function () {
+                	console.log('aa'+currentImageIndex);
+        	    	console.log('bb'+maxImageIndex);
+                    if (currentImageIndex < maxImageIndex) {
+                        currentImageIndex++;
+                        showCurrentImage();
+                    }
+                    
+                });
+                
+                // 현재 이미지를 표시하는 함수
+                function showCurrentImage() {
+                    // 현재 이미지 엘리먼트를 선택합니다.
+                	var translateValue = -100 * currentImageIndex + 'vw';
+            	    $('.previews').css('transform', 'translate(' + translateValue + ')');
+                }
+                
+               
+            }
+        });
+        
+        $('.previews-delbtn').on('click', function () {
+            if (confirm("이미지를 삭제하시겠습니까? 이미지가 전체 삭제됩니다. 다시 등록")) {
+                $('.img-slider').empty();
+                $('#photos').val('');
+                console.log(message)
+                message.textContent = "사진을 추가해주세요";
+                previews.append(message);
+               
+            } else {
+
+            }
+        });
+        
+
+     
+	
+      
+     
 
 
       // 버튼클릭 이벤트
-      $('.writefood').click(function () {
-    	  
-        var $foodbtn = $('.writefood').text();
-        addToTextArea($foodbtn);
-      });
-
-      $('.writebeauty').click(function () {
-        var $beautybtn = $('.writebeauty').text();
-        addToTextArea($beautybtn);
-      });
-
-      $('.writefashion').click(function () {
-        var $fashionbtn = $('.writefashion').text();
-        addToTextArea($fashionbtn);
-      });
-
-      $('.writedaily').click(function () {
-        var $dailybtn = $('.writedaily').text();
-        addToTextArea($dailybtn);
-      });
-
-      $('.writerestaurant').click(function () {
-        var $restaurantbtn = $('.writerestaurant').text();
-        addToTextArea($restaurantbtn);
-      });
-
-      $('.writerecipe').click(function () {
-        var $recipebtn = $('.writerecipe').text();
-        addToTextArea($recipebtn);
-      });
+     $('.btn').click(function () {
+    	 var text = $(this).text();
+    	    if (text !== "피드게시글 작성") {
+    	        addToTextArea(text);
+    	    }
+	});
 
       function addToTextArea(textToAdd) {
 
@@ -286,7 +328,7 @@
 
 
 
-
+    
 
 
   </script>

@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+ 		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
       <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -61,7 +62,6 @@
 		width: 100%;
 	}
 	.nav{
-		float: right;
 		margin: 0 auto;
 		width: 1000px;
 	}
@@ -121,7 +121,7 @@
 						<c:if test="${loginInfo.getIs_admin() eq '1'}">
 							<div class="infoModalList_admin"><a href = "<c:url value='/member/signup'/>">회원 관리</a></div>
 							<div class="infoModalList_admin"><a href = "<c:url value='/member/signup'/>">신고관리</a></div>
-							<div class="infoModalList_admin"><a href = "<c:url value='/member/signup'/>">식재료추가</a></div>
+							<div class="infoModalList_admin"><a href = "<c:url value='/diet/addMaterial.go'/>">식재료추가</a></div>
 						</c:if>
 					</div>
 				</div>
@@ -132,7 +132,7 @@
 	</div>
 		<nav class="nav">
 			<ul class="nav_list_1">
-				<li class="nav_item_1"><a href="<c:url value='/diet/tempCalander'/>">식단관리</a></li>
+				<li class="nav_item_1"><a href="<c:url value='/diet/dietCalander'/>">식단관리</a></li>
 				<li class="nav_item_1" id="nav_item_categori"><a href="<c:url value='/restaurant/list'/>">카테고리</a>
 	 				<ul class="nav_list_2">
 						<li class="nav_item_2"><a href="<c:url value='/restaurant/list'/>">식당</a></li>
@@ -172,6 +172,7 @@
 <hr id="last">
 
 </header>
+	<%@ include file="library.jsp" %>
 </body>
 
 <script>

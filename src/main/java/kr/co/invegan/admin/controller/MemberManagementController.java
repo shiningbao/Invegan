@@ -21,8 +21,7 @@ public class MemberManagementController {
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
-	@Autowired
-	MemberManagementService service;
+	@Autowired MemberManagementService service;
 	
   @RequestMapping(value="/admin/list") 
   public String memberList() { 

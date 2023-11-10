@@ -43,7 +43,6 @@ public class MemberService {
             out.println("history.go(-1);");
             out.println("</script>");
             out.close();
-//            return null;
         } else {
         	logger.info("id : "+id);
             
@@ -52,33 +51,24 @@ public class MemberService {
     }
 
     //비밀번호 찾기
-    /*
-    public String findPw(HttpServletResponse response, String id, String email2) throws Exception {
-		 response.setContentType("text/html;charset=utf-8");
-	     PrintWriter out = response.getWriter();
-	     logger.info("service.findPw 접근");
-	     String pw = dao.findPw(id, email2);
-	     logger.info("pw : "+pw);
-	     if (pw == null) {
-	          out.println("<script>");
-	          out.println("alert('가입된 계정이 없습니다.');");
-	          out.println("history.go(-1);");
-	          out.println("</script>");
-	          out.close();
-	      } else {
-	    	  logger.info("pw : "+pw);   
-	        }
-	        return pw;
-	}
-	*/
-    
-    public String findPw(String id, String email) throws Exception {
+    public String findPw(HttpServletResponse response, String id, String email) throws Exception {
+    	response.setContentType("text/html;charset=utf-8");
+    	PrintWriter out = response.getWriter();
     	logger.info("service 접근");
-        String pw = dao.findPw(id, email);
-        logger.info("pw : "+pw);
-        return pw;
+    	String pw = dao.findPw(id, email);
+    	logger.info("pw : "+pw);
+    	 if (pw == null) {
+             out.println("<script>");
+             out.println("alert('아이디 또는 이메일을 수정해주세요.');");
+             out.println("history.go(-1);");
+             out.println("</script>");
+             out.close();
+         } else {
+         	logger.info("pw : "+pw);
+             
+         }
+         return pw;
     }
-    
     public String signup(HashMap<String, String> params) {
         String msg = "회원 가입이 실패하였습니다";
         logger.info("service 접근");
@@ -91,37 +81,11 @@ public class MemberService {
         return msg;
     }
 
-
-
-    /*
-	public String signup(Map<String, String> params) {
-		String msg = "회원 가입이 실패하였습니다";
-
-        int row = dao.signup(params);
-        if (row > 0) {
-            msg = "회원 가입이 성공하였습니다";
-        }
-
-        return msg;
-	}*/
-/*
-	public String signup(String interest) {
-		String msg = "회원 가입이 실패하였습니다";
-
-        int row = dao.signup(interest);
-        if (row > 0) {
-            msg = "회원 가입이 성공하였습니다";
-        }
-
-        return msg;
+	public String idTrueFalse(String idTrueFalse) {
+		
+		
+		return dao.idTrueFalse(idTrueFalse);
+		
 	}
-*/
-/*
-	public void signup(Map<String, String> params, String combinedInterests, String birthdateString) {
-        MemberDTO member = new MemberDTO();
-        // DAO 메서드를 호출하여 데이터를 전달
-        dao.signup(member);
-    }
-    */
 
 }
