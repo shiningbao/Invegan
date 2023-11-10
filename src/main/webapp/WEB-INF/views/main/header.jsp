@@ -131,7 +131,7 @@
 	</div>
 		<nav class="nav">
 			<ul class="nav_list_1">
-				<li class="nav_item_1"><a href="<c:url value='/diet/tempCalander'/>">식단관리</a></li>
+				<li class="nav_item_1"><a href="<c:url value='/diet/dietCalander'/>">식단관리</a></li>
 				<li class="nav_item_1" id="nav_item_categori"><a href="<c:url value='/restaurant/list'/>">카테고리</a>
 	 				<ul class="nav_list_2">
 						<li class="nav_item_2"><a href="<c:url value='/restaurant/list'/>">식당</a></li>
