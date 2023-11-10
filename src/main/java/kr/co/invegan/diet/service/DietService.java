@@ -2,6 +2,7 @@ package kr.co.invegan.diet.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import kr.co.invegan.diet.dao.DietDAO;
 import kr.co.invegan.diet.dto.DailyNutriDTO;
 import kr.co.invegan.diet.dto.DietDTO;
 import kr.co.invegan.diet.dto.FoodDataDTO;
+import kr.co.invegan.diet.dto.GetMonthKcalDTO;
 
 @Service
 public class DietService{
@@ -37,17 +39,14 @@ public class DietService{
 		int row = 0;
 		String msg = "메뉴 등록 실패";
 		
-		if(upsertSort.equals("0")) {		// =true || insert
-			logger.info("메뉴 추가 기능 실행");
-			row += dietDAO.addDiet(dietDTO);
-			row += dietDAO.addMenu(dietDTO);
-			logger.info("get diet_id = "+dietDTO.getDiet_id()+" / get menu_id = "+dietDTO.getMenu_id());
-			row += dietDAO.addMaterial(dietDTO);
-			row += dietDAO.addDietComp(dietDTO);
-			logger.info("저장 결과 : "+row);
-		}else {								// = false || update
-			logger.info("메뉴 수정 기능 실행");
-		}
+		logger.info("메뉴 추가 기능 실행");
+		row += dietDAO.addDiet(dietDTO);
+		row += dietDAO.addMenu(dietDTO);
+		logger.info("get diet_id = "+dietDTO.getDiet_id()+" / get menu_id = "+dietDTO.getMenu_id());
+		row += dietDAO.addMaterial(dietDTO);
+		row += dietDAO.addDietComp(dietDTO);
+		logger.info("저장 결과 : "+row);
+		
 		if(row == 4) {
 			msg = "메뉴를 등록 성공";
 		}
@@ -97,6 +96,45 @@ public class DietService{
 		logger.info("회원의 영양소별 1회 제공량 가져오기");
 		logger.info("loginuser no : "+loginUser_no);
 		return dietDAO.getDailyNutri(loginUser_no);
+	}
+	
+	
+	// 회원 체크
+	public int getUserNo(HashMap<String, Object> params) {
+		logger.info("getUserNo() 실행");
+		int getUserNo = dietDAO.getUserNo(params);
+		if(getUserNo >= 0) {
+			logger.info("회원 체크 성공 :: "+getUserNo );
+		}else {
+			logger.info("회원 번호 불일치");
+		}
+		return getUserNo;
+	}
+
+	// 기본메뉴 삭제
+	public int delMenu(HashMap<String, Object> params) {
+		logger.info("delMenu():: 기본 메뉴 삭제 실행");
+		int row = 0;
+		row += dietDAO.delMaterialTbl(params);
+		logger.info("row check Material"+row);
+		row += dietDAO.delDietCompTbl(params);
+		logger.info("row check Menu"+row);
+		row += dietDAO.delMenuTbl(params);
+		logger.info("row check diet"+row);
+		row += dietDAO.delDietTbl(params);
+		logger.info("row check dietComposition"+row);
+		if(row == 4) {
+			logger.info("메뉴 삭제 완료");
+		}
+		return row;
+	}
+	
+	// 일별 칼로리 가져오기
+	public ArrayList<GetMonthKcalDTO> getMonthKcal(Map<String, Object> params) {
+		logger.info("getMonthKcal() :: 일별 칼로리 가져오기 실행");
+		ArrayList<GetMonthKcalDTO> getMonthKcal = dietDAO.getMonthKcal(params);
+	logger.info("getMonthKcal : "+ getMonthKcal +" / "+getMonthKcal.get(0));
+		return getMonthKcal;
 	}
 
 	

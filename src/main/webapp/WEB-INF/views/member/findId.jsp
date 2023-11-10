@@ -6,8 +6,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>아이디 찾기 결과</title>
-    <link rel="stylesheet" href="style.css">
-<title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <style>
 input[type=text] {
@@ -16,12 +14,17 @@ input[type=text] {
 }
 
 body {
-    background-color: #edf0ef; 
-    display: flex;
+    background-color: #edf0ef;
+    display: flex; /* display: flex 추가 */
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column; /* 세로 방향으로 정렬 */
 }
 
 .find-result-container {
@@ -44,39 +47,45 @@ input {
 }
 
 input[type="submit"] {
-    background-color: #4682b4; /* 골드 색상 */
+    background-color: #4682b4;
     color: white;
     border: none;
     cursor: pointer;
 }
 
 input[type="submit"]:hover {
-    background-color: #36648b; /* 더 어두운 골드로 변경 (hover 시) */
+    background-color: #36648b; /* hover */
 }
 
 </style>
 </head>
 <body>
-
+<div class=all>
+<div class="container">
 <h2>아이디 찾기 결과</h2>
+</div>
 
+<br>
+	<div class="container">
+	<p><br></p>
     <c:if test="${not empty id}">
         <p>찾은 아이디: ${id}</p>
     </c:if>
-
+    <p><br></p>
+	</div>
 
 <form action="findId2" method="post">
 
-	<div>
+	<div class="container">
     <label for="email">이메일:</label>
     <input type="text" id="email" name="email" required placeholder="이메일을 입력해주세요">
-    
-    <p>
-    <br>
+    </div>
+    <p><br></p>
+    <div class="container">
     <input type="submit" name="findIdd" value="아이디 찾기">
-	</p>
+	<p><br></p>
 	</div>
-
+</div>
 </form>
 </body>
 <script>

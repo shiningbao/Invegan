@@ -8,31 +8,49 @@
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <title>Calendar</title>
 <style>
-table td {
-	border: 1px solid black;
-	border-collapse: collapse;
+#container{
+	width: 1000px;
+	margin: 0px auto;
 }
 
-td {
+.today, .pastDay, .futureDay{
 	width: 50px;
 	height: 50px;
+	padding: 5px;
+}
+
+.today:hover, .pastDay:hover, .futureDay:hover{
+	cursor: pointer;
+	box-shadow:#63c166 1px 1px 9px 0px;
+	
+}
+thead td{
+	width: 30px;
+	height: 30px;
 }
 
 #yearMonth {
-	text-align: center;
 	width: 40px;
-	font-size: 30px;
+	font-size: 25px;
+	text-align: center;
 }
 
 #day {
 	text-align: center;
 }
+#day td{
+	border-radius: 4px;
+    border: 1px solid black;
+}
+tbody tr td:not(.today){
+	border: 1px solid black;
+	border-radius: 4px;
+}
 
 .Calendar {
-	text-align: left;
-	margin: 0 auto;
-	width: 1200px;
+	width: inherit;
 	height: 700px;
+	position: relative;
 }
 
 .Calendar>thead>tr:first-child>td {
@@ -40,49 +58,60 @@ td {
 }
 
 .Calendar>thead>tr:last-child>td {
-	background-color: gray;
-	color: white;
+	background-color: #bbe8b7;
+    color: black;
 }
 
+
 .pastDay {
-	color: lightgray;
+	color: #898585;
 	background-color: transparent;
-	cursor: pointer;
 }
 
 .today {
-	background-color: aquamarine;
-	cursor: pointer;
-	border: aquamarine;
+	box-shadow:#ee0000 1px 1px 9px 0px;
 	font-size: 20px;
+	font-weight: 600;
 }
 
 .futureDay {
 	background-color: white;
-	cursor: pointer;
+	font-weight: 600;
 }
 
 .choiceDay {
 	cursor: pointer;
-	border: 2px solid aquamarine;
+	box-shadow:#63c166 1px 1px 9px 0px;
 }
 
+
 #calYear {
-	width: 40px;
-	float: left;
-	position: absolute;
-	top: 13px;
-	left: 215px;
-	font-size: 30px;
+	/* float: left; */
+	/* position: absolute; */
+	/* top: 13px; */
+	/* left: 215px; */
+	width: 55px;
+	font-size: 26px;
 	cursor: pointer;
+	display: inline-block;
 }
 
 #calMonth {
-	width: 40px;
-	position: absolute;
-	top: 13px;
-	left: 706px;
-	font-size: 34px;
+	width: 30px;
+	/* position: absolute; */
+/* 	top: 13px; */
+	/* left: 300px; */
+	font-size: 26px;
+	display: inline-block;
+}
+.dayData{
+	height: 50px;
+}
+
+
+#yearMonth div:last-child{
+	display: inline-block;
+	width: 28px;
 }
 
 select {
@@ -91,70 +120,64 @@ select {
 	left: 5px;
 }
 
-#prev {
-	position: absolute;
-	top: 13px;
-	left: 600px;
-	font-size: 34px;
-}
 
-#next {
-	position: absolute;
-	top: 13px;
-	right: 600px;
+#next , #prev{
+	/* position: absolute; */
+	/* top: 13px; */
+	/* right: 600px; */
+	text-align: center;
 	font-size: 34px;
 }
 
 .futureDay.choiceDay {
 	background-color: transparent;
 	cursor: pointer;
-	border: 2px solid aquamarine;
+}
+
+.nutriData{
+	text-align: center;
 }
 </style>
 </head>
 <body>
-<c:import url="/main/header" />
-<div id="container">
+	<c:import url="/main/header" />
+	<div id="container">
+		<table class="Calendar">
+			<thead>
+				<tr style="height: 80px;">
+					<td onClick="prevCalendar();" id="prev" style="cursor: pointer;">&#60;</td>
 
-<table class="Calendar">
-        <thead>
-            <tr>
-                <td onClick="prevCalendar();" id="prev" style="cursor:pointer;">&#60;</td>
-               
-                <td colspan="5" id= "yearMonth">
-                    <div id="calYear"></div>
-                    <div id="calMonth"><br/></div>월
-                </td>
-       
-                <td onClick="nextCalendar();" id="next" style="cursor:pointer;">&#62;</td>
-            </tr>
-            <tr id="day">
-                <td>일</td>
-                <td>월</td>
-                <td>화</td>
-                <td>수</td>
-                <td>목</td>
-                <td>금</td>
-                <td>토</td>
-            </tr>
+					<td colspan="5" id="yearMonth">
+						<div id="calYear"></div>
+						<div id="calMonth"></div>
+						<div>월</div>
+					</td>
 
-			
-        </thead>
+					<td onClick="nextCalendar();" id="next" style="cursor: pointer;">&#62;</td>
+				</tr>
+				<tr id="day">
+					<td>일</td>
+					<td>월</td>
+					<td>화</td>
+					<td>수</td>
+					<td>목</td>
+					<td>금</td>
+					<td>토</td>
+				</tr>
+			</thead>
+			<tbody>
 
-        <tbody>
-        
-        </tbody>
-    </table>
-
- 	</div>
-<c:import url="/main/footer" />	
+			</tbody>
+		</table>
+	</div>
+	<c:import url="/main/footer" />
 </body>
 
 <script>
 	window.onload = function() {
 		buildCalendar();
 	}
-	var selectDate = "";	
+	var selectDate = "";
 
 	// 날짜 클릭시 실행
 	function dietMgmt() {
@@ -187,15 +210,36 @@ select {
 		for (let j = 0; j < firstDate.getDay(); j++) { // 이번달 1일의 요일만큼
 			let nowColumn = nowRow.insertCell(); // 열 추가
 		}
-
+		
+		
+		
+		// 칼로리 정보 가져오기
+		// 칼로리를 가져오기 위한 파람값 설정
+		var yearMonth = $('#calYear').text() + "-" + $('#calMonth').text();
+		
+		var getDate ="";
+		var getTotalKcal="";
+		var getStdKcal="";
+		getMonthKcal(yearMonth);
+		console.log('get yearMonth check',yearMonth);
+		
+		
+		
+		
 		for (let nowDay = firstDate; nowDay <= lastDate; nowDay.setDate(nowDay
 				.getDate() + 1)) { // day는 날짜를 저장하는 변수, 이번달 마지막날까지 증가시키며 반복  
 
 			let nowColumn = nowRow.insertCell(); // 새 열을 추가하고
-			nowColumn.innerText = leftPad(nowDay.getDate()); // 추가한 열에 날짜 입력
+			
+			/* 날짜 칸에 데이터 넣는 곳 */
+			/* nowColumn.innerText = leftPad(nowDay.getDate()); // 추가한 열에 날짜 입력  */	// 기존코드
+			var dataHtml = "<div class='dayData'>"+leftPad(nowDay.getDate())+"</div>"		// 수정한 코드
+							+"<div class='nutriData'>1204 /<br/> 2400 Kcal</div>"
+			nowColumn.innerHTML = dataHtml; 
 
 			if (nowDay.getDay() == 0) {
-				nowColumn.style.color = "red";
+				/*  nowColumn.style.color = "red";  */ 	// 기존 코드
+				nowColumn.querySelector(".dayData").style.color = "red";	// 수정한 코드
 			}
 			if (nowDay.getDay() == 6) {
 				nowRow = tbody_Calendar.insertRow(); // 새로운 행 추가
@@ -239,7 +283,7 @@ select {
 		}
 		// 클릭한 날짜 값
 		selectDate = $('#calYear').text() + "-" + $('#calMonth').text() + "-"
-				+ $('.choiceDay').text();
+				+ $('.choiceDay .dayData').text();
 		console.log(selectDate);
 		dietMgmt();
 	}
@@ -256,20 +300,13 @@ select {
 				nowMonth.getDate()); // 현재 달을 1 증가
 		buildCalendar(); // 달력 다시 생성
 	}
-	    if (nowColumn.classList.contains("pastDay")) {
-	        nowColumn.classList.add("choiceDay");
-	       	
-	    }
-	    else {
-	        nowColumn.classList.add("choiceDay");
-	    }
-	    // 클릭한 날짜 값
-        selectDate = $('#calYear').text()+"-"+$('#calMonth').text()+"-"+$('.choiceDay').text();
-	    console.log(selectDate);
-	    
-	    dietMgmt();
+	if (nowColumn.classList.contains("pastDay")) {
+		nowColumn.classList.add("choiceDay");
 
-	    
+	} else {
+		nowColumn.classList.add("choiceDay");
+	}
+	
 
 	// 숫자가 10보다 작을 때 앞에 0을 붙여서 반환
 	function leftPad(value) {
@@ -281,41 +318,59 @@ select {
 	}
 
 	document.getElementById("calYear").addEventListener("click",
-			function(event) {
-				// 클릭한 위치에 새로운 <select> 요소 생성
-				var selectElement = document.createElement("select");
+		function(event) {
+		console.log('click');
+		// 클릭한 위치에 새로운 <select> 요소 생성
+		var selectElement = document.createElement("select");
 
-				// 현재 해 가져오기
-				var currentYear = new Date().getFullYear();
+		// 현재 해 가져오기
+		var currentYear = new Date().getFullYear();
 
-				// 현재 해의 -2부터 +2까지의 년도 
-				for (var i = -2; i <= 2; i++) {
-					var optionElement = document.createElement("option"); // 선택할 옵션 생성
-					optionElement.textContent = currentYear + i;
-					selectElement.appendChild(optionElement); // 옵션 추가
-				}
-				// select 요소의 값 설정을 아무것도 없게 
-				selectElement.selectedIndex = -1;
+		// 현재 해의 -2부터 +2까지의 년도 
+		for (var i = -2; i <= 2; i++) {
+			var optionElement = document.createElement("option"); // 선택할 옵션 생성
+			optionElement.textContent = currentYear + i;
+			selectElement.appendChild(optionElement); // 옵션 추가
+		}
+		// select 요소의 값 설정을 아무것도 없게 
+		selectElement.selectedIndex = -1;
 
-				// 새로운 <select> 요소를 클릭한 <div> 요소 안에 추가
-				this.appendChild(selectElement);
+		// 새로운 <select> 요소를 클릭한 <div> 요소 안에 추가
+		this.appendChild(selectElement);
 
-				selectElement.addEventListener("change", function() {
-					var selectedYear = parseInt(this.value);
-					console.log("선택년도: " + selectedYear);
+		selectElement.addEventListener("change", function() {
+			var selectedYear = parseInt(this.value);
+			console.log("선택년도: " + selectedYear);
 
-					// <select> 없애기
-					this.remove();
+			// <select> 없애기
+			this.remove();
 
-					loadSelectedYear();
+			loadSelectedYear();
 
-					function loadSelectedYear() {
-						nowMonth = new Date(selectedYear, nowMonth.getMonth());
-						buildCalendar();
-					}
+			function loadSelectedYear() {
+				nowMonth = new Date(selectedYear, nowMonth.getMonth());
+				buildCalendar();
+			}
 
-				});
-			});
+		});
+	});
+	
+	
+	function getMonthKcal(yearMonth) {
+		console.log('가져올 년 월',yearMonth)
+		
+		$.ajax({
+			type : 'get',
+			url : 'getMonthKcal',
+			data : {'yearMonth':yearMonth},
+			dataType : 'JSON',
+			success : function(data) {
+				console.log('getKcal',data.getKcal);
+			},
+			error : function(data) {
+			}
+		});
+	}
 </script>
 
 </html>
