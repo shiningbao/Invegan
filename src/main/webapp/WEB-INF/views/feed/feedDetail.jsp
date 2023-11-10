@@ -383,7 +383,7 @@ $(document).ready(function(){
     	}
       
       // 비회원이 댓글작성했을떄 이벤트
-      $('#feedDetail').on('click', '.btn-primary', function () {
+      $('#feedDetail').on('click', '#comment-write-btn', function () {
 		    if (loginInfo == null) {
 		        alert('로그인이 필요합니다.');
 		        location.href="/invegan/member/login.go";
@@ -593,7 +593,7 @@ $(document).ready(function(){
 
  	 
 		  //댓글 작성
-		  $(document).on('click', '.btn-primary', function() {
+		  $(document).on('click', '#comment-write-btn', function() {
 		    var comment_text = $(this).closest('.comment-box').find('.feedComment').val();
 		    var post_id = $(this).data('post-id');
 		    console.log(post_id);
