@@ -6,6 +6,7 @@ public class FoodDataDTO {
 	private String data_type;
 	private String food_name;
 	private String food_category;
+	private String production;
 	private int serving_size;
 	private int kcal;
 	private float prot;
@@ -29,6 +30,12 @@ public class FoodDataDTO {
 	private int grams;
 	private String recipe_name;
 	
+	public String getProduction() {
+		return production;
+	}
+	public void setProduction(String production) {
+		this.production = production;
+	}
 	public String getRecipe_name() {
 		return recipe_name;
 	}

@@ -22,6 +22,7 @@
 	<img src="<c:url value='/resources/main/logo.png'/>" width="400px" height="200px" alt="Logo Img"/>
 </div>
 </footer>
+<%@ include file="library.jsp" %>
 </body>
 <script>
 

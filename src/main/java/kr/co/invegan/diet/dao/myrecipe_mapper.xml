@@ -33,7 +33,7 @@
 								  LEFT JOIN FoodData fd 
 								   	ON m2.food_id = fd.food_id
 		WHERE m.category = '나만의레시피' AND m.user_no = #{user_no}
-		GROUP BY m.menu_id;
+		GROUP BY m.menu_id DESC;
 	</select>
 	
 	<select id = "rMaterial" parameterType="int" resultType="kr.co.invegan.diet.dto.MyRecipeDTO">
