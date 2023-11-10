@@ -2,6 +2,7 @@ package kr.co.invegan.diet.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import kr.co.invegan.diet.dao.DietDAO;
 import kr.co.invegan.diet.dto.DailyNutriDTO;
 import kr.co.invegan.diet.dto.DietDTO;
 import kr.co.invegan.diet.dto.FoodDataDTO;
+import kr.co.invegan.diet.dto.GetMonthKcalDTO;
 
 @Service
 public class DietService{
@@ -125,6 +127,14 @@ public class DietService{
 			logger.info("메뉴 삭제 완료");
 		}
 		return row;
+	}
+	
+	// 일별 칼로리 가져오기
+	public ArrayList<GetMonthKcalDTO> getMonthKcal(Map<String, Object> params) {
+		logger.info("getMonthKcal() :: 일별 칼로리 가져오기 실행");
+		ArrayList<GetMonthKcalDTO> getMonthKcal = dietDAO.getMonthKcal(params);
+	logger.info("getMonthKcal : "+ getMonthKcal +" / "+getMonthKcal.get(0));
+		return getMonthKcal;
 	}
 
 	

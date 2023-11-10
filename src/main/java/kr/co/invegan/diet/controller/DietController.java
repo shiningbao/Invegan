@@ -1,9 +1,8 @@
 package kr.co.invegan.diet.controller;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,19 +12,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import kr.co.invegan.admin.service.FoodService;
 import kr.co.invegan.diet.dto.DailyNutriDTO;
 import kr.co.invegan.diet.dto.DietDTO;
 import kr.co.invegan.diet.dto.FoodDataDTO;
+import kr.co.invegan.diet.dto.GetMonthKcalDTO;
 import kr.co.invegan.diet.service.DietService;
 import kr.co.invegan.member.dto.MemberDTO;
 
@@ -40,20 +36,39 @@ public class DietController {
 	MemberDTO loginInfo = null;
 
 	// 캘린더 페이지로 이동
-	@RequestMapping(value = "diet/tempCalander")
+	@RequestMapping(value = "diet/dietCalander")
 	public String tempCalander(HttpSession session, RedirectAttributes reAttr) {
 		logger.info("식단 캘린더 페이지 이동 요청");
 		String page = "redirect:/member/login.go";
 
 		loginInfo = (MemberDTO) session.getAttribute("loginInfo");
 		if (loginInfo != null) {
-			logger.info("로그인된 회원번호 : " + loginInfo.getUser_no());
-			page = "diet/tempCalander";
+			logger.info("로그인된 회원번호 : " +
+		loginInfo.getUser_no());
+			page = "diet/dietCalander";
 		} else {
 			logger.info("로그인 되어있지 않음");
 			reAttr.addFlashAttribute("msg", "로그인 후 이용 가능한 서비스입니다.");
 		}
 		return page;
+	}
+	
+	// 칼로리 섭취량 가져오기
+	@RequestMapping(value = "diet/getMonthKcal")
+	@ResponseBody
+	public HashMap<String, Object> getMonthKcal(HttpSession session ,@RequestParam String yearMonth){
+		logger.info("캘린더 :: 칼로리 가져오기 :: yearMonth ="+yearMonth);
+		loginInfo = (MemberDTO) session.getAttribute("loginInfo");
+		int loginUser_no = loginInfo.getUser_no();
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		Map<String, Object> params = Map.of(
+			"loginUser_no",loginUser_no,
+			"yearMonth",yearMonth
+		);
+				
+		ArrayList<GetMonthKcalDTO> getMonthKcal = dietService.getMonthKcal(params);
+		result.put("getKcal", getMonthKcal);
+		return result;
 	}
 
 	// 식단관리 페이지로 이동
@@ -103,6 +118,7 @@ public class DietController {
 		logger.info("result - nutriInfo : " + nutriInfo.getKcal() );
 		result.put("daily", getDailyNutri);
 		session.setAttribute("nutriInfo", nutriInfo);
+		
 		return result;
 	}
 

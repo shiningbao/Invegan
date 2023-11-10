@@ -618,7 +618,7 @@ body {
 				// 캘린더 화면으로 이동
 				$('#selectDate').on('click', function() {
 					console.log('date click');
-					location.href = "tempCalander";
+					location.href = "dietCalander";
 				});
 
 				// 초기 화면 삭제버튼 숨김
