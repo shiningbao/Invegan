@@ -18,6 +18,8 @@ public class RestaurantDTO {
 	private String address;
 	private String phone;
 	private String hours;
+	private double lat;
+	private double lng;
 	
 	public int getPost_id() {
 		return post_id;
@@ -84,6 +86,18 @@ public class RestaurantDTO {
 	}
 	public void setHours(String hours) {
 		this.hours = hours;
+	}
+	public double getLat() {
+		return lat;
+	}
+	public void setLat(double lat) {
+		this.lat = lat;
+	}
+	public double getLng() {
+		return lng;
+	}
+	public void setLng(double lng) {
+		this.lng = lng;
 	}
 	
 	
