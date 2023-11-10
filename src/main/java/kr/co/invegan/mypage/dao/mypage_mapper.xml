@@ -31,7 +31,7 @@
 	</select>
 	
 	<select id="requestBoardList" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
-		select req_title,views from Request  WHERE user_no=#{param1} limit 5 OFFSET #{param3}
+		select req_title,views from Request  WHERE user_no=#{param1}
 	</select>
 	
 	<select id="recipeBoardList" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
@@ -43,20 +43,21 @@
 	</select>
 	
 	<select id="feedList" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
-	SELECT 
-	    it2.server_file_name AS profile_image,
-	    m.nickname,
-	    b.content,
-	    it.server_file_name AS server_file_name
+	SELECT
+    it1.server_file_name,
+    it2.server_file_name AS profile_image,
+    m.nickname,
+    b.content
 	FROM
 	    Members m
-	    JOIN Board b ON m.user_no = b.user_no
-	    JOIN ImageTable it ON b.post_id = it.idx
-	    LEFT JOIN ImageTable it2 ON m.user_no = it2.idx AND it2.category = '회원'
+	JOIN
+	    ImageTable it2 ON m.user_no = it2.idx 
+	JOIN
+	    Board b ON m.user_no = b.user_no
+	LEFT JOIN
+	    ImageTable it1 ON b.post_id = it1.idx 
 	WHERE
-	    b.category = '피드' and m.user_no=#{param1}
-	ORDER BY
-	    b.date DESC;
+	    m.user_no = #{param1} AND b.category = '피드' ORDER BY date DESC;
 	</select>
 	
 	<delete id="delUser" parameterType="int">
@@ -101,46 +102,27 @@
 	</select>
 	
 	<select id="restaurantComments" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
-		SELECT 
-		    it.server_file_name AS server_file_name,
-		    c.rating,
-		    b.title,
-		    rm.vegan_type,
-		    b.post_id 
-		FROM
-		    Board b
-		    JOIN Members m ON m.user_no = b.user_no
-		    LEFT JOIN ImageTable it ON m.user_no = it.idx AND it.category = '회원'
-		    JOIN Comments c ON b.post_id = c.post_id
-		    JOIN RestaurantMenu rm ON b.post_id = rm.post_id
-		WHERE
-		    b.category = '식당'
-		    AND rm.post_id IN (SELECT post_id FROM Comments)
-		    AND m.user_no = #{param1}
-		ORDER BY
-		    b.date DESC
+	SELECT
+	    B.title,
+	    B.post_id,
+	    IT.server_file_name,
+	    C.rating
+	FROM 
+	    Board B
+	JOIN 
+	    ImageTable IT ON B.post_id = IT.idx
+	JOIN 
+	    Comments C ON B.post_id = C.post_id
+	WHERE 
+	    B.category = '식당' AND IT.category = '식당' AND C.user_no = #{param1} GROUP BY B.post_id;
 	</select>
 	
 	<select id="restaurantFavorite" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
-		SELECT
-		    it.server_file_name AS server_file_name,
-		    c.rating,
-		    b.title,
-		    rm.vegan_type,
-		    b.post_id 
-		FROM
-		    Board b
-		    JOIN Members m ON m.user_no = b.user_no
-		    LEFT JOIN ImageTable it ON m.user_no = it.idx AND it.category = '회원'
-		    JOIN Favorite f ON b.post_id = f.post_id
-		    JOIN RestaurantMenu rm ON b.post_id = rm.post_id
-		    JOIN Comments c ON c.post_id = b.post_id
-		WHERE
-		    b.category = '식당'
-		    AND rm.post_id IN (SELECT post_id FROM Favorite)
-		    AND m.user_no = #{param1}
-		ORDER BY
-		    b.date DESC
+	SELECT b.title,b.post_id,b.user_no,i.server_file_name FROM Board b 
+	JOIN Favorite f ON b.post_id=f.post_id 
+	JOIN ImageTable i ON b.post_id=i.idx 
+	WHERE b.user_no=#{param1} and b.category='식당' 
+	GROUP BY post_id
 	</select>
 	
 	<update id="updateNickname" parameterType="hashmap">
@@ -178,8 +160,8 @@
     UPDATE ImageTable SET server_file_name=#{param1} WHERE idx=#{param2}
 	</update>
 	 
-	<select id="totalPage" resultType="int">
+	<!-- <select id="rqTotalPage" resultType="int">
 		select ceil(count(req_id)/5) as pages from Request
 	</select>
- 	
+ 	 -->
 </mapper>
