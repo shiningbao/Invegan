@@ -17,8 +17,6 @@ public class MemberDTO {
 	private int vegan_type;
 	private String vegan_purpose;
 	private String interests;
-	//private String[] interests;
-	private Timestamp join_date;
 	private int is_admin;
 	private int is_suspended;
 	private String profile_image;
@@ -39,14 +37,7 @@ public class MemberDTO {
 	public void setSession(HttpSession session) {
 		this.session = session;
 	}
-	/*
-	public String[] getInterests() {
-		return interests;
-	}
-	public void setInterests(String[] interests) {
-		this.interests = interests;
-	}
-	*/
+
 	private String profile_img;
 	private HttpSession session;
 	
@@ -56,6 +47,7 @@ public class MemberDTO {
 	public void setUser_no(int user_no) {
 		this.user_no = user_no;
 	}
+	
 	public String getProfile_img() {
 		return profile_img;
 	}
@@ -118,12 +110,6 @@ public class MemberDTO {
 		this.interests = interests;
 	}
 	
-	public Timestamp getJoin_date() {
-		return join_date;
-	}
-	public void setJoin_date(Timestamp join_date) {
-		this.join_date = join_date;
-	}
 	public int getIs_admin() {
 		return is_admin;
 	}

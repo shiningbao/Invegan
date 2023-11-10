@@ -6,17 +6,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>비밀번호 찾기 결과</title>
-<link rel="stylesheet" href="style.css">
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <style>
 
 body {
     background-color: #edf0ef;
-    display: flex;
+    display: flex; /* display: flex 추가 */
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column; /* 세로 방향으로 정렬 */
 }
 
 .find-result-container {
@@ -52,28 +56,33 @@ input[type="submit"]:hover {
 </style>
 </head>
 <body>
-	<h2>비밀번호 찾기 결과</h2>
-	
-	<c:if test="${not empty pw}">
-        <p>찾은 비밀번호: ${pw}</p>
-    </c:if>
-    
-<form action="findPw2" method="post">
-    <div>
-        <label for="id">아이디:</label>
-        <p>
-            <input type="text" id="id" name="id" required placeholder="아이디를 입력해주세요">
-        </p>
-        <label for="email">이메일:</label>
-        <p>
-            <input type="text" id="email" name="email" required placeholder="이메일을 입력해주세요">
-        </p>
-        <p>
-            <br>
-            <input type="submit" name="findPww" value="비밀번호 찾기">
-        </p>
+    <div class="container">
+        <h2>비밀번호 찾기 결과</h2>
     </div>
-</form>
+
+    <div class="container">
+        <c:if test="${not empty pw}">
+            <p>찾은 비밀번호: ${pw}</p>
+        </c:if>
+    </div>
+
+    <form action="findPw2" method="post">
+        <div class="container">
+            <label for="id">아이디:</label>
+            <input type="text" id="id" name="id" required placeholder="아이디를 입력해주세요">
+        </div>
+		<div class="container">
+            <label for="email">이메일:</label>
+            <input type="text" id="email" name="email" required placeholder="이메일을 입력해주세요">
+        </div>
+
+        <div class="container">
+            <p>
+                <br>
+                <input type="submit" name="findPww" value="비밀번호 찾기">
+            </p>
+        </div>
+    </form>
 </body>
 <script></script>
 </html>

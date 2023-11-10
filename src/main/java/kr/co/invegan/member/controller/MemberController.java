@@ -141,8 +141,26 @@ public class MemberController {
 		String msg = service.signup(params);
 		model.addAttribute("msg", msg);
 		
-		return "main";
+		return "redirect:/main";
 	}
+	
+		@RequestMapping(value = "/member/idTrueFalse")
+		@ResponseBody
+		public HashMap<String, Object> idTrueFalse(@RequestParam String idTrueFalse) {
+			
+			HashMap<String, Object> result = new HashMap<String, Object>();
+			logger.info("id 값 :"+idTrueFalse);
+			String row =service.idTrueFalse(idTrueFalse);
+			logger.info("row =="+row);
+			String msg ="0";
+				if(row.equals("0")) {
+					 result.put("success", msg);
+				}else {
+					 msg ="1";
+					 result.put("success", msg);
+				}
+				return result;
+		}
 		
 	
 }

@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="style.css">
+ 
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <style>
@@ -63,10 +63,15 @@ input {
     background-color: #36648b; /* hover */
 	}
 
-    
+    label {
+    display: block;
+    margin-bottom: 10px;
+}
+
 </style>
 </head>
 <body>
+
 	<table>
 	        <tr>
 	            <th>ID</th>
@@ -90,6 +95,8 @@ input {
 	            </th>    
 	        </tr>
 	    </table>
+	    
+
 </body>
 <script>
 
