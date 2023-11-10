@@ -30,6 +30,14 @@ public interface DietDAO {
 	int addMaterialAdm(HashMap<String, Object> params);
 	DailyNutriDTO getDailyNutri(int loginUser_no);
 
+	int getUserNo(HashMap<String, Object> params);
+
+	// 메뉴 삭제
+	int delMaterialTbl(HashMap<String, Object> params);
+	int delDietCompTbl(HashMap<String, Object> params);
+	int delMenuTbl(HashMap<String, Object> params);
+	int delDietTbl(HashMap<String, Object> params);
+
 
 
 }
