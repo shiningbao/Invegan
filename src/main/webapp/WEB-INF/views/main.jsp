@@ -265,16 +265,14 @@ $('#login').on('click',function(){
 	location.href='member/login.go';
 });
 
-<<<<<<< HEAD
-// 위치 관련
-var geodata = {};
-=======
+
 $('#addMaterial').on('click',function(){
 	location.href='diet/addMaterial.go';
 });
 
 
->>>>>>> origin/master
+//위치 관련
+var geodata = {};
 navigator.geolocation.getCurrentPosition(geoSuccess, getError);
 function geoSuccess(position){
 	geodata.lat = position.coords.latitude;
