@@ -3,15 +3,7 @@
 
   <html>
   <style>
-     /*이미지 컨테이너를 왼쪽으로 이동 */
-/*      .previews {   */
-/*         overflow: hidden;   */
-/*         position: relative;   */
-/*         width: 450px;   */
-/*         height: 450px;   */
-/*         float: left;   */
-/*         margin-right: 20px;   */
-/*         }   */
+
 	.previews {
         width: 500vw; 
 		transition: transform 0.1s;
@@ -22,37 +14,21 @@
     }
     
 	.previews img {
-        width: 400px;  /* 원하는 최대 너비 설정 */
-        height: 300px; /* 원하는 최대 높이 설정 */      /* 이미지 간격 설정 (원하는 크기로 조절) */
+        width: 400px;  
+        height: 300px; 
         
     }
-/*     .img-containerbox{ */
-/*     	width:300px; */
-/*     	height:300px; */
-/*     } */
-/* 	.previews::before { */
-/*         content: "사진을 등록해주세요"; /* 표시할 메시지 */ */
-/* /*         position: absolute; /* 절대 위치 설정 */ */ */
-/* /*         top: 50%; /* 상단 위치 조정 (원하는 위치로 변경) */ */ */
-/* /*         left: 50%; /* 왼쪽 위치 조정 (원하는 위치로 변경) */ */ */
-/*         transform: translate(-50%, -50%); /* 중앙 정렬 */ */
-/*     }     */
-    /* 슬라이드 이미지 스타일 */
-
-/*     .slide { */
-/*       width: 100%; */
-/*       /* 슬라이드를 100% 너비로 설정하여 부모에 맞게 크기 조절 */ */
-/*       height: 100%; */
-/*       /* 슬라이드를 100% 높이로 설정하여 부모에 맞게 크기 조절 */ */
-/*       display: none; */
-/*       float: left; */
-/*       margin-right: 10px; */
-/*       /* 슬라이드 간의 간격 조정 */ */
-/*     } */
 
 	#writeModal .modal-content{
-		width:1000px;
+		width:800px;
 	}
+	#writeModal{
+		padding-right: 400px !important;
+	}
+	.modal-backdrop.show{
+		opacity: .2 !important;
+	}
+	
   </style>
 
   <head>

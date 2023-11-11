@@ -159,6 +159,11 @@ input[type="text"] {
 	
 }
 
+#write-btn{
+	width:200px;
+	height:50px;
+}
+
 </style>
 
 </head>
@@ -189,8 +194,9 @@ input[type="text"] {
 					<button type="button" class="btn btn-outline-info" name="daily">#일상</button>
 					<button type="button" class="btn btn-outline-info" name="restaurant">#식당</button>
 					<button type="button" class="btn btn-outline-info" name="recipe">#레시피</button>
+					<h4>자유태그</h4>
 					<div id="autoSearch">
-						<input type="text" id="autoComplete" class="autoComplete" placeholder="검색하고싶은 태그를 입력해주세요. ex) #식당">
+						<input type="text" id="autoComplete" class="autoComplete" placeholder="미입력후 검색시 전체리스트">
 						<button type="button" id="searchbtn" class="btn btn-Dark"><b>검색</b></button>
 					</div>
 					<button type="button" id="write-btn" class="btn btn-success"
@@ -215,7 +221,7 @@ input[type="text"] {
 			<span>더보기</span>
 		</button>
 		<button id="addBtnSearch" class="addBtnSearch">
-			<span>더보</span>
+			<span>더보기</span>
 		</button>
 	
 
@@ -376,7 +382,7 @@ input[type="text"] {
 							$('.addBtn').css('display', 'block');
 							$('.addBtnSearch').css('display', 'none');
 							searchbt =$(this).text();
-							
+							$('#autoComplete').val('');
 							console.log(searchbt);
 							console.log(limitcnt);
 							listTagCall();
@@ -428,7 +434,18 @@ input[type="text"] {
 									content += '</a>';
 									content += '</div>';
 									content += '<div class="post-content">';
-									content += '<span class="feed-content">'+ item.content + '</span>';
+									
+									var feedContentTxt = item.content;
+									var truncatedTxt = truncateTxt(feedContentTxt, 100);
+
+									function truncateTxt(txt, maxLength) {
+									    if (txt.length > maxLength) {
+									        return txt.substring(0, maxLength) + '...';
+									    }
+									    return txt;
+									}
+
+									content += '<span class="feed-content">' + truncatedTxt + '</span>';
 									content += '<div class="post-caption">';
 									content += '</div>';
 									content += '<div class="post-comments">';
