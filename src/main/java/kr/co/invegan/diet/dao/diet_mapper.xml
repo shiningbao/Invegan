@@ -7,7 +7,7 @@
 <!-- 식품 검색 -->
 	<select id="findFoodList" parameterType="String" resultType="kr.co.invegan.diet.dto.FoodDataDTO">
 		SELECT * FROM FoodData 
-			WHERE food_name LIKE CONCAT('%', #{param1},'%')
+			WHERE REPLACE(food_name,' ','') LIKE CONCAT('%',REPLACE(#{param1},' ',''),'%')
 			ORDER BY CASE 
 				WHEN food_name LIKE #{param1} THEN 1
 				WHEN food_name LIKE CONCAT(#{param1}, ',%') THEN 2
@@ -198,7 +198,7 @@
 		DELETE FROM Material WHERE menu_id = ${menu_id};
 	</delete>
 	<delete id="delDietCompTbl" parameterType="hashMap">
-		DELETE FROM Diet_composition WHERE menu_id = ${menu_id};
+		DELETE FROM Diet_composition WHERE diet_id = ${diet_id};
 	</delete>
 	<delete id="delMenuTbl" parameterType="hashMap">
 		DELETE FROM Menu WHERE menu_id = ${menu_id};

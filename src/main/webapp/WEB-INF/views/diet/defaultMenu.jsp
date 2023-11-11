@@ -123,15 +123,17 @@ table, th, td {
 				<table id="foodListHead">
 					<colgroup>
 						<col width="5%">
-						<col width="60%">
+						<col width="40%">
+						<col width="15%">
 						<col width="20%">
-						<col width="8%">
-						<col width="7%">
+						<col width="10%">
+						<col width="10%">
 					</colgroup>
 					<tr>
 						<th>No.</th>
 						<th>식품명</th>
 						<th>분류</th>
+						<th>제조사</th>
 						<th>제공량(g)</th>
 						<th>kcal</th>
 					</tr>
@@ -351,7 +353,7 @@ table, th, td {
 			console.log($('#msg h3').css());
 			console.log($('#msg h3').html());
 		} else {
-			content += '<colgroup><col width="5%"><col width="60%"><col width="20%"><col width="8%"><col width="7%"></colgroup>';
+			content += '<colgroup><col width="5%"><col width="40%"><col width="15%"><col width="20%"><col width="10%"><col width="10%"></colgroup>';
 			data.findFoodList
 					.forEach(function(item, idx) {
 						content += '<tr class="foodItem" onclick="selectFood(this)">';
@@ -359,6 +361,7 @@ table, th, td {
 						content += '<td>' + (idx + 1) + '</td>';
 						content += '<td>' + item.food_name + '</td>';
 						content += '<td>' + item.food_category + '</td>';
+						content += '<td>' + item.production + '</td>';
 						content += '<td>' + item.serving_size + '</td>';
 						content += '<td>' + item.kcal + '</td>';
 						content += '</tr>';

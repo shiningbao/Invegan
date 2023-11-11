@@ -218,11 +218,24 @@ public class DietController {
 				if(params.get("category").equals("기본메뉴")) {
 					logger.info("메뉴삭제 :: 기본메뉴");
 					int row = dietService.delMenu(params);
+					if(row == 4) {
+						logger.info("기본메뉴 삭제 정상동작");
+						result.put("success", "success");
+					}else {
+						logger.info("기본메뉴 삭제 실패 row값 : "+ row);
+						result.put("error", "삭제 실패 :: 관리자에게 문의해주세요");
+					}
 					
 				}else if(params.get("category").equals("나만의레시피")) {
 					logger.info("메뉴삭제 :: 나만의 레시피메뉴");
-					
-					
+					int row = dietService.delMyRecipeMenu(params);
+					if(row == 2) {
+						logger.info("기본메뉴 삭제 정상동작");
+						result.put("success", "success");
+					}else {
+						logger.info("기본메뉴 삭제 실패 row값 : "+ row);
+						result.put("error", "삭제 실패 :: 관리자에게 문의해주세요");
+					}
 				}else {
 					logger.info("VALLUE ERROR :: params value = "+params.get("category")+" :: DB or SOURCE CODE CHECK");
 					

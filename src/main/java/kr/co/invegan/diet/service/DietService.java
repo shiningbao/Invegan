@@ -129,13 +129,21 @@ public class DietService{
 		return row;
 	}
 	
+
+	public int delMyRecipeMenu(HashMap<String, Object> params) {
+		logger.info("delMenu():: 나만의레시피 메뉴 삭제 실행");
+		int row = 0;
+		row += dietDAO.delDietCompTbl(params);
+		row += dietDAO.delDietTbl(params);
+		return row;
+	}
+
 	// 일별 칼로리 가져오기
 	public ArrayList<GetMonthKcalDTO> getMonthKcal(Map<String, Object> params) {
 		logger.info("getMonthKcal() :: 일별 칼로리 가져오기 실행");
 		ArrayList<GetMonthKcalDTO> getMonthKcal = dietDAO.getMonthKcal(params);
 		return getMonthKcal;
 	}
-
 	
 	
 	
