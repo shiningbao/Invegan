@@ -133,7 +133,6 @@ public class DietService{
 	public ArrayList<GetMonthKcalDTO> getMonthKcal(Map<String, Object> params) {
 		logger.info("getMonthKcal() :: 일별 칼로리 가져오기 실행");
 		ArrayList<GetMonthKcalDTO> getMonthKcal = dietDAO.getMonthKcal(params);
-	logger.info("getMonthKcal : "+ getMonthKcal +" / "+getMonthKcal.get(0));
 		return getMonthKcal;
 	}
 

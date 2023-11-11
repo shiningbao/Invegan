@@ -174,24 +174,35 @@ select {
 </body>
 
 <script>
-	window.onload = function() {
-		buildCalendar();
-	}
-	var selectDate = "";
 
+	var	nowMonth = new Date(); // 현재 달을 페이지를 로드한 날의 달로 초기화
+	var	today = new Date();
+	var	selectYear = new Date();
+		today.setHours(0, 0, 0, 0);
+	var selectDate = "";
+	buildCalendar();
 	// 날짜 클릭시 실행
-	function dietMgmt() {
+ 	function dietMgmt() {
 		console.log('go mgmt click')
 		location.href = "dietMgmt?date=" + selectDate;
-	}
+	} 
 
-	let nowMonth = new Date(); // 현재 달을 페이지를 로드한 날의 달로 초기화
-	let today = new Date();
-	let selectYear = new Date();
-	today.setHours(0, 0, 0, 0);
-
+	// 숫자가 10보다 작을 때 앞에 0을 붙여서 반환
+	function leftPad(value) {
+		if (value < 10) {
+			value = "0" + value;
+			return value;
+		}
+		return value;
+	} 
+	
+	
 	function buildCalendar() {
-
+		 /* nowMonth = new Date(); // 현재 달을 페이지를 로드한 날의 달로 초기화
+		 today = new Date();
+		 selectYear = new Date(); 
+		today.setHours(0, 0, 0, 0);
+		*/		
 		let firstDate = new Date(nowMonth.getFullYear(), nowMonth.getMonth(), 1); // 이번달 1일
 		let lastDate = new Date(nowMonth.getFullYear(),
 				nowMonth.getMonth() + 1, 0); // 이번달 마지막날
@@ -212,65 +223,102 @@ select {
 		}
 		
 		
-		
 		// 칼로리 정보 가져오기
 		// 칼로리를 가져오기 위한 파람값 설정
 		var yearMonth = $('#calYear').text() + "-" + $('#calMonth').text();
+		console.log('가져올 년 월',yearMonth);
 		
-		var getDate ="";
-		var getTotalKcal="";
-		var getStdKcal="";
-		getMonthKcal(yearMonth);
-		
-		
-		console.log('getMonthKcal result', getDate);
-		
-		
-		
-		
-		for (let nowDay = firstDate; nowDay <= lastDate; nowDay.setDate(nowDay
-				.getDate() + 1)) { // day는 날짜를 저장하는 변수, 이번달 마지막날까지 증가시키며 반복  
-
-			let nowColumn = nowRow.insertCell(); // 새 열을 추가하고
+		$.ajax({
+			type : 'get',
+			url : 'getMonthKcal',
+			data : {'yearMonth':yearMonth},
+			dataType : 'JSON',
+			success : function(data) {
+				console.log('getKcal',data.getKcal);
+				let getKcal = data.getKcal;
+				drawCalendar(getKcal);
+			},
+			error : function(data) {
+				console.log(data);
+			}
+		});
+		function drawCalendar(getKcal){
 			
-			/* 날짜 칸에 데이터 넣는 곳 */
-			/* nowColumn.innerText = leftPad(nowDay.getDate()); // 추가한 열에 날짜 입력  */	// 기존코드
-			var dataHtml = "<div class='dayData'>"+leftPad(nowDay.getDate())+"</div>"		// 수정한 코드
-							+"<div class='nutriData'>1204 /<br/> 2400 Kcal</div>"
-			nowColumn.innerHTML = dataHtml; 
-
-			if (nowDay.getDay() == 0) {
-				/*  nowColumn.style.color = "red";  */ 	// 기존 코드
-				nowColumn.querySelector(".dayData").style.color = "red";	// 수정한 코드
-			}
-			if (nowDay.getDay() == 6) {
-				nowRow = tbody_Calendar.insertRow(); // 새로운 행 추가
-			}
-
-			if (nowDay < today) { // 지난날인 경우
-				nowColumn.className = "pastDay";
-				nowColumn.onclick = function() {
-					choiceDate(this);
+				
+				for (let nowDay = firstDate; nowDay <= lastDate; nowDay.setDate(nowDay.getDate() + 1)) { // nowDay는 날짜를 저장하는 변수, 이번달 마지막날까지 증가시키며 반복  
+				
+					 var nowColumn = nowRow.insertCell(); // 새 열을 추가하고
+				
+					/* 날짜 칸에 데이터 넣는 곳 */
+					/* nowColumn.innerText = leftPad(nowDay.getDate()); // 추가한 열에 날짜 입력  */	// 기존코드
+					var nutriDataHtml;	
+					var dataHtml;
+					var kcalData;
+					if(getKcal != null){
+						 kcalData = getKcal.find(item => {
+							let itemData = new Date(item.date);
+							return (
+								itemData.getFullYear() == nowDay.getFullYear() &&
+								itemData.getMonth() == nowDay.getMonth() &&
+								itemData.getDate() == nowDay.getDate()
+							);
+						});	
+						console.log('kcalData',kcalData);
+						if(!kcalData){
+							kcalData = { total_Kcal: 0, stdKcal: 0 };
+						}
+					}else{
+						kcalData = { total_Kcal: 0, stdKcal: 0 };
+					}
+							nutriDataHtml = "<div class='nutriData'>"+kcalData.total_Kcal+" /<br/>"+kcalData.stdKcal+" Kcal</div>";
+						console.log('nutriDataHtml',nutriDataHtml);
+						
+						dataHtml = "<div class='dayData'>"+leftPad(nowDay.getDate())+"</div>"	
+								+ nutriDataHtml;
+						console.log('dataHtml',dataHtml);
+				
+								
+					nowColumn.innerHTML = dataHtml; 
+	
+					if (nowDay.getDay() == 0) {
+						/*  nowColumn.style.color = "red";  */ 	// 기존 코드
+						nowColumn.querySelector(".dayData").style.color = "red";	// 수정한 코드
+					}
+					if (nowDay.getDay() == 6) {
+						nowRow = tbody_Calendar.insertRow(); // 새로운 행 추가
+					}
+					if (nowDay < today) { // 지난날인 경우
+						nowColumn.className = "pastDay";
+						nowColumn.onclick = function() {
+							console.log('this',this);
+							choiceDate(this);
+						}
+					}else if (nowDay.getFullYear() == today.getFullYear()
+							&& nowDay.getMonth() == today.getMonth()
+							&& nowDay.getDate() == today.getDate()) { // 오늘인 경우           
+						nowColumn.className = "today";
+						nowColumn.onclick = function() {
+							choiceDate(this);
+						}
+					}else { // 미래인 경우
+						nowColumn.className = "futureDay";
+						nowColumn.onclick = function() {
+							choiceDate(this);
+						}
+					}
 				}
-			} else if (nowDay.getFullYear() == today.getFullYear()
-					&& nowDay.getMonth() == today.getMonth()
-					&& nowDay.getDate() == today.getDate()) { // 오늘인 경우           
-				nowColumn.className = "today";
-				nowColumn.onclick = function() {
-					choiceDate(this);
-				}
-			} else { // 미래인 경우
-				nowColumn.className = "futureDay";
-				nowColumn.onclick = function() {
-					choiceDate(this);
-				}
-			}
 		}
+		
+		
+		
 	}
+		
+	
+	
 
-	// 날짜 선택
+ 	// 날짜 선택
 	function choiceDate(nowColumn) {
-
+		console.log('nowColumn', nowColumn)
 		let existingChoiceDay = document.querySelector(".choiceDay");
 
 		if (existingChoiceDay) {
@@ -290,37 +338,31 @@ select {
 		dietMgmt();
 	}
 
-	// 이전달 버튼 클릭할 때 함수
+	 // 이전달 버튼 클릭할 때 함수
 	function prevCalendar() {
+		console.log("nowMonth",nowMonth);
 		nowMonth = new Date(nowMonth.getFullYear(), nowMonth.getMonth() - 1,
 				nowMonth.getDate()); // 현재 달을 1 감소
 		buildCalendar(); // 달력 다시 생성
 	}
 	// 다음달 버튼 클릭할 때 함수
 	function nextCalendar() {
-		nowMonth = new Date(nowMonth.getFullYear(), nowMonth.getMonth() + 1,
-				nowMonth.getDate()); // 현재 달을 1 증가
+		nowMonth = new Date(nowMonth.getFullYear(), nowMonth.getMonth() + 1,nowMonth.getDate()); // 현재 달을 1 증가
 		buildCalendar(); // 달력 다시 생성
-	}
+	} 
+	
 	if (nowColumn.classList.contains("pastDay")) {
+		console.log('nowColumn',nowColumn);
 		nowColumn.classList.add("choiceDay");
 
 	} else {
 		nowColumn.classList.add("choiceDay");
-	}
+	} 
 	
 
-	// 숫자가 10보다 작을 때 앞에 0을 붙여서 반환
-	function leftPad(value) {
-		if (value < 10) {
-			value = "0" + value;
-			return value;
-		}
-		return value;
-	}
+	
 
-	document.getElementById("calYear").addEventListener("click",
-		function(event) {
+	document.getElementById("calYear").addEventListener("click",function(event) {
 		console.log('click');
 		// 클릭한 위치에 새로운 <select> 요소 생성
 		var selectElement = document.createElement("select");
@@ -358,24 +400,9 @@ select {
 	});
 	
 	
-	function getMonthKcal(yearMonth) {
-		console.log('가져올 년 월',yearMonth)
-		
-		$.ajax({
-			type : 'get',
-			url : 'getMonthKcal',
-			data : {'yearMonth':yearMonth},
-			dataType : 'JSON',
-			success : function(data) {
-				console.log('getKcal',data.getKcal);
-				var getDate = data.getKcal;
-				var getTotalKcal="";
-				var getStdKcal="";
-			},
-			error : function(data) {
-			}
-		});
-	}
+	
+	
+	
 </script>
 
 </html>

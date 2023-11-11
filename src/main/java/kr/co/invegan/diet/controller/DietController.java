@@ -67,7 +67,12 @@ public class DietController {
 		);
 				
 		ArrayList<GetMonthKcalDTO> getMonthKcal = dietService.getMonthKcal(params);
-		result.put("getKcal", getMonthKcal);
+		
+		if(getMonthKcal.size() > 0) {
+			result.put("getKcal", getMonthKcal);
+		}else {
+			
+		}
 		return result;
 	}
 
