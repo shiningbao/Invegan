@@ -43,63 +43,64 @@ public class MyPageService {
 		return use;
 	}
 
-	public HashMap<String, Object> requestBoardList(int user_no, String page) {
-
-		int p = Integer.parseInt(page);
-		int offset = (p - 1) * 5;
-		logger.info("p:" + p + "offset:" + offset);
-		ArrayList<MyPageDTO> pagingList = dao.requestBoardList(user_no, 5, offset);
-
-		HashMap<String, Object> map = new HashMap<String, Object>();
-
-		int pages = dao.totalPage(5);
-		logger.info("만들 수 있는 총 페이지 갯수 : " + pages);
-		map.put("pages", pages); // 만들 페이지 수
-		map.put("pagingList", pagingList);
-
-		return map;
-	}
-
 	/*
-	 * public HashMap<String, Object> recipeBoardList(int user_no, String page) {
-	 * return dao.recipeBoardList(user_no); }
+	 * public HashMap<String, Object> requestBoardList(int user_no, String page) {
+	 * 
+	 * int p = Integer.parseInt(page); int offset = (p - 1) * 5; logger.info("p:" +
+	 * p + "offset:" + offset); ArrayList<MyPageDTO> rqList =
+	 * dao.requestBoardList(user_no,offset);
+	 * 
+	 * HashMap<String, Object> map = new HashMap<String, Object>();
+	 * 
+	 * int pages = dao.rqTotalPage(); logger.info("만들 수 있는 총 페이지 갯수 : " + pages);
+	 * map.put("pages", pages); // 만들 페이지 수 map.put("rqList", rqList);
+	 * map.put("page", p);
+	 * 
+	 * return map; }
 	 */
+	
+	
+	 public ArrayList<MyPageDTO> recipeBoardList(int user_no) {
+		 return dao.recipeBoardList(user_no); 
+	 }
+	 
 
-	/*
-	 * public MyPageDTO freeBoardList(int user_no) { return
-	 * dao.freeBoardList(user_no); }
-	 */
+	
+	 public ArrayList<MyPageDTO> freeBoardList(int user_no) { 
+		 return dao.freeBoardList(user_no); 
+	 }
+	 
 
-	/*
-	 * public ArrayList<MyPageDTO> feedList(Integer user_no) { return
-	 * dao.feedList(user_no); }
-	 */
+	
+	 public ArrayList<MyPageDTO> feedList(Integer user_no) { 
+		 return dao.feedList(user_no);
+	 }
+	 
 
 	public void delUser(int user_no) {
 		dao.delUser(user_no);
 	}
-
-	/*
-	 * public HashMap<String, Object> recipeComments(int user_no, String page) {
-	 * return dao.recipeComments(user_no); }
-	 * 
-	 * public HashMap<String, Object> recipeFavorite(int user_no, String page) {
-	 * return dao.recipeFavorite(user_no); }
-	 */
-
-	/*
-	 * public ArrayList<MyPageDTO> freeComments(int user_no) { return
-	 * dao.freeComments(user_no); }
-	 * 
-	 * public ArrayList<MyPageDTO> feedComments(int user_no) { return
-	 * dao.feedComments(user_no); }
-	 * 
-	 * public ArrayList<MyPageDTO> restaurantComments(Integer user_no) { return
-	 * dao.restaurantComments(user_no); }
-	 * 
-	 * public ArrayList<MyPageDTO> restaurantFavorite(Integer user_no) { return
-	 * dao.restaurantFavorite(user_no); }
-	 */
+	 
+	 public ArrayList<MyPageDTO> recipeFavorite(int user_no) {
+	 return dao.recipeFavorite(user_no); 
+	 }
+	 
+	 public ArrayList<MyPageDTO> freeComments(int user_no) { 
+		 return dao.freeComments(user_no); 
+	 }
+	 
+	 public ArrayList<MyPageDTO> feedComments(int user_no) { 
+		 return dao.feedComments(user_no); 
+	 }
+	 
+	 public ArrayList<MyPageDTO> restaurantComments(Integer user_no) { 
+		 return dao.restaurantComments(user_no); 
+	 }
+	 
+	 public ArrayList<MyPageDTO> restaurantFavorite(Integer user_no) { 
+		 return dao.restaurantFavorite(user_no); 
+	 }
+	 
 
 	public int updateNickname(String nickname, Integer user_no) {
 		return dao.updateNickname(nickname, user_no);
@@ -131,7 +132,7 @@ public class MyPageService {
 	 logger.info("image_id:"+image_id);
 	 saveImage(session,photo,image_id,user_no);
 	 
-	 return "";
+	 return "imgUpload성공";
 	 
 	 
 	 }
@@ -185,7 +186,16 @@ public class MyPageService {
 			 
 	 }
 	}
-			 
+
+	public ArrayList<MyPageDTO> requestBoardList(Integer user_no) {
+		return dao.requestBoardList(user_no);
+	}
+
+	public ArrayList<MyPageDTO> recipeComments(Integer user_no) {
+		return dao.recipeComments(user_no);
+	}
+
+
 	
 		 
 		 

@@ -1,6 +1,7 @@
 package kr.co.invegan.mypage.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,47 +47,60 @@ public class MyPageController {
 		}
 	}
 
-	@RequestMapping(value = "/myPage/listCall")
+	@RequestMapping(value = "/myPage/list")
 	@ResponseBody
-	public HashMap<String, Object> listCall(@RequestParam String boardType, @RequestParam String tabType,
-			@RequestParam Integer user_no, @RequestParam String page) {
+	public HashMap<String, Object> list(@RequestParam HashMap<String, String> params,@RequestParam Integer user_no) {
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
-
+		ArrayList<MyPageDTO> list = null;
+		
+		String boardType = params.get("boardType");
+		String tabType = params.get("tabType");
+		// String page = params.get("page");
+		
+		logger.info(boardType+"/"+tabType+"/"+user_no);
+		
 		switch (boardType) {
 		case "요청":
 			if ("작성한 글 모아보기".equals(tabType)) {
-				result.put("list", service.requestBoardList(user_no, page));
+				list = service.requestBoardList(user_no);
 			}
 			break;
-		/*
-		 * case "레시피": if ("작성한 글 모아보기".equals(tabType)) { result =
-		 * service.recipeBoardList(user_no,page); } else if ("댓글 모아보기".equals(tabType))
-		 * { result = service.recipeComments(user_no,page); } else if
-		 * ("나의 스크랩".equals(tabType)) { result = service.recipeFavorite(user_no,page); }
-		 * break;
-		 */
-		/*
-		 * case "자유게시판": if ("작성한 글 모아보기".equals(tabType)) { list =
-		 * service.freeBoardList(user_no); } else if ("댓글 모아보기".equals(tabType)) { list
-		 * = service.freeComments(user_no); } break; case "피드": if
-		 * ("작성한 글 모아보기".equals(tabType)) { list = service.feedList(user_no); } else if
-		 * ("댓글 모아보기".equals(tabType)) { list = service.feedComments(user_no); } break;
-		 * case "식당": if ("댓글 모아보기".equals(tabType)) { list =
-		 * service.restaurantComments(user_no); } else if ("나의 스크랩".equals(tabType)) {
-		 * list = service.restaurantFavorite(user_no); } break;
-		 */
+		
+		case "레시피": 
+			if ("작성한 글 모아보기".equals(tabType)) { 
+				list = service.recipeBoardList(user_no); 
+			}else if ("댓글 모아보기".equals(tabType)){ 
+				list = service.recipeComments(user_no); 
+			}else if("나의 스크랩".equals(tabType)) { 
+				list = service.recipeFavorite(user_no); 
+			}
+			break;
+		
+	
+		case "자유게시판": if ("작성한 글 모아보기".equals(tabType)) { 
+				list = service.freeBoardList(user_no); 
+			} else if ("댓글 모아보기".equals(tabType)) { 
+				list = service.freeComments(user_no); } 
+			break; 
+		case "피드": if("작성한 글 모아보기".equals(tabType)) { 
+				list = service.feedList(user_no); } else if("댓글 모아보기".equals(tabType)) { 
+				list = service.feedComments(user_no); } 
+			break;
+		case "식당": if ("댓글 모아보기".equals(tabType)) { 
+				list =service.restaurantComments(user_no); } else if ("나의 스크랩".equals(tabType)) {
+				list = service.restaurantFavorite(user_no); } 
+			break;
+		 
 		default:
 
 			break;
 		}
 		result.put("user_no", user_no);
-		result.put("page", page);
-
 		logger.info("user_no:" + user_no);
-		logger.info("보여줄 페이지 : " + page);
-		logger.info("user_no:" + user_no);
-		logger.info("보여줄 페이지 : " + page);
+		result.put("list", list);
+		// result.put("page", page);
+		// logger.info("보여줄 페이지 : " + page);
 
 		return result;
 	}
@@ -109,12 +123,12 @@ public class MyPageController {
 
 	@RequestMapping(value = "/myPage/updateNickname")
 	@ResponseBody
-	public HashMap<String, Object> updateNickname(HttpSession session, @RequestParam String nickname, @RequestParam Integer user_no) {
+	public HashMap<String, Object> updateNickname(HttpSession session, Model model, @RequestParam String nickname, @RequestParam Integer user_no) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		logger.info(nickname + "/" + user_no);
 		
 		int cnt = service.updateNickname(nickname, user_no);
-	    
+	   
 	    if (cnt > 0) {
 	        
 	        MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
