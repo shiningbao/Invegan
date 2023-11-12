@@ -1,4 +1,4 @@
-package kr.co.invegan.main.dto;
+package kr.co.invegan.board.dto;
 
 public class restaurantFilterListDTO {
 	private int post_id;
@@ -7,7 +7,6 @@ public class restaurantFilterListDTO {
 	private String server_file_name;
 	private int km;
 	private int is_hidden;
-	
 	
 	public int getIs_hidden() {
 		return is_hidden;

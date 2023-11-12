@@ -20,6 +20,11 @@ body {
     margin: 0;
 }
 
+.container {
+    display: flex;
+    flex-direction: column; /* 세로 방향으로 정렬 */
+}
+
 .find-container {
     background-color: white;
     border-radius: 10px;
@@ -33,7 +38,7 @@ h2, h4 {
 }
 
 input {
-    background-color: #4682b4; /* 스틸 블루 색상 */
+    background-color: #4682b4; 
     color: white;
     padding: 10px;
     margin: 10px;
@@ -43,16 +48,21 @@ input {
 }
 
 input:hover {
-    background-color: #36648b; /* 더 어두운 스틸 블루로 변경 (hover 시) */
+    background-color: #36648b; /* hover */
 }
 
 </style>
 </head>
 <body>
+
 	<h2>아이디/비밀번호 찾기</h2>
+
 	<br>
+
 	<input id="findId" type="button" name="findId" value="아이디 찾기" >
+
 	<input id="findPw" type="button" name="findPw" value="비밀번호 찾기" >
+
 </body>
 
 <script>

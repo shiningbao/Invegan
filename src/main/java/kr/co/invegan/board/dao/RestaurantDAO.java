@@ -1,10 +1,12 @@
 package kr.co.invegan.board.dao;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+
+import org.apache.ibatis.annotations.Param;
 
 import kr.co.invegan.board.dto.MenuDTO;
 import kr.co.invegan.board.dto.RestaurantDTO;
+import kr.co.invegan.board.dto.restaurantFilterListDTO;
 import kr.co.invegan.member.dto.MemberDTO;
 
 public interface RestaurantDAO {
@@ -23,7 +25,7 @@ public interface RestaurantDAO {
 
 	ArrayList<String> photoList(int post_id);
 
-	ArrayList<RestaurantDTO> restaurantList();
+	ArrayList<restaurantFilterListDTO> restaurantList(@Param("lat") double userLat, @Param("lng") double userLng);
 
 	int boardUpdate(RestaurantDTO dto);
 
