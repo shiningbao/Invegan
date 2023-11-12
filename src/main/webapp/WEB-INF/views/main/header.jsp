@@ -172,7 +172,11 @@
 <hr id="last">
 
 </header>
+<<<<<<< HEAD
 	<%-- <%@ include file="library.jsp" %> --%>
+=======
+<%-- 	<%@ include file="library.jsp" %> --%>
+>>>>>>> origin/master
 </body>
 
 <script>
