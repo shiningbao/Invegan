@@ -53,6 +53,7 @@
 .header-nav_list{
 	list-style: none;
 	display: flex;
+	margin: 16px 0px;
 }
 .header-nav_item{
 	margin: 3px 10px;
@@ -67,6 +68,22 @@
 	cursor: pointer;
 	color:#95df95;
 }
+
+#header-loginBtn{
+	position: absolute;
+	right: 30px;
+	top:20px;
+}
+#header-loginBtn a{
+	all:initial;
+	font-size: 20px;
+	font-weight: 600;
+	cursor: pointer;
+}
+#header-loginBtn a:hover{
+	color:#95df95;
+}
+
 .loginInfo{
 	position: fixed;
     right: 23px;
@@ -75,6 +92,7 @@
 
 .loginInfo p {
 	display: inline-block;
+	margin: 16px 0px !important;
 }
 #profileImg {
    width: 40px;
@@ -83,6 +101,8 @@
    margin-right: 10px;
    position: relative;
    top: 12px;
+   	vertical-align: baseline !important;
+   
 }
 	
 
@@ -188,9 +208,9 @@
 			</nav>
 		</div>
 		<div class="loginInfo">
-				<!-- 로그인 안했을 때 -->
+			<!-- 로그인 안했을 때 -->
 			<c:if test="${empty loginInfo}">
-				<p><a href = "<c:url value='/member/login.go'/>">Login</a></p>
+				<p id="header-loginBtn"><a href = "<c:url value='/member/login.go'/>">Login</a></p>
 			</c:if>
 		
 			<!-- 로그인 했을 때 -->
@@ -199,7 +219,6 @@
 				<p id="loginNickname">${loginInfo.getNickname()}</p>
 				<p id="loginId">( ${loginInfo.getId()} )</p>
 				<div class="infoMB">
-					<button id="infoButton">@</button>
 					<div class="infoModal">
 						<div class="infoModalList"><a href = "<c:url value='/member/logout'/>">로그아웃</a></div>
 						<div class="infoModalList"><a href = "<c:url value='/myPage/info.go'/>">마이페이지</a></div>
@@ -250,7 +269,7 @@
 		location.href = '<c:url value='/'/>';
 	});
 
-	/* $('#infoButton').on('click',function(){
+	 $('#infoButton').on('click',function(){
 		var displayChk = $('.infoModal').css('display');
 		console.log(displayChk);
 		if(displayChk == 'block'){
@@ -258,7 +277,7 @@
 		}else{
 			$('.infoModal').css({'display':'block'});
 		}
-	}); */
+	}); 
 
 	/* $('#nav_item_categori').on('mouseover',function(){
 		$('.nav_list_2').css({"display":"block"});	

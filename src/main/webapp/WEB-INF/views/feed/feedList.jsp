@@ -16,6 +16,12 @@
 
 
 <style>
+/*header 부트스트랩 적용 방지*/
+body{
+	margin: 8px !important;
+}
+
+
 /* 왼쪽 사이드바 메뉴 스타일 */
 .container {
 	width: 1000px;
@@ -262,7 +268,6 @@ input[type="text"] {
 
 
 
-	<c:import url="/main/footer" />
 </body>
 <script>
 
