@@ -140,7 +140,6 @@
 	<th colspan="2"><button type="button" id="write">수정</button>  <button type="button" id="cancle">취소</button></th>
 	</tr>
 </table>
-<c:import url="/main/footer"/>
 </body>
 
 <script>

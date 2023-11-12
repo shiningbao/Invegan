@@ -290,9 +290,9 @@ $('#favorite').on("click",function(){
 		success:function(data){
 			console.log(data);
 			if(data.result == '0'){
-				$('#favorite').attr('src','<c:url value="/resources/main/X.png"/>');
+				$('#favorite').attr('src','<c:url value="/resources/main/favorite_X.png"/>');
 			}else{
-				$('#favorite').attr('src','<c:url value="/resources/main/O.png"/>');
+				$('#favorite').attr('src','<c:url value="/resources/main/favorite_O.png"/>');
 			}
 		},
 		error:function(e){
@@ -304,7 +304,7 @@ $('#favorite').on("click",function(){
 
 
 
-
+/*
 $('#send_writeReview').on('click',function(){
 	if($('input[name="wirteReview"]').val() != ''){
 		if(confirm('리뷰를 작성하시겠습니까?')){
@@ -329,9 +329,6 @@ $('#send_writeReview').on('click',function(){
 					console.log(e);
 				}
 			});
-			
-			
-			
 		}else{
 			console.log('리뷰 취소 클릭');
 		}
@@ -339,7 +336,7 @@ $('#send_writeReview').on('click',function(){
 		alert('리뷰를 입력해주세요');
 	}
 });
-
+*/
 
 
 
