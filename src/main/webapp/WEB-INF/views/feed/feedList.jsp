@@ -265,6 +265,9 @@ input[type="text"] {
 	<c:import url="/main/footer" />
 </body>
 <script>
+
+	//header 카테고리 선택유지
+	$('#go_feed').css('box-shadow','#95df95 0px 2px 0px 0px');
 	var loginInfo;
 	var limitcnt = 10;
 	var searchbt = '#전체리스트';
