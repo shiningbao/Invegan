@@ -40,6 +40,10 @@
 	width: 135px;
 	height: 100px;
 }
+.header-logoImg{
+	position: absolute;
+	left: -239px;
+}
 .header-logoImg img:hover{
 	cursor: pointer;
 }
@@ -128,90 +132,6 @@
 	cursor: pointer;
 }
 
-
-/* 	.top {
-		clear: both;
-		height: 150px;
-	}	
-	.logoImg{
-		position: inherit;
-		float: left;
-	}
-	.loginInfo{
-		position: inherit;
-		float: right;
-		width: 200px;
-		height: 30px;
-		margin-top: 25px;
-		margin-right: 50px;
-		
-	}
-	.loginInfo > p {
-		display: inline-block;
-	}
-	.infoModal{
-		border: 1px solid black;
-		display: none;
-		position: absolute;
-		background-color: grey;
-		z-index: 100;
-
-	}
-	#profileImg {
-	   width: 50px;
-	   height: 50px;
-	   border-radius: 50%;
-	   margin-right: 10px;
-	}
-	.sideBar{
-		width: 60px;
-		height: 372px;
-		position: fixed;
-		top: 35%;
-		right: 3%;
-	}	
-	.sideList{
-		width: 60px;
-		height: 60px;
-		margin: 1px 0px;
-		border: 1px solid black;
-		background-color: #F0F8FF;		
-	}
-	#last{
-		border: 2px gray solid;
-		width: 100%;
-	}
-	.nav{
-		margin: 0 auto;
-		width: 1000px;
-	}
-	.nav_item_1{
-		list-style: none;
-		float: left;
-		margin: 0 15px;
-		position: relative;
-	}
-	.nav_item_1 > a{
-		font-size: 40px;
-		text-decoration: none;
-		color: black;
-
-	}
-	.nav_list_2{
-		display: none;
-		position: absolute;
-		top: 100%;
-		background-color: grey;
-	}
-	.nav_item_1{
-		list-style: none;
-		position: relative;
-	}
-	.nav_litm_2 > a{
-		text-align: center;
-		text-decoration: none;
-		font: 40px;
-	} */
 </style>
 </head>
 <body>
@@ -225,7 +145,9 @@
 					<li class="header-nav_item"><a id="go_diet" href="<c:url value='/diet/dietCalander'/>">식단관리</a></li>
 					<li class="header-nav_item" id="go_rest"><a href="<c:url value='/restaurant/list'/>">비건식당</a></li>
 					<li class="header-nav_item"><a id="go_feed" href="<c:url value='/feed/list.go'/>">피드</a></li>
-					<li class="header-nav_item"><a id="go_myPage" href="<c:url value='/myPage/info.go'/>">MyPage</a></li>
+					<c:if test="${not empty loginInfo}">
+						<li class="header-nav_item"><a id="go_myPage" href="<c:url value='/myPage/info.go'/>">MyPage</a></li>
+					</c:if>
 				</ul>
 			</nav>
 		</div>
