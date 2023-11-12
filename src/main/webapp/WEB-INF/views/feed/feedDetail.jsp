@@ -49,6 +49,10 @@
 
 #detailModal {
 	padding-right: 500px !important;
+	
+}
+.modal-backdrop{
+	display: block !important;
 }
 
 .custom-button {
@@ -81,8 +85,8 @@
 <!-- autocomplete 자동완성검색 -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-
+<!-- alert ,cofirm 창 -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <title>Feed Detail</title>
 </head>
 
@@ -417,8 +421,17 @@ $(document).ready(function(){
       // 비회원이 댓글작성했을떄 이벤트
       $('#feedDetail').on('click', '#comment-write-btn', function () {
 		    if (loginInfo == null) {
-		        alert('로그인이 필요합니다.');
-		        location.href="/invegan/member/login.go";
+		    	swal({
+            	    title: "로그인이 필요합니다 !",
+            	    text: "",
+            	    icon: "error",
+            	    allowOutsideClick: false //외부창 눌러서 끄기
+            	}).then((result) =>{
+            		if(result){
+            			
+            			location.href="/invegan/member/login.go";  
+            		}
+            	})
 		    } else {
 		        
 		    }
