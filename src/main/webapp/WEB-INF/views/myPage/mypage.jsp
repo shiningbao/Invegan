@@ -432,6 +432,8 @@
 </body>
 	
 <script>
+//header 카테고리 선택유지
+$('#go_myPage').css('box-shadow','#95df95 0px 2px 0px 0px');
 // var showPage = 1;
 
 // listCall(showPage);

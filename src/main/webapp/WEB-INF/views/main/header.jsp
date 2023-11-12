@@ -34,36 +34,36 @@
 	position: relative;
 	
 }
-.logoImg img{
+.header-logoImg img{
 	width: 135px;
 	height: 100px;
 }
-.logoImg img:hover{
+.header-logoImg img:hover{
 	cursor: pointer;
 }
 
-.logoImg, .navbar, .loginInfo{
+.header-logoImg, .header-navbar, .loginInfo{
 	display: inline-block;
 }
-.navbar{
+.header-navbar{
 	position: absolute;
     right: 100px;
     top: 53px;
 }
-.nav_list{
+.header-nav_list{
 	list-style: none;
 	display: flex;
 }
-.nav_item{
+.header-nav_item{
 	margin: 3px 10px;
 }
-.nav_item a{
+.header-nav_item a{
 	all: initial;
 	font-size: 19px;
 	font-weight: 600;
 	
 }
-.nav_item a:hover{
+.header-nav_item a:hover{
 	cursor: pointer;
 	color:#95df95;
 }
@@ -174,23 +174,23 @@
 </head>
 <body>
 <header id="header-container">
-		<div class = "logoImg">
+		<div class = "header-logoImg">
 			<img src="<c:url value='/resources/main/invegan_logo_master.png'/>"  alt="Logo Img" id="Logo"/>
 		</div>
-		<div class="navbar">
-			<nav class="nav">
-				<ul class="nav_list">
-					<li class="nav_item"><a id="go_diet" href="<c:url value='/diet/dietCalander'/>">식단관리</a></li>
-					<li class="nav_item" id="go_rest"><a href="<c:url value='/restaurant/list'/>">비건식단</a></li>
-					<li class="nav_item"><a id="go_feed" href="<c:url value='/feed/list.go'/>">피드</a></li>
-					<li class="nav_item"><a id="go_frBoard" href="<c:url value='/restaurant/list'/>">자유게시판</a></li>
+		<div class="header-navbar">
+			<nav class="header-nav">
+				<ul class="header-nav_list">
+					<li class="header-nav_item"><a id="go_diet" href="<c:url value='/diet/dietCalander'/>">식단관리</a></li>
+					<li class="header-nav_item" id="go_rest"><a href="<c:url value='/restaurant/list'/>">비건식당</a></li>
+					<li class="header-nav_item"><a id="go_feed" href="<c:url value='/feed/list.go'/>">피드</a></li>
+					<li class="header-nav_item"><a id="go_myPage" href="<c:url value='/myPage/info.go'/>">MyPage</a></li>
 				</ul>
 			</nav>
 		</div>
 		<div class="loginInfo">
 				<!-- 로그인 안했을 때 -->
 			<c:if test="${empty loginInfo}">
-				<p><a href = "<c:url value='/member/login.go'/>">로그인</a></p>
+				<p><a href = "<c:url value='/member/login.go'/>">Login</a></p>
 			</c:if>
 		
 			<!-- 로그인 했을 때 -->
@@ -238,7 +238,7 @@
 	</div> -->
 
 </header>
-		<hr id="last">
+		<hr style="border: 1px solid darkgrey ; color: darkgrey;"/>
 
 <%-- 	<%@ include file="library.jsp" %> --%>
 </body>
