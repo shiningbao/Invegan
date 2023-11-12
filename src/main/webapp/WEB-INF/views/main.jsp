@@ -55,6 +55,7 @@
 		position: relative;
 		width : 328px;
 		margin: 0px 2px;
+		cursor: pointer;
 	}
 	.cFL_R_Img{
 		width: 325px;
@@ -77,7 +78,30 @@
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
-		
+	}
+	
+	.cFL_Feed{
+		position: relative;
+		width : 328px;
+		margin: 0px 2px;
+		cursor: pointer;
+	}
+	.cFL_F_Head{
+		align-items: center;
+		display: flex;
+		margin-bottom: 3px;
+	}
+	.cFL_F_Head p, .cFL_F_Head img{
+		display: inline-block;
+	}
+	.cFL_F_Con{
+		width: 100%;
+	}
+	.cFL_F_Text{
+		width: 100%;
+		height: 42px;
+		overflow: hidden;
+		text-overflow: ellipsis;		
 	}
 	.blank{
 		margin-bottom: 200px;
@@ -100,7 +124,7 @@
 			<div class="cF_title"><h1>추천 식당</h1></div>
 			<div class="cF_move"><h3><a href="<c:url value='/restaurant/list'/>">더보기...</a></h3></div>
 		</div>
-		<div class="customFilterList" id="restaurantList">
+		<div class="customFilterList">
 			<div class="customFilterButton">
 				<i class="fi fi-rr-angle-double-left" id="restaurantButtonL"></i>
 			</div>
@@ -203,37 +227,49 @@
 		<!-- 피드 -->
 		<div class="customFilterArea">
 			<div class="cF_title"><h1>추천 피드</h1></div>
-			<div class="cF_move"><h3><a href="#">더보기...</a></h3></div>
+			<div class="cF_move"><h3><a href="<c:url value='/feed/list.go'/>">더보기...</a></h3></div>
 		</div>
-		<div class="customFilterList">
-			<div class="customFilterL">
-				<!-- 버튼 대체해야함 -->
-				<div class="qwe">L</div>
+		<div class="customFilterList" id="restaurantList">
+			<div class="customFilterButton">
+				<i class="fi fi-rr-angle-double-left" id="feedButtonL"></i>
 			</div>
-			<div class="cFL_Res">
-				<div class="cFL_R_Img"></div>
-				<div class="cFL_R_Con">
-					<p class="cFL_R_VT">#락토 #비건 # 오토</p>
-					<h2 class="cFL_R_Name">식당 명</h2>
+			
+			<div class="cFL_Feed">
+				<div class="cFL_F_Head">
+					<img src="#" alt="ProfileImg" width="50px" height="50px"/>
+					<p></p>
+				</div>
+				<div class="cFL_F_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
+				<div class="cFL_F_Con">
+					<div class="cFL_F_Text"></div>
+					<div class="cFL_F_Tag"></div>
 				</div>
 			</div>
-			<div class="cFL_Res">
-				<div class="cFL_R_Img"></div>
-				<div class="cFL_R_Con">
-					<p class="cFL_R_VT">#락토 #비건 # 오토</p>
-					<h2 class="cFL_R_Name">식당 명</h2>
+			<div class="cFL_Feed">
+				<div class="cFL_F_Head">
+					<img src="#" alt="ProfileImg" width="50px" height="50px"/>
+					<p></p>
+				</div>
+				<div class="cFL_F_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
+				<div class="cFL_F_Con">
+					<div class="cFL_F_Text"></div>
+					<div class="cFL_F_Tag"></div>
 				</div>
 			</div>
-			<div class="cFL_Res">
-				<div class="cFL_R_Img"></div>
-				<div class="cFL_R_Con">
-					<p class="cFL_R_VT">#락토 #비건 # 오토</p>
-					<h2 class="cFL_R_Name">식당 명</h2>
+			<div class="cFL_Feed">
+				<div class="cFL_F_Head">
+					<img src="#" alt="ProfileImg" width="50px" height="50px"/>
+					<p></p>
+				</div>
+				<div class="cFL_F_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
+				<div class="cFL_F_Con">
+					<div class="cFL_F_Text"></div>
+					<div class="cFL_F_Tag"></div>
 				</div>
 			</div>
-			<div class="customFilterR">
-				<!-- 버튼 대체해야함 -->
-				<div class="qwe">R</div>
+				
+			<div class="customFilterButton">
+				<i class="fi fi-rr-angle-double-right" id="feedButtonR"></i>
 			</div>
 		</div>
 	
@@ -248,7 +284,9 @@
 
 <script>
 var RFL;
-var idx = 0;
+var FFL
+var r_idx = 0;
+var f_idx = 0;
 var msg = "${msg}";
 if(msg != ""){
 	alert(msg);
@@ -284,14 +322,21 @@ function geoSubmit(data){
 		success:function(data){
 			console.log(data);
 			var shuffleRFL = data.RFL.slice().sort(() => Math.random() - 0.5); // 랜덤으로 정렬
+			var shuffleFFL = data.FFL.slice().sort(() => Math.random() - 0.5);
 			if(shuffleRFL.length > 6){
-				RFL = shuffleFRL.slice(0,6);
+				RFL = shuffleRFL.slice(0,6);
 			}else{
 				RFL = shuffleRFL;
 			}
-			console.log(RFL);-
-			restaurantListView(idx);
-			console.log(data.FFL);
+			if(shuffleFFL.length > 6){
+				FFL = shuffleFFL.slice(0,6);
+			}else{
+				FFL = shuffleFFL;
+			}
+			console.log(RFL);
+			console.log(FFL);
+			restaurantListView(r_idx);
+			feedListView(f_idx);
 		},
 		error:function(e){
 			console.log(e);
@@ -302,6 +347,7 @@ function geoSubmit(data){
 
 function restaurantListView(idx){
 	for (var i = 0; i < 3; i++) {
+		$('.cFL_Res').eq(i).attr('post_id',RFL[i+idx].post_id);
 		$('.cFL_Res').eq(i).find($('img')).attr('src', '/photo/'+RFL[i+idx].server_file_name);
 		$('.cFL_Res').eq(i).find($('img')).attr('alt', RFL[i+idx].title);
 		$('.cFL_Res').eq(i).find($('.cFL_R_Name')).html(RFL[i+idx].title);
@@ -330,21 +376,60 @@ function restaurantListView(idx){
 	}
 }
 
+$('.cFL_Res').on('click',function(){
+	console.log($(this).attr('post_id'));
+	var post_id = $(this).attr('post_id');
+	location.href = 'restaurant/detail?post_id='+post_id
+});
+
 $('#restaurantButtonL').on('click',function(){
-	console.log(idx);
-	if(idx >= 3){
-		idx -= 3;
-		restaurantListView(idx);
+	console.log(r_idx);
+	if(r_idx >= 3){
+		r_idx -= 3;
+		restaurantListView(r_idx);
+	}
+});
+$('#restaurantButtonR').on('click',function(){
+	console.log(r_idx);
+	if(!(r_idx +3 >= RFL.lenght)){
+		r_idx += 3;
+		restaurantListView(r_idx);
 	}
 });
 
-$('#restaurantButtonR').on('click',function(){
-	console.log(idx);
-	if(!(idx +3 >= RFL.lenght)){
-		idx += 3;
-		restaurantListView(idx);
+
+function feedListView(idx){
+	for (var i = 0; i < 3; i++) {
+	$('.cFL_Feed').eq(i).attr('post_id',FFL[i+idx].post_id);
+	$('.cFL_Feed').eq(i).find('.cFL_F_Head').find($('img')).attr('src', '/photo/'+FFL[i+idx].profile_image);
+	$('.cFL_Feed').eq(i).find('.cFL_F_Head').find($('p')).html(FFL[i+idx].nickname);
+	$('.cFL_Feed').eq(i).find('.cFL_F_Img').find($('img')).attr('src', '/photo/'+FFL[i+idx].server_file_name);
+	$('.cFL_Feed').eq(i).find($('.cFL_F_Text')).html(FFL[i+idx].content);
+	$('.cFL_Feed').eq(i).find($('.cFL_F_Tag')).html(FFL[i+idx].tag_content);
+	}
+}
+
+$('.cFL_Feed').on('click',function(){
+	console.log($(this).attr('post_id'));
+	var post_id = $(this).attr('post_id');
+	//location.href = '';
+});
+
+$('#feedButtonL').on('click',function(){
+	console.log(f_idx);
+	if(f_idx >= 3){
+		f_idx -= 3;
+		feedListView(f_idx);
 	}
 });
+$('#feedButtonR').on('click',function(){
+	console.log(f_idx);
+	if(!(f_idx +3 >= FFL.lenght)){
+		f_idx += 3;
+		feedListView(f_idx);
+	}
+});
+
 
 
 </script>

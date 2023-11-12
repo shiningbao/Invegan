@@ -93,18 +93,22 @@ public class MainService {
 
 	public ArrayList<FeedListDTO> feedFilterList(HttpSession session) {
 		MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
-		
+		ArrayList<FeedListDTO> result = null;
 		if(loginInfo != null) {
 			// 로그인 상태
 			String interests = dao.interests(loginInfo.getUser_no());
+			List<String> inteList = new ArrayList<String>();
 			logger.info("interests: "+interests);
 			String[] inteArr = interests.split(",");
-			
+			for (String inte : inteArr) {
+				inteList.add("%"+inte+"%");
+			}
+			result = dao.feedInterestFilterList(inteList);
 		}else {
 			// 비로그인 상태
 			logger.info("비로그인");
+			result = dao.feedFilterList();
 		}
-		ArrayList<FeedListDTO> result = dao.feedFilterList();
 		return result;
 	}
     

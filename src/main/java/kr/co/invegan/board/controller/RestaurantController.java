@@ -199,8 +199,6 @@ public class RestaurantController {
 	public HashMap<String, String> favorite(@RequestParam HashMap<String, String> param) {
 		
 		HashMap<String, String> result = new HashMap<String, String>();
-		
-		logger.info("param commemt_text : "+param.get("comment_text"));
 		String success = service.favorite(param);
 		result.put("result", success);
 		return result;
