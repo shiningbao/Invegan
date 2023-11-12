@@ -60,8 +60,8 @@ input[type="submit"]:hover {
 </style>
 </head>
 <body>
-<div class=all>
-<div class="container">
+
+	<div class="container">
 <h2>아이디 찾기 결과</h2>
 </div>
 
@@ -78,14 +78,14 @@ input[type="submit"]:hover {
 
 	<div class="container">
     <label for="email">이메일:</label>
-    <input type="text" id="email" name="email" required placeholder="이메일을 입력해주세요">
+    	<input type="text" id="email" name="email" required placeholder="이메일을 입력해주세요">
     </div>
     <p><br></p>
     <div class="container">
-    <input type="submit" name="findIdd" value="아이디 찾기">
+    	<input type="submit" name="findIdd" value="아이디 찾기">
 	<p><br></p>
 	</div>
-</div>
+
 </form>
 </body>
 <script>

@@ -1,6 +1,7 @@
 package kr.co.invegan.board.service;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -13,9 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.maps.GeoApiContext;
+import com.google.maps.GeocodingApi;
+import com.google.maps.errors.ApiException;
+import com.google.maps.model.GeocodingResult;
+
 import kr.co.invegan.board.dao.RestaurantDAO;
 import kr.co.invegan.board.dto.MenuDTO;
 import kr.co.invegan.board.dto.RestaurantDTO;
+import kr.co.invegan.board.dto.restaurantFilterListDTO;
 import kr.co.invegan.member.dto.MemberDTO;
 
 @Service
@@ -103,8 +110,10 @@ public class RestaurantService {
 	public ArrayList<String> photoList(int post_id) {
 		return dao.photoList(post_id);
 	}
-	public ArrayList<RestaurantDTO> restaurantList() {
-		return dao.restaurantList();
+	
+	
+	public ArrayList<restaurantFilterListDTO> restaurantList(Double userLat, Double userLng) {
+		return dao.restaurantList(userLat, userLng);
 	}
 	
 
@@ -196,12 +205,36 @@ public class RestaurantService {
 		dto.setContent((String) param.get("content"));
 		dto.setPhone((String) param.get("phone"));
 		dto.setHours((String) param.get("hours"));
+		
+		double[] latlng = addrLatLng((String)param.get("address"));
+		dto.setLat(latlng[0]);
+		dto.setLng(latlng[1]);
 		return dto;
 	}
 
-	
-	
-	
+	// 주소를 위경도로 변환
+	private double[] addrLatLng(String addr) {
+		double[] result = new double[2];
+		String googleApiKey = "AIzaSyBxXjuUT3qQNQ6JPeOJX-X3Eo8f9RO5aEY";
+		GeoApiContext context = new GeoApiContext.Builder().apiKey(googleApiKey).build();
+		GeocodingResult[] results;
+		try {
+			results = GeocodingApi.geocode(context,addr).await();
+			if(results.length > 0) {
+				result[0] = results[0].geometry.location.lat; //위도
+				result[1] = results[0].geometry.location.lng; //경도
+			}else {
+				// 주소가 검색안되면 위경도0으로 반환
+				result[0] = 0;
+				result[1] = 0;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+
 	public int reviewWrite(HashMap<String, String> param) {
 		return 0;
 	}

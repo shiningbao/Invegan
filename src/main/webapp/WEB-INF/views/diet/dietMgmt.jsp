@@ -670,6 +670,10 @@ body {
 			data : params,
 			dataType : 'JSON',
 			success : function(data) {
+				if(data.success=='success'){
+					console.log('메뉴삭제',data.success);
+					location.reload();
+				}
 			},
 			error : function(data) {
 			}

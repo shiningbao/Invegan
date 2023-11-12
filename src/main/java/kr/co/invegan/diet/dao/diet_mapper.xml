@@ -7,7 +7,7 @@
 <!-- 식품 검색 -->
 	<select id="findFoodList" parameterType="String" resultType="kr.co.invegan.diet.dto.FoodDataDTO">
 		SELECT * FROM FoodData 
-			WHERE food_name LIKE CONCAT('%', #{param1},'%')
+			WHERE REPLACE(food_name,' ','') LIKE CONCAT('%',REPLACE(#{param1},' ',''),'%')
 			ORDER BY CASE 
 				WHEN food_name LIKE #{param1} THEN 1
 				WHEN food_name LIKE CONCAT(#{param1}, ',%') THEN 2
@@ -164,16 +164,17 @@
 	<select id="getMonthKcal" parameterType="map" resultType="kr.co.invegan.diet.dto.GetMonthKcalDTO">
 	SELECT
     	d.date,
-    	ROUND(fd.kcal * (mt.grams / fd.serving_size), 0) AS total_kcal,
+    	SUM(ROUND(fd.kcal * (mt.grams / fd.serving_size), 0)) AS total_kcal,
     	(SELECT kcal AS stdKcal 
-    FROM DailyNutrition dn 
-    	INNER JOIN Members m ON m.user_no = #{loginUser_no} AND dn.gender = m.gender 
-    WHERE (
-    	SELECT ROUND(DATEDIFF(CURDATE(), m.birthdate) / 365, 0) + 1 AS age 
-        FROM Members m 
-        WHERE user_no = #{loginUser_no}
+    	FROM DailyNutrition dn 
+    		INNER JOIN Members m ON m.user_no = #{loginUser_no} AND dn.gender = m.gender 
+    	WHERE (
+    		SELECT ROUND(DATEDIFF(CURDATE(), m.birthdate) / 365, 0) + 1 AS age 
+        	FROM Members m 
+        	WHERE user_no = #{loginUser_no}
         )
-	    LIMIT 1
+        BETWEEN CAST(SUBSTRING_INDEX(dn.age,'-',1)AS INT) 
+		AND CAST(SUBSTRING_INDEX(dn.age,'-',-1)AS INT)
 	    ) AS stdKcal
 	FROM
 	    Diet d
@@ -182,7 +183,8 @@
 		INNER JOIN Material mt ON m.menu_id = mt.menu_id
 		INNER JOIN FoodData fd ON mt.food_id = fd.food_id
 	WHERE
-	    d.user_no = #{loginUser_no} AND d.date LIKE CONCAT(#{yearMonth}, '%');  
+	    d.user_no = #{loginUser_no} AND d.date LIKE CONCAT(#{yearMonth}, '%')  
+	GROUP BY date;
 	</select>
 
 	
@@ -196,7 +198,7 @@
 		DELETE FROM Material WHERE menu_id = ${menu_id};
 	</delete>
 	<delete id="delDietCompTbl" parameterType="hashMap">
-		DELETE FROM Diet_composition WHERE menu_id = ${menu_id};
+		DELETE FROM Diet_composition WHERE diet_id = ${diet_id};
 	</delete>
 	<delete id="delMenuTbl" parameterType="hashMap">
 		DELETE FROM Menu WHERE menu_id = ${menu_id};

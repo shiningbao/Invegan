@@ -1,24 +1,21 @@
 package kr.co.invegan.main.service;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.google.code.geocoder.Geocoder;
-import com.google.code.geocoder.GeocoderRequestBuilder;
-import com.google.code.geocoder.model.GeocodeResponse;
-import com.google.code.geocoder.model.GeocoderRequest;
-import com.google.code.geocoder.model.GeocoderResult;
-import com.google.code.geocoder.model.GeocoderStatus;
-import com.google.code.geocoder.model.LatLng;
-
-import kr.co.invegan.board.dao.RestaurantDAO;
-import kr.co.invegan.board.dto.RestaurantDTO;
+import kr.co.invegan.board.dto.FeedListDTO;
 import kr.co.invegan.main.dao.MainDAO;
+import kr.co.invegan.main.dto.distCntDTO;
+import kr.co.invegan.main.dto.restaurantFilterListDTO;
 import kr.co.invegan.member.dto.MemberDTO;
 
 @Service
@@ -28,71 +25,88 @@ public class MainService {
 	
 	@Autowired MainDAO dao;
 
-	public void aaa(double userLat, double userLng) {
-			logger.info("lat :"+userLat+" / lng: "+userLng);
-			ArrayList<RestaurantDTO> restaurantList = dao.prf();
-			for (RestaurantDTO restaurant : restaurantList) {
-				Float[] resLatLng = geoCoding(restaurant.getAddress());
-				logger.info("resLatLng : "+resLatLng[0]+" / "+resLatLng[1]);
-		        double theta = userLng - resLatLng[1];
-		        double dist = Math.sin(deg2rad(userLat))* Math.sin(deg2rad(resLatLng[0])) + Math.cos(deg2rad(userLat))*Math.cos(deg2rad(resLatLng[0]))*Math.cos(deg2rad(theta));
-		        dist = Math.acos(dist);
-		        dist = rad2deg(dist);
-		        dist = dist * 60*1.1515*1609.344; // m 단위
-		        logger.info(restaurant.getPost_id()+" : "+dist);
-		        
-			}
+	public ArrayList<restaurantFilterListDTO> restaurantFilterList(HttpSession session, double userLat, double userLng) {
+		
+		ArrayList<restaurantFilterListDTO> result = null;
+		String vegan_type;
+		List<String> vt = null;
+		distCntDTO distCnt = null;
+		int dist = 0;
+		
+		MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
+		// 로그인 여부 
+		if(loginInfo != null) {
+			// 회원 맞춤 정보 제공
+			vegan_type = ""+dao.veganType(loginInfo.getUser_no());
+			vt = Arrays.asList(vegan_type); //회원의 비건단계
 			
+			distCnt = dao.rangeCnt(vt, userLat, userLng);
+			logger.info("distCnt : "+distCnt);
+			if(distCnt != null) {
+				logger.info("distCnt : "+distCnt.getCount5()+"/"+distCnt.getCount10()+"/"+distCnt.getCount15()+"/");
+				if(distCnt.getCount5() >= 20) {
+					dist = 5;
+				}else if(distCnt.getCount10() >= 20) {
+					dist = 10;
+				}else if(distCnt.getCount15() >= 20) {
+					dist = 15;
+				}
+			}
+			if(dist == 0) {
+				// 비건단계 확대
+				vt = null;
+				if(vegan_type.equals("1")) vt = Arrays.asList("1");
+				if(vegan_type.equals("2")) vt = Arrays.asList("1","2");
+				if(vegan_type.equals("3")) vt = Arrays.asList("1","2","3");
+				if(vegan_type.equals("4")) vt = Arrays.asList("1","2","4");
+				if(vegan_type.equals("5")) vt = Arrays.asList("1","2","3","4","5");
+				if(vegan_type.equals("6")) vt = Arrays.asList("1","2","3","4","5","6");
+				if(vegan_type.equals("7")) vt = Arrays.asList("1","2","3","4","5","7");
+				if(vegan_type.equals("8")) vt = Arrays.asList("1","2","3","4","5","6","7","8");
+				if(vegan_type.equals("9")) vt = Arrays.asList("1","2","3","4","5","6","7","8","9");
+				logger.info("식당 수 부족, 비건 단계 확대 / vt: "+vt);
+			}
+		}else {
+			logger.info("비로그인");
+			vt = Arrays.asList("1","2","3","4","5","6","7","8","9");
+		}
+		
+		if(dist == 0) {
+			distCnt = dao.rangeCnt(vt, userLat, userLng);
+			logger.info("rangeCnt : "+ distCnt.getCount5()+"/"+ distCnt.getCount10()+"/"+ distCnt.getCount15());
+			if(distCnt.getCount5() >= 20) {
+				dist = 5;
+			}else if(distCnt.getCount10() >= 20) {
+				dist = 10;
+			}else if(distCnt.getCount15() >= 20) {
+				dist = 15;
+			}else {
+				dist = 1000;
+			}
+		}
+		logger.info("vt :"+vt+" / dist: "+dist);
+		result = dao.restaurantFilterList(vt, userLat, userLng,dist);
+		
+		return result;
+
 	}
 
-	
-    // 두 좌표 사이의 거리를 구하는 함수
-    // dsitance(첫번쨰 좌표의 위도, 첫번째 좌표의 경도, 두번째 좌표의 위도, 두번째 좌표의 경도)
-    private static double distance(double lat1, double lon1, double lat2, double lon2){
-        double theta = lon1 - lon2;
-        double dist = Math.sin(deg2rad(lat1))* Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1))*Math.cos(deg2rad(lat2))*Math.cos(deg2rad(theta));
-        dist = Math.acos(dist);
-        dist = rad2deg(dist);
-        dist = dist * 60*1.1515*1609.344;
-
-        return dist; //단위 meter
-    }
-    
-    //10진수를 radian(라디안)으로 변환
-    private static double deg2rad(double deg){
-        return (deg * Math.PI/180.0);
-    }
-    //radian(라디안)을 10진수로 변환
-    private static double rad2deg(double rad){
-        return (rad * 180 / Math.PI);
-    }
-    
-    
-    public Float[] geoCoding(String location) {	 
-        Geocoder geocoder = new Geocoder();
-        logger.info(location);
-        GeocoderRequest geocoderRequest = new GeocoderRequestBuilder().setAddress(location).setLanguage("UTF-8").getGeocoderRequest(); 
-        GeocodeResponse geocoderResponse;
-        try {
-            geocoderResponse = geocoder.geocode(geocoderRequest);
-            if (geocoderResponse.getStatus() == GeocoderStatus.OK & !geocoderResponse.getResults().isEmpty()) {
-                GeocoderResult geocoderResult = geocoderResponse.getResults().iterator().next();
-                LatLng latitudeLongitude = geocoderResult.getGeometry().getLocation();
-                Float[] coords = new Float[2];
-                coords[0] = latitudeLongitude.getLat().floatValue();
-                coords[1] = latitudeLongitude.getLng().floatValue();
-                return coords;
-            }else {
-            	logger.info("lf문 안들어가짐");
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        return null;
-    }
-
-    
-    
+	public ArrayList<FeedListDTO> feedFilterList(HttpSession session) {
+		MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
+		
+		if(loginInfo != null) {
+			// 로그인 상태
+			String interests = dao.interests(loginInfo.getUser_no());
+			logger.info("interests: "+interests);
+			String[] inteArr = interests.split(",");
+			
+		}else {
+			// 비로그인 상태
+			logger.info("비로그인");
+		}
+		ArrayList<FeedListDTO> result = dao.feedFilterList();
+		return result;
+	}
     
     
 }

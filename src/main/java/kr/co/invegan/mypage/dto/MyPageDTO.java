@@ -28,8 +28,15 @@ public class MyPageDTO {
 	private String category;
 	private String profile_image;
 	private int rating;
+	private int post_id;
 
 	
+	public int getPost_id() {
+		return post_id;
+	}
+	public void setPost_id(int post_id) {
+		this.post_id = post_id;
+	}
 	public String getPw() {
 		return pw;
 	}
