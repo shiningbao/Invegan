@@ -12,7 +12,8 @@
 			
 			/* 카테고리 버튼 */
 			.cbutton {
-				height: 22px;
+				width : 50px;
+				height: 30px;
 				border: 1px solid black;
 				background-color: white;
 				border-radius: 4px;
@@ -69,17 +70,30 @@
 			.ibutton {
 				position: absolute;
 				left: 588px;
+				cursor: pointer;
+				background: none;
+				border: none;
+				font-size: 25px;
 			}
 			
 			.dbutton {
 				position: absolute;
 				left: 616px;
+				cursor: pointer;
+				background: none;
+				border: none;
+				font-size: 25px;
 			}
 			
 			.fbutton {
 				position: absolute;
 				left: 643px;
-				margin-left: 35px;
+				margin-left: 28px;
+				background : #98ff98;
+				border : none;
+				border-radius: 4px;
+				width : 50px;
+				height: 30px;
 			}
 			
 			/* rm:재료 */
@@ -123,6 +137,13 @@
 			#rmhead table{
 				width: 700px;
 			}
+			
+			#mtop input {
+				cursor: pointer;
+				background: none;
+				border: none;
+				font-size: 25px;
+			}
 
 			/* rN:영양소 표시 */			
 			#rNutri {
@@ -144,6 +165,7 @@
 				height : 29px;
 				font-size: 15px;
 				padding : 3px;
+				border-bottom : 2px solid #2ecc71; /* 에메랄드색 */
 			}
 			
 			#rNutri td{
@@ -187,8 +209,8 @@
 				<input type="button" class="cbutton" id="lunch" value="점심"/>
 				<input type="button" class="cbutton" id="dinner" value="저녁"/>
 				<input type="button" class="cbutton" id="other" value="기타"/>
-				<button class="ibutton" onclick="rinsert()">+</button>
-				<button class="dbutton" onclick="rdel()">-</button>
+				<input type="button" class="ibutton" onclick="rinsert()" value="+"/>
+				<input type="button" class="dbutton" onclick="rdel()" value="-"/>
 				<input type="button" class="fbutton" onclick="dinsert()" value="완료"/>
 				<div id = "thead">
 					<table>
@@ -198,7 +220,7 @@
 							<col width="25%">
 						</colgroup>
 						<tr>
-							<th>식품명</th>
+							<th>레시피 이름</th>
 							<th>1회 제공량(g)</th>
 							<th>에너지(kcal)</th>
 						</tr>
@@ -227,8 +249,8 @@
 						<tr>
 							<th colspan="2"  style="width : 350px;">재료</th>
 							<th>
-								<button onclick="minsert()">+</button>
-								<button onclick="mdel()">-</button>
+								<input type ="button" onclick="minsert()" value="+"/>
+								<input type ="button" onclick="mdel()" value="-"/>
 							</th>
 						</tr>
 					</table>
@@ -644,9 +666,11 @@
 		// 아,점,저,기 버튼
 		$('.cbutton').on('click', function(){
 			$('.cbutton').css('background-color','');
+			$('.cbutton').css('border','1px solid black');
 			diet_category = $(this).val();
 			console.log("식단의 카테고리 : "+diet_category);
-			$(this).css('background-color','lightgreen');
+			$(this).css('background-color','#98ff98');
+			$(this).css('border','none');
 		});
 		
 		// 식단 추가

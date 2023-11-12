@@ -22,6 +22,7 @@
 			  div.scrollbar th{
 			  	padding: 8px;
 			    height: 30px;
+			    border-bottom : 1px solid black;
 			  }
 
 			  
@@ -56,10 +57,11 @@
 			  #down {
 			  	padding : 5px 0px 0px 0px;
 			  	margin-top: 10px;
+			  	float : right;
 			  }
 			  
 			  #mMaterial {
-			  	float : right;
+			  	margin-left : 10px;
 			  }
 			  
 			  #close input {
@@ -131,8 +133,8 @@
 		$('#msearch').on('click', function(){
 			fName = $('input[name="fname"]').val();
 			
-			console.log('food_name : '+fName); 
-			
+			console.log('food_name : '+fName);
+			if (fName != ''){
 				$.ajax({
 					type:'get',
 				    url:'mlist.do',
@@ -146,6 +148,11 @@
 				       console.log(e);
 				    }
 				});
+			} else {
+				alert('검색어를 입력해 주세요');				
+			}
+			
+
 		});
 		
 		// 재료 리스트 그리기
