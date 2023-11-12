@@ -239,7 +239,7 @@ body {
 	background: #85dd89;
 	border-radius: 5px;
 	box-sizing: border-box;
-	color: #FFF;
+	color: #000;
 }
 
 .bar-graph-box-txt {
