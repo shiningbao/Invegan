@@ -165,18 +165,14 @@
 			<p>바</p>
 		</div>
 		<div class="sideList">
-			<a href="<c:url value='/request/requestList'/>">요청하기</a>
+			<a>요청하기</a>
 		</div>
 	</div>
 	
 <hr id="last">
 
 </header>
-<<<<<<< HEAD
 	<%-- <%@ include file="library.jsp" %> --%>
-=======
-<%-- 	<%@ include file="library.jsp" %> --%>
->>>>>>> origin/master
 </body>
 
 <script>
