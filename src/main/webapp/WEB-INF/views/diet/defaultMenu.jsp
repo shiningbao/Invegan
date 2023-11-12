@@ -8,126 +8,235 @@
 <title>Invegan - 식단관리</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <style>
-table, th, td {
-	border-collapse: collapse;
-	padding: 3px 10px;
-	font-size: 13px;
-}
 
-/*영양소 리스트 위치잡기*/
-#defaultMenuBox {
-	display: flex;
-}
 
+#defaultMenuBox{
+	margin: 0 auto;
+    width: 94%;
+	white-space :nowrap;
+	overflow: hidden;
+}
+#listArea, #showNutri, #contents-vertical{
+	display: inline-block;
+}
 #listArea {
-	
+    width: 72%;
 }
 
-#showNutri table {
-	
-}
+/* 식품 검색 구역*/
 
-#listArea, #showNutri, #layerBox {
+#left-top-box{
+	position: relative;
+}
+#left-top-box div{
 	display: inline-block;
 }
 
-#listArea {
-	margin: 20px 10px 0px 30px;
-	border-right: 2px solid lightgray;
-	position: relative;
+/* 카테고리 선택 버튼*/
+#cateBtn button{
+	background: none;
+	padding: 8px 13px;
+	font-size: 17px;
+	margin: 16px 3px;
+	border: 1.5px solid gray;
+	color: gray;
+	border-radius: 5px;
+	box-shadow: lightgray 5px 4px 7px 1px;;
+	outline-color: #9eca9e;
 }
-
-.mealBtn {
-	border: 1px solid black;
-	background-color: white;
-	border-radius: 4px;
-}
-
-.mealBtn:hover {
+#cateBtn button:hover{
 	cursor: pointer;
+	color: #9eca9e;
+}
+#cateBtn button:active{
+	cursor: pointer;
+	box-shadow: lightgray 3px 2px 9px 0px;
+	position: relative;
+	top:1px;
+	left: 1px;
+	
+}
+/*식품 검색 박스*/
+#search{
+	width: 279px;
+    position: absolute;
+    right: 163px;
+}
+#searchBox{
+	outline-color: #9eca9e;
+    padding-left: 10px;
+    margin: 16px 3px;
+    width: 260px;
+    height: 34px;
+    font-size: 18px;
+    font-weight: 600;
+    border: 1.5px solid gray;
+    border-radius: 5px;
+}
+#search button{
+	padding-left: 11px;
+    border: none;
+    border-left: 1.5px solid gray;
+    height: 34px;
+    background: none;
+    font-size: 20px;
+    position: relative;
+    top:2px;
+    right: 55px;
+}
+#search button:hover{
+	cursor: pointer;
+	color:#9eca9e;
+}
+/*중량 입력 박스*/
+#gramBox{
+	font-size: 22px;
+	font-weight: 600;
+	position: absolute;
+	right: 92px;
+}
+#gramBox input{
+	outline-color: #9eca9e;
+	padding-left:8px;
+	margin: 16px 3px;
+	width: 40px;
+	height: 33px;
+	font-size:18px;
+	font-weight: 600;
+	border:1.5px solid gray;
+	border-radius: 5px;
+}
+/*완료 버튼*/
+#addBtn{
+	background: none;
+	padding: 6px 10px;
+	font-size: 17px;
+	margin: 16px 3px;
+	border-radius: 5px;
+	border: 1.5px solid black;
+	box-shadow: lightgray 5px 4px 7px 1px;;
+	outline-color: #9eca9e;
+	position: absolute;
+	top: 2px;
+	right: 1px;
+}
+#addBtn:hover{
+	cursor: pointer;
+	color: #9eca9e;
+	border: 1.5px solid #9eca9e;
+}
+#addBtn:active{
+	box-shadow: lightgray 3px 2px 9px 0px;
+	border: 1.5px solid #9eca9e;
+	color: #9eca9e;
+ 	position: absolute;
+	top:3px;
+	right: 0px;
+	
 }
 
-#listBox {
-	width: 765px;
-	margin: 0;
-}
+/* 식품 검색 리스트*/
+#foodList {
 
-#foodListHead {
-	height: 30px;
-	width: 95%;
-	border: 1px solid black;
 }
 
 #foodListHead th {
-	height: 25px;
-	border: 1px solid black;
+	padding: 3px 10px;
+    height: 25px;
+    border: 1.3px solid #59b879;
+    border-radius: 3px;
 }
-
-#foodListBox {
-	height: 430px;
-	width: 94.8%;
-	overflow: auto;
-	overflow-x: hidden;
-	border: 1px solid black;
-}
-
 #msg {
 	text-align: center;
 }
-/* 	#foodListBox::-webkit-scrollbar{
-		width: 3px;
-	}
-	#foodListBox::-webkit-thumb{
-		width: 3px;
-	}
-	#foodListBox::-webkit-track{
-		width: 3px;
-	} */
+
+#foodListBox {
+	text-align:center;
+    width: 100%;
+    height: 480px;
+    overflow: auto;
+    overflow-x: hidden;
+    border-bottom: 1.5px solid darkgray;
+}
+#foodListBox::-webkit-scrollbar{
+	width: 3px;
+}
+#foodListBox::-webkit-thumb{
+	width: 3px;
+}
+#foodListBox::-webkit-track{
+	width: 3px;
+} 
 #foodList {
-	width: 103%;
+	white-space: normal;
+	border-collapse: collapse;
 }
-
-#showNutri table {
-	width: 300px;
-	height: 540px;
+.foodItem td{
 }
-
 .foodItem:hover {
 	cursor: pointer;
+	box-shadow:  #59B879 0px 0px 5px 1px;
 }
 
-#gBox {
-	width: 30px;
+
+
+
+/*가로줄*/
+#contents-vertical{
+	height: 516px;
+    margin: 0px 15px;
+    border-right: 1.5px solid gray;
 }
+
+/*영양소 구역*/
+#showNutri{
+	width: 225px;
+}
+#showNutri table{
+	width: 225px;
+}
+
+#food_name{
+	width:100%;
+	padding: 3px 5px;
+	box-shadow: #95df95 0px 2px 0px 0px
+}
+
+
 </style>
 </head>
 <body>
 	<div id="defaultMenuBox">
 		<div id="listArea">
-			<ul>
-				<li><input id="breakfast" class="mealBtn" type="button"
-					value="아침" onclick="meal(this)" /></li>
-				<li><input id="lunch" class="mealBtn" type="button" value="점심"
-					onclick="meal(this)" /></li>
-				<li><input id="dinner" class="mealBtn" type="button" value="저녁"
-					onclick="meal(this)" /></li>
-				<li><input id="etc" class="mealBtn" type="button" value="기타"
-					onclick="meal(this)" /></li>
-				<li><input id=searchBox type="text" placeholder="식품 검색" />
-					<button type="button" onclick="searchFood()">검색</button></li>
-				<li><input id="gBox" name="gram" type="text" /> g</li>
-				<li><input type="button" value="완료" onclick="addMenu()" /></li>
-			</ul>
+			<div id="left-top-box">
+				<div id="cateBtn">
+					<button id="breakfast" onclick="meal(this)">아침</button>
+					<button id="lunch" onclick="meal(this)">점심</button>
+					<button id="dinner" onclick="meal(this)">저녁</button>
+					<button id="etc" onclick="meal(this)">기타</button>
+				</div>
+				<div id="search">
+					<input id=searchBox type="text" placeholder="식품 검색" />
+					<button type="button" onclick="searchFood()">
+						<i class="xi-search"></i>
+					</button>
+				</div>
+				<div id="gramBox">
+					<input id="gBox" name="gram" type="text" />g
+				</div>
+				<button id="addBtn" onclick="addMenu()">완료</button>
+			</div>
+	
 
 			<div id="listBox">
 				<table id="foodListHead">
 					<colgroup>
-						<col width="5%">
+						<col width="4%">
 						<col width="40%">
 						<col width="15%">
 						<col width="20%">
-						<col width="10%">
-						<col width="10%">
+						<col width="12%">
+						<col width="9%">
 					</colgroup>
 					<tr>
 						<th>No.</th>
@@ -149,10 +258,11 @@ table, th, td {
 				</div>
 			</div>
 		</div>
+		<div id="contents-vertical"></div>
 		<div id="showNutri">
 			<table>
 				<tr>
-					<td colspan="2"><h2 id="food_name">식품을 선택해주세요</h2></td>
+					<td colspan="2" id="food_name"><h3>식품을 선택해주세요</h3></td>
 				</tr>
 				<tr>
 					<td>1회 제공량</td>
@@ -244,6 +354,14 @@ table, th, td {
 	;
 	var diet_category = ''; // 아침/ 점심 /저녁/ 기타
 	var gram = 0;
+	
+	// 식품 검색창 입력후 enter key로 식품 검색 함수 호출
+	$("#searchBox").on('keyup', function (e) {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+            searchFood();
+        }
+    });
+	
 
 	function addMenu() {
 		gram = $('#gBox').val();
@@ -289,30 +407,30 @@ table, th, td {
 	}
 
 	function meal(obj) {
-		diet_category = obj.value;
+		diet_category = $(obj).text();
 		if (diet_category === '아침') {
-			$('#breakfast').css('border', '2px solid green');
-			$('#lunch').css('border', '1px solid black');
-			$('#dinner').css('border', '1px solid black');
-			$('#etc').css('border', '1px solid black');
+			$('#breakfast').css({'border':'1.5px solid #9eca9e','color':'#9eca9e'});
+			$('#lunch').css({'border':'1.5px solid gray','color':'gray'});
+			$('#dinner').css({'border':'1.5px solid gray','color':'gray'});
+			$('#etc').css({'border':'1.5px solid gray','color':'gray'});
 			$('#searchBox').focus();
 		} else if (diet_category === '점심') {
-			$('#breakfast').css('border', '1px solid black');
-			$('#lunch').css('border', '2px solid green');
-			$('#dinner').css('border', '1px solid black');
-			$('#etc').css('border', '1px solid black');
+			$('#breakfast').css({'border':'1.5px solid gray','color':'gray'});
+			$('#lunch').css({'border':'1.5px solid #9eca9e','color':'#9eca9e'});
+			$('#dinner').css({'border':'1.5px solid gray','color':'gray'});
+			$('#etc').css({'border':'1.5px solid gray','color':'gray'});
 			$('#searchBox').focus();
 		} else if (diet_category === '저녁') {
-			$('#breakfast').css('border', '1px solid black');
-			$('#lunch').css('border', '1px solid black');
-			$('#dinner').css('border', '2px solid green');
-			$('#etc').css('border', '1px solid black');
+			$('#breakfast').css({'border':'1.5px solid gray','color':'gray'});
+			$('#lunch').css({'border':'1.5px solid gray','color':'gray'});
+			$('#dinner').css({'border':'1.5px solid #9eca9e','color':'#9eca9e'});
+			$('#etc').css({'border':'1.5px solid gray','color':'gray'});
 			$('#searchBox').focus();
 		} else if (diet_category === '기타') {
-			$('#breakfast').css('border', '1px solid black');
-			$('#lunch').css('border', '1px solid black');
-			$('#dinner').css('border', '1px solid black');
-			$('#etc').css('border', '2px solid green');
+			$('#breakfast').css({'border':'1.5px solid gray','color':'gray'});
+			$('#lunch').css({'border':'1.5px solid gray','color':'gray'});
+			$('#dinner').css({'border':'1.5px solid gray','color':'gray'});
+			$('#etc').css({'border':'1.5px solid #9eca9e','color':'#9eca9e'});
 			$('#searchBox').focus();
 		}
 	}
@@ -353,7 +471,7 @@ table, th, td {
 			console.log($('#msg h3').css());
 			console.log($('#msg h3').html());
 		} else {
-			content += '<colgroup><col width="5%"><col width="40%"><col width="15%"><col width="20%"><col width="10%"><col width="10%"></colgroup>';
+			content += '<colgroup><col width="5%"><col width="39%"><col width="14%"><col width="20%"><col width="12%"><col width="9%"></colgroup>';
 			data.findFoodList
 					.forEach(function(item, idx) {
 						content += '<tr class="foodItem" onclick="selectFood(this)">';
@@ -376,7 +494,7 @@ table, th, td {
 		foodId = $(obj).find('.foodId').val();
 		
 		$('.foodItem').css('background', 'none');
-		$(obj).css('background-color', '#87878754');
+		$(obj).css('background-color', 'rgb(115 211 147 / 19%)');
 
 		$('#gBox').focus();
 
