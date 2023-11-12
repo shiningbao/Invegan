@@ -352,16 +352,9 @@ $(document).ready(function(){
       	}
            
            content += '<div class="post-caption detailPostCaption">';
-           content += '<div class="feed-content">' + item.content + '</div> ';
+           content += '<div class="feed-content">' + item.content.replace(/\n/g, '<br>') + '</div>';
            content += '</div>';
            
-           
-           
-          
-          
-           
-          
-          
           content += '<div class="post-comments">';
           content += '<div class="comment">';             
 //           content += '<span class="username">' + item.comment_user_nickname + '</span> ';
@@ -462,7 +455,7 @@ $(document).ready(function(){
                 var originalContent = feed_content.text();
                 postImgEditBtn.append('<button class="btn btn-dark" id="post-img-edit-btn">이미지수정</button>');
                 // "feed-content"를 input 태그로 대체
-                feed_content.html('<input type="text" class="feed-content-input" value="' + originalContent + '">');
+                feed_content.html('<textarea name="content" class="feed-content-input" placeholder="내용을 입력하세요.." style="width: 600px; height: 200px;">' + originalContent + '</textarea>');
                 // 저장 버튼과 취소 버튼 추가
                 feed_content.append('<button class="btn btn-dark" id="save-button" data-post-id="' + post_id + '">저장</button>');
                 feed_content.append('<button class="btn btn-dark" id="cancel-button">취소</button>');
@@ -577,7 +570,7 @@ $(document).ready(function(){
                         	  success:function(data){
                         		  console.log(data);
                         		  var editContent = feed_content.val();
-                        		  var feedContent = '<div class="feed-content">' + editContent + '</div>';
+                        		  var feedContent = '<div class="feed-content">' + editContent.replace(/\n/g, '<br>') + '</div>';
                         		  console.log(this);            		  
                         		  $('#feedDetail .post-caption').html(feedContent);
                         		  
