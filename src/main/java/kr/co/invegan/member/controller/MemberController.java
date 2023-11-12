@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.invegan.member.dto.MemberDTO;
 import kr.co.invegan.member.service.MemberService;
@@ -43,28 +44,26 @@ public class MemberController {
 	
 	//로그인
 	@RequestMapping(value="/member/login", method = RequestMethod.POST)
-	@ResponseBody
-	public HashMap<String, Object> login(@RequestParam HashMap<String, String> params,
-			HttpSession session){
-		logger.info("params : "+params);
-		
-		HashMap<String, Object> result = new HashMap<String, Object>();
+	public String login(HttpSession session, RedirectAttributes redirectAttributes ,@RequestParam String id, @RequestParam String pw){
+		logger.info("로그인 요청 || id = "+id+" / pw = "+pw);
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("id", id);
+		params.put("pw", pw);
 		MemberDTO loginInfo = service.login(params);
 		logger.info("loginInfo : "+ loginInfo);		
 		if(loginInfo == null) {
-			//result = new MemberDTO();
-			result.put("msg", "아이디 또는 비밀번호를 확인 하세요");
+			logger.info("아이디 / 비밀번호 불일치");
+			redirectAttributes.addFlashAttribute("msg", "아이디 또는 비밀번호를 확인 하세요");
 		}else {
-			result.put("msg", "로그인에 성공 하였습니다.");
-			result.put("loginInfo", loginInfo);
 			if(loginInfo.getProfile_img() == null) {
 				loginInfo.setProfile_img("profile.jpg");
 			}
 			session.setAttribute("loginInfo", loginInfo);
 			logger.info("로그인 id :"+loginInfo.getId()+" 관리자 여부 : "+loginInfo.getIs_admin());
 		}
-		return result;	
+		return "redirect:/";	
 	}
+	
 	
 	@RequestMapping(value = "/member/logout")
 	public String logout(HttpSession session) {
@@ -121,15 +120,15 @@ public class MemberController {
 	}
 	
 	//회원가입
-	@RequestMapping(value = { "/member/signup" }, method = RequestMethod.GET)
-	public String signupPage() {
+	@RequestMapping(value = { "/member/signup.go" }, method = RequestMethod.GET)
+	public String signupGo() {
 
 		return "member/signup";
 	}
 
 		
-	@RequestMapping(value = "/member/signup2", method = RequestMethod.POST)
-	public String signup(Model model, @RequestParam HashMap<String, String> params, @RequestParam String[] interests) {
+	@RequestMapping(value = "/member/signup.do", method = RequestMethod.POST)
+	public String signupDo(Model model, @RequestParam HashMap<String, String> params, @RequestParam String[] interests) {
 		
 		// "interests" 배열을 쉼표로 구분된 하나의 문자열로 결합
 	    String combinedInterests = String.join(",", interests);

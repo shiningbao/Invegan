@@ -41,7 +41,7 @@ public class RestaurantController {
 		MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
 		
 		if(loginInfo == null) {// 비로그인
-			logger.info("비로그인 loginInfo: "+loginInfo);
+			/* logger.info("비로그인 loginInfo: "+loginInfo); */
 
 		}else if(loginInfo.getIs_admin() == 0){// 일반 회원
 			logger.info("일반회원 ID: "+loginInfo.getId());

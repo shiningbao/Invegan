@@ -6,10 +6,10 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <style>
-	table, th, td{
+/* 	table, th, td{
 		border: 1px solid black;
 		border-collapse: collapse;
-	}
+	} */
 	
 	.restaurantListContainer{
 		width: 1000px;

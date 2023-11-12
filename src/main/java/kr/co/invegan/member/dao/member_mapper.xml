@@ -11,7 +11,7 @@
 			VALUES(#{id}, #{pw}, #{email}, #{nickname},#{birthdate},#{gender},#{vegan_type}, #{vegan_purpose}, #{interests})
 	</insert>
 	
-	<select id="login" parameterType="map" resultType="kr.co.invegan.member.dto.MemberDTO">
+	<select id="login" parameterType="String" resultType="kr.co.invegan.member.dto.MemberDTO">
 		SELECT m.user_no, m.id , m.nickname, m.is_admin, img.profile_img from Members m 
 			LEFT JOIN (SELECT it.idx, it.server_file_name AS profile_img FROM ImageTable it WHERE category = '회원') AS img 
 			ON m.user_no = img.idx WHERE id=#{id} AND pw=#{pw}
