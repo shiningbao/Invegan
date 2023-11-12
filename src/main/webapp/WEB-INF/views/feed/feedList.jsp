@@ -13,7 +13,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+<!-- alert ,cofirm 창 -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <style>
 /*header 부트스트랩 적용 방지*/
@@ -257,11 +258,11 @@ input[type="text"] {
 
 
 		<button id="addBtn" class="addBtn">
-			<img src="/photo/morebtn.png" alt="더보기버튼" class="addBtnImg">
+			<img src="<c:url value='/resources/main/morebtn.png' />" alt="More Button" class="addBtnImg">
 		</button>
 
 		<button id="addBtnSearch" class="addBtnSearch">
-			<img src="/photo/morebtn.png" alt="더보기버튼" class="addBtnImg">
+			<img src="<c:url value='/resources/main/morebtn.png' />" alt="More Button" class="addBtnImg">
 		</button>
 
 	<!-- 위와 같은 구조의 다른 Instagram 피드 게시물들을 추가 -->
@@ -369,13 +370,23 @@ input[type="text"] {
 
 // 						$('body').css('overflow', 'auto');
 						$('#write-btn').on('click', function() {
-							/* $('.feedWriteModal').css({'display' : 'block'}); */
-							 $('.modal-backdrop.show').css({'display' : 'none'});
+							 
+							
 							console.log('a');
 							console.log(loginInfo);
 							if (loginInfo == null) {
-								alert('로그인 해주세요 !');
-								location.href = "/invegan/member/login.go";
+								swal({
+			                	    title: "로그인이 필요합니다 !",
+			                	    text: "",
+			                	    icon: "error",
+			                	    allowOutsideClick : false //외부창 눌러서 끄기
+			                	}).then((result) =>{
+			                		if(result){
+			                			$('.bd-example-modal-xl').modal('show');
+			                			location.href="/invegan/member/login.go";  
+			                		}
+			                	})
+								
 							} else {
 								
 
@@ -480,7 +491,7 @@ input[type="text"] {
 									content += '<img src="/photo/' + item.server_file_name + '" class="mainFeedPhoto">';
 									content += '</a>';
 									content += '</div>';
-									content += '<div class="post-content">';
+									content += '<div class="post-content"  style="width:600px">';
 									
 									var feedContentTxt = item.content;
 									var truncatedTxt = truncateTxt(feedContentTxt, 100);
