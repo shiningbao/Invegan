@@ -6,12 +6,12 @@
 
  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
  		<!-- <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"> -->
-	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-      <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-	  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!-- 	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> -->
+       <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
+<!-- 	  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
 
 <style>
-	.top {
+/* 	.top {
 		clear: both;
 		height: 150px;
 	}	
@@ -93,7 +93,7 @@
 		text-align: center;
 		text-decoration: none;
 		font: 40px;
-	}
+	} */
 </style>
 </head>
 <body>
@@ -149,7 +149,7 @@
 				<li class="nav_item_1"><a href="<c:url value='/restaurant/list'/>">소식지</a></li>
 			</ul>
 		</nav>
-
+<!-- 
 	<div class="sideBar">
 		<div class="sideList">
 			<p>위</p>
@@ -169,7 +169,7 @@
 		<div class="sideList">
 			<a>요청하기</a>
 		</div>
-	</div>
+	</div> -->
 	
 <hr id="last">
 

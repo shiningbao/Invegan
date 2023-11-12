@@ -607,7 +607,7 @@ body {
 		</div>
 	</div>
 
-	<c:import url="/main/footer" />
+<%-- 	<c:import url="/main/footer" /> --%>
 </body>
 <script>
 	$(document).ready(

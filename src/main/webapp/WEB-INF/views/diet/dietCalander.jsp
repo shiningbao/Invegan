@@ -170,7 +170,7 @@ select {
 			</tbody>
 		</table>
 	</div>
-	<c:import url="/main/footer" />
+<%-- 	<c:import url="/main/footer" /> --%>
 </body>
 
 <script>
