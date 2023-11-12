@@ -31,7 +31,7 @@
 
 #header-container{
 	height: 100px;
-	width: 1200px;
+	width: 1000px;
 	margin: 0 auto;
 	position: relative;
 	
@@ -53,7 +53,7 @@
 }
 .header-navbar{
 	position: absolute;
-    right: 100px;
+    right: 0px;
     top: 53px;
 }
 .header-nav_list{
@@ -100,6 +100,8 @@
 .loginInfo p {
 	display: inline-block;
 	margin: 16px 0px !important;
+	font-size: 18px;
+    font-weight: 600;
 }
 #profileImg {
    width: 40px;
