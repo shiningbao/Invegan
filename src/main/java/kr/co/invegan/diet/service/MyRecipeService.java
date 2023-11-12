@@ -72,6 +72,10 @@ public class MyRecipeService {
 		return msg;
 	}
 
+	public ArrayList<HashMap<String, Object>> mNutrido(int material_id) {
+		return dao.mNutrido(material_id);
+	}
+
 
 
 

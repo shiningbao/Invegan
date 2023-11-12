@@ -29,4 +29,6 @@ public interface MyRecipeDAO {
 
 	void dcinsert(DietDTO dietDTO);
 
+	ArrayList<HashMap<String, Object>> mNutrido(int material_id);
+
 }

@@ -7,8 +7,12 @@
 <meta charset="UTF-8">
 <title>메뉴 추가하기</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 <style>
 	
+	#container{
+		width: 1200px;
+	}
 	ul{
 		padding: 0;
 	}
@@ -16,60 +20,76 @@
 		display: inline-block;
 	}
 	#tapMenu{
-		width: inherit;
+	    padding: 9px;
+   	    margin: 17px auto;
+    	width: 96%;
 		height: 30px;
 		border-bottom: 1px solid black; 
+		position: relative;
 		text-align: center;
 	}
-	#tapMenu li{
-		margin: 0 10px;
+	#close i{
+		position: absolute;
+    	top: 6px;
+    	right: 19px;
 	}
-	#tapMenu li:hover{
-		cursor: pointer;
-	}
-	#top {
-		text-align: right;
-		float: right;
-		position: relative;
-		top:-35px;
-		right: 20px;
-	}
-	#top input{
+	#close i{
 		cursor: pointer;
 		background: none;
 		border: none;
 		font-size: 25px;
+	} 
+	.tap{
+		display: inline-block;
+		font-weight: 600;
 	}
 	
-	#tapMenu{
-		width: inherit;	
-		height: 30px;
-		border-bottom: 1px solid black; 
-		text-align: center;
-	}
-	#tapMenu li{
+	.tap button{
 		margin: 0 10px;
+		padding: 5px;
+		font-size: 18px;
+		background: #FFF;
+		border: none;
 	}
-	#tapMenu li:hover{
+	.tap button:hover{
 		cursor: pointer;
+		color: #95df95;
+	}
+	
+	#vertical{
+	    margin: 0px -5px;
+		height: 15px;
+		border-right: 2px solid gray;
+		position: absolute;
+		top:17px;
+	}
+	
+	#contents{
+		width: 100%;
+		margin: 0 auto;
 	}
 	
 </style>
 
 </head>
-<body style="overflow-x:hidden; overflow-y:auto;">
+<body> <!-- style="overflow-x:hidden; overflow-y:auto;" -->
+	<div id="container">
 	<input id="getDate" type=hidden value="${date} "/>
 	<div id="tapMenu">
-		<ul>
-			<li id="default" onclick="defaultMenu()">기본메뉴</li>
-			<li id="myRecipe" onclick="myRecipeMenu()">나만의 레시피 메뉴</li>
-		</ul>
-		<div id="top">
-			<input type="button" value="Χ" onclick="winClose()"/>
+		<div class="tap">
+			<button id="default" onclick="defaultMenu()">기본메뉴</button>
+		</div>
+		<div id="vertical" class="tap"></div>
+		<div class="tap">
+			<button id="myRecipe" onclick="myRecipeMenu()">나만의 레시피 메뉴</button>
+		</div>
+		<div id="close">
+			<i class="xi-close" onclick="winClose()"></i>
 		</div>
 	</div>
 	<div id="contents">
 	
+	</div>
 	</div>
 </body>
 <script>
@@ -85,14 +105,19 @@
 	
 	var menu_category;
 	var recipe_name;
+
 	
 	function defaultMenu(){
+		$('#default').css('box-shadow','#95df95 0px 2px 0px 0px');
+		$('#myRecipe').css('box-shadow','#fff 0px 0px 0px 0px');
 		$('#contents').load("<c:url value='defaultMenu.go'/>");
 		menu_category = $('#default').text();
 		recipe_name ='-';
 	}
 	
 	function myRecipeMenu(){
+		$('#myRecipe').css('box-shadow','#95df95 0px 2px 0px 0px');
+		$('#default').css('box-shadow','#fff 0px 0px 0px 0px');
 		$('#contents').load("<c:url value='../myRecipe/MyRecipeList.go'/>");
 		menu_category = $('#myRecipe').text();
 	}
