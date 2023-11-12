@@ -25,8 +25,43 @@ input[type=password] {
 	height: 100%;
 }
 
+body {
+    background-color: #edf0ef;
+    display: flex; /* display: flex 추가 */
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
 
 
+
+input[type="submit"] {
+    background-color: #4682b4;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    margin: 10px;
+}
+
+input[type="submit"]:hover {
+    background-color: #36648b; /* hover */
+}
+
+
+button {
+    background-color: #4682b4;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    margin: 10px;
+}
+
+button:hover {
+    background-color: #36648b; /* hover */
+}
 
 </style>
 </head>
