@@ -138,13 +138,6 @@
 		    <version>5.3.24</version>
 		</dependency>
 		
-		<!-- 지오코딩 / 위경도 변환해주는 구글api -->
-		<!-- https://mvnrepository.com/artifact/com.google.code.geocoder-java/geocoder-java -->
-		<dependency>
-		    <groupId>com.google.code.geocoder-java</groupId>
-		    <artifactId>geocoder-java</artifactId>
-		    <version>0.16</version>
-		</dependency>
 		<!-- 위치관련 구글 api -->
 		<dependency>
 		  <groupId>com.google.maps</groupId>

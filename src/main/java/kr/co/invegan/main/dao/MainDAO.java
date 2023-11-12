@@ -6,9 +6,10 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import kr.co.invegan.board.dto.FeedListDTO;
 import kr.co.invegan.board.dto.RestaurantDTO;
+import kr.co.invegan.main.dto.distCntDTO;
 import kr.co.invegan.main.dto.restaurantFilterListDTO;
-import kr.co.invegan.member.dto.MemberDTO;
 
 public interface MainDAO {
 
@@ -16,8 +17,12 @@ public interface MainDAO {
 
 	int veganType(int user_no);
 
-	HashMap<String, Integer> rangeCnt(@Param("list") List<String> vt, @Param("lat") double userLat, @Param("lng") double userLng);
+	distCntDTO rangeCnt(@Param("list") List<String> vt, @Param("lat") double userLat, @Param("lng") double userLng);
 
 	ArrayList<restaurantFilterListDTO> restaurantFilterList(@Param("list") List<String> vt, @Param("lat") double userLat, @Param("lng") double userLng, @Param("dist") int dist);
+
+	String interests(int user_no);
+
+	ArrayList<FeedListDTO> feedFilterList();
 
 }
