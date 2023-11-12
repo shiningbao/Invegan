@@ -107,12 +107,16 @@ input[type="text"] {
 .no-comment{
 	color : gray;
 }
-.addBtnSearch {
+.addBtnSearch, .addBtn{
 	display: none;
+	margin-left: 850px;
+	border:none;
+	background-color: transparent;
+	cursor: pointer;
+	
 }
-
-.addBtn {
-	display: none;
+.addBtnImg{
+	width:100px;
 }
 
 .btn {
@@ -121,6 +125,32 @@ input[type="text"] {
 	margin-bottom:5px;
 	height:40px;
 }
+
+.addBtn:disabled {
+    
+    cursor: not-allowed;
+    opacity: 0.5; 
+    
+}
+
+.addBtnSearch:disabled {
+    
+    cursor: not-allowed;
+    opacity: 0.5;
+} 
+
+.addBtn:disabled:hover::before,
+.addBtnSearch:disabled:hover::before {
+    content: "마지막 게시글입니다";
+    /* 다른 스타일링을 추가하거나 위치를 조절할 수 있습니다. */
+    position: absolute;
+    background-color: #fff; /* 텍스트 배경색 */
+    padding: 5px;
+    border: 1px solid #ccc; /* 텍스트 테두리 스타일 */
+    border-radius: 5px;
+    color: #333; /* 텍스트 색상 */
+}
+
 .btn-success{
 	width:150px;
 	margin-bottom:5px;
@@ -163,7 +193,10 @@ input[type="text"] {
 	width:200px;
 	height:50px;
 }
-
+	
+	#content{
+		height:200px;
+	}
 </style>
 
 </head>
@@ -218,12 +251,12 @@ input[type="text"] {
 
 
 		<button id="addBtn" class="addBtn">
-			<span>더보기</span>
+			<img src="/photo/morebtn.png" alt="더보기버튼" class="addBtnImg">
 		</button>
+
 		<button id="addBtnSearch" class="addBtnSearch">
-			<span>더보기</span>
+			<img src="/photo/morebtn.png" alt="더보기버튼" class="addBtnImg">
 		</button>
-	
 
 	<!-- 위와 같은 구조의 다른 Instagram 피드 게시물들을 추가 -->
 
@@ -297,9 +330,10 @@ input[type="text"] {
 									console.log(data.listSize);
 									drawList(data.list);
 									if (data.limitcnt > data.listSize) {
-										$('#autoSearchBtn').prop('disabled',true);
+										$('.addBtnSearch').prop('disabled',true);
+										
 									} else {
-										$('#autoSearchBtn').prop('disabled',false);
+										$('.addBtnSearch').prop('disabled',false);
 									}
 								},
 								error : function(e) {
@@ -314,8 +348,7 @@ input[type="text"] {
 							backToTop();
 							limitcnt = 10;
 							console.log('click');
-							// 			$('.autoSearchBtn').css('display','block');
-							//         	$('.addBtn').css('display','none');
+							
 							$('.addBtn').css('display', 'none');
 							$('.addBtnSearch').css('display', 'block');
 							
@@ -365,9 +398,10 @@ input[type="text"] {
 									loginInfo = data.loginInfo;
 									console.log(loginInfo);
 									if (data.limitcnt > data.listSize) {
-										$('#addBtn').prop('disabled', true);
+										$('.addBtn').prop('disabled', true);
+										
 									} else {
-										$('#addBtn').prop('disabled', false);
+										$('.addBtn').prop('disabled', false);
 									}
 								},
 								error : function(error) {
@@ -386,11 +420,14 @@ input[type="text"] {
 							console.log(searchbt);
 							console.log(limitcnt);
 							listTagCall();
+							
+							$('.btn-outline-info').removeClass('active'); // 모든 버튼에서 active 클래스 제거
+						    $(this).addClass('active');
 
 						});
 
 						// 전체리스트와 피드태그를 선택했을때 더보기 처리
-						$('#addBtn').on('click', function() {
+						$('.addBtn').on('click', function() {
 
 							limitcnt += 10;
 							console.log('click');
@@ -400,7 +437,7 @@ input[type="text"] {
 						})
 
 						// 피드를 검색했을때 나오는 더보기 처리
-						$('#addBtnSearch').on('click', function() {
+						$('.addBtnSearch').on('click', function() {
 							limitcnt += 10;
 							console.log('click');
 							console.log('bb');
@@ -411,6 +448,7 @@ input[type="text"] {
 						function drawList(list) {
 							console.log(list);
 							var content = '';
+							var clickedTag = searchbt.toLowerCase();
 							list.forEach(function(item, idx) {			
 								var tags = item.tag_content;
 								var allowedTags = [ '#식품', '#패션','#일상', '#레시피', '#뷰티', '#식당' ];
@@ -419,7 +457,8 @@ input[type="text"] {
 									if (tags) {
 										allowedTags.forEach(function(tag) {
 											if (tags.includes(tag)) {
-												content += '<button class="btn btn-info" id="post-tag">'+ tag+ '</button>';
+												var tagClass = tag.toLowerCase() === clickedTag ? 'btn-info active' : 'btn-info';
+							                    content += '<button class="btn ' + tagClass + '" id="post-tag">' + tag + '</button>';
 												}
 											});
 										}
