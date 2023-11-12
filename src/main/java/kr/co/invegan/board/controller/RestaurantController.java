@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.invegan.board.dto.RestaurantDTO;
+import kr.co.invegan.board.dto.restaurantFilterListDTO;
 import kr.co.invegan.board.service.RestaurantService;
 import kr.co.invegan.member.dto.MemberDTO;
 
@@ -47,9 +48,11 @@ public class RestaurantController {
 
 		}else { // 관리자
 			logger.info("관리자 ID: "+loginInfo.getId()+ " / admin: "+loginInfo.getIs_admin());
-			
 		}
-		ArrayList<RestaurantDTO> restaurantList = service.restaurantList();
+		
+		Double userLat = (Double) session.getAttribute("userLat");
+		Double userLng = (Double) session.getAttribute("userLng");
+		ArrayList<restaurantFilterListDTO> restaurantList = service.restaurantList(userLat,userLng);
 		model.addAttribute("restaurantList", restaurantList);
 		return page;
 	}
