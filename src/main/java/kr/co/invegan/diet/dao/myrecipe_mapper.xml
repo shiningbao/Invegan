@@ -79,6 +79,10 @@
 		WHERE m.menu_id = #{menu_id}
 	</select>
 	
+	<select id="mNutrido" parameterType="int" resultType="kr.co.invegan.diet.dto.FoodDataDTO">
+		select * from FoodData fd JOIN Material m ON fd.food_id = m.food_id WHERE material_id = #{material_id};
+	</select>
+	
 	<insert 
       useGeneratedKeys="true"
       keyColumn="diet_id"
