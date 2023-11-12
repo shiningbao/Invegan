@@ -54,6 +54,7 @@
 	list-style: none;
 	display: flex;
 	margin: 16px 0px;
+	padding: 0px;
 }
 .header-nav_item{
 	margin: 3px 10px;
@@ -101,10 +102,29 @@
    margin-right: 10px;
    position: relative;
    top: 12px;
-   	vertical-align: baseline !important;
-   
+   vertical-align: baseline !important;
 }
-	
+.infoMB{
+	width: 130px;
+	background: white;
+}
+.infoModal{
+	display: none;
+	border-radius: 5px;
+	box-shadow: gray 5px 5px 7px 0px;
+	text-align: center;
+}
+.infoModal div{
+	padding: 5px 10px;
+}
+.infoModal div:hover{
+	cursor: pointer;
+}
+
+.infoModal div a{
+	all: initial;
+	cursor: pointer;
+}
 
 
 /* 	.top {
@@ -221,10 +241,8 @@
 				<div class="infoMB">
 					<div class="infoModal">
 						<div class="infoModalList"><a href = "<c:url value='/member/logout'/>">로그아웃</a></div>
-						<div class="infoModalList"><a href = "<c:url value='/myPage/info.go'/>">마이페이지</a></div>
+						<div class="infoModalList"><a href = "<c:url value='/myPage/info.go'/>">MyPage</a></div>
 						<c:if test="${loginInfo.getIs_admin() eq '1'}">
-							<div class="infoModalList_admin"><a href = "<c:url value='/member/signup'/>">회원 관리</a></div>
-							<div class="infoModalList_admin"><a href = "<c:url value='/member/signup'/>">신고관리</a></div>
 							<div class="infoModalList_admin"><a href = "<c:url value='/diet/addMaterial.go'/>">식재료추가</a></div>
 						</c:if>
 					</div>
@@ -257,27 +275,38 @@
 	</div> -->
 
 </header>
-		<hr style="border: 1px solid darkgrey ; color: darkgrey;"/>
+		<hr style="border:1px solid darkgrey; color:darkgrey; margin:8px;"/>
 
 <%-- 	<%@ include file="library.jsp" %> --%>
 </body>
 
 <script>
-
+	$('.infoModal div').hover(
+		function () {
+			$(this).find('a').css('color','#95df95');
+		},
+		function () {
+			$(this).find('a').css('color','#000');
+		}
+	);
 
 	$('#Logo').on('click',function(){
 		location.href = '<c:url value='/'/>';
 	});
-
-	 $('#infoButton').on('click',function(){
+	
+	$(document).on('click', function(event) {
 		var displayChk = $('.infoModal').css('display');
-		console.log(displayChk);
-		if(displayChk == 'block'){
-			$('.infoModal').css({'display':'none'});
-		}else{
-			$('.infoModal').css({'display':'block'});
-		}
-	}); 
+	    if (!$(event.target).closest('#profileImg').length) {
+	        $('.infoModal').css({'display':'none'});
+	    }else{
+	    	if(displayChk == 'none'){
+				$('.infoModal').css({'display':'block'});
+	    	}else{
+		        $('.infoModal').css({'display':'none'});
+	    	}
+	    }
+	});
+	
 
 	/* $('#nav_item_categori').on('mouseover',function(){
 		$('.nav_list_2').css({"display":"block"});	
