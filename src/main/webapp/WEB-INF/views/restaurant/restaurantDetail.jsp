@@ -7,15 +7,28 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d1b7835be6802634d702664b5059fc0c&libraries=services"></script>
 <style>
-	.container{
+	.restaurantcontainer{
 		width: 1000px;
 		margin: 0px auto;
+	}
+	#restaurantTitle{
+		display: flex;
+		align-items: center
+	}
+	#restaurantTitle h1{
+		display: inline-block;
+	}
+	#favorite{
+		display: inline-block;
+		width: 50px;
+		height: 50px;
+		cursor: pointer;
+		margin-left: 20px;
 	}
 	
 	.restaurantTop{
 		width: 100%;
 		position: relative;
-		height: 400px;
 		margin-bottom: 20px;
 		
 	}
@@ -34,30 +47,13 @@
 		width: 600px;
 		margin-left: 420px;
 	}
-	.contentTable{
-		width: 100%;
-		font-size: 28px;
-	}
-	.contentTable tr th{
-		padding-bottom: 10px;
-	}
-	.contentTable tr td{
-		padding-bottom: 10px;
-	}
+
 	.update_delete{
 		position: absolute;
 		top: 3px;
 		right: 3px;
 	}
-	#favorite{
-		position: absolute;
-		top: 30px;
-		right: 15px;
-		width: 50px;
-		height: 50px;
-		border: 1px solid black;
-		cursor: pointer;
-	}
+
 	
 	
 	.restaurantMenuList{
@@ -75,6 +71,7 @@
 		background-color: #E0E0E0;
 		border: 1px solid black;
 		border-collapse: collapse;
+		text-align: center;
 	}
 	.menuTable tr td{
 		border: 1px solid black;
@@ -84,8 +81,7 @@
 	
 	.restaurantImg{
 		background-color: yellow;
-		width: 1100px;
-		height: 600px;
+		width: 1000px;
 		margin: 0 auto;
 		display: inline-block;
 	}
@@ -93,17 +89,17 @@
 		display: inline-block;
 	}
 	#imgList{
-		width: 980px;
+		width: 100%;
 		display: inline-block;
 	}
 	.divImg{
-		width: 320px;
+		width: 325px;
 		margin: 3px;
 		display: inline-block;
 	}
 	.imgDetail{
-		width: 320px;
-		height: 320px;
+		width: 100%;
+		height: 325px;
 	}
 	
 	.restaurantAddr{
@@ -120,45 +116,36 @@
 		width: 1000px;
 		height: 600px;
 	}
- 
- 
-
+     h2, h3 {
+     	display: inline-block;
+     	margin-right: 4px;
+     }
+     #blankdiv{
+     	width: 100%;
+     	height: 200px;
+     }
 </style>
 </head>
 <body>
 <c:import url="/main/header"/>
-<div class="container">
+<div class="restaurantcontainer">
+	<div id="restaurantTitle">
 	<h1>${restaurantDetail.getTitle()}</h1>
+	<img id="favorite" src="<c:if test='${favoriteChk eq 0}'><c:url value='/resources/main/favorite_X.png'/></c:if><c:if test='${favoriteChk eq 1}'><c:url value='/resources/main/favorite_O.png'/></c:if>" alt="favoriteIcon"/>
+	</div>
 	<div class="restaurantTop">
 		<div class="restaurantImg_main"><img id="img_main" src = "/photo/${photoList[0]}" alt="restaurantImg"/></div>
 		<div class="restaurantContent">
 			<c:forEach items="${menuDetail}" var = "menu">#${menu.getVegan_type()}  </c:forEach>
-			<h1>${restaurantDetail.getTitle()}</h1>
-			<h1>${restaurantDetail.getTitle()}</h1>
-			<h1>${restaurantDetail.getTitle()}</h1>
-			<h1>${restaurantDetail.getTitle()}</h1>
-			<h1>${restaurantDetail.getTitle()}</h1>
-			
-			<img id="favorite" src="<c:if test='${favoriteChk eq 0}'><c:url value='/resources/main/X.png'/></c:if><c:if test='${favoriteChk eq 1}'><c:url value='/resources/main/O.png'/></c:if>" alt="favoriteIcon"/>
-			<div>별점</div>
-			<table class="contentTable">
-				<tr>
-					<th>식당 소개</th>
-					<td>${restaurantDetail.getContent()}</td>
-				</tr>
-				<tr>
-					<th>식당 위치</th>
-					<td>${restaurantDetail.getAddress()}</td>
-				</tr>
-				<tr>
-					<th>전화 번호</th>
-					<td>${restaurantDetail.getPhone()}</td>
-				</tr>
-				<tr>
-					<th>영업 시간</th>
-					<td>${restaurantDetail.getHours()}</td>
-				</tr>
-			</table>
+			<h1>${restaurantDetail.getTitle()}</h1>			
+			<h2>식당 위치</h2>
+			<h3>${restaurantDetail.getAddress()}</h3><br>
+			<h2>전화 번호  </h2>
+			<h3>${restaurantDetail.getPhone()}</h3><br>
+			<h2>영업 시간  </h2>
+			<h3>${restaurantDetail.getHours()}</h3><br>
+			<h2>식당 소개 </h2>
+			<p>${restaurantDetail.getContent()}</p>
 		</div>
 		
 		<div class="update_delete">
@@ -179,9 +166,9 @@
 			</tr>
 			<c:forEach items="${menuDetail}" var = "menu">
 				<tr>
-					<td>${menu.getMenu_name()}</td>
-					<td>${menu.getPrice()}</td>
-					<td>${menu.getVegan_type()}</td>
+					<td width="50%">${menu.getMenu_name()}</td>
+					<td width="25%">${menu.getPrice()}</td>
+					<td width="25%">${menu.getVegan_type()}</td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -197,10 +184,11 @@
 	<div class="restaurantAddr"><h1>식당 위치</h1></div>
 	<div class="restaurantAddr"><h2>${restaurantDetail.getAddress()}</h2></div>
 	<div class="restaurantMap">
-		
 		<div id="map"></div>
 	</div>
 	
+	<div id="blankdiv"></div>
+	<!-- 
 	<button id="review">리뷰</button>
 	<button id="feed">관련 피드</button>
 	
@@ -220,11 +208,9 @@
 		<button id="send_writeReview">리뷰 작성</button>
 	</div>
 
+	
+ -->
 </div>	
-	
-	
-	
-<c:import url="/main/footer"/>
 </body>
 
 <script>

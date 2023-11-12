@@ -3,11 +3,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
  		<!-- <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"> -->
 	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
       <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <style>
 	.top {
 		clear: both;
@@ -165,13 +167,14 @@
 			<p>바</p>
 		</div>
 		<div class="sideList">
-			<a href="<c:url value='/request/requestList'/>">요청하기</a>
+			<a>요청하기</a>
 		</div>
 	</div>
 	
 <hr id="last">
 
 </header>
+
 <%-- 	<%@ include file="library.jsp" %> --%>
 </body>
 

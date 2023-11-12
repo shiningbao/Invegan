@@ -116,7 +116,6 @@
 				</table>
 			</div>
 			<div id="down">
-				<a href ="#" onclick ="window.close(); javascript:parent.opener.location.href='../request/requestList'">찾으시는 식재료가 없으신가요?</a>
 				<a><input type="text" name="gram"/> g</a>	
 				<input type="button" id ="mMaterial" value="완료"/>
 			</div>	
@@ -187,10 +186,10 @@
 		}
 		
         $('#materialList').on('click', 'tr', function() {
-        	$('#materialList tr').css('border', 'none');
+        	$('#materialList tr').css('background', 'none');
             food_id = $(this).find('td:eq(1)').text();
             fName = $(this).find('td:eq(2)').text();
-            $(this).css('border','2px solid green');
+            $(this).css('background-color','#87878754');
             console.log('클릭한 food_name: ' + fName);
         });
         
@@ -204,10 +203,12 @@
 			var regex = new RegExp('[^0-9\\s]');
 			var match = regex.test(grams);
 			
-			if (match || grams === '0' || grams.trim() === '') {
+			if (food_id == null) {
+				alert('재료를 선택해 주세요');	
+			} else if (match || grams === '0' || grams.trim() === ''){
 			    alert('0이 아닌 숫자만 입력해 주세요');
-			    $('input[name="gram"]').val('');
-			} else {
+			    $('input[name="gram"]').val('');	
+			} else{
 	        	$.ajax({
 	        		type:'get',
 	        		url:'mMaterial',
@@ -215,7 +216,7 @@
 	        		dataType:'JSON',
 	        		success:function(data){
 	        			console.log(data);				
-
+ㅊ
 	        		},
 	        		error:function(e) {
 	        			console.log(e);

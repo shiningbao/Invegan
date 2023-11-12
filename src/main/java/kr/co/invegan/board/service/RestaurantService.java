@@ -22,6 +22,7 @@ import com.google.maps.model.GeocodingResult;
 import kr.co.invegan.board.dao.RestaurantDAO;
 import kr.co.invegan.board.dto.MenuDTO;
 import kr.co.invegan.board.dto.RestaurantDTO;
+import kr.co.invegan.board.dto.restaurantFilterListDTO;
 import kr.co.invegan.member.dto.MemberDTO;
 
 @Service
@@ -109,8 +110,10 @@ public class RestaurantService {
 	public ArrayList<String> photoList(int post_id) {
 		return dao.photoList(post_id);
 	}
-	public ArrayList<RestaurantDTO> restaurantList() {
-		return dao.restaurantList();
+	
+	
+	public ArrayList<restaurantFilterListDTO> restaurantList(Double userLat, Double userLng) {
+		return dao.restaurantList(userLat, userLng);
 	}
 	
 
