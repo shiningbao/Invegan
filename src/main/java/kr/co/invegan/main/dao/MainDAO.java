@@ -25,4 +25,6 @@ public interface MainDAO {
 
 	ArrayList<FeedListDTO> feedFilterList();
 
+	ArrayList<FeedListDTO> feedInterestFilterList(@Param("list") List<String> inte);
+
 }

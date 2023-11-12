@@ -169,7 +169,6 @@
 	</tr>
 </table>
 </div>
-<c:import url="/main/footer"/>
 </body>
 
 <script>
