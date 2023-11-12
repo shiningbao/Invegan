@@ -104,10 +104,14 @@
 	
 </body>
 <script>
+$('#go_rest').css('box-shadow','#95df95 0px 2px 0px 0px');
+
 for(var i = 0; i < 4; i++){
 	var copyTag = document.getElementsByClassName('restaurantDiv')[0].cloneNode(true);
 	document.getElementsByClassName('restaurantListContainer')[0].appendChild(copyTag);	
 }
+
+/* console.log(${restaurantList}); */
 
 <c:forEach items="${restaurantList}" var ='item' varStatus="status">
 	var idx = ${status.index};

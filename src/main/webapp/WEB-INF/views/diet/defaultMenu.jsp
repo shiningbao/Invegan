@@ -180,26 +180,44 @@
 
 
 
-
 /*가로줄*/
 #contents-vertical{
-	height: 516px;
+	height: 558px;
     margin: 0px 15px;
     border-right: 1.5px solid gray;
+    position: relative;
+    bottom: 14px;
 }
 
 /*영양소 구역*/
 #showNutri{
-	width: 225px;
+	position: absolute;
 }
 #showNutri table{
-	width: 225px;
+	width: 265px;
+	height: 570px;
+	padding: 5px;
+	white-space: normal;
 }
-
-#food_name{
-	width:100%;
-	padding: 3px 5px;
-	box-shadow: #95df95 0px 2px 0px 0px
+#showNutri td:nth-child(odd) {
+    text-align: right;
+    padding-right: 5px;
+}
+#showNutri td:not(:first-child):nth-child(even) {
+    text-align: left;
+    padding-left: 5px;
+}
+#food_name {
+	text-align: center;
+	width: 200px;
+}
+#food_name h3{
+	width: 97%;
+	margin: 0 5px 10px 5px;
+	padding: 10px 5px;
+	box-shadow: #95df95 0px 2px 0px 0px;
+	text-align: center;
+	
 }
 
 
@@ -261,6 +279,10 @@
 		<div id="contents-vertical"></div>
 		<div id="showNutri">
 			<table>
+				<colgroup>
+					<col width="60%"/>
+					<col width="40%"/>
+				</colgroup>
 				<tr>
 					<td colspan="2" id="food_name"><h3>식품을 선택해주세요</h3></td>
 				</tr>
@@ -520,7 +542,7 @@
 		if (nutri != null) {
 
 			$('#food_name').empty();
-			$('#food_name').html(nutri.food_name);
+			$('#food_name').html('<h3>'+nutri.food_name+'</h3>');
 			$('#serving_size').empty();
 			$('#serving_size').html(nutri.serving_size + " g");
 			$('#kacl').empty();
