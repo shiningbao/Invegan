@@ -273,8 +273,8 @@ body {
 				<div id="contents-left-content">
 					<table id="list-items">
 						<colgroup>
-							<col width="300px">
-							<col width="54px">
+							<col width="290px">
+							<col width="60px">
 							<col width="70px">
 						</colgroup>
 						<!-- 아침 리스트 -->
@@ -610,6 +610,8 @@ body {
 <%-- 	<c:import url="/main/footer" /> --%>
 </body>
 <script>
+	/*식단관리 페이지에서 카테고리 표시*/
+	$('#go_diet').css('box-shadow','#95df95 0px 2px 0px 0px');
 	$(document).ready(
 			function() {
 				// 페이지 로드시 바로 실행

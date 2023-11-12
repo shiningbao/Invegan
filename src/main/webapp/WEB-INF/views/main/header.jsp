@@ -11,6 +11,82 @@
 <!-- 	  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
 
 <style>
+
+@font-face {
+    font-family: 'S-CoreDream-3Light';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: 'S-CoreDream-3Light', sans-serif; 
+}
+
+::-webkit-scrollbar {
+    width: 0; /* 스크롤바 너비를 0으로 설정하여 숨깁니다. */
+}
+
+#header-container{
+	height: 100px;
+	width: 1200px;
+	margin: 0 auto;
+	position: relative;
+	
+}
+.logoImg img{
+	width: 135px;
+	height: 100px;
+}
+.logoImg img:hover{
+	cursor: pointer;
+}
+
+.logoImg, .navbar, .loginInfo{
+	display: inline-block;
+}
+.navbar{
+	position: absolute;
+    right: 100px;
+    top: 53px;
+}
+.nav_list{
+	list-style: none;
+	display: flex;
+}
+.nav_item{
+	margin: 3px 10px;
+}
+.nav_item a{
+	all: initial;
+	font-size: 19px;
+	font-weight: 600;
+	
+}
+.nav_item a:hover{
+	cursor: pointer;
+	color:#95df95;
+}
+.loginInfo{
+	position: fixed;
+    right: 23px;
+    top: -15px;
+}
+
+.loginInfo p {
+	display: inline-block;
+}
+#profileImg {
+   width: 40px;
+   height: 40px;
+   border-radius: 50%;
+   margin-right: 10px;
+   position: relative;
+   top: 12px;
+}
+	
+
+
 /* 	.top {
 		clear: both;
 		height: 150px;
@@ -97,24 +173,31 @@
 </style>
 </head>
 <body>
-<header>
-	<div class="top">
+<header id="header-container">
 		<div class = "logoImg">
-			<img src="<c:url value='/resources/main/logo.png'/>" width=300px height=150px, alt="Logo Img" id="Logo"/>
+			<img src="<c:url value='/resources/main/invegan_logo_master.png'/>"  alt="Logo Img" id="Logo"/>
+		</div>
+		<div class="navbar">
+			<nav class="nav">
+				<ul class="nav_list">
+					<li class="nav_item"><a id="go_diet" href="<c:url value='/diet/dietCalander'/>">식단관리</a></li>
+					<li class="nav_item" id="go_rest"><a href="<c:url value='/restaurant/list'/>">비건식단</a></li>
+					<li class="nav_item"><a id="go_feed" href="<c:url value='/feed/list.go'/>">피드</a></li>
+					<li class="nav_item"><a id="go_frBoard" href="<c:url value='/restaurant/list'/>">자유게시판</a></li>
+				</ul>
+			</nav>
 		</div>
 		<div class="loginInfo">
 				<!-- 로그인 안했을 때 -->
 			<c:if test="${empty loginInfo}">
 				<p><a href = "<c:url value='/member/login.go'/>">로그인</a></p>
-				<p>/</p>
-				<p><a href = "<c:url value='/member/signup'/>">회원가입</a></p>
 			</c:if>
 		
 			<!-- 로그인 했을 때 -->
  			<c:if test="${not empty loginInfo}">
 				<p><img id="profileImg" src="/photo/${loginInfo.getProfile_img()}" /></p>
 				<p id="loginNickname">${loginInfo.getNickname()}</p>
-				<p id="loginId">${loginInfo.getId()}</p>
+				<p id="loginId">( ${loginInfo.getId()} )</p>
 				<div class="infoMB">
 					<button id="infoButton">@</button>
 					<div class="infoModal">
@@ -126,29 +209,12 @@
 							<div class="infoModalList_admin"><a href = "<c:url value='/diet/addMaterial.go'/>">식재료추가</a></div>
 						</c:if>
 					</div>
-				</div>
+				</div> 
 			</c:if>
 
 		</div>
 		
-	</div>
-		<nav class="nav">
-			<ul class="nav_list_1">
-				<li class="nav_item_1"><a href="<c:url value='/diet/dietCalander'/>">식단관리</a></li>
-				<li class="nav_item_1" id="nav_item_categori"><a href="<c:url value='/restaurant/list'/>">카테고리</a>
-	 				<ul class="nav_list_2">
-						<li class="nav_item_2"><a href="<c:url value='/restaurant/list'/>">식당</a></li>
-						<li class="nav_item_2"><a href="<c:url value='/restaurant/list'/>">레시피</a></li>
-						<li class="nav_item_2"><a href="<c:url value='/restaurant/list'/>">음식</a></li>
-						<li class="nav_item_2"><a href="<c:url value='/restaurant/list'/>">뷰티</a></li>
-						<li class="nav_item_2"><a href="<c:url value='/restaurant/list'/>">패션</a></li>
-					</ul>
-				</li>
-				<li class="nav_item_1"><a href="<c:url value='/feed/list.go'/>">피드</a></li>
-				<li class="nav_item_1"><a href="<c:url value='/restaurant/list'/>">자유게시판</a></li>
-				<li class="nav_item_1"><a href="<c:url value='/restaurant/list'/>">소식지</a></li>
-			</ul>
-		</nav>
+		
 <!-- 
 	<div class="sideBar">
 		<div class="sideList">
@@ -170,21 +236,21 @@
 			<a>요청하기</a>
 		</div>
 	</div> -->
-	
-<hr id="last">
 
 </header>
+		<hr id="last">
 
 <%-- 	<%@ include file="library.jsp" %> --%>
 </body>
 
 <script>
 
+
 	$('#Logo').on('click',function(){
 		location.href = '<c:url value='/'/>';
 	});
 
-	$('#infoButton').on('click',function(){
+	/* $('#infoButton').on('click',function(){
 		var displayChk = $('.infoModal').css('display');
 		console.log(displayChk);
 		if(displayChk == 'block'){
@@ -192,14 +258,14 @@
 		}else{
 			$('.infoModal').css({'display':'block'});
 		}
-	});
+	}); */
 
-	$('#nav_item_categori').on('mouseover',function(){
+	/* $('#nav_item_categori').on('mouseover',function(){
 		$('.nav_list_2').css({"display":"block"});	
 	});
 	$('#nav_item_categori').on('mouseout',function(){
 		$('.nav_list_2').css({"display":"none"});	
-	});
+	}); */
 
 </script>
 </html>

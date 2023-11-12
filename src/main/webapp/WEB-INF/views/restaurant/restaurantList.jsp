@@ -42,7 +42,10 @@
 	</table>
 </body>
 <script>
-console.log(${restaurantList});
+//header 카테고리 선택유지
+$('#go_rest').css('box-shadow','#95df95 0px 2px 0px 0px');
+
+/* console.log(${restaurantList}); */
 
 </script>
 </html>

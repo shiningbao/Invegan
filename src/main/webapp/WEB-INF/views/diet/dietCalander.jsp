@@ -174,6 +174,8 @@ select {
 </body>
 
 <script>
+	/*식단관리 페이지에서 카테고리 표시*/
+	$('#go_diet').css('box-shadow','#95df95 0px 2px 0px 0px');
 
 	var	nowMonth = new Date(); // 현재 달을 페이지를 로드한 날의 달로 초기화
 	var	today = new Date();
@@ -187,6 +189,7 @@ select {
 		location.href = "dietMgmt?date=" + selectDate;
 	} 
 
+	
 	// 숫자가 10보다 작을 때 앞에 0을 붙여서 반환
 	function leftPad(value) {
 		if (value < 10) {
