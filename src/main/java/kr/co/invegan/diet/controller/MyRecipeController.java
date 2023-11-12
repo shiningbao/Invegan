@@ -68,7 +68,6 @@ public class MyRecipeController {
 			@RequestParam(required = false) Integer menu_id, @RequestParam int rowIndex) {
 		logger.info("menu_id : "+menu_id);
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		session.setAttribute("menu_id", menu_id);
 		session.setAttribute("rowIndex", rowIndex);
 		if (menu_id == null ) {
 			result.put("msg", "레시피를 선택해 주세요");
@@ -137,6 +136,7 @@ public class MyRecipeController {
 		int rowIndex = 0;
 		if (session.getAttribute("rowIndex") != null) {
 			rowIndex = (int) session.getAttribute("rowIndex");
+			session.removeAttribute("rowIndex");
 		}
 		logger.info("user_no : "+loginInfo.getUser_no());
 		logger.info("rowIndex : "+rowIndex);
@@ -204,7 +204,26 @@ public class MyRecipeController {
 		ArrayList<HashMap<String, Object>> rNutrido = service.rNutrido(menu_id);
 		logger.info("rNutrido : "+rNutrido);
 		
+		if (rNutrido == null) {
+			logger.info("재료를 추가해라");
+		}
+		
 		result.put("rNutri", rNutrido);
+		
+		return result;
+	}
+	
+	// 재료 영양소 출력
+	@RequestMapping(value="*/mNutri.do")
+	@ResponseBody
+	public HashMap<String, Object> mNutrido(@RequestParam int material_id, HttpSession session) {
+		logger.info("material_id : "+material_id);
+		
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		ArrayList<HashMap<String, Object>> mNutrido = service.mNutrido(material_id);
+		logger.info("mNutrido : "+mNutrido);
+		
+		result.put("mNutri", mNutrido);
 		
 		return result;
 	}
