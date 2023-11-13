@@ -39,7 +39,8 @@ public class DietController {
 	@RequestMapping(value = "diet/dietCalander")
 	public String tempCalander(HttpSession session, RedirectAttributes reAttr) {
 		logger.info("식단 캘린더 페이지 이동 요청");
-		String page = "redirect:/member/login.go";
+//		String page = "redirect:/";
+		String page = "redirect:/";
 
 		loginInfo = (MemberDTO) session.getAttribute("loginInfo");
 		if (loginInfo != null) {
@@ -48,7 +49,7 @@ public class DietController {
 			page = "diet/dietCalander";
 		} else {
 			logger.info("로그인 되어있지 않음");
-			reAttr.addFlashAttribute("msg", "로그인 후 이용 가능한 서비스입니다.");
+			reAttr.addFlashAttribute("needLogin", "로그인 후 이용 가능한 서비스입니다.");
 		}
 		return page;
 	}

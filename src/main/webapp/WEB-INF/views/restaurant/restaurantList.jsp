@@ -6,10 +6,10 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <style>
-	table, th, td{
+/* 	table, th, td{
 		border: 1px solid black;
 		border-collapse: collapse;
-	}
+	} */
 	
 	.restaurantListContainer{
 		width: 1000px;
@@ -33,13 +33,29 @@
 	.restaurantDiv{
 		width: 100%;
 		cursor: pointer;
-		
 	}
 	.restaurantDiv_1{
+		position: relative;	
 		width: 24%;
 		margin: 0px auto 10px auto;
 		display: inline-block;
-
+	}
+	.veganType{
+		position: absolute;
+		top: 1px;
+		margin: 0px;
+		z-index: 1;
+	}
+	.veganType div{
+		height: 30px;
+		display: inline-block;
+		border-radius: 10%;
+		margin: 2px 2px;;
+		padding: 0px 7px;
+		background-color: #bbe8b7;
+		line-height: 30px;
+		text-align: center;
+	 	border: 1px soild #black;
 	}
 	.restaurantDiv_1 img{
 		width: 100%;
@@ -79,6 +95,7 @@
 				<img src="<c:url value='/resources/main/logo.png'/>">
 				<div class="res_title">게시물 없음</div>
 				<div class="res_dist">-</div>
+				<div class="veganType"></div>
 			</div>
 			<div class="restaurantDiv_1">
 				<img src="<c:url value='/resources/main/logo.png'/>">
@@ -116,11 +133,28 @@ for(var i = 0; i < 4; i++){
 /* console.log(${restaurantList}); */
 
 <c:forEach items="${restaurantList}" var ='item' varStatus="status">
+	var veganType = ''
+	var veganTypeList = '${item.getVegan()}';
+	var veganTypeArr = veganTypeList.split(',');
+	veganTypeArr.forEach(function(v,i){
+		switch(v){
+		case '1': veganType += '<div>#플루테리언</div>'; break;
+		case '2': veganType += '<div>#비건</div> '; break;
+		case '3': veganType += '<div>#락토</div> '; break;
+		case '4': veganType += '<div>#오보</div> '; break;
+		case '5': veganType += '<div>#락토오보</div> '; break;
+		case '6': veganType += '<div>#폴로</div> '; break;
+		case '7': veganType += '<div>#페스코</div>'; break;
+		case '8': veganType += '<div>#폴로페스코</div>'; break;
+		case '9': veganType += '<div>#플렉시테리언</div>'; break;
+		}
+	});
 	var idx = ${status.index};
 	$('.restaurantDiv_1').eq(idx).attr('post_id','${item.getPost_id()}');
 	$('.restaurantDiv_1').eq(idx).find($('img')).attr('src','/photo/${item.getServer_file_name()}');
 	$('.restaurantDiv_1').eq(idx).find($('.res_title')).html('${item.getTitle()}');
 	$('.restaurantDiv_1').eq(idx).find($('.res_dist')).html('현재 위치와의 거리: ${item.getKm()}km');
+	$('.restaurantDiv_1').eq(idx).find($('.veganType')).html(veganType);
 </c:forEach>
 
 $('.restaurantDiv_1').on('click',function(){
@@ -129,6 +163,9 @@ $('.restaurantDiv_1').on('click',function(){
 		location.href = 'detail?post_id='+post_id
 	}
 });
+
+
+
 
 /*
 for(var i = 0; i < ${restaurant})
