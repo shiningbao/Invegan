@@ -154,7 +154,7 @@
 	
 	#feedBtn{
 		position : absolute;
-		top : 493px;
+		top : 57px;
 		background-color : white;
 		border-radius : 8px;
 		border : 2px solid #caeada;
@@ -171,26 +171,36 @@
 		width : 50px;
 } 
 
-	#restaurantBtn3{
-		position : absolute;
-		top : 57px;
-		left : 0px;
-		background-color : white;
-		border-radius : 8px;
-		border : 2px solid #caeada;
-		width : 50px;
-} 
-
 	.feedTable td,
 	.feedTable tr {
-   		border: none;
+   		border: 1px solid black;
    
 }
 
-	.feedTable td.itemContent {
+/* .feedTable td.itemContent {
 		border-bottom: 1px solid #caeada; 
 }
-
+ */
+ 
+	 .feedTable {
+	    width: 100%;
+	}
+	
+	.tableContainer{
+		margin-right: 20px;
+		display : flex;
+		overflow-x : auto;
+	}
+	
+	.feedTable td.itemContent {
+		margin : 20px;
+	}
+	
+	.feedImg img {
+	    width: 130px;
+	    object-fit: cover;
+}
+	
 	.restaurantTable td,
 	.restaurantTable tr {
 		border : none;
@@ -224,11 +234,10 @@
 			position: relative;
 		    background-color: white;
 		    margin: 6% auto;
-		    padding: 20px;
 		    border: 1px solid #888;
 		    width: 50%;
 		    overflow-y: scroll;
-        	max-height: 80vh;
+        	max-height: 100vh;
 		}
 
 		.close {
@@ -269,7 +278,7 @@
 		.pwDiv2{
 			position : absolute;
 			top : 265px;
-			right : 121px;
+			right : 118px;
 		
 		}
 		
@@ -278,6 +287,7 @@
 		 	width: 104px;
 		 	top : 304px;
 		 	right : 89px;
+		 	
 		 }
 		
 		 
@@ -291,12 +301,15 @@
 			
 		} */
 		
-		#ListContainer {
+		#listContainer {
 			position : absolute;
-			display: none;
+			display: flex;
 		    top: 532px;
 		    left : 0px;
-		    width : 1000px;
+		    width : 100%;
+		    overflow-x:auto; 
+		    white-space:nowrap; 
+		    margin:0 auto
 		}
 		
 		.titleLink{
@@ -305,6 +318,17 @@
 		
 		.h3, h3 {
     		font-size: 22px;
+		}
+		
+		.favTable{
+			margin-left:auto; 
+    		margin-right:auto;
+
+		}
+		
+		.favImg img{
+			width : 200px;
+			padding : 10px;
 		}
 		
 	
@@ -318,9 +342,10 @@
 		#myInfo{
 			position : absolute;
 			top : 343px;
-			right : 90px;
+			right : 61px;
 			border : 0;
 			border-collapse : collapse;
+			padding: 5px 10px;
 		}
 		
 		 #updateImg{
@@ -333,8 +358,8 @@
 		 	position : absolute;
 		 	font-weight: bold;
 		 	font-size: 70px;
-		 	top: 86px;
-		 	right : 695px;
+		 	top: 64px;
+		 	right : 720px;
 		 	cursor : pointer;
 		 }
 		 
@@ -361,8 +386,8 @@
 		 
 		
 		
-		.restaurantPhoto{
-			width:400px;
+		.restaurantPhoto img{
+			width : 40px;
 		}
 		
 		.feed-image{
@@ -421,7 +446,7 @@
 	
 <div class="tabContainer">
 	<ul class="tabs">
-		<li class="tab-link current" data-tab="tab-1">작성한 글 모아보기</li>
+		<li class="tab-link current" data-tab="tab-1">작성한 피드 모아보기</li>
 		<li class="tab-link" data-tab="tab-2">댓글 모아보기</li>
 		<li class="tab-link" data-tab="tab-3">나의 스크랩</li>
 	</ul>
@@ -429,12 +454,6 @@
 	<div id="tab-1" class="tab-content current">
 		<h3>내가 작성한 피드 보기</h3>
 	</div>
-		<div class="button">
-			<!-- <input type="button" id= "requestBtn" value="요청"/>
-			<input type="button" id= "recipeBtn" value="레시피"/>
-			<input type="button" id = "freeBtn" value="자유게시판"/> -->
-			<input type="button" id = "feedBtn" value="피드" />
-		</div>
 	
 	<div id="tab-2" class="tab-content">
 		<h3>내가 작성한 댓글 보기</h3>
@@ -442,18 +461,17 @@
 			<!-- <input type="button" value="레시피"/>
 			<input type="button" value="자유게시판"/> -->
 			<input type="button" id = "restaurantBtn" value="식당"/>
-			<!-- <input type="button" id = "feedBtn" value="피드"/> -->
+			<input type="button" id = "feedBtn" value="피드"/>
 		</div>
 	</div>
 		
 	<div id="tab-3" class="tab-content">
-		<h3>내가 스크랩한 식당 보기</h3>
-			<!-- <input type="button" value="레시피"/> -->
-			<input type="button" id = "restaurantBtn3" value="식당"/>
-		
+		<h3>내가 스크랩한 식당 보기</h3>	
 	</div>
+	
 	<!-- list 그리는 부분 -->
-	<div id="ListContainer">
+	<div id="listContainer" >
+	
 	</div>
 	
 </div>
@@ -485,7 +503,7 @@
         	</div>
         	<p>
         	<div class= "pwDiv2">
-    		<label>변경 비밀번호 확인<input type="text" name="updatePwConfirm"/></label>
+    		<label>변경 비밀번호 확인  <input type="text" name="updatePwConfirm"/></label>
     		</div>
     		<div class="completePw" style=cursor:pointer>비밀번호 변경</div>
     		<table id=myInfo>
@@ -502,7 +520,7 @@
 				</td>
 			</tr>
 			<tr>
-			<td><label for"vegan_type">나의 비건 단계</label></td>
+			<td><label for"vegan_type">나의 비건 단계  </label></td>
 				<td colspan="2">
 				    <select id="vegan_type" name="vegan_type">
 				    	<option value="0">비건단계</option>
@@ -518,6 +536,7 @@
 				    </select>
 				    </td>
 			</tr>
+			
 			<tr>
 				<td>나의 비건 목적</td>
 				<td colspan="2">
@@ -550,11 +569,8 @@
 <script>
 //header 카테고리 선택유지
 $('#go_myPage').css('box-shadow','#95df95 0px 2px 0px 0px');
-// var showPage = 1;
 
-// listCall(showPage);
-
-//drawList();
+feedListCall();
 
 var modal = document.getElementById("updateModal");
 
@@ -587,6 +603,7 @@ window.onclick = function(event) {
     $('#photo').click();
     
 });
+ 
 // mypage profileImage가 비어있는 상태에서 +버튼 클릭시 profileImage 등록 가능 
 if(image==''){
 $('#photo').on('change', function() {
@@ -810,73 +827,228 @@ $('.save').on('click',function(){
 	}
 });
 
-// tab 클릭 부분 
+//회원탈퇴
+function confirmDelete(user_no) {
+    var result = confirm('정말 탈퇴하시겠습니까?"확인"을 선택하시면 탈퇴가 완료 됩니다.');
+
+    if (result) {
+        // 사용자가 '확인'을 눌렀을 때의 처리
+        alert('탈퇴가 완료 되었습니다.')
+        location.href = './delUser?user_no=' + user_no;
+    } else {
+        // 사용자가 '취소'를 눌렀을 때의 처리
+        alert('탈퇴가 취소 되었습니다.');
+    }
+}
+
 $(document).ready(function(){
-	
-	$('ul.tabs li').click(function(){
-		var tab_id = $(this).attr('data-tab');
+    $('ul.tabs li').click(function(){
+        var tab_id = $(this).attr('data-tab');
 
-		$('ul.tabs li').removeClass('current');
-		$('.tab-content').removeClass('current');
+        $('ul.tabs li').removeClass('current');
+        $('.tab-content').removeClass('current');
 
-		$(this).addClass('current');
-		$("#"+tab_id).addClass('current');
-		
-		$('#ListContainer').hide();
-		
-		var tabText = $(this).text();
-	    updateButtons(tabText);
-	});
-
+        $(this).addClass('current');
+        $("#"+tab_id).addClass('current');
+        
+        $('#listContainer').hide();
+        
+        var tabText = $(this).text();
+        updateButtons(tabText);
+        
+        if (tabText === '작성한 피드 모아보기') {
+            $('#listContainer').show();
+            feedListCall();
+        }
+        
+        if (tabText === '나의 스크랩'){
+        	$('#listContainer').show();
+        	favoriteListCall();
+        	
+        }
+       
+        
+    });
 });
 
 function updateButtons(tabText) {
     var feedBtn = $('#feedBtn');
     var restaurantBtn = $('#restaurantBtn');
-	var restaurantBtn3 = $('#restaurantBtn3');
 	
     // 모든 버튼 숨기기
     feedBtn.hide();
     restaurantBtn.hide();
-    restaurantBtn3.hide();
     
-    // 탭에 따라 필요한 버튼 보이기
-    if (tabText === '작성한 글 모아보기') {
-        feedBtn.show();
-    } else if (tabText === '댓글 모아보기') {
-        feedBtn.show();
-        restaurantBtn.show();
-    } else if (tabText === '나의 스크랩') {
-        restaurantBtn3.show();
-    }
+	if (tabText === '댓글 모아보기') {
+	    feedBtn.show();
+	    restaurantBtn.show();
+}
+	
 }
 
-
-
-	// 게시판 버튼 클릭
-	$('.button input[type="button"]').on('click', function() {
-	    var boardType = $(this).val();
-	    var tabType = $('.tabs li.current').text();
-	    var user_no = $('input[name="user_no"]').val();
-	    console.log(boardType+tabType+user_no);
- 	
     // listCall(showPage);
 	// 리스트 
-	// function listCall(page){
+	// listCall(page){
 
+
+
+function feedListCall(){
+	var user_no = $('input[name="user_no"]').val();
+	var tabType = $('.tabs li.current').text();
 	$.ajax({
 	    type: 'GET',
-	    url: 'list',
+	    url: 'feedListCall',
 	    data:{
-	    	'boardType': boardType,
 	    	'tabType':tabType,
-	    	'user_no':user_no,
-	    	// 'page':page
+	    	'user_no':user_no
 	    },
 	    dataType: 'JSON',
 	    success: function(data) {
 	      console.log(data);
 	      drawList(data.list);
+	      // $('#ListContainer').show(); // 리스트 보여주기
+	      // $('#pagination').show(); 
+	    },
+	    error: function(error) {
+	        console.log(error);
+	    }
+	});
+}
+
+function drawList(list) {
+    var content = '<div class="tableContainer"><table class="feedTable"><tr>';
+
+    list.forEach(function(item, idx) {
+        content += '<td>';
+
+        content += '<div class="profile"><img src="/photo/' + item.profile_image + '" alt="image">' + item.nickname + '</div>';
+        content += '<div class="feedImg"><img src="/photo/' + item.server_file_name + '" alt="image" style="margin:0; padding:0;"></div>';
+        content += '<div class="itemContent">' + item.content + '</div>';
+
+        content += '</td>';
+    });
+
+    content += '</tr></table></div>';
+
+    $('#listContainer').empty();
+    $('#listContainer').html(content);
+}
+
+// 게시판 버튼 클릭
+$('.button input[type="button"]').on('click', function() {
+    var boardType = $(this).val();
+
+    var user_no = $('input[name="user_no"]').val();
+    console.log(user_no + boardType);
+    
+	if(boardType == '피드'){
+    	feedCmListCall(boardType, user_no);
+	}
+	
+	if(boardType =='식당'){
+		rtCmListCall(boardType,user_no);
+	}
+	});
+
+function feedCmListCall(boardType, user_no) {
+    $.ajax({
+        type: 'GET',
+        url: 'feedCmListCall',
+        data: {
+            'user_no': user_no,
+            'boardType': boardType
+        },
+        dataType: 'JSON',
+        success: function(data) {
+            console.log(data);
+            drawFcList(data.fcmList);
+            $('#ListContainer').show(); // 리스트 보여주기
+            // $('#pagination').show();
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+}
+
+
+function drawFcList(fcmList) {
+    var content = '<div class="tableContainer"><table class="feedTable"><tr>';
+
+    fcmList.forEach(function(item, idx) {
+        content += '<td>';
+
+        content += '<div class="profile"><img src="/photo/' + item.profile_image + '" alt="image">' + item.nickname + '</div>';
+        content += '<div class="feedImg"><img src="/photo/' + item.server_file_name + '" alt="image"></div>';
+        content += '<div class="itemContent">' + item.content + '</div>';
+
+        content += '</td>';
+    });
+
+    content += '</tr></table></div>';
+
+    $('#listContainer').empty();
+    $('#listContainer').html(content);
+}
+
+function rtCmListCall(boardType, user_no) {
+    $.ajax({
+        type: 'GET',
+        url: 'rtCmListCall',
+        data: {
+            'user_no': user_no,
+            'boardType': boardType
+        },
+        dataType: 'JSON',
+        success: function(data) {
+            console.log(data);
+            drawRtCmList(data.RtCmList); 
+            $('#ListContainer').show(); // 리스트 보여주기
+            // $('#pagination').show();
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+}
+
+
+function drawRtCmList(RtCmList) {
+    var content = '<div class="tableContainer"><table class="feedTable"><tr>';
+
+    RtCmList.forEach(function(item, idx) {
+        content += '<td>';
+
+        content += '<div class="profile"><img src="/photo/' + item.profile_image + '" alt="image">' + item.nickname + '</div>';
+        content += '<div class="feedImg"><img src="/photo/' + item.server_file_name + '" alt="image"></div>';
+        content += '<div class="itemContent">' + item.content + '</div>';
+
+        content += '</td>';
+    });
+
+    content += '</tr></table></div>';
+
+    $('#listContainer').empty();
+    $('#listContainer').html(content);
+} 
+
+
+
+
+function favoriteListCall(){
+	var user_no = $('input[name="user_no"]').val();
+	var tabType = $('.tabs li.current').text();
+	$.ajax({
+	    type: 'GET',
+	    url: 'favoriteListCall',
+	    data:{
+	    	'tabType':tabType,
+	    	'user_no':user_no
+	    },
+	    dataType: 'JSON',
+	    success: function(data) {
+	      console.log(data);
+	      drawFavList(data.favList);
 	      $('#ListContainer').show(); // 리스트 보여주기
 	      // $('#pagination').show(); 
 	    },
@@ -884,96 +1056,28 @@ function updateButtons(tabText) {
 	        console.log(error);
 	    }
 	});
-	// }
-});
-
-
-	// 회원탈퇴
-	function confirmDelete(user_no) {
-	    var result = confirm('정말 탈퇴하시겠습니까?"확인"을 선택하시면 탈퇴가 완료 됩니다.');
-
-	    if (result) {
-	        // 사용자가 '확인'을 눌렀을 때의 처리
-	        alert('탈퇴가 완료 되었습니다.')
-	        location.href = './delUser?user_no=' + user_no;
-	    } else {
-	        // 사용자가 '취소'를 눌렀을 때의 처리
-	        alert('탈퇴가 취소 되었습니다.');
-	    }
 }
-	     
-	function drawList(list) {
-	   
-	    var content = '';
-	    
-	    var activeButton = $('.button input[type="button"]:focus').val();
-	    
-	  /*   if (!Array.isArray(list)) {
-	        list = Object.values(list); // 객체의 값들을 배열로 변환
-	    }   */
-	    
-	    list.forEach(function(item, idx) {
-	    	
-	    	content += '<tr>';
-	        switch (activeButton) {
-	          /*   case '요청':
-	                content += '<td>' + item.req_title + '</td>';
-	                content += '<td>' + '조회수 ' + item.views + '</td>';
-	                console.log(item.req_title);
-	                break;
-	           	case '레시피':
-	            case '자유게시판': 
-	                content += '<td>' + item.title + '</td>';
-	                content += '<td>' + '조회수 ' + item.views + '</td>';
-	                break;  */
-	           	case '피드':
-	           		content += '<td class="profile"><img src="/photo/' + item.profile_image + '" alt="image">' + item.nickname + '</td>';
-	                content += '<tr></tr>';
-	                content += '<td colspan="2"><img src="/photo/' + item.server_file_name + '" alt="image"  class="feed-image" data-toggle="modal" data-target="#feedDetailModal"></td>';
-	                content += '<tr></tr>';
-	                content += '<td colspan="2" class="itemContent">' + item.content + '</td >';
-	                $('#ListContainer').addClass('feedTable');
-	                break;
-	            case '식당':
-	                content += '<td>' + item.title + '/별점 : ' + item.rating + '</td>';
-	                content += '<tr></tr>';
-	                content += '<td class="rtServerFileName"><a href="/invegan/restaurant/detail?post_id=' + item.post_id + '"><img src="/photo/' + item.server_file_name + '" alt="image" class="restaurantPhoto"></td>';
-	                content += '<tr></tr>';
-	                $('#ListContainer').addClass('restaurantTable');
-	               
-	                break; 
-	                
-	            default:
-	                break;
-	        }
-	        //content += '<td>' + '조회수 ' + item.views + '</td>';
-	        content += '</tr>';
-	    });
-	    $('#ListContainer').html(content);
-	   /*  $('#ListContainer').empty(); // empty() 내가 선택한 요소의 자식요소들을 비운다.
-	    $('#ListContainer').append(content);
-	   
-	    $('#pagination').twbsPagination({
-			startPage: showPage, // 보여줄 페이지
-			totalPages:obj.pages, // 총 페이지 수 (총갯수/페이지당 보여줄 게시물 수 ) : 서버에서 계산해서 가져와야함
-			visiblePages:10, // [1][2][3][4][5] 
-			onPageClick:function(e,page){ // 번호 클릭시 실행할 내용
-				// console.log(e);
-				if(showPage != page){
-				console.log(page);
-				showPage = page;
-				listCall(page);
-				}
-			}
-		});
-	     */
-	  }
-	$(document).on('click', '.feed-image', function() {
-	   
-	    $('#feedDetailModal').modal('show');
-	    
-	  
-	});
+
+function drawFavList(favList) {
+    var content = '<div class="tableContainer"><table class="favTable"><tr>';
+
+    favList.forEach(function(item, idx) {
+        content += '<td>';
+
+        content += '<div class="title">' + item.title + '/별점 : ' + item.rating +  '</div>';
+        content += '<div class="favImg"><a href="/invegan/restaurant/detail?post_id=' + item.post_id + '"><img src="/photo/' + item.server_file_name + '" alt="image" class="restaurantPhoto"></div>';
+
+        content += '</td>';
+    });
+
+    content += '</tr></table></div>';
+
+    $('#listContainer').empty();
+    $('#listContainer').html(content);
+}
+
+
+	
  
 </script>
 </html>
