@@ -153,6 +153,7 @@ $('#adminSort').on('change', function () {
             console.log(obj.pages);
             console.log(showPage);
             console.log(obj.page);
+            
            $('#pagination').twbsPagination({
     			startPage: showPage, // 보여줄 페이지
     			totalPages:obj.pages, 
