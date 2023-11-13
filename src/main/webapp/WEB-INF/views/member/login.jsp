@@ -11,7 +11,7 @@
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <style>
     table, th, td{
-        border: 1px solid black;
+        
         border-collapse: collapse;
         padding: 5px 10px;
         

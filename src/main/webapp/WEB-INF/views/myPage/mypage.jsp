@@ -12,7 +12,10 @@
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 <script src="<c:url value='/resources/js/jquery.twbsPagination.js'/>" type="text/javascript"></script>
 <style>
-
+	/*header 부트스트랩 적용 방지*/
+	body{
+		margin: 8px !important;
+	}
 	#container{
 		position : relative;
 		width: 1000px;
