@@ -81,10 +81,10 @@ public class MemberService {
         return msg;
     }
 
-	public String idTrueFalse(String idTrueFalse) {
-		
-		
-		return dao.idTrueFalse(idTrueFalse);
+	public int validateId(String validateId) {
+		logger.info("validateId() 실행"+ validateId);
+		 
+		return dao.validateId(validateId);
 		
 	}
 
