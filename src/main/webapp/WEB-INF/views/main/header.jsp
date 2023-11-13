@@ -145,12 +145,16 @@
 }
 .login-close{
     font-size: 47px;
-    position: fixed;
+  /*   position: fixed;
     right: 592px;
-    top: 251px;
+    top: 251px; */
     color: #010101;
     z-index: 5;
     cursor: pointer;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 </style>
