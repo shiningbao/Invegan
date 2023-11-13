@@ -388,7 +388,7 @@ input[type="text"] {
 						        }).then((result) => {
 						            if (result) {
 						                // loginInfo가 null일 때 로그인 페이지로 이동
-						                location.href = "/invegan/member/login.go";
+						                location.href = "/invegan/";
 						            }
 						        });
 						    } else {
