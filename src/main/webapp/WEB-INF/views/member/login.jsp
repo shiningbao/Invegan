@@ -99,6 +99,7 @@
 		 	<div id="login-logo">
 				<img alt="invegan-logo" src="<c:url value='/resources/main/invegan_logo_master.png'/>">
 			</div>
+			<span class="login-close" id="closeModalBtn">&times;</span>
 			<form action="member/login" method="post">
 				<table id="login-box">
 					<tr>

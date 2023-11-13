@@ -141,13 +141,13 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 5;
+    z-index: 99;
 }
 .login-close{
     font-size: 47px;
-    position: fixed;
-    right: 592px;
-    top: 251px;
+    position: absolute;
+    right: 5%;
+    top: 1%;
     color: #010101;
     z-index: 5;
     cursor: pointer;
@@ -197,7 +197,6 @@
 		<!-- 모달 창 -->
 		<div id="login-modal" class="login-modal">
 		    <div class="modal-content">
-		        <span class="login-close" id="closeModalBtn">&times;</span>
 		        <c:import url="/member/login.go"/>
 		    </div>
 		</div>
