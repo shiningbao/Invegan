@@ -60,31 +60,33 @@ input[type="submit"]:hover {
 </style>
 </head>
 <body>
-
-	<div class="container">
-<h2>아이디 찾기 결과</h2>
-</div>
-
-<br>
-	<div class="container">
-	<p><br></p>
-    <c:if test="${not empty id}">
-        <p>찾은 아이디: ${id}</p>
-    </c:if>
-    <p><br></p>
-	</div>
-
-<form action="findId2" method="post">
-
-	<div class="container">
-    <label for="email">이메일:</label>
-    	<input type="text" id="email" name="email" required placeholder="이메일을 입력해주세요">
-    </div>
-    <p><br></p>
-    <div class="container">
-    	<input type="submit" name="findIdd" value="아이디 찾기">
-	<p><br></p>
-	</div>
+	<form action="findId2" method="post">
+	<table>
+		<tr>
+			<th colspan="2">
+				<h2>아이디 찾기 결과</h2>
+			</th>
+		</tr>
+		<tr>
+		<th colspan="2">
+				<c:if test="${not empty id}">
+       			 	<p>찾은 아이디: ${id}</p>
+   				 </c:if>
+       		</th>
+		</tr>
+		<tr>
+			<th> 이메일</th>
+			<th>
+				<input type="text" id="email" name="email" required placeholder="이메일을 입력해주세요">
+			</th>
+		</tr>
+		<tr>
+			<th colspan="2">
+				<input type="submit" name="findIdd" value="아이디 찾기">
+			</th>
+			
+		</tr>
+	</table>
 
 </form>
 </body>

@@ -19,7 +19,6 @@ body {
 }
 
 .container {
-    display: flex;
     flex-direction: column; /* 세로 방향으로 정렬 */
 }
 
@@ -53,35 +52,51 @@ input[type="submit"]:hover {
     background-color: #36648b; /* hover */
 }
 
+#text{
+	top: 10px;
+}
+
 </style>
 </head>
 <body>
-    <div class="container">
-        <h2>비밀번호 찾기 결과</h2>
-    </div>
 
-    <div class="container">
-        <c:if test="${not empty pw}">
-            <p>찾은 비밀번호: ${pw}</p>
-        </c:if>
-    </div>
 
-    <form action="findPw2" method="post">
-        <div class="container">
-            <label for="id">아이디:</label>
-            <input type="text" id="id" name="id" required placeholder="아이디를 입력해주세요">
-        </div>
-		<div class="container">
-            <label for="email">이메일:</label>
-            <input type="text" id="email" name="email" required placeholder="이메일을 입력해주세요">
-        </div>
-
-        <div class="container">
-            <p>
-                <br>
-                <input type="submit" name="findPww" value="비밀번호 찾기">
-            </p>
-        </div>
+<form action="findPw2" method="post">
+	<table>
+		<tr>
+			<th colspan="2">
+				<h2>비밀번호 찾기 결과</h2>
+			</th>
+		</tr>
+		<br/>
+		<tr>
+		<th colspan="2">
+			<c:if test="${not empty pw}">
+            	<p>찾은 비밀번호: ${pw}</p>
+       		</c:if>
+       		</th>
+		</tr>
+		<br/>
+		<tr>
+			<th> 아이디</th>
+			<th>
+				<input type="text" id="id" name="id" required placeholder="아이디를 입력해주세요">
+			</th>
+		</tr>
+		<tr>
+			<th> 이메일</th>
+			<th>
+				<input type="text" id="email" name="email" required placeholder="이메일을 입력해주세요">
+			</th>
+		</tr>
+		<tr>
+			<th colspan="2">
+				<input type="submit" name="findPww" value="비밀번호 찾기">
+			</th>
+			
+		</tr>
+	</table>
+	
     </form>
 </body>
 <script></script>
