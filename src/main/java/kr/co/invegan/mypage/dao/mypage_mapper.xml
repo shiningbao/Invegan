@@ -64,11 +64,11 @@
 		DELETE FROM Members WHERE user_no = #{user_no}
 	</delete>
 
-	<select id="recipeComments" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
+	<!-- <select id="recipeComments" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
 		SELECT DISTINCT title,views FROM Board 
 		WHERE post_id IN (SELECT post_id FROM Comments WHERE user_no = #{param1}) 
 		AND post_id IN (SELECT post_id FROM Board WHERE category='레시피')
-	</select>
+	</select> -->
 	
 	<select id="recipeFavorite" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
 		SELECT title,views FROM Board 
@@ -76,11 +76,11 @@
 		AND category='레시피'
 	</select>
 	
-	<select id="freeComments" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
+	<!-- <select id="freeComments" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
 		SELECT title,views FROM Board 
 		WHERE post_id IN (SELECT post_id FROM Comments WHERE user_no = #{param1}) 
 		AND post_id IN(SELECT post_id FROM Board WHERE category='자유게시판')
-	</select>
+	</select> -->
 	
 	<select id="feedComments" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
 		SELECT 

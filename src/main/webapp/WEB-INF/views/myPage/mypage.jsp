@@ -239,8 +239,7 @@
 		    margin: 6% auto;
 		    border: 1px solid #888;
 		    width: 50%;
-		    overflow-y: scroll;
-        	max-height: 100vh;
+		    /* height: 651px; */
 		}
 
 		.close {
@@ -368,7 +367,7 @@
 		 
 		 .save{
 		 	position : absolute;
-		 	bottom : -333px;
+		 	top : 614px;
 		 	right : 13px;
 		 	width: 80px;
 		 }
