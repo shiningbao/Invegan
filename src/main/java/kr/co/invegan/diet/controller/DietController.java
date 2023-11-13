@@ -49,7 +49,7 @@ public class DietController {
 			page = "diet/dietCalander";
 		} else {
 			logger.info("로그인 되어있지 않음");
-			reAttr.addFlashAttribute("needLogin", "로그인 후 이용 가능한 서비스입니다.");
+			reAttr.addFlashAttribute("msg", "로그인 후 이용 가능한 서비스입니다.");
 		}
 		return page;
 	}

@@ -43,7 +43,7 @@ public class MemberController {
 	}	
 	
 	//로그인
-	@RequestMapping(value="/member/login", method = RequestMethod.POST)
+	@RequestMapping(value={"*/member/login", "member/login"}, method = RequestMethod.POST)
 	public String login(HttpSession session, RedirectAttributes redirectAttributes ,@RequestParam String id, @RequestParam String pw){
 		logger.info("로그인 요청 || id = "+id+" / pw = "+pw);
 		HashMap<String, Object> params = new HashMap<String, Object>();
@@ -119,17 +119,20 @@ public class MemberController {
 	    return "member/findPw"; 
 	}
 	
-	//회원가입
+	//회원가입 go
 	@RequestMapping(value = { "/member/signup.go" }, method = RequestMethod.GET)
 	public String signupGo() {
 
 		return "member/signup";
 	}
 
-		
+	// 회원가입 do
 	@RequestMapping(value = "/member/signup.do", method = RequestMethod.POST)
 	public String signupDo(Model model, @RequestParam HashMap<String, String> params, @RequestParam String[] interests) {
 		logger.info("params"+params);
+		String page = "member/signup";
+		
+		
 		// "interests" 배열을 쉼표로 구분된 하나의 문자열로 결합
 	    String combinedInterests = String.join(",", interests);
 	    logger.info("Combined interests: " + combinedInterests);
@@ -140,26 +143,28 @@ public class MemberController {
 		String msg = service.signup(params);
 		model.addAttribute("msg", msg);
 		
-		return "redirect:/main";
+		return page;
 	}
 	
-		@RequestMapping(value = "/member/idTrueFalse")
-		@ResponseBody
-		public HashMap<String, Object> idTrueFalse(@RequestParam String idTrueFalse) {
-			
-			HashMap<String, Object> result = new HashMap<String, Object>();
-			logger.info("id 값 :"+idTrueFalse);
-			String row =service.idTrueFalse(idTrueFalse);
-			logger.info("row =="+row);
-			String msg ="0";
-				if(row.equals("0")) {
-					 result.put("success", msg);
-				}else {
-					 msg ="1";
-					 result.put("success", msg);
-				}
-				return result;
+	// 아이디 중복 검사
+	@RequestMapping(value = "/member/validateId")
+	@ResponseBody
+	public HashMap<String, Object> validateId(@RequestParam String validateId) {
+		
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		logger.info("id 값 : "+validateId);
+		int row = service.validateId(validateId);
+		logger.info("row =="+ row);
+		
+		if(row > 0) {	
+			// 이미 사용중인 아이디 일때 
+			 result.put("success", row);
+		}else {		
+			// 사용 가능한 아이디 일때		// row = 0
+			 result.put("success", row);
 		}
+		return result;
+	}
 		
 	
 }
