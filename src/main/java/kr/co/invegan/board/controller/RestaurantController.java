@@ -28,30 +28,53 @@ public class RestaurantController {
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
-	// 리스트보여주는 요청
 	@RequestMapping(value = "/restaurant/list")
-	public String restaurantList(HttpSession session, Model model) {
-		
-		String page = "restaurant/restaurantList";
+	public String restaurantList() {
+		return "/restaurant/restaurantList";
+	}
+	
+	// 리스트보여주는 요청
+	@RequestMapping(value = "/restaurant/restaurantListCall")
+	@ResponseBody
+	public HashMap<String, Object> restaurantListCall(HttpSession session, @RequestParam int page) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+
 		MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
-		
-		if(loginInfo == null) {// 비로그인
-			logger.info("비로그인 loginInfo: "+loginInfo);
-			model.addAttribute("admin", "no");
-		}else if(loginInfo.getIs_admin() == 0){// 일반 회원
-			logger.info("일반회원 ID: "+loginInfo.getId());
-			model.addAttribute("admin", "no");
-		}else { // 관리자
-			logger.info("관리자 ID: "+loginInfo.getId()+ " / admin: "+loginInfo.getIs_admin());
-			model.addAttribute("admin", "yes");
-		}
 		
 		Double userLat = (Double) session.getAttribute("userLat");
 		Double userLng = (Double) session.getAttribute("userLng");
-		ArrayList<restaurantFilterListDTO> restaurantList = service.restaurantList(userLat,userLng);
-		model.addAttribute("restaurantList", restaurantList);
-		model.addAttribute("loginInfo", loginInfo);
-		return page;
+		ArrayList<restaurantFilterListDTO> restaurantList = null;
+		int pages = 0;
+		
+		if(loginInfo == null) {// 비로그인
+			logger.info("비로그인 loginInfo: "+loginInfo);
+			result.put("admin", "no");
+			pages = service.restaurantList_user_totalpage();
+		}else if(loginInfo.getIs_admin() == 0){// 일반 회원
+			logger.info("일반회원 ID: "+loginInfo.getId());
+			result.put("admin", "no");
+			pages = service.restaurantList_user_totalpage();
+		}else { // 관리자
+			logger.info("관리자 ID: "+loginInfo.getId()+ " / admin: "+loginInfo.getIs_admin());
+			result.put("admin", "yes");
+			pages = service.restaurantList_admin_totalpage();		
+		}
+		
+		if(page > pages) {
+			page = pages;
+		}
+		
+		if(loginInfo == null) {// 비로그인
+			restaurantList = service.restaurantList_user(page, userLat,userLng);
+		}else if(loginInfo.getIs_admin() == 0){// 일반 회원
+			restaurantList = service.restaurantList_user(page, userLat,userLng);
+		}else { // 관리자
+			restaurantList = service.restaurantList_admin(page, userLat,userLng);
+		}
+		result.put("page", page);
+		result.put("pages", pages);
+		result.put("restaurantList", restaurantList);
+		return result;
 	}
 
 	// 작성 페이지 이동
@@ -176,7 +199,7 @@ public class RestaurantController {
 	
 	// 숨김 요청
 	@RequestMapping(value = "/restaurant/hidden")
-	public String hidden(HttpSession session, @RequestParam int post_id) {
+	public String hidden(HttpSession session, @RequestParam int post_id, @RequestParam int is_hidden) {
 		logger.info("식당 숨김 요청");
 		MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
 		String page = "redirect:/main";
@@ -189,8 +212,12 @@ public class RestaurantController {
 			page = "redirect:list";
 		}else { // 관리자
 			logger.info("관리자 ID: "+loginInfo.getId()+ " / admin: "+loginInfo.getIs_admin()+" / 숨길 post_id: "+post_id);
-			String result = service.hidden(post_id);
-			logger.info("post_id : "+post_id+" "+result);
+			String result = service.hidden(post_id, is_hidden);
+			if(is_hidden == 0) {
+				logger.info("post_id : "+post_id+" 숨김 "+result);
+			}else {
+				logger.info("post_id : "+post_id+" 숨김해제 "+result);
+			}
 			page = "redirect:/restaurant/detail?post_id="+post_id;
 		}
 		return page;
