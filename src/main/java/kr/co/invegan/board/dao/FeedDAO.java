@@ -50,6 +50,8 @@ public interface FeedDAO {
 
 	void feedImgDel(String fileName);
 
+	ArrayList<FeedListDTO> nameSearch(String nameText);
+
 
 
 }
