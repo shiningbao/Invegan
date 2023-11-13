@@ -208,4 +208,11 @@ public class FeedService {
 		
 	}
 
+	public ArrayList<FeedListDTO> nameSearch(String nameText) {
+		
+		
+		return dao.nameSearch(nameText);
+		
+	}
+
 }
