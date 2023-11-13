@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<!-- alert ,cofirm 창 -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <style>
 table {
@@ -140,7 +142,12 @@ input[type="submit"]:hover {
 
 	var msg = "${msg}";
 	if(msg != ""){
-		alert(msg);
+		console.log(msg);
+		swal({
+      	    title: msg,
+      	    text: "",
+      	    icon: "info"
+      	});
 	}
 /*
 const urlParams = new URLSearchParams(window.location.search);

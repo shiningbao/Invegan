@@ -7,6 +7,8 @@
 <meta charset="UTF-8">
 <title>Invegan - 식단관리</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<!-- alert ,cofirm 창 -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
 
 
@@ -390,41 +392,65 @@
 		console.log('foodId : ' + foodId + " / diet_category : "
 				+ diet_category + " / gram : " + gram);
 		if (diet_category == "") {
-			alert("아침 / 점심 / 저녁 / 기타 중에 선택해 주세요");
+			swal({
+            	    title: "아침 / 점심 / 저녁 / 기타 중에 선택해 주세요",
+            	    text: "",
+            	    icon: "info"
+            	});
 		} else if (foodId == "") {
-			alert("식품을 선택해주세요");
+			swal({
+        	    title: "식품을 선택해주세요",
+        	    text: "",
+        	    icon: "info"
+        	});
 			$('#searchBox').focus();
 		} else if (gram == 0) {
-			alert("선택한 식품의 섭취량을 입력해주세요");
+			swal({
+        	    title: "선택한 식품의 섭취량을 입력해주세요",
+        	    text: "",
+        	    icon: "info"
+        	});
 		} else if (isNaN(gram)) {
-			alert("중량에는 숫자만 입력해주세요");
+			swal({
+        	    title: "중량에는 숫자만 입력해주세요",
+        	    text: "",
+        	    icon: "info"
+        	});
 		} else {
-			if (!confirm($('#food_name').text() + " " + gram + "g 을 "
-					+ diet_category + "에 추가하시겠습니까?")) {
-				return false;
-			} else {
-				var params = {};
-				params.select_date = selectDate;
-				params.food_id = foodId;
-				params.diet_category = diet_category;
-				params.menu_category = menu_category;
-				params.recipe_name = recipe_name;
-				params.gram = gram;
+		    swal({
+		        title: $('#food_name').text() + " " + gram + "g 을 " + diet_category + "에 추가하시겠습니까?",
+		        text: "",
+		        icon: "info",
+		        buttons: ["아니오", "네"]
+		    }).then((isConfirmed) => {
+		        if (isConfirmed) {
+		            var params = {};
+		            params.select_date = selectDate;
+		            params.food_id = foodId;
+		            params.diet_category = diet_category;
+		            params.menu_category = menu_category;
+		            params.recipe_name = recipe_name;
+		            params.gram = gram;
 
-				$.ajax({
-					type : 'get',
-					url : 'addMenu.do',
-					data : params,
-					dataType : 'JSON',
-					success : function(data) {
-						opener.location.reload();
-						self.close();
-					},
-					error : function(data) {
-					}
-				});
-			}
+		            $.ajax({
+		                type: 'get',
+		                url: 'addMenu.do',
+		                data: params,
+		                dataType: 'JSON',
+		                success: function (data) {
+		                    opener.location.reload();
+		                    self.close();
+		                },
+		                error: function (data) {
+		                    // 오류 처리 코드
+		                }
+		            });
+		        } else {
+		            flag = false;
+		        }
+		    });
 		}
+		
 
 	}
 
