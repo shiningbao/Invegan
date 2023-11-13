@@ -12,13 +12,18 @@
 			
 			/* 카테고리 버튼 */
 			.cbutton {
-				width : 50px;
-				height: 30px;
+				width : 60px;
+				height: 40px;
 				border: 1px solid black;
 				background-color: white;
 				border-radius: 4px;
 				cursor: pointer;
 				text-align: center;
+				font-size : 16px;
+			}
+			
+			.cbutton:hover {
+				background-color: rgb(115 211 147 / 19%);
 			}
 			
 			/* 큰 테두리 */
@@ -34,11 +39,11 @@
 				width : 720px;
 				margin: 46px 0px 0px 30px;
 				position: absolute;
-				top: -9px;
+				top: -25px;
 			}
 			
 			#rbox table {
-				width: 700px;
+				width: 718.4px;
 				text-align: center;
 				font-size: 15px;
 			}
@@ -52,7 +57,7 @@
 			}
 			
 			#thead{
-				width: 718.4px;
+				width: 718.4px;	
 				height: 40px;
 				border : solid 1px black;
 				margin: 15px 0px 0px 0px;
@@ -60,40 +65,53 @@
 			
 			#mrbody {
 				width : 718.4px;
-				height: 210px;
+				height: 175px;
 				border : solid 1px black;
 				border-top: none;
 				overflow-x : hidden;
-				overflow-y : scroll;	
+				overflow-y : auto;	
+			}
+			
+			#mrbody::-webkit-scrollbar {
+				width : 0px;
+				height: 0px;
 			}
 			
 			.ibutton {
 				position: absolute;
-				left: 588px;
+				left: 580px;
+				top : -7px;
 				cursor: pointer;
 				background: none;
 				border: none;
-				font-size: 25px;
+				font-size: 40px;
 			}
 			
 			.dbutton {
 				position: absolute;
 				left: 616px;
+				top : -11px;
 				cursor: pointer;
 				background: none;
 				border: none;
-				font-size: 25px;
+				font-size: 40px;
 			}
 			
 			.fbutton {
 				position: absolute;
-				left: 643px;
+				left: 632px;
 				margin-left: 28px;
-				background : #98ff98;
-				border : none;
+				background : none;
+				border : 1px solid black;
 				border-radius: 4px;
-				width : 50px;
-				height: 30px;
+				font-size : 16px;
+				width : 60px;
+				height: 40px;
+				cursor: pointer;
+			}
+			
+			.fbutton:hover {
+				background-color: rgb(115 211 147 / 19%);
 			}
 			
 			/* rm:재료 */
@@ -101,11 +119,11 @@
 				width: 720px;
 				margin: 46px 10px 0px 30px;
 				position: absolute;
-				bottom: -30px;
+				bottom: -1px;
 			}
 			
 			#rmbox table{
-				width: 700px;
+				width: 718.4px;
 				text-align: center;
 				font-size : 15px;
 			}
@@ -124,6 +142,11 @@
 				overflow-y : scroll;	
 			}
 			
+			#rmbody::-webkit-scrollbar {
+				width : 0px;
+				height : 0px;
+			}
+			
 			#rmtop {
 				width : 720px;
 			}
@@ -135,14 +158,18 @@
 			}
 			
 			#rmhead table{
-				width: 700px;
+				width: 718.4px;
 			}
 			
 			#mtop input {
 				cursor: pointer;
 				background: none;
 				border: none;
-				font-size: 25px;
+				font-size: 40px;
+			}
+			
+			#minsert {
+				top : 10px;
 			}
 
 			/* rN:영양소 표시 */			
@@ -151,7 +178,7 @@
 				height: 560px;
 				border-left: 2px solid lightgray;
 				position: absolute;
-				top : 71px;
+				top : 40px;
 				right: 100px;
 			}
 			
@@ -165,7 +192,7 @@
 				height : 29px;
 				font-size: 15px;
 				padding : 3px;
-				border-bottom : 2px solid #2ecc71; /* 에메랄드색 */
+				border-bottom : 2px solid #95df95;
 			}
 			
 			#rNutri td{
@@ -249,8 +276,8 @@
 						<tr>
 							<th colspan="2"  style="width : 350px;">재료</th>
 							<th>
-								<input type ="button" onclick="minsert()" value="+"/>
-								<input type ="button" onclick="mdel()" value="-"/>
+								<input type ="button" id="minsert" onclick="minsert()" value="+"/>
+								<input type ="button" id="mdelete" onclick="mdel()" value="-"/>
 							</th>
 						</tr>
 					</table>
@@ -413,7 +440,7 @@
             var rName = $(this).find('td:eq(1)').text();
             rowIndex = $(this).index();
             grams = $(this).find('td:eq(2)').text();
-            $(this).css('background','#87878754');
+            $(this).css('background','rgb(115 211 147 / 19%)');
             console.log('클릭한 행의 인덱스: ' + rowIndex);
             console.log('클릭한 레시피 번호: '+menu_id);
             console.log('클릭한 레시피 이름: ' + rName);
@@ -523,7 +550,7 @@
 		$('#rMaterialList').on('click', 'tr', function() {
 			$('#rMaterialList tr').css('background', 'none');
 			material_id = $(this).find('td:eq(0)').text();
-		    $(this).css('background-color','#87878754');
+		    $(this).css('background-color','rgb(115 211 147 / 19%)');
 		    console.log('클릭한 재료의 id : '+material_id);
 		    
 		    // 재료 영양소 출력
@@ -669,7 +696,7 @@
 			$('.cbutton').css('border','1px solid black');
 			diet_category = $(this).val();
 			console.log("식단의 카테고리 : "+diet_category);
-			$(this).css('background-color','#98ff98');
+			$(this).css('background-color','rgb(115 211 147 / 19%)');
 			$(this).css('border','none');
 		});
 		

@@ -23,6 +23,7 @@
 			  	padding: 8px;
 			    height: 30px;
 			    border-bottom : 1px solid black;
+			    background-color: lightgray;
 			  }
 
 			  
@@ -46,6 +47,9 @@
 			  
 			  #msearch {
 			  	height: 25px;
+			  	background-color: rgb(115 211 147 / 19%);
+			  	border : 1px solid lightgray;
+			  	cursor: pointer;
 			  }
 			  
 			  input[name="fname"]{
@@ -62,6 +66,9 @@
 			  
 			  #mMaterial {
 			  	margin-left : 10px;
+			  	background-color: rgb(115 211 147 / 19%);
+			  	border: 1px solid lightgray;
+			  	cursor: pointer;
 			  }
 			  
 			  #close input {
