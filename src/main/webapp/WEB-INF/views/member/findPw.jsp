@@ -18,10 +18,7 @@ body {
     margin: 0;
 }
 
-.container {
-    display: flex;
-    flex-direction: column; /* 세로 방향으로 정렬 */
-}
+
 
 .find-result-container {
     background-color: #ffe4e1; 
@@ -53,13 +50,17 @@ input[type="submit"]:hover {
     background-color: #36648b; /* hover */
 }
 
+#text {
+	bottom: 100px;
+}
+
 </style>
 </head>
 <body>
     <div class="container">
         <h2>비밀번호 찾기 결과</h2>
     </div>
-
+    <br>
     <div class="container">
         <c:if test="${not empty pw}">
             <p>찾은 비밀번호: ${pw}</p>
