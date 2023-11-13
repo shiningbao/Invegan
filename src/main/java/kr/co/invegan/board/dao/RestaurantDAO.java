@@ -25,7 +25,9 @@ public interface RestaurantDAO {
 
 	ArrayList<String> photoList(int post_id);
 
-	ArrayList<restaurantFilterListDTO> restaurantList(@Param("lat") double userLat, @Param("lng") double userLng);
+	ArrayList<restaurantFilterListDTO> restaurantList_admin(@Param("p") int p, @Param("lat") double userLat, @Param("lng") double userLng);
+	
+	ArrayList<restaurantFilterListDTO> restaurantList_user(@Param("p") int p, @Param("lat") double userLat, @Param("lng") double userLng);
 
 	int boardUpdate(RestaurantDTO dto);
 
@@ -37,10 +39,17 @@ public interface RestaurantDAO {
 
 	int hidden(int post_id);
 
+	int visible(int post_id);
+	
 	int favoriteChk(int user_no, int post_id);
 
 	void favoriteInsert(int user_no, int post_id);
 
 	void favoriteDel(int user_no, int post_id);
+
+	int restaurantList_user_totalpage();
+	
+	int restaurantList_admin_totalpage();
+
 
 }

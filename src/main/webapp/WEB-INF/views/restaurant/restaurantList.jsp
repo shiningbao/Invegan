@@ -5,12 +5,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<style>
-	table, th, td{
-		border: 1px solid black;
-		border-collapse: collapse;
-	}
-	
+<script src='<c:url value="/resources/js/jquery.twbsPagination.js"/>' type="text/javascript"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+<style>	
 	.restaurantListContainer{
 		width: 1000px;
 		margin: 0px auto;
@@ -36,9 +35,19 @@
 	}
 	.restaurantDiv_1{
 		position: relative;	
-		width: 24%;
+		width: 24.5%;
 		margin: 0px auto 10px auto;
 		display: inline-block;
+	}
+	.restaurantImg{
+		position: relative;
+		width: 100%;
+		height: 250px;
+	}
+	.Img{
+		position: absolute;
+		width: 100%;
+		height: 250px;
 	}
 	.veganType{
 		position: absolute;
@@ -47,19 +56,16 @@
 		z-index: 1;
 	}
 	.veganType div{
-		height: 30px;
+		height: 24px;
 		display: inline-block;
 		border-radius: 10%;
-		margin: 2px 2px;;
-		padding: 0px 7px;
+		margin: 2px 1px;;
+		padding: 0px 4px;
 		background-color: #bbe8b7;
-		line-height: 30px;
+		line-height: 24px;
 		text-align: center;
-	 	border: 1px soild #black;
-	}
-	.restaurantDiv_1 img{
-		width: 100%;
-		height: 250px;
+	 	border: 0.5px solid #30492a;
+	 	font-size: 12px;
 	}
 	.res_title{
 		text-align: center;
@@ -92,30 +98,36 @@
 		</div>
 		<div class="restaurantDiv">
 			<div class="restaurantDiv_1">
-				<img src="<c:url value='/resources/main/logo.png'/>">
+				<div class="restaurantImg"><img class="Img" src="<c:url value='/resources/main/logo.png'/>"></div>
 				<div class="res_title">게시물 없음</div>
 				<div class="res_dist">-</div>
 				<div class="veganType"></div>
 			</div>
 			<div class="restaurantDiv_1">
-				<img src="<c:url value='/resources/main/logo.png'/>">
+				<div class="restaurantImg"><img class="Img" src="<c:url value='/resources/main/logo.png'/>"></div>
 				<div class="res_title">게시물 없음</div>
 				<div class="res_dist">-</div>
+				<div class="veganType"></div>
 			</div>
 			<div class="restaurantDiv_1">
-				<img src="<c:url value='/resources/main/logo.png'/>">
+				<div class="restaurantImg"><img class="Img" src="<c:url value='/resources/main/logo.png'/>"></div>
 				<div class="res_title">게시물 없음</div>
 				<div class="res_dist">-</div>
+				<div class="veganType"></div>
 			</div>
 			<div class="restaurantDiv_1">
-				<img src="<c:url value='/resources/main/logo.png'/>">
+				<div class="restaurantImg"><img class="Img" src="<c:url value='/resources/main/logo.png'/>"></div>
 				<div class="res_title">게시물 없음</div>
 				<div class="res_dist">-</div>
+				<div class="veganType"></div>
 			</div>
 		</div>
 	</div>
 	
-	
+								
+		<nav aria-label="Page navigation" style="text-align:center">
+			<ul class="pagination" id="pagination"></ul>
+		</nav>	
 	
 	
 	
@@ -123,6 +135,9 @@
 	
 </body>
 <script>
+
+var showPage = 1;
+
 $('#go_rest').css('box-shadow','#95df95 0px 2px 0px 0px');
 
 for(var i = 0; i < 4; i++){
@@ -130,7 +145,21 @@ for(var i = 0; i < 4; i++){
 	document.getElementsByClassName('restaurantListContainer')[0].appendChild(copyTag);	
 }
 
-/* console.log(${restaurantList}); */
+function callList(showPage){
+	$.ajax({
+		type:'get',
+		url:'restaurantListCall',
+		data:{'page':showPage},
+		dataType:'JSON',
+		success:function(data){
+			console.log(data);
+		},
+		error:function(e){
+			console.log(e);
+		}
+	});
+	
+}
 
 <c:forEach items="${restaurantList}" var ='item' varStatus="status">
 	var veganType = ''
@@ -151,10 +180,18 @@ for(var i = 0; i < 4; i++){
 	});
 	var idx = ${status.index};
 	$('.restaurantDiv_1').eq(idx).attr('post_id','${item.getPost_id()}');
-	$('.restaurantDiv_1').eq(idx).find($('img')).attr('src','/photo/${item.getServer_file_name()}');
+	$('.restaurantDiv_1').eq(idx).find($('.Img')).attr('src','/photo/${item.getServer_file_name()}');
 	$('.restaurantDiv_1').eq(idx).find($('.res_title')).html('${item.getTitle()}');
 	$('.restaurantDiv_1').eq(idx).find($('.res_dist')).html('현재 위치와의 거리: ${item.getKm()}km');
 	$('.restaurantDiv_1').eq(idx).find($('.veganType')).html(veganType);
+	var is_hidden = '${item.getIs_hidden()}';
+	console.log(is_hidden);
+	if(is_hidden == 1){
+		var img = '<c:url value="/resources/main/hidden.png"/>';
+		$('.restaurantDiv_1').eq(idx).find($('.restaurantImg')).append(
+				'<img class="restaurnatHidden" src="'+img+'" style="width:100%; height:250px; z-index:1,back-ground-color:grey; opacity:0.7"}/>'
+		);
+	}
 </c:forEach>
 
 $('.restaurantDiv_1').on('click',function(){
@@ -163,10 +200,23 @@ $('.restaurantDiv_1').on('click',function(){
 		location.href = 'detail?post_id='+post_id
 	}
 });
+/*
+// 페이징 UI 그리기(플러그인 사용)
+$('#pagination').twbsPagination({
+	startPage:showPage, // 보여줄 페이지
+	totalPages:data.pages, // 총 페이지 수(총 갯수/페이지당 보여줄 게시물 수) : 서버에서 계산해서 가져와야함
+	visiblePages:5,
+	onPageClick:function(e,page){// 번호 클릭시 실행할 내용
+		//console.log(e);
+		if(showPage != page){
+			console.log(page);
+			showPage = page;
+			callList(page);
+		}
+	}
+});
 
-
-
-
+*/
 /*
 for(var i = 0; i < ${restaurant})
 

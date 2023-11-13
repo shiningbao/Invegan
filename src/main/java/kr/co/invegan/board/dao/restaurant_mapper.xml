@@ -34,16 +34,34 @@
 	</insert>
 	
 	
+	<select id="restaurantList_admin_totalpage">
+		SELECT CEIL(COUNT(idx)/20) AS pages FROM Board WHERE category ='식당'
+	</select>
 	
-	<select id="restaurantList" resultType="kr.co.invegan.board.dto.restaurantFilterListDTO">
+	<select id="restaurantList_admin" resultType="kr.co.invegan.board.dto.restaurantFilterListDTO">
 		SELECT r.post_id, b.title, v.vegan, im.server_file_name, b.is_hidden
 		,CAST(6371 * ACOS(COS(RADIANS(#{lat})) * COS(RADIANS(r.lat)) * COS(RADIANS(#{lng} - r.lng)) + SIN(RADIANS(#{lat})) * SIN(RADIANS(r.lat))) AS SIGNED) AS km
 		FROM Restaurant r 
 		LEFT JOIN (SELECT post_id , GROUP_CONCAT(DISTINCT vegan_type ORDER by vegan_type SEPARATOR ',') AS vegan FROM RestaurantMenu GROUP BY post_id) AS v ON r.post_id =v.post_id
 		LEFT JOIN (SELECT idx, server_file_name FROM ImageTable it WHERE category ='식당' GROUP BY idx) AS im ON r.post_id = im.idx
 		LEFT JOIN Board b ON r.post_id = b.post_id
+		LIMIT #{p}, 20
 	</select>
 	
+	<select id="restaurantList_user_totalpage">
+		SELECT CEIL(COUNT(idx)/20) AS pages FROM Board WHERE category ='식당' AND is_hidden = 0
+	</select>
+	
+	<select id="restaurantList_user" resultType="kr.co.invegan.board.dto.restaurantFilterListDTO">
+		SELECT r.post_id, b.title, v.vegan, im.server_file_name, b.is_hidden
+		,CAST(6371 * ACOS(COS(RADIANS(#{lat})) * COS(RADIANS(r.lat)) * COS(RADIANS(#{lng} - r.lng)) + SIN(RADIANS(#{lat})) * SIN(RADIANS(r.lat))) AS SIGNED) AS km
+		FROM Restaurant r 
+		LEFT JOIN (SELECT post_id , GROUP_CONCAT(DISTINCT vegan_type ORDER by vegan_type SEPARATOR ',') AS vegan FROM RestaurantMenu GROUP BY post_id) AS v ON r.post_id =v.post_id
+		LEFT JOIN (SELECT idx, server_file_name FROM ImageTable it WHERE category ='식당' GROUP BY idx) AS im ON r.post_id = im.idx
+		LEFT JOIN Board b ON r.post_id = b.post_id
+		WHERE b.is_hidden = 0
+		LIMIT #{p}, 20
+	</select>
 	
 	
 	<select id="restaurantDetail" resultType="kr.co.invegan.board.dto.RestaurantDTO">
@@ -78,6 +96,10 @@
 
 	<update id="hidden">
 		UPDATE Board SET is_hidden = 1 WHERE post_id =#{param1}
+	</update>
+	
+	<update id="visible">
+		UPDATE Board SET is_hidden = 0 WHERE post_id =#{param1}
 	</update>
 
 	<select id="favoriteChk" parameterType="int" resultType="int">
