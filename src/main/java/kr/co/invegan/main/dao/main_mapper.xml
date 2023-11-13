@@ -27,7 +27,7 @@
 			))	AS tb
 	</select>
 
-	<select id="restaurantFilterList" resultType="kr.co.invegan.main.dto.restaurantFilterListDTO">
+	<select id="restaurantFilterList" resultType="kr.co.invegan.board.dto.restaurantFilterListDTO">
 	SELECT b.post_id, b.title, dist.km, im.server_file_name, v.vegan
 	FROM Board b
 	RIGHT JOIN (SELECT post_id,CAST(6371 * ACOS(COS(RADIANS(#{lat})) * COS(RADIANS(lat)) * COS(RADIANS(#{lng} - lng)) + SIN(RADIANS(#{lat})) * SIN(RADIANS(lat))) AS SIGNED) AS km FROM Restaurant) AS dist ON b.post_id = dist.post_id
@@ -45,7 +45,8 @@
 	</select>
 	
 	<select id="feedFilterList" resultType="kr.co.invegan.board.dto.FeedListDTO">
-		SELECT b.post_id, m.nickname, m_img.server_file_name AS profile_image, b.content, b_img.server_file_name, tag.tag_content
+		SELECT b.post_id, m.nickname, m_img.server_file_name AS profile_image, b.content, b_img.server_file_name
+			,(SELECT GROUP_CONCAT(t.tag_content) FROM Tags t WHERE t.tag_id IN (SELECT tag_id	FROM FeedTags ft WHERE ft.post_id = b.post_id)) AS tag_content
 		FROM Board b
 		LEFT JOIN Members m ON m.user_no = b.user_no
 		LEFT JOIN (SELECT idx, server_file_name FROM ImageTable it WHERE category = '회원') AS m_img on m_img.idx = m.user_no
@@ -56,7 +57,8 @@
 	</select>
 	
 		<select id="feedInterestFilterList" resultType="kr.co.invegan.board.dto.FeedListDTO">
-			SELECT b.post_id, m.nickname, m_img.server_file_name AS profile_image, b.content, b_img.server_file_name, tag.tag_content
+			SELECT b.post_id, m.nickname, m_img.server_file_name AS profile_image, b.content, b_img.server_file_name
+				,(SELECT GROUP_CONCAT(t.tag_content) FROM Tags t WHERE t.tag_id IN (SELECT tag_id	FROM FeedTags ft WHERE ft.post_id = b.post_id)) AS tag_content
 			FROM Board b
 			LEFT JOIN Members m ON m.user_no = b.user_no
 			LEFT JOIN (SELECT idx, server_file_name FROM ImageTable it WHERE category = '회원') AS m_img on m_img.idx = m.user_no

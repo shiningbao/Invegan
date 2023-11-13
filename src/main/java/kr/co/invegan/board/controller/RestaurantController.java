@@ -1,12 +1,8 @@
 package kr.co.invegan.board.controller;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -20,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import kr.co.invegan.board.dto.RestaurantDTO;
 import kr.co.invegan.board.dto.restaurantFilterListDTO;
 import kr.co.invegan.board.service.RestaurantService;
 import kr.co.invegan.member.dto.MemberDTO;
@@ -41,19 +36,21 @@ public class RestaurantController {
 		MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
 		
 		if(loginInfo == null) {// 비로그인
-			/* logger.info("비로그인 loginInfo: "+loginInfo); */
-
+			logger.info("비로그인 loginInfo: "+loginInfo);
+			model.addAttribute("admin", "no");
 		}else if(loginInfo.getIs_admin() == 0){// 일반 회원
 			logger.info("일반회원 ID: "+loginInfo.getId());
-
+			model.addAttribute("admin", "no");
 		}else { // 관리자
 			logger.info("관리자 ID: "+loginInfo.getId()+ " / admin: "+loginInfo.getIs_admin());
+			model.addAttribute("admin", "yes");
 		}
 		
 		Double userLat = (Double) session.getAttribute("userLat");
 		Double userLng = (Double) session.getAttribute("userLng");
 		ArrayList<restaurantFilterListDTO> restaurantList = service.restaurantList(userLat,userLng);
 		model.addAttribute("restaurantList", restaurantList);
+		model.addAttribute("loginInfo", loginInfo);
 		return page;
 	}
 
@@ -114,10 +111,15 @@ public class RestaurantController {
 		model.addAttribute("restaurantDetail", service.restaurantDetail(post_id));
 		model.addAttribute("menuDetail", service.menuDetail(post_id));
 		model.addAttribute("photoList", service.photoList(post_id));
-		if(loginInfo != null) {
-			model.addAttribute("favoriteChk",service.favoriteChk(loginInfo.getUser_no(), post_id));
-		}else {
+		if(loginInfo == null) {
 			model.addAttribute("favoriteChk","0");
+			model.addAttribute("admin", "no");
+		}else if(loginInfo.getIs_admin() == 0) {
+			model.addAttribute("favoriteChk",service.favoriteChk(loginInfo.getUser_no(), post_id));
+			model.addAttribute("admin", "no");
+		}else {
+			model.addAttribute("favoriteChk",service.favoriteChk(loginInfo.getUser_no(), post_id));
+			model.addAttribute("admin", "yes");
 		}
 		return "restaurant/restaurantDetail";
 	}
@@ -206,9 +208,7 @@ public class RestaurantController {
 		
 	}
 	
-	
-	
-	
+	/*
 	@RequestMapping(value = "/restaurant/reviewWrite")
 	@ResponseBody
 	public HashMap<String, String> reviewWrite(@RequestParam HashMap<String, String> param, HttpSession session) {
@@ -224,8 +224,8 @@ public class RestaurantController {
 			
 		}
 		return result;
-		
 	}
+	 */	
 	
 	
 	

@@ -60,15 +60,27 @@
 	.cFL_R_Img{
 		width: 325px;
 		height: 325px;
-		background-color: 	#00CED1;
+		background-color: #00CED1;
 		margin: 0 auto;
 	}
 	.cFL_R_VT{
 		position: absolute;
 		top: 1px;
 		margin: 0px;
-		z-index: 0;
-		background-color: white;
+		z-index: 1;
+	}
+	.cFL_R_VT div{
+		height: 30px;
+		display: inline-block;
+		border-radius: 10%;
+		margin: 2px 2px;;
+		padding: 0px 7px;
+		background-color: #bbe8b7;
+		line-height: 30px;
+		text-align: center;
+		
+	 	border: 1px solid black;
+		
 	}
 	.cFL_R_Name{
 		text-align: center;
@@ -237,7 +249,19 @@
 			
 			<div class="cFL_Feed">
 				<div class="cFL_F_Head">
-					<img src="#" alt="ProfileImg" width="50px" height="50px"/>
+					<img src="#" alt="ProfileImg" width="50px" height="50px" style="border-radius:50%; margin-right: 10px;"/>
+					<p></p>
+				</div>
+				<div class="cFL_F_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
+				<div class="cFL_F_Con">
+					<div class="cFL_F_Text"></div>
+					<div class="cFL_F_Tag"></div>
+				</div>
+			</div>
+			
+			<div class="cFL_Feed">
+				<div class="cFL_F_Head">
+					<img src="#" alt="ProfileImg" width="50px" height="50px" style="border-radius:50%; margin-right: 10px;"/>
 					<p></p>
 				</div>
 				<div class="cFL_F_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
@@ -248,18 +272,7 @@
 			</div>
 			<div class="cFL_Feed">
 				<div class="cFL_F_Head">
-					<img src="#" alt="ProfileImg" width="50px" height="50px"/>
-					<p></p>
-				</div>
-				<div class="cFL_F_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
-				<div class="cFL_F_Con">
-					<div class="cFL_F_Text"></div>
-					<div class="cFL_F_Tag"></div>
-				</div>
-			</div>
-			<div class="cFL_Feed">
-				<div class="cFL_F_Head">
-					<img src="#" alt="ProfileImg" width="50px" height="50px"/>
+					<img src="#" alt="ProfileImg" width="50px" height="50px" style="border-radius:50%; margin-right: 10px;"/>
 					<p></p>
 				</div>
 				<div class="cFL_F_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
@@ -277,7 +290,7 @@
 	</div>
 		
 	<div class="blank"></div>
-	
+
 <%-- <c:import url="/main/footer"/> --%>
 
 </body>
@@ -332,18 +345,8 @@ function geoSubmit(data){
 		success:function(data){
 			
 			console.log(data);
-			var shuffleRFL = data.RFL.slice().sort(() => Math.random() - 0.5); // 랜덤으로 정렬
-			var shuffleFFL = data.FFL.slice().sort(() => Math.random() - 0.5);
-			if(shuffleRFL.length > 6){
-				RFL = shuffleRFL.slice(0,6);
-			}else{
-				RFL = shuffleRFL;
-			}
-			if(shuffleFFL.length > 6){
-				FFL = shuffleFFL.slice(0,6);
-			}else{
-				FFL = shuffleFFL;
-			}
+			RFL = data.RFL;
+			FFL = data.FFL;
 			console.log(RFL);
 			console.log(FFL);
 			restaurantListView(r_idx);
@@ -372,15 +375,26 @@ function restaurantListView(idx){
 		var veganType = '';
 		vegan.forEach(function(v, i){
 			switch(v){
-			case '1': veganType += '<p>1단계</p>'; break;
-			case '2': veganType += '<p>2단계</p>'; break;
-			case '3': veganType += '<p>3단계</p>'; break;
-			case '4': veganType += '<p>4단계</p>'; break;
-			case '5': veganType += '<p>5단계</p>'; break;
-			case '6': veganType += '<p>6단계</p>'; break;
-			case '7': veganType += '<p>7단계</p>'; break;
-			case '8': veganType += '<p>8단계</p>'; break;
-			case '9': veganType += '<p>9단계</p>'; break;
+			/*
+			case '1': veganType += '<img src="<c:url value='/resources/veganType/1.png'/>" width= "90px" height="30px"/>'; break;
+			case '2': veganType += '<img src="<c:url value='/resources/veganType/2.png'/>" width= "90px" height="30px"/>'; break;
+			case '3': veganType += '<img src="<c:url value='/resources/veganType/3.png'/>" width= "90px" height="30px"/>'; break;
+			case '4': veganType += '<img src="<c:url value='/resources/veganType/4.png'/>" width= "90px" height="30px"/>'; break;
+			case '5': veganType += '<img src="<c:url value='/resources/veganType/5.png'/>" width= "90px" height="30px"/>'; break;
+			case '6': veganType += '<img src="<c:url value='/resources/veganType/6.png'/>" width= "90px" height="30px"/>'; break;
+			case '7': veganType += '<img src="<c:url value='/resources/veganType/7.png'/>" width= "90px" height="30px"/>'; break;
+			case '8': veganType += '<img src="<c:url value='/resources/veganType/8.png'/>" width= "90px" height="30px"/>'; break;
+			case '9': veganType += '<img src="<c:url value='/resources/veganType/9.png'/>" width= "90px" height="30px"/>'; break;
+			*/
+			case '1': veganType += '<div>#플루테리언</div>'; break;
+			case '2': veganType += '<div>#비건</div> '; break;
+			case '3': veganType += '<div>#락토</div> '; break;
+			case '4': veganType += '<div>#오보</div> '; break;
+			case '5': veganType += '<div>#락토오보</div> '; break;
+			case '6': veganType += '<div>#폴로</div> '; break;
+			case '7': veganType += '<div>#페스코</div>'; break;
+			case '8': veganType += '<div>#폴로페스코</div>'; break;
+			case '9': veganType += '<div>#플렉시테리언</div>'; break;
 			}
 		});
 		$('.cFL_Res').eq(i).find($('.cFL_R_VT')).html(veganType);
@@ -414,7 +428,9 @@ function feedListView(idx){
 	$('.cFL_Feed').eq(i).attr('post_id',FFL[i+idx].post_id);
 	$('.cFL_Feed').eq(i).find('.cFL_F_Head').find($('img')).attr('src', '/photo/'+FFL[i+idx].profile_image);
 	$('.cFL_Feed').eq(i).find('.cFL_F_Head').find($('p')).html(FFL[i+idx].nickname);
+	$('.cFL_Feed').eq(i).find('.cFL_F_Img').find($('a')).attr('data-post-id',FFL[i+idx].post_id);
 	$('.cFL_Feed').eq(i).find('.cFL_F_Img').find($('img')).attr('src', '/photo/'+FFL[i+idx].server_file_name);
+	$('.cFL_Feed').eq(i).find('.cFL_F_Img').find($('img')).attr('alt', 'Feed Img(post_id:'+FFL[i+idx].post_id+')');
 	$('.cFL_Feed').eq(i).find($('.cFL_F_Text')).html(FFL[i+idx].content);
 	$('.cFL_Feed').eq(i).find($('.cFL_F_Tag')).html(FFL[i+idx].tag_content);
 	}
@@ -440,8 +456,6 @@ $('#feedButtonR').on('click',function(){
 		feedListView(f_idx);
 	}
 });
-
-
 
 
 </script>

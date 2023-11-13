@@ -2,6 +2,7 @@ package kr.co.invegan.mypage.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,20 +48,17 @@ public class MyPageController {
 		}
 	}
 
-	@RequestMapping(value = "/myPage/list")
+	@RequestMapping(value = "/myPage/feedListCall")
 	@ResponseBody
-	public HashMap<String, Object> list(@RequestParam HashMap<String, String> params,@RequestParam Integer user_no) {
+	public HashMap<String, Object> feedListCall(@RequestParam String tabType, @RequestParam Integer user_no) {
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		ArrayList<MyPageDTO> list = null;
-		
-		String boardType = params.get("boardType");
-		String tabType = params.get("tabType");
 		// String page = params.get("page");
 		
-		logger.info(boardType+"/"+tabType+"/"+user_no);
+		logger.info(tabType+"/"+user_no);
 		
-		switch (boardType) {
+		/*switch (boardType) {
 		case "요청":
 			if ("작성한 글 모아보기".equals(tabType)) {
 				list = service.requestBoardList(user_no);
@@ -82,9 +80,12 @@ public class MyPageController {
 				list = service.freeBoardList(user_no); 
 			} else if ("댓글 모아보기".equals(tabType)) { 
 				list = service.freeComments(user_no); } 
-			break; 
-		case "피드": if("작성한 글 모아보기".equals(tabType)) { 
-				list = service.feedList(user_no); } else if("댓글 모아보기".equals(tabType)) { 
+			break; */
+		if(tabType.equals("작성한 피드 모아보기")) { 
+			list = service.feedList(user_no); 
+		} 
+		/*
+		else if("댓글 모아보기".equals(tabType)) { 
 				list = service.feedComments(user_no); } 
 			break;
 		case "식당": if ("댓글 모아보기".equals(tabType)) { 
@@ -95,7 +96,7 @@ public class MyPageController {
 		default:
 
 			break;
-		}
+		}*/
 		result.put("user_no", user_no);
 		logger.info("user_no:" + user_no);
 		result.put("list", list);
@@ -104,7 +105,76 @@ public class MyPageController {
 
 		return result;
 	}
+	
+	@RequestMapping(value = "/myPage/feedCmListCall")
+	@ResponseBody
+	public HashMap<String, Object> feedCmListCall(@RequestParam String boardType, @RequestParam Integer user_no) {
 
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		ArrayList<MyPageDTO> fcmList = null;
+
+
+		logger.info(boardType+"/"+user_no);
+	
+		if(boardType.equals("피드")) { 
+			fcmList = service.feedComments(user_no); } 
+	
+		result.put("user_no", user_no);
+		logger.info("user_no:" + user_no);
+		result.put("fcmList", fcmList);
+		// result.put("page", page);
+		// logger.info("보여줄 페이지 : " + page);
+
+		return result;
+	}
+	
+	@RequestMapping(value = "/myPage/rtCmListCall")
+	@ResponseBody
+	public HashMap<String, Object> rtCmListCall(@RequestParam String boardType, @RequestParam Integer user_no) {
+
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		ArrayList<MyPageDTO> rtCmList = null;
+
+
+		logger.info(boardType+"/"+user_no);
+	
+		if(boardType.equals("피드")) { 
+			rtCmList = service.restaurantComments(user_no); 
+		} 
+		
+		result.put("user_no", user_no);
+		logger.info("user_no:" + user_no);
+		result.put("rtCmList", rtCmList);
+		// result.put("page", page);
+		// logger.info("보여줄 페이지 : " + page);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/myPage/favoriteListCall")
+	@ResponseBody
+	public HashMap<String, Object> favoriteListCall(@RequestParam String tabType, @RequestParam Integer user_no) {
+
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		ArrayList<MyPageDTO> favList = null;
+		
+		logger.info(tabType+"/"+user_no);
+		
+		if (tabType.equals("나의 스크랩")) { 
+			favList = service.restaurantFavorite(user_no); 
+		} 
+		
+		result.put("user_no", user_no);
+		logger.info("user_no:" + user_no);
+		result.put("favList", favList);
+		// result.put("page", page);
+		// logger.info("보여줄 페이지 : " + page);
+
+		return result;
+	}
+	
+	
+	
 	@RequestMapping(value = "/myPage/delUser")
 	public String deleteInfo(@RequestParam int user_no) {
 		service.delUser(user_no);
