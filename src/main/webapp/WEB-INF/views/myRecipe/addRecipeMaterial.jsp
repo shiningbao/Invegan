@@ -38,7 +38,6 @@
 			  
 			  #sbutton, #gram {
 			  	float: right;
-			  	padding : 0px 0px 5px 0px;
 			  }
 			  
 			  #sbutton {
@@ -46,15 +45,33 @@
 			  }
 			  
 			  #msearch {
-			  	height: 25px;
-			  	background-color: rgb(115 211 147 / 19%);
-			  	border : 1px solid lightgray;
+			  	width : 50px;
+			  	height: 35px;
+			  	margin-top : 1px;
+			  	background: none;
+			  	border: 1.5px solid black;
+			  	border-radius: 5px;
+				font-size : 16px;
+				outline-color: #9eca9e;
 			  	cursor: pointer;
+			  	box-shadow: lightgray 5px 4px 7px 1px;;
+			  }
+			  
+			  #msearch:hover {
+				background-color: rgb(115 211 147 / 19%);
+				border: 1.5px solid #9eca9e;
+				cursor: pointer;			  
+			  }
+			  
+			  #msearch:active {
+			  	box-shadow: lightgray 3px 2px 9px 0px;
+				border: 1.5px solid #9eca9e;
+				color: #9eca9e;
 			  }
 			  
 			  input[name="fname"]{
-			  	margin-bottom: 2px;
-			  	height:19.8px;
+			  	height: 30px;
+			  	outline-color: #9eca9e;
 			  }
 			  
 			  
@@ -65,10 +82,27 @@
 			  }
 			  
 			  #mMaterial {
+			  	width : 50px;
+			  	height: 35px;
 			  	margin-left : 10px;
-			  	background-color: rgb(115 211 147 / 19%);
-			  	border: 1px solid lightgray;
+			  	background: none;
+			  	border: 1px solid gray;
 			  	cursor: pointer;
+			  	border-radius : 5px;
+			  	box-shadow: lightgray 5px 4px 7px 1px;
+			  	font-size : 16px;
+			  }
+			  
+			  #mMaterial:hover {
+			  	background-color: rgb(115 211 147 / 19%);
+				border: 1.5px solid #9eca9e;
+				cursor: pointer;	
+			  }
+			  
+			  #mMaterial:active {
+			  	box-shadow: lightgray 3px 2px 9px 0px;
+				border: 1.5px solid #9eca9e;
+				color: #9eca9e;
 			  }
 			  
 			  #close input {
@@ -78,7 +112,9 @@
 				font-size: 25px;
 			  	margin-left: 10px;
 			  	float: right;
+
 			  }
+
 		</style>
 	</head>
 	<body>
@@ -87,7 +123,7 @@
 				<input type="button" value="Χ" onclick="closeModal()"/>
 			</div>
 			<div id = "sbutton">
-				<input type="text" name="fname" placeholder="재료 검색"/> <input type="button" id="msearch" value="검색"/>
+				<input type="text" name="fname" placeholder=" 재료 검색"/> <input type="button" id="msearch"  value="검색"/>
 			</div>
 			<div class="scrollbar">
 				<table>

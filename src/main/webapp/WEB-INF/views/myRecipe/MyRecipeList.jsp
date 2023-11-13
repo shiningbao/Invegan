@@ -6,29 +6,35 @@
 		<title>Insert title here</title>
 		<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 		<style>					
-			table{
-				border-collapse: collapse;
-			}
-			
+				
 			/* 카테고리 버튼 */
 			.cbutton {
+				background: none;
 				width : 60px;
 				height: 40px;
-				border: 1px solid black;
+				border: 1.5px solid gray;
 				background-color: white;
-				border-radius: 4px;
+				border-radius: 5px;
 				cursor: pointer;
 				text-align: center;
 				font-size : 16px;
+				box-shadow: lightgray 5px 4px 7px 1px;
+				outline-color: #9eca9e;
 			}
 			
 			.cbutton:hover {
-				background-color: rgb(115 211 147 / 19%);
+				cursor: pointer;
+				color: #9eca9e;
+			}
+			
+			.cbutton:active {
+				cursor: pointer;
+				box-shadow: lightgray 3px 2px 9px 0px;
 			}
 			
 			/* 큰 테두리 */
 			#rmain {
-				width: 1200px;
+				width: 1170px;
 				height: 600px;
 				margin : 0px 10px 0px 0px;
 				position: relative;
@@ -39,34 +45,31 @@
 				width : 720px;
 				margin: 46px 0px 0px 30px;
 				position: absolute;
-				top: -25px;
+				top: -20px;
 			}
 			
 			#rbox table {
-				width: 718.4px;
+				width: 720px;
 				text-align: center;
 				font-size: 15px;
 			}
 			#rbox th {
 				height: 38px;
+				border: 1.3px solid #59b879;
+    			border-radius: 3px;
 			}
 			
 			#rbox td {
 				height: 33px;
-			
 			}
 			
-			#thead{
-				width: 718.4px;	
-				height: 40px;
-				border : solid 1px black;
-				margin: 15px 0px 0px 0px;
+			#thead {
+				margin-top : 10px;
 			}
 			
 			#mrbody {
 				width : 718.4px;
 				height: 175px;
-				border : solid 1px black;
 				border-top: none;
 				overflow-x : hidden;
 				overflow-y : auto;	
@@ -77,6 +80,12 @@
 				height: 0px;
 			}
 			
+			#mrList {
+				border-collapse: collapse;
+				width: 718.4px;
+			}
+			
+			/* 레시피 추가 버튼 */
 			.ibutton {
 				position: absolute;
 				left: 580px;
@@ -87,6 +96,7 @@
 				font-size: 40px;
 			}
 			
+			/* 레시피 삭제 버튼 */
 			.dbutton {
 				position: absolute;
 				left: 616px;
@@ -97,21 +107,32 @@
 				font-size: 40px;
 			}
 			
+			/* 완료 버튼 */
 			.fbutton {
 				position: absolute;
 				left: 632px;
 				margin-left: 28px;
 				background : none;
-				border : 1px solid black;
-				border-radius: 4px;
+				border: 1.5px solid black;
+				border-radius: 5px;
 				font-size : 16px;
 				width : 60px;
 				height: 40px;
 				cursor: pointer;
+				outline-color: #9eca9e;
+				box-shadow: lightgray 5px 4px 7px 1px;;
 			}
 			
 			.fbutton:hover {
 				background-color: rgb(115 211 147 / 19%);
+				border: 1.5px solid #9eca9e;
+				cursor: pointer;
+			}
+			
+			.fbutton:active{
+				box-shadow: lightgray 3px 2px 9px 0px;
+				border: 1.5px solid #9eca9e;
+				color: #9eca9e;
 			}
 			
 			/* rm:재료 */
@@ -119,7 +140,7 @@
 				width: 720px;
 				margin: 46px 10px 0px 30px;
 				position: absolute;
-				bottom: -1px;
+				bottom: 50px;
 			}
 			
 			#rmbox table{
@@ -136,8 +157,7 @@
 			
 			#rmbody {
 				width: 718.4px;
-				height: 210px;
-				border : 1px solid black;
+				height: 140px;
 				overflow-x : hidden;
 				overflow-y : scroll;	
 			}
@@ -147,19 +167,28 @@
 				height : 0px;
 			}
 			
+			#rmbody table{
+				border-collapse: collapse;
+			}
+			
 			#rmtop {
 				width : 720px;
 			}
 			
 			#rmhead {
 				width: 718.4px;
-				border: solid 1px black;
 				border-bottom: none;
 			}
 			
 			#rmhead table{
 				width: 718.4px;
 			}
+			
+			#rmhead th{
+				border: 1.3px solid #59b879;
+    			border-radius: 3px;
+			}
+			
 			
 			#mtop input {
 				cursor: pointer;
@@ -168,6 +197,7 @@
 				font-size: 40px;
 			}
 			
+			/* 재료 추가 버튼 */
 			#minsert {
 				top : 10px;
 			}
@@ -179,13 +209,14 @@
 				border-left: 2px solid lightgray;
 				position: absolute;
 				top : 40px;
-				right: 100px;
+				right: 50px;
 			}
 			
 			#rNutri table{
 				width: 300px;
 				padding : 5px 10px;
 				margin-left: 10px; 
+				border-collapse: collapse;
 			}
 			
 			#rNutri th {
@@ -692,12 +723,12 @@
 		
 		// 아,점,저,기 버튼
 		$('.cbutton').on('click', function(){
-			$('.cbutton').css('background-color','');
-			$('.cbutton').css('border','1px solid black');
+			$('.cbutton').css('border','');
+			$('.cbutton').css('color','');
 			diet_category = $(this).val();
 			console.log("식단의 카테고리 : "+diet_category);
-			$(this).css('background-color','rgb(115 211 147 / 19%)');
-			$(this).css('border','none');
+			$(this).css('border','1.5px solid #9eca9e');
+			$(this).css('color','#9eca9e');
 		});
 		
 		// 식단 추가

@@ -41,7 +41,7 @@
 	border: 1.5px solid gray;
 	color: gray;
 	border-radius: 5px;
-	box-shadow: lightgray 5px 4px 7px 1px;;
+	box-shadow: lightgray 5px 4px 7px 1px;
 	outline-color: #9eca9e;
 }
 #cateBtn button:hover{
@@ -114,7 +114,7 @@
 	margin: 16px 3px;
 	border-radius: 5px;
 	border: 1.5px solid black;
-	box-shadow: lightgray 5px 4px 7px 1px;;
+	box-shadow: lightgray 5px 4px 7px 1px;
 	outline-color: #9eca9e;
 	position: absolute;
 	top: 2px;
