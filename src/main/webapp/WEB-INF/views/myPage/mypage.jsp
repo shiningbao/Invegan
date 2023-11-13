@@ -11,6 +11,8 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 <script src="<c:url value='/resources/js/jquery.twbsPagination.js'/>" type="text/javascript"></script>
+<!-- alert ,cofirm 창 -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
 	/*header 부트스트랩 적용 방지*/
 	body{
@@ -707,9 +709,17 @@ $('#overlay').on('click',function(){
 			console.log(data.use);
 			overlayChk = data.use;
 			if(data.use){
-				alert('사용할 수 있는 닉네임 입니다.');
+				 swal({
+			  	      title: "사용할 수 있는 닉네임 입니다.",
+			  	      text: "",
+			  	      icon: "success"
+			  	  });
 			}else{
-				alert('중복된 닉네임 입니다.');
+				swal({
+			  	      title: "중복된 닉네임 입니다.",
+			  	      text: "",
+			  	      icon: "error"
+			  	  });
 				$('input[name="nickname"]').val('');
 			}
 		}, 
@@ -726,12 +736,20 @@ $('.updateNickname').on('click',function(){
 	console.log('nickname='+nickname);
 	
 	 if (!overlayChk) {
-	        alert('닉네임 중복 체크를 먼저 진행해주세요.');
+	        swal({
+		  	      title: "닉네임 중복 체크를 먼저 진행해주세요.",
+		  	      text: "",
+		  	      icon: "info"
+		  	  });
 	        return; 
 	    }
 	
 	if(nickname==''){
-		alert('변경할 닉네임을 입력해주세요.');
+		swal({
+	  	      title: "변경할 닉네임을 입력해주세요.",
+	  	      text: "",
+	  	      icon: "info"
+	  	  });
 	}
 	$.ajax({
 		type:'get', 
@@ -743,7 +761,11 @@ $('.updateNickname').on('click',function(){
 		success: function(data){
 			console.log(data);
 			if(data.cnt==1){
-				alert('닉네임이 변경 되었습니다.');
+				swal({
+			  	      title: "닉네임이 변경 되었습니다.",
+			  	      text: "",
+			  	      icon: "success"
+			  	  });
 		}
 			},
 		error: function(error){
@@ -769,9 +791,17 @@ $('#pwConfirm').on('click',function(){
 		success: function(data){
 			console.log(data);
 			if(data.crPw==pw){
-				alert('현재 비밀번호와 일치합니다.');
+				swal({
+			  	      title: "현재 비밀번호와 일치합니다.",
+			  	      text: "",
+			  	      icon: "success"
+			  	  });
 			}else{
-				alert('현재 비밀번호와 일치하지 않습니다.');
+				swal({
+			  	      title: "현재 비밀번호와 일치하지 않습니다.",
+			  	      text: "",
+			  	      icon: "error"
+			  	  });
 			}
 	
 		}, 
@@ -789,7 +819,11 @@ $('.completePw').on('click',function(){
 	var updatePwConfirm = $('input[name="updatePwConfirm"]').val();
 	console.log(user_no+'/'+updatePw+'/'+updatePwConfirm);
 	if(updatePw==''){
-		alert('변경할 비밀번호를 입력해주세요.');
+		swal({
+	  	      title: "변경할 비밀번호를 입력해주세요.",
+	  	      text: "",
+	  	      icon: "info"
+	  	  });
 	}else{
 	$.ajax({
 		type:'get', 
@@ -803,9 +837,17 @@ $('.completePw').on('click',function(){
 		success: function(data){
 			console.log(data);
 			if(data.completePw==1){
-				alert('비밀번호가 변경 되었습니다.');
+				swal({
+			  	      title: "비밀번호가 변경 되었습니다.",
+			  	      text: "",
+			  	      icon: "success"
+			  	  });
 			}else{
-				alert('변경할 비밀번호가 서로 다릅니다. 다시 한 번 확인해주세요.');
+				swal({
+			  	      title: "변경할 비밀번호가 서로 다릅니다. 다시 한 번 확인해주세요.",
+			  	      text: "",
+			  	      icon: "error"
+			  	  });
 			}
 			
 		}, 
@@ -836,11 +878,23 @@ $('.save').on('click',function(){
     };
 	
 	if(interests==''){
-		alert('관심사를 선택해주세요.');
+		swal({
+	  	      title: "관심사를 선택해주세요.",
+	  	      text: "",
+	  	      icon: "info"
+	  	  });
 	}else if(vegan_purpose==undefined){
-		alert('나의 비건 목적을 선택해주세요.');
+		swal({
+	  	      title: "나의 비건 목적을 선택해주세요.",
+	  	      text: "",
+	  	      icon: "info"
+	  	  });
 	}else if(vegan_type==0){
-		alert('나의 비건 단계를 선택해주세요.');
+		swal({
+	  	      title: "나의 비건 단계를 선택해주세요.",
+	  	      text: "",
+	  	      icon: "info"
+	  	  });
 	}else{
 	$.ajax({
 		type:'get', 
@@ -850,7 +904,11 @@ $('.save').on('click',function(){
 		success: function(data){
 			console.log(data);
 			if(data.cnt>0){
-				alert('변경이 완료 되었습니다.');
+				swal({
+			  	      title: "변경이 완료 되었습니다.",
+			  	      text: "",
+			  	      icon: "success"
+			  	  });
 				location.reload();
 			}
 			
@@ -864,17 +922,36 @@ $('.save').on('click',function(){
 
 //회원탈퇴
 function confirmDelete(user_no) {
-    var result = confirm('정말 탈퇴하시겠습니까?"확인"을 선택하시면 탈퇴가 완료 됩니다.');
-
-    if (result) {
-        // 사용자가 '확인'을 눌렀을 때의 처리
-        alert('탈퇴가 완료 되었습니다.')
-        location.href = './delUser?user_no=' + user_no;
-    } else {
-        // 사용자가 '취소'를 눌렀을 때의 처리
-        alert('탈퇴가 취소 되었습니다.');
-    }
+    swal({
+        title: "정말 탈퇴하시겠습니까?",
+        text: '확인을 선택하시면 탈퇴가 완료됩니다.',
+        icon: "warning",
+        buttons: ["취소", "확인"],
+        dangerMode: true,
+    })
+    .then((isConfirmed) => {
+        if (isConfirmed) {
+            // 사용자가 '확인'을 눌렀을 때의 처리
+            swal('탈퇴가 완료 되었습니다.', {
+                icon: "success",
+            }).then(() => {
+                location.href = './delUser?user_no=' + user_no;
+            });
+        } else {
+            // 사용자가 '취소'를 눌렀을 때의 처리
+            swal('탈퇴가 취소 되었습니다.', {
+                icon: "info",
+            });
+        }
+    });
 }
+
+
+
+
+
+
+
 
 $(document).ready(function(){
     $('ul.tabs li').click(function(){

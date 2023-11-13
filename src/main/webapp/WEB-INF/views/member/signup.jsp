@@ -7,6 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>회원가입</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<!-- alert ,cofirm 창 -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
 .container{
 	width: 1000px;
@@ -303,11 +305,19 @@ option{
 		var validateId = $('#id').val();
 		console.log(validateId);
 		if(validateId == ''){
-			alert('아이디를 입력해 주세요.');
+			swal({
+              	    title: "아이디를 입력해 주세요.",
+              	    text: "",
+              	    icon: "error"
+              	});
 		}else{
 			var regex = /^[a-zA-Z0-9_]{6,15}$/;
 			if(!regex.test(validateId)){	// 영어또는 '_'만 입력가능 6~15자
-				alert('6자에서 15자까지 영문 또는 \'_\'만 입력 가능합니다');
+				swal({
+              	    title: "6자에서 15자까지 영문 또는 \'_\'만 입력 가능합니다",
+              	    text: "",
+              	    icon: "error"
+              	});
 				$('#id').val('');
 				return false;
 			} 
@@ -318,15 +328,22 @@ option{
 				success : function(data) {
 					console.log(data.success);
 					if (data.success > 0) {
-						alert('이미 사용중인 아이디 입니다.');
+						swal({
+		              	    title: "이미 사용중인 아이디 입니다.",
+		              	    text: "",
+		              	    icon: "error"
+		              	});
 						console.log(data.success);
 						idValid = data.success;
 						$('#id').focus();
 					} else {
-						alert('사용 가능한 아이디입니다.');
+						swal({
+		              	    title: "사용 가능한 아이디입니다.",
+		              	    text: "",
+		              	    icon: "success"
+		              	});
 						console.log(data.success);
 						idValid = data.success;
-						alert(idValid);
 					}
 				},
 				error : function(e) {
@@ -354,7 +371,11 @@ option{
 				var birthdate = $('#birthYear').val()+'-'+$('#birthMonth').val()+'-'+$('#birthDay').val();
 					$('#birthdate').val(birthdate);
 			}else{
-				alert("아이디 중복 체크를 해주세요");
+				swal({
+              	    title: "아이디 중복 체크를 해주세요",
+              	    text: "",
+              	    icon: "error"
+              	});
 				return false;
 			};
 			
