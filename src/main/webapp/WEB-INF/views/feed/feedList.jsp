@@ -116,14 +116,14 @@ input[type="text"] {
 }
 .addBtnSearch, .addBtn{
 	display: none;
-	margin-left: 850px;
+	margin-left: 830px;
 	border:none;
 	background-color: transparent;
 	cursor: pointer;
 	
 }
 .addBtnImg{
-	width:100px;
+	width:40px;
 }
 
 .btn {
@@ -204,6 +204,13 @@ input[type="text"] {
 	#content{
 		height:200px;
 	}
+	
+	.post-time {
+    border-bottom: 1px solid #cdd6df;
+    width: 500px;
+    margin-bottom: 50px; 
+
+  }
 </style>
 
 </head>
@@ -494,7 +501,7 @@ input[type="text"] {
 									content += '<img src="/photo/' + item.server_file_name + '" class="mainFeedPhoto">';
 									content += '</a>';
 									content += '</div>';
-									content += '<div class="post-content"  style="width:600px">';
+									content += '<div class="post-content"  style="width:500px">';
 									
 									var feedContentTxt = item.content;
 									var truncatedTxt = truncateTxt(feedContentTxt, 100);
@@ -526,10 +533,10 @@ input[type="text"] {
 									content += '</div>';
 									var date = new Date(item.date);
 									var dateStr = date.toLocaleDateString("ko-KR"); //en-US
-									content += '<div class="tag-content">'+ item.tag_content + '</div>';
+									content += '<div class="tag-content" style="width:500px">'+ item.tag_content + '</div>';
 									content += '<div class="post-time">'+ dateStr + '</div>';
 									content += '</div>';
-									content += '<hr>';
+									
 
 									});
 							$('#feedList').html(content);

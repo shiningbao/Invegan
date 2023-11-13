@@ -7,7 +7,6 @@
 	display: flex;
 	align-items: center;
 	padding: 10px;
-	border-bottom: 1px solid #e1e1e1;
 }
 
 .post-header img {
