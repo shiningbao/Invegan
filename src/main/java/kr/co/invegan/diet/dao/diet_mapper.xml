@@ -134,12 +134,12 @@
 	</select>
 	
 	<insert id="addMaterialAdm" parameterType="hashMap"  >
-		INSERT INTO FoodData(data_type ,food_name,food_category, serving_size,
+		INSERT INTO FoodData(data_type ,food_name,food_category, production, serving_size,
 			kcal,carb, prot, fat, 
 			sugar, fiber, ca, fe, mg, p, k, na, zn, vit_a, vit_b6, vit_b12
 			, vit_c, essential, omega3)
 		VALUES (
-			'추가한식품', #{food_name}, #{food_category}, #{serving_size}
+			'추가한식품', #{food_name}, #{food_category}, #{production}, #{serving_size}
 			, #{kcal}, #{carb}, #{prot}, #{fat}, #{sugar}
 			, #{fiber}, #{ca}, #{fe}, #{mg}
 			, #{p}, #{k}, #{na}, #{zn}, #{vit_a}, #{vit_b6}
