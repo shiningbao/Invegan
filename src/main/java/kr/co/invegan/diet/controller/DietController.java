@@ -120,8 +120,10 @@ public class DietController {
 		logger.info("dailyNutri chk : "+getDailyNutri);
 		logger.info("dailyNutri result check member's age : "+ getDailyNutri.getAge());
 		HashMap<String, Object> result = new HashMap<String, Object>();
+		
 		result.put("nutr", nutriInfo);
-		logger.info("result - nutriInfo : " + nutriInfo.getKcal() );
+		logger.info("result - nutriInfo : " + nutriInfo.getKcal() );	
+
 		result.put("daily", getDailyNutri);
 		session.setAttribute("nutriInfo", nutriInfo);
 		

@@ -6,23 +6,38 @@
 		<title>Insert title here</title>
 		<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 		<style>					
-			table{
-				border-collapse: collapse;
-			}
-			
+				
 			/* 카테고리 버튼 */
 			.cbutton {
-				height: 22px;
-				border: 1px solid black;
+				background: none;
+				width : 61.6px;
+				height: 40.8px;
+				border: 1.5px solid gray;
 				background-color: white;
-				border-radius: 4px;
+				border-radius: 5px;
 				cursor: pointer;
 				text-align: center;
+				font-size : 17px;
+				color : gray;
+				box-shadow: lightgray 5px 4px 7px 1px;
+				outline-color: #9eca9e;
+				padding : 8px 13px;
+				margin: 0px 3px;
+			}
+			
+			.cbutton:hover {
+				cursor: pointer;
+				color: #9eca9e;
+			}
+			
+			.cbutton:active {
+				cursor: pointer;
+				box-shadow: lightgray 3px 2px 9px 0px;
 			}
 			
 			/* 큰 테두리 */
 			#rmain {
-				width: 1200px;
+				width: 1170px;
 				height: 600px;
 				margin : 0px 10px 0px 0px;
 				position: relative;
@@ -33,53 +48,99 @@
 				width : 720px;
 				margin: 46px 0px 0px 30px;
 				position: absolute;
-				top: -9px;
+				top: -30px;
+				left: 6px;
 			}
 			
 			#rbox table {
-				width: 700px;
+				width: 720px;
 				text-align: center;
 				font-size: 15px;
 			}
 			#rbox th {
-				height: 38px;
+				height: 29px;
+				border: 1.3px solid #59b879;
+    			border-radius: 3px;
 			}
 			
 			#rbox td {
 				height: 33px;
-			
 			}
 			
-			#thead{
-				width: 718.4px;
-				height: 40px;
-				border : solid 1px black;
-				margin: 15px 0px 0px 0px;
+			#thead {
+				margin-top : 16px;
 			}
 			
 			#mrbody {
 				width : 718.4px;
-				height: 210px;
-				border : solid 1px black;
+				height: 175px;
 				border-top: none;
 				overflow-x : hidden;
-				overflow-y : scroll;	
+				overflow-y : auto;	
 			}
 			
+			#mrbody::-webkit-scrollbar {
+				width : 0px;
+				height: 0px;
+			}
+			
+			#mrList {
+				border-collapse: collapse;
+				width: 718.4px;
+			}
+			
+			#mrList tr:hover {
+				cursor: pointer;
+				box-shadow:  #59B879 0px 0px 5px 1px;
+			}
+			
+			/* 레시피 추가 버튼 */
 			.ibutton {
 				position: absolute;
-				left: 588px;
+				left: 580px;
+				top : -7px;
+				cursor: pointer;
+				background: none;
+				border: none;
+				font-size: 40px;
 			}
 			
+			/* 레시피 삭제 버튼 */
 			.dbutton {
 				position: absolute;
 				left: 616px;
+				top : -11px;
+				cursor: pointer;
+				background: none;
+				border: none;
+				font-size: 40px;
 			}
 			
+			/* 완료 버튼 */
 			.fbutton {
 				position: absolute;
-				left: 643px;
-				margin-left: 35px;
+				left: 632px;
+				margin-left: 28px;
+				background : none;
+				border: 1.5px solid black;
+				border-radius: 5px;
+				font-size : 16px;
+				width : 60px;
+				height: 40px;
+				cursor: pointer;
+				outline-color: #9eca9e;
+				box-shadow: lightgray 5px 4px 7px 1px;;
+			}
+			
+			.fbutton:hover {
+				border: 1.5px solid #9eca9e;
+				cursor: pointer;
+			}
+			
+			.fbutton:active{
+				box-shadow: lightgray 3px 2px 9px 0px;
+				border: 1.5px solid #9eca9e;
+				color: #9eca9e;
 			}
 			
 			/* rm:재료 */
@@ -87,16 +148,17 @@
 				width: 720px;
 				margin: 46px 10px 0px 30px;
 				position: absolute;
-				bottom: -30px;
+				bottom: 75px;
+				left: 6px;
 			}
 			
 			#rmbox table{
-				width: 700px;
+				width: 718.4px;
 				text-align: center;
 				font-size : 15px;
 			}
 			#rmbox th {
-				height: 38px;
+				height: 29px;
 			}
 			#rmbox td {
 				height: 33px;
@@ -104,10 +166,18 @@
 			
 			#rmbody {
 				width: 718.4px;
-				height: 210px;
-				border : 1px solid black;
+				height: 140px;
 				overflow-x : hidden;
 				overflow-y : scroll;	
+			}
+			
+			#rmbody::-webkit-scrollbar {
+				width : 0px;
+				height : 0px;
+			}
+			
+			#rmbody table{
+				border-collapse: collapse;
 			}
 			
 			#rmtop {
@@ -116,46 +186,91 @@
 			
 			#rmhead {
 				width: 718.4px;
-				border: solid 1px black;
 				border-bottom: none;
 			}
 			
 			#rmhead table{
-				width: 700px;
+				width: 718.4px;
+			}
+			
+			#rmhead th{
+				border: 1.3px solid #59b879;
+    			border-radius: 3px;
+			}
+			
+			
+			#mtop input {
+				cursor: pointer;
+				background: none;
+				border: none;
+				font-size: 40px;
+			}
+			
+			#mm{
+				position: absolute;
+				left: 271px;
+   				top: -38px;
+   				font-weight: 600;
+			}
+			
+			#rMaterialList tr:hover {
+				cursor: pointer;
+				box-shadow:  #59B879 0px 0px 5px 1px;
+			}
+			
+			/* 재료 추가 버튼 */
+			#minsert {
+				position: absolute;
+				right: 105px;
+				top: -48px;	
+			}
+			
+			/* 재료 삭제 버튼 */
+			#mdelete {
+				position: absolute;
+				right: 78px;
+				top: -48px;
 			}
 
 			/* rN:영양소 표시 */			
 			#rNutri {
 				width: 310px;
-				height: 560px;
+				height: 590px;
 				border-left: 2px solid lightgray;
 				position: absolute;
-				top : 71px;
-				right: 100px;
+				top : 2px;
+				right: 50px;
 			}
 			
 			#rNutri table{
 				width: 300px;
+				height: 590px;
 				padding : 5px 10px;
 				margin-left: 10px; 
+				border-collapse: collapse;
 			}
 			
 			#rNutri th {
 				height : 29px;
 				font-size: 15px;
 				padding : 3px;
+				border-bottom : 2px solid #95df95;
 			}
 			
 			#rNutri td{
 				width : 150px;
 				height: 19px;
-				font-size: 13px;
-				padding : 3px 10px;
+				font-size: 16px;
+				padding : 1px 5px 1px 1px;
 			}
 			
-			td.nutri {
-				text-align: center;
-			}
+			#rNutri tr td:first-child {
+           		text-align: right;
+      		}
+      		
+      		#rNutri tr td:secend-child {
+           		text-align: left;
+      		}
 			
 			/* 모달창 */		
 			.modal {
@@ -187,8 +302,8 @@
 				<input type="button" class="cbutton" id="lunch" value="점심"/>
 				<input type="button" class="cbutton" id="dinner" value="저녁"/>
 				<input type="button" class="cbutton" id="other" value="기타"/>
-				<button class="ibutton" onclick="rinsert()">+</button>
-				<button class="dbutton" onclick="rdel()">-</button>
+				<input type="button" class="ibutton" onclick="rinsert()" value="+"/>
+				<input type="button" class="dbutton" onclick="rdel()" value="-"/>
 				<input type="button" class="fbutton" onclick="dinsert()" value="완료"/>
 				<div id = "thead">
 					<table>
@@ -198,7 +313,7 @@
 							<col width="25%">
 						</colgroup>
 						<tr>
-							<th>식품명</th>
+							<th>레시피 이름</th>
 							<th>1회 제공량(g)</th>
 							<th>에너지(kcal)</th>
 						</tr>
@@ -218,20 +333,9 @@
 			<br>
 			<div id="rmbox">
 				<div id="mtop">
-					<table>
-						<colgroup>
-							<col width="50%">
-							<col width="25%">
-							<col width="25%">
-						</colgroup>
-						<tr>
-							<th colspan="2"  style="width : 350px;">재료</th>
-							<th>
-								<button onclick="minsert()">+</button>
-								<button onclick="mdel()">-</button>
-							</th>
-						</tr>
-					</table>
+				<a id="mm">재료</a>
+				<input type ="button" id="minsert" onclick="minsert()" value="+"/>
+				<input type ="button" id="mdelete" onclick="mdel()" value="-"/>
 				</div>
 				<div id="rmhead">
 					<table>
@@ -272,7 +376,7 @@
 					<tr><td>칼륨</td><td class="nutri">0 mg</td></tr>
 					<tr><td>나트륨</td><td class="nutri">0 mg</td></tr>
 					<tr><td>아연</td><td class="nutri">0 mg</td></tr>
-					<tr><td>비타민A</td><td class="nutri">0 ug</td></tr>
+					<tr><td>비타민A</td><td class="nutri">0 µg</td></tr>
 					<tr><td>비타민B6</td><td class="nutri">0 mg</td></tr>
 					<tr><td>비타민B12</td><td class="nutri">0 mg</td></tr>
 					<tr><td>비타민C</td><td class="nutri">0 mg</td></tr>
@@ -391,7 +495,7 @@
             var rName = $(this).find('td:eq(1)').text();
             rowIndex = $(this).index();
             grams = $(this).find('td:eq(2)').text();
-            $(this).css('background','#87878754');
+            $(this).css('background','rgb(115 211 147 / 19%)');
             console.log('클릭한 행의 인덱스: ' + rowIndex);
             console.log('클릭한 레시피 번호: '+menu_id);
             console.log('클릭한 레시피 이름: ' + rName);
@@ -469,7 +573,7 @@
 						content += '<tr>'+'<td>'+'칼륨 '+'</td>'+'<td class="nutri">'+'0 mg'+'</td>'+'</tr>';
 						content += '<tr>'+'<td>'+'나트륨 '+'</td>'+'<td class="nutri">'+'0 mg'+'</td>'+'</tr>';
 						content += '<tr>'+'<td>'+'아연 '+'</td>'+'<td class="nutri">'+'0 mg'+'</td>'+'</tr>';
-						content += '<tr>'+'<td>'+'비타민A '+'</td>'+'<td class="nutri">'+'0 ug'+'</td>'+'</tr>';
+						content += '<tr>'+'<td>'+'비타민A '+'</td>'+'<td class="nutri">'+'0 µg'+'</td>'+'</tr>';
 						content += '<tr>'+'<td>'+'비타민B6 '+'</td>'+'<td class="nutri">'+'0 mg'+'</td>'+'</tr>';
 						content += '<tr>'+'<td>'+'비타민B12 '+'</td>'+'<td class="nutri">'+'0 mg'+'</td>'+'</tr>';
 						content += '<tr>'+'<td>'+'비타민C '+'</td>'+'<td class="nutri">'+'0 mg'+'</td>'+'</tr>';
@@ -501,7 +605,7 @@
 		$('#rMaterialList').on('click', 'tr', function() {
 			$('#rMaterialList tr').css('background', 'none');
 			material_id = $(this).find('td:eq(0)').text();
-		    $(this).css('background-color','#87878754');
+		    $(this).css('background-color','rgb(115 211 147 / 19%)');
 		    console.log('클릭한 재료의 id : '+material_id);
 		    
 		    // 재료 영양소 출력
@@ -643,10 +747,12 @@
 		
 		// 아,점,저,기 버튼
 		$('.cbutton').on('click', function(){
-			$('.cbutton').css('background-color','');
+			$('.cbutton').css('border','');
+			$('.cbutton').css('color','');
 			diet_category = $(this).val();
 			console.log("식단의 카테고리 : "+diet_category);
-			$(this).css('background-color','lightgreen');
+			$(this).css('border','1.5px solid #9eca9e');
+			$(this).css('color','#9eca9e');
 		});
 		
 		// 식단 추가
