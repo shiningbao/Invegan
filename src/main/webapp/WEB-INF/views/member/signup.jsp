@@ -15,20 +15,22 @@
 .join-title{
     position: absolute;
     font-size: 25px;
-    top: 165px;
-    right: 636px;
+    top: -44px;
+    right: 233px;
 }
 #signup-img, #signup-box, h2{
     display: inline-block;
-    margin: 24px 7px;
+    margin: 24px 7px
 }
 #signup-img img{
 	opacity: 0.7;
-    width: 404px;
-    height: 749px;
+    width: 605px;
+    height: 750px;
 }
 #signup-box{
-	white-space: nowrap;
+	position: absolute;
+    top: 177px;
+    right: 235px;
 }
 #signup-form{
 	position: relative;
@@ -145,6 +147,7 @@ option{
 					<tr>
 						<th>이메일</th>
 						<td>
+							<input id="result_email" name="email" type="hidden"/>
 							<input id="email-id" class="box"  type="text" value=""/>@ 
 							<input id="domain" class="box" type="text" readonly="readonly"/>
 							<select class="box" id="domain-list" >
@@ -166,6 +169,7 @@ option{
 					<tr>
 						<th>생년월일</th>
 						<td colspan="2">
+							<input id="birthdate" name="birthdate" type="hidden"/>
 							<!-- <input id="year" name="birthdate" type="text" required /> -->
 							<select id="birthYear">
 								<option value="" disabled selected>년</option>
@@ -271,14 +275,14 @@ option{
 	var idx =0;
 	for (var i = year; i >= (year - 100); i--) {
 		  var option = document.createElement("option");
-		  option.value = i + '년';
+		  option.value = i;
 		  option.text = i + '년';
 		  $('#birthYear').append(option);
 	}
 	// 생일 월 옵션 생성
 	for (var i = 1; i <= 12; i++) {
 	  var option = document.createElement("option");
-	  option.value = i + '월';
+	  option.value = i;
 	  option.text = i + '월';
 	  $('#birthMonth').append(option);
 	}
@@ -286,7 +290,7 @@ option{
 	// 생일 일 옵션 생성
 	for (var i = 1; i <= 31; i++) {
 	  var option = document.createElement("option");
-	  option.value = i + '일';
+	  option.value = i;
 	  option.text = i + '일';
 	  $('#birthDay').append(option);
 	}
@@ -315,12 +319,8 @@ option{
 		});
 	});
 
-	document
-			.getElementById("submitBtn")
-			.addEventListener(
-					"click",
-					function(event) {
-
+	document.getElementById("submitBtn").addEventListener("click",function(event) {
+		
 						var id = document.getElementById("id");
 						var regId = /^[a-zA-Z0-9]{4,12}$/;
 
@@ -342,6 +342,8 @@ option{
 						// 이메일 입력 필드
 						var email = $('#email-id').val()+'@'+$('#domain').val();
 						console.log('email 최종 체크',email);
+						
+						$('result_email').val(email);
 
 						// 이메일에 '@'가 포함되어 있는지 체크
 						if (email.value == "") {
@@ -355,11 +357,12 @@ option{
 							email.focus();
 							event.preventDefault();
 							return false;
-						} */
+						}  */
 
 						// 생년월일 입력 필드
 						var birthdate = $('#birthYear').val()+'-'+$('#birthMonth').val()+'-'+$('#birthDay').val();
-							console.log('birthdate',birthdate);
+							alert('birthdate',birthdate);
+							$('#birthdate').val(birthdate);
 
 						// 생년월일 형식 체크
 					/* 	if (!isValidDate(birthdate.value)) {
@@ -372,10 +375,10 @@ option{
 						alert("회원가입이 완료되었습니다");
 
 						// 이메일 유효성 체크
-						function isEmailValid(email) {
-							var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+						/* function isEmailValid(email) {
+							var emailRegex = /^[a-zA-Z0-9]+@[a-z]+\.[a-z]{2,4}$/;
 							return emailRegex.test(email);
-						}
+						} */
 
 						// 생년월일 형식 체크
 						function isValidDate(dateString) {

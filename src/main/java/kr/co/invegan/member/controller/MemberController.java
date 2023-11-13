@@ -129,7 +129,7 @@ public class MemberController {
 		
 	@RequestMapping(value = "/member/signup.do", method = RequestMethod.POST)
 	public String signupDo(Model model, @RequestParam HashMap<String, String> params, @RequestParam String[] interests) {
-		
+		logger.info("params"+params);
 		// "interests" 배열을 쉼표로 구분된 하나의 문자열로 결합
 	    String combinedInterests = String.join(",", interests);
 	    logger.info("Combined interests: " + combinedInterests);
