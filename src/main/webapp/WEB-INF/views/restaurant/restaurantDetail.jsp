@@ -149,8 +149,10 @@
 		</div>
 		
 		<div class="update_delete">
-			<button id="update">수정</button>
-			<button id="hidden">숨김</button>
+			<c:if test="${admin eq 'yes'}">
+				<button id="update">수정</button>
+				<button id="hidden">숨김</button>
+			</c:if>
 			<button id="report">신고</button>
 		</div>
 		
