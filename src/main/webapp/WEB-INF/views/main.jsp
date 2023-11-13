@@ -321,6 +321,7 @@ function geoSubmit(data){
 		dataType:'JSON',
 		success:function(data){
 			console.log(data);
+			/*
 			var shuffleRFL = data.RFL.slice().sort(() => Math.random() - 0.5); // 랜덤으로 정렬
 			var shuffleFFL = data.FFL.slice().sort(() => Math.random() - 0.5);
 			if(shuffleRFL.length > 6){
@@ -333,6 +334,9 @@ function geoSubmit(data){
 			}else{
 				FFL = shuffleFFL;
 			}
+			*/
+			RFL = data.RFL;
+			FFL = data.FFL;
 			console.log(RFL);
 			console.log(FFL);
 			restaurantListView(r_idx);
@@ -404,6 +408,7 @@ function feedListView(idx){
 	$('.cFL_Feed').eq(i).find('.cFL_F_Head').find($('img')).attr('src', '/photo/'+FFL[i+idx].profile_image);
 	$('.cFL_Feed').eq(i).find('.cFL_F_Head').find($('p')).html(FFL[i+idx].nickname);
 	$('.cFL_Feed').eq(i).find('.cFL_F_Img').find($('img')).attr('src', '/photo/'+FFL[i+idx].server_file_name);
+	$('.cFL_Feed').eq(i).find('.cFL_F_Img').find($('img')).attr('alt', 'Feed Img(post_id:'+FFL[i+idx].post_id+')');
 	$('.cFL_Feed').eq(i).find($('.cFL_F_Text')).html(FFL[i+idx].content);
 	$('.cFL_Feed').eq(i).find($('.cFL_F_Tag')).html(FFL[i+idx].tag_content);
 	}

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.invegan.board.dto.FeedListDTO;
-import kr.co.invegan.main.dto.restaurantFilterListDTO;
+import kr.co.invegan.board.dto.restaurantFilterListDTO;
 import kr.co.invegan.main.service.MainService;
 import kr.co.invegan.member.dto.MemberDTO;
 
@@ -55,7 +55,6 @@ public class MainController {
 		if (loginInfo != null) {
 			logger.info("loginId: " + loginInfo.getId() + " / user_no: " + loginInfo.getUser_no() + " / admin: "
 					+ loginInfo.getIs_admin());
-			logger.info(loginInfo.getProfile_img());
 		} else {
 			logger.info("비회원");
 		}
