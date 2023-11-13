@@ -453,7 +453,7 @@ $('.cFL_Feed').on('click',function(){
 	
 	var post_id = $(this).attr('post_id');
 	console.log(post_id);
-	location.href="feed/list.go;
+	location.href="feed/list.go";
 	
 	
 });
