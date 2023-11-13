@@ -136,7 +136,11 @@
 
 	var msg = "${msg}";
 	if (msg != "") {
-		alert(msg);
+		swal({
+        	    title: msg,
+        	    text: "",
+        	    icon: "warning"
+        	});
 	}
 </script>
 </html>

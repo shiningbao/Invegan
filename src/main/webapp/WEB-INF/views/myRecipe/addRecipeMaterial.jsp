@@ -5,6 +5,8 @@
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
 		<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+		<!-- alert ,cofirm 창 -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 		<style>	
 			  
 			  .xscrollbar{
@@ -251,9 +253,17 @@
 			var match = regex.test(grams);
 			
 			if (food_id == null) {
-				alert('재료를 선택해 주세요');	
+				swal({
+		            title: "재료를 선택해 주세요",
+		            text: "",
+		            icon: "info",
+		        });
 			} else if (match || grams === '0' || grams.trim() === ''){
-			    alert('0이 아닌 숫자만 입력해 주세요');
+			    swal({
+		            title: "0이 아닌 숫자만 입력해 주세요",
+		            text: "",
+		            icon: "info",
+		        });
 			    $('input[name="gram"]').val('');	
 			} else{
 	        	$.ajax({
@@ -269,7 +279,11 @@
 	        			console.log(e);
 	        		} 
 	        	});
-            	alert('레시피에 재료가 추가되었습니다.');
+	        	swal({
+		            title: "레시피에 재료가 추가되었습니다.",
+		            text: "",
+		            icon: "info",
+		        });
 	        	closeModal();
 
 			}			
