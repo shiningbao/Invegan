@@ -16,6 +16,8 @@ public interface MemberDAO {
 	
 	String findPw(@Param("id") String id, @Param("email") String email);
 
-	String idTrueFalse(String idTrueFalse);
+	int idTrueFalse(String idTrueFalse);
+
+	int validateId(String validateId);
 	
 }
