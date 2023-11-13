@@ -155,16 +155,16 @@
 		width : 100px;
 	}  */
 	
-	#feedBtn{
+/* 	#feedBtn{
 		position : absolute;
 		top : 57px;
 		background-color : white;
 		border-radius : 8px;
 		border : 2px solid #caeada;
 		width : 50px;
-}
+} */
 		
-	#restaurantBtn{
+/* 	#restaurantBtn{
 		position : absolute;
 		top : 57px;
 		left : 54px;
@@ -172,38 +172,34 @@
 		border-radius : 8px;
 		border : 2px solid #caeada;
 		width : 50px;
-} 
-
-	.feedTable td,
-	.feedTable tr {
-   		border: 1px solid black;
-   
-}
+}  */
 
 /* .feedTable td.itemContent {
 		border-bottom: 1px solid #caeada; 
 }
  */
  
-	 .feedTable {
-	    width: 100%;
-	}
-	
 	.tableContainer{
 		margin-right: 20px;
 		display : flex;
 		overflow-x : auto;
 	}
 	
-	.feedTable td.itemContent {
-		margin : 20px;
-	}
-	
 	.feedImg img {
-	    width: 130px;
-	    object-fit: cover;
+	    width: 160px;
+	    /*object-fit: cover;*/
+	    
 }
+
+	/* .feedImg {
+		text-align : center;
+		padding : 20px;
+	} */
 	
+	.itemContent {
+		text-align : center;
+	}
+
 	.restaurantTable td,
 	.restaurantTable tr {
 		border : none;
@@ -239,7 +235,7 @@
 		    margin: 6% auto;
 		    border: 1px solid #888;
 		    width: 50%;
-		    /* height: 651px; */
+		    height: 651px;
 		}
 
 		.close {
@@ -306,7 +302,7 @@
 		#listContainer {
 			position : absolute;
 			display: flex;
-		    top: 532px;
+		    top: 489px;
 		    left : 0px;
 		    width : 100%;
 		    overflow-x:auto; 
@@ -321,13 +317,7 @@
 		.h3, h3 {
     		font-size: 22px;
 		}
-		
-		.favTable{
-			margin-left:auto; 
-    		margin-right:auto;
 
-		}
-		
 		.favImg img{
 			width : 200px;
 			padding : 10px;
@@ -335,11 +325,16 @@
 		
 	
 		.profile img{
-			width: 40px;
+			width: 30px;
 			border-radius:50%;
 			margin: 5px;
 		}
 		
+		.profile {
+			position : absolute;
+			left : 16px;
+			top : -31px;
+		}
 		
 		#myInfo{
 			position : absolute;
@@ -371,25 +366,17 @@
 		 	right : 13px;
 		 	width: 80px;
 		 }
-		
-		 
-		
-		 
-		 
-		 .pagination{
-		 	display: none;
-   			padding-left: 0;
-		    margin: 20px 0;
-		    border-radius: 4px;
-		    width: 279px;
-		    top:700px;
-		    left: 549px;
-		 }
-		 
-		
-		
+
 		.restaurantPhoto img{
 			width : 40px;
+		}
+		
+		.title{
+			text-align : center;
+		}
+		
+		.feedCmContainer{
+		    width : 80%;
 		}
 		
 		.feed-image{
@@ -401,6 +388,34 @@
 		background-color : #caeada;
 		}
 		
+		.feedDiv{
+			position : relative;
+			display : inline-block;
+			width : 20%;
+			margin : 0px auto 10px auto;
+			top : 39px;
+		}
+	
+		.favDiv{
+			display : inline-block;
+			
+		}
+		
+		.feedCmDiv{
+			position : relative;
+			display : inline-block;
+			top : 39px;
+		}
+		
+		.rtCmDiv{
+			display : inline-block;
+		}
+		
+		#feedImg{
+			width : 150px;
+			text-align: center;
+    		padding: 20px;
+		}
     </style>
 </head>
 <body>
@@ -435,7 +450,25 @@
    
    	<div class="additionalInfo">
         <label>닉네임 : </label> ${dto.nickname}<br>
-        <label>비건타입 : </label> ${dto.vegan_type}<br>
+        <label>비건타입 : </label>  <c:if test="${dto.vegan_type eq '1' }"> 
+           플루테리언
+        </c:if> <c:if test="${dto.vegan_type eq '2' }"> 
+           비건
+        </c:if> <c:if test="${dto.vegan_type eq '3' }"> 
+           락토
+        </c:if> <c:if test="${dto.vegan_type eq '4' }"> 
+           오보
+        </c:if> <c:if test="${dto.vegan_type eq '5' }"> 
+           락토오보
+        </c:if> <c:if test="${dto.vegan_type eq '6' }"> 
+           폴로
+        </c:if> <c:if test="${dto.vegan_type eq '7' }"> 
+           페스코
+        </c:if> <c:if test="${dto.vegan_type eq '8' }"> 
+           폴로페스코
+        </c:if> <c:if test="${dto.vegan_type eq '9' }"> 
+           플렉시테리언
+        </c:if><br>
         <label>비건목적 </label><br>${dto.vegan_purpose}<br>
         <label>관심사</label><br>${dto.interests}
 		<input type="hidden" name="id" value="${dto.id}"/>
@@ -459,12 +492,12 @@
 	
 	<div id="tab-2" class="tab-content">
 		<h3>내가 작성한 댓글 보기</h3>
-		<div class="button">
-			<!-- <input type="button" value="레시피"/>
-			<input type="button" value="자유게시판"/> -->
+		<!-- <div class="button">
+			<input type="button" value="레시피"/>
+			<input type="button" value="자유게시판"/>
 			<input type="button" id = "restaurantBtn" value="식당"/>
 			<input type="button" id = "feedBtn" value="피드"/>
-		</div>
+		</div> -->
 	</div>
 		
 	<div id="tab-3" class="tab-content">
@@ -856,11 +889,17 @@ $(document).ready(function(){
         $('#listContainer').hide();
         
         var tabText = $(this).text();
-        updateButtons(tabText);
+        // updateButtons(tabText);
         
         if (tabText === '작성한 피드 모아보기') {
             $('#listContainer').show();
             feedListCall();
+        }
+        
+        if (tabText === '댓글 모아보기'){
+        	$('#listContainer').show();
+        	feedCmListCall();
+        	
         }
         
         if (tabText === '나의 스크랩'){
@@ -873,20 +912,20 @@ $(document).ready(function(){
     });
 });
 
-function updateButtons(tabText) {
-    var feedBtn = $('#feedBtn');
-    var restaurantBtn = $('#restaurantBtn');
+// function updateButtons(tabText) {
+   // var feedBtn = $('#feedBtn');
+    /* var restaurantBtn = $('#restaurantBtn'); */
 	
     // 모든 버튼 숨기기
-    feedBtn.hide();
-    restaurantBtn.hide();
+   // feedBtn.hide();
+   /*  restaurantBtn.hide(); */
     
-	if (tabText === '댓글 모아보기') {
-	    feedBtn.show();
-	    restaurantBtn.show();
-}
+	/* if (tabText === '댓글 모아보기') {
+	    feedBtn.show(); */
+	    /* restaurantBtn.show(); */
+/* }
 	
-}
+}  */
 
     // listCall(showPage);
 	// 리스트 
@@ -918,47 +957,53 @@ function feedListCall(){
 }
 
 function drawList(list) {
-    var content = '<div class="tableContainer"><table class="feedTable"><tr>';
+    var content = '';
 
     list.forEach(function(item, idx) {
-        content += '<td>';
-
+       
+    	 var shortenedContent = item.content.length > 10 ? item.content.substring(0, 10) + '...' : item.content;
+    	
+    	content += '<div class="feedDiv">';
         content += '<div class="profile"><img src="/photo/' + item.profile_image + '" alt="image">' + item.nickname + '</div>';
-        content += '<div class="feedImg"><img src="/photo/' + item.server_file_name + '" alt="image" style="margin:0; padding:0;"></div>';
-        content += '<div class="itemContent">' + item.content + '</div>';
+        content += '<div class="feedImg"><img src="/photo/' + item.server_file_name + '" alt="image" id="feedImg"></div>';
+        content += '<div class="itemContent">' + shortenedContent + '</div>';
 
-        content += '</td>';
+         content += '</div>';
     });
 
-    content += '</tr></table></div>';
+    //content += '</div>';
 
     $('#listContainer').empty();
     $('#listContainer').html(content);
 }
 
 // 게시판 버튼 클릭
-$('.button input[type="button"]').on('click', function() {
+/* $('.button input[type="button"]').on('click', function() {
     var boardType = $(this).val();
 
     var user_no = $('input[name="user_no"]').val();
     console.log(user_no + boardType);
     
 	if(boardType == '피드'){
-    	feedCmListCall(boardType, user_no);
-	}
-	
-	if(boardType =='식당'){
+		$('#listContainer').show();
+		feedCmListCall(boardType, user_no); */
+		
+		/*} else if(boardType =='식당'){
+		$('#listContainer').show();
 		rtCmListCall(boardType,user_no);
-	}
-	});
+	} */
+	// });
 
-function feedCmListCall(boardType, user_no) {
-    $.ajax({
+function feedCmListCall() {
+	var user_no = $('input[name="user_no"]').val();
+	var tabType = $('.tabs li.current').text();
+	
+	$.ajax({
         type: 'GET',
         url: 'feedCmListCall',
         data: {
-            'user_no': user_no,
-            'boardType': boardType
+            'user_no' : user_no,
+            'tabType' : tabType
         },
         dataType: 'JSON',
         success: function(data) {
@@ -975,25 +1020,28 @@ function feedCmListCall(boardType, user_no) {
 
 
 function drawFcList(fcmList) {
-    var content = '<div class="tableContainer"><table class="feedTable"><tr>';
+    var content = '';
 
     fcmList.forEach(function(item, idx) {
-        content += '<td>';
-
+        
+    	 var shortenedContent = item.content.length > 10 ? item.content.substring(0, 10) + '...' : item.content;
+    	
+    	content += '<div class = feedCmDiv>';
         content += '<div class="profile"><img src="/photo/' + item.profile_image + '" alt="image">' + item.nickname + '</div>';
         content += '<div class="feedImg"><img src="/photo/' + item.server_file_name + '" alt="image"></div>';
-        content += '<div class="itemContent">' + item.content + '</div>';
+        content += '<div class="itemContent">' + shortenedContent + '</div>';
 
-        content += '</td>';
+        content += '</div>';
     });
 
-    content += '</tr></table></div>';
+    // content += '</div>';
 
     $('#listContainer').empty();
     $('#listContainer').html(content);
 }
 
-function rtCmListCall(boardType, user_no) {
+
+/* function rtCmListCall(boardType, user_no) {
     $.ajax({
         type: 'GET',
         url: 'rtCmListCall',
@@ -1004,7 +1052,7 @@ function rtCmListCall(boardType, user_no) {
         dataType: 'JSON',
         success: function(data) {
             console.log(data);
-            drawRtCmList(data.RtCmList); 
+            drawRtCmList(data.rtCmList); 
             $('#ListContainer').show(); // 리스트 보여주기
             // $('#pagination').show();
         },
@@ -1015,24 +1063,23 @@ function rtCmListCall(boardType, user_no) {
 }
 
 
-function drawRtCmList(RtCmList) {
-    var content = '<div class="tableContainer"><table class="feedTable"><tr>';
+function drawRtCmList(rtCmList) {
+    var content = '';
 
-    RtCmList.forEach(function(item, idx) {
-        content += '<td>';
+    rtCmList.forEach(function(item, idx) {
+        content += '<div class="rtCmDiv">';
 
-        content += '<div class="profile"><img src="/photo/' + item.profile_image + '" alt="image">' + item.nickname + '</div>';
-        content += '<div class="feedImg"><img src="/photo/' + item.server_file_name + '" alt="image"></div>';
-        content += '<div class="itemContent">' + item.content + '</div>';
+        content += '<div class="title">' + item.title + '</div>';
+        content += '<div class="favImg"><a href="/invegan/restaurant/detail?post_id=' + item.post_id + '"><img src="/photo/' + item.server_file_name + '" alt="image" class="restaurantPhoto"></div>';
 
-        content += '</td>';
+        content += '</div>';
     });
 
-    content += '</tr></table></div>';
+    // content += '</div>';
 
     $('#listContainer').empty();
     $('#listContainer').html(content);
-} 
+}  */
 
 
 
@@ -1061,18 +1108,18 @@ function favoriteListCall(){
 }
 
 function drawFavList(favList) {
-    var content = '<div class="tableContainer"><table class="favTable"><tr>';
+    var content = '';
 
     favList.forEach(function(item, idx) {
-        content += '<td>';
+        content += '<div class="favDiv">';
 
-        content += '<div class="title">' + item.title + '/별점 : ' + item.rating +  '</div>';
+        content += '<div class="title">' + item.title + '</div>';
         content += '<div class="favImg"><a href="/invegan/restaurant/detail?post_id=' + item.post_id + '"><img src="/photo/' + item.server_file_name + '" alt="image" class="restaurantPhoto"></div>';
 
-        content += '</td>';
+        content += '</div>';
     });
 
-    content += '</tr></table></div>';
+    // content += '</div>';
 
     $('#listContainer').empty();
     $('#listContainer').html(content);
