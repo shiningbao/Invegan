@@ -61,7 +61,15 @@
 	</select>
 	
 	<delete id="delUser" parameterType="int">
-		DELETE FROM Members WHERE user_no = #{user_no}
+		delete from Favorite where user_no=#{user_no}; 
+		delete from Comments where user_no=#{user_no}; 
+		delete from FeedTags where post_id=(select post_id from Board where user_no=#{user_no}); 
+		delete from Board where user_no=#{user_no};
+		delete from Material where menu_id=(select menu_id from Menu where user_no=#{user_no});
+		delete from Diet_composition where menu_id=(select menu_id from Menu where user_no=#{user_no}); 
+		delete from Menu where user_no=#{user_no}; 
+		delete from Diet where user_no=#{user_no}; 
+		delete from Members where user_no=#{user_no};	  
 	</delete>
 
 	<!-- <select id="recipeComments" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
