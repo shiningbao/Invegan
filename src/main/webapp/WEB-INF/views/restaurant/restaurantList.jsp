@@ -70,7 +70,9 @@
 	<div class="restaurantListContainer">
 		<div class="restaurantListHead">
 			<div id="restaurantListHeadTitle">식당 리스트</div>
-			<button id="writeButton" type="button" onclick="location.href='write.go'">식당 작성</button>	
+			<c:if test="${admin eq 'yes'}">
+			<button id="writeButton" type="button" onclick="location.href='write.go'">식당 작성</button>
+			</c:if>	
 		</div>
 		<div class="restaurantDiv">
 			<div class="restaurantDiv_1">
