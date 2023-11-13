@@ -26,7 +26,7 @@ public class MemberService {
     @Autowired
     MemberDAO dao;
 
-    public MemberDTO login(HashMap<String, String> params) {
+    public MemberDTO login(HashMap<String, Object> params) {
         MemberDTO dto = dao.login(params);
         return dto;
     }

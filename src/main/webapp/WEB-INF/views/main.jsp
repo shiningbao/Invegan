@@ -67,7 +67,7 @@
 		position: absolute;
 		top: 1px;
 		margin: 0px;
-		z-index: 10;
+		z-index: 1;
 	}
 	.cFL_R_VT div{
 		height: 30px;
@@ -79,7 +79,7 @@
 		line-height: 30px;
 		text-align: center;
 		
-	 	border: 1px soild #black;
+	 	border: 1px solid black;
 		
 	}
 	.cFL_R_Name{
@@ -118,13 +118,14 @@
 	.blank{
 		margin-bottom: 200px;
 	}
+	
 
 </style>
 </head>
 <body>
 
 <c:import url="/main/header"/>
-
+	
 	<div class="banner">
 	</div>
 	<br>
@@ -296,13 +297,22 @@
 
 
 <script>
+
 var RFL;
 var FFL
 var r_idx = 0;
 var f_idx = 0;
+
 var msg = "${msg}";
 if(msg != ""){
+	console.log(msg);
 	alert(msg);
+} 
+var needLogin = "${needLogin}";
+	console.log("nees",needLogin);
+if(needLogin != null){
+/* 	 $("#login-modal").css("display", "block");
+     $("body").css("overflow", "hidden"); */
 }
 
 $('#login').on('click',function(){
@@ -333,6 +343,7 @@ function geoSubmit(data){
 		data:data,
 		dataType:'JSON',
 		success:function(data){
+			
 			console.log(data);
 			RFL = data.RFL;
 			FFL = data.FFL;
