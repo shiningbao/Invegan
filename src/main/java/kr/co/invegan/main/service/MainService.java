@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.invegan.board.dto.FeedDTO;
 import kr.co.invegan.board.dto.FeedListDTO;
 import kr.co.invegan.board.dto.restaurantFilterListDTO;
 import kr.co.invegan.main.dao.MainDAO;
@@ -86,16 +87,21 @@ public class MainService {
 		}
 		logger.info("vt :"+vt+" / dist: "+dist);
 		resList = dao.restaurantFilterList(vt, userLat, userLng, dist);
+
+		int cnt = 12; // view에 뿌려줄 숫자
 		
-		int cnt = 6; // view에 뿌려줄 숫자
-		ArrayList<restaurantFilterListDTO> result = new ArrayList<restaurantFilterListDTO>();
-		if(resList.size() < cnt) {
-			cnt = resList.size();
+		Collections.shuffle(resList); // 순서 섞기
+		
+		restaurantFilterListDTO nullList = null;
+		//logger.info("resList.size: "+resList.size());
+		while(resList.size() < cnt) {
+			resList.add(nullList);	
 		}
+		
+		ArrayList<restaurantFilterListDTO> result = new ArrayList<restaurantFilterListDTO>();
 		for (int i = 0; i < cnt; i++) {
 			result.add(resList.get(i));
 		}
-		
 		return result;
 
 	}
@@ -112,18 +118,23 @@ public class MainService {
 			for (String inte : inteArr) {
 				inteList.add("%"+inte+"%");
 			}
+			System.out.println(inteList);
 			feedList = dao.feedInterestFilterList(inteList);
 		}else {
 			// 비로그인 상태
 			logger.info("비로그인");
 			feedList = dao.feedFilterList();
 		}
-		int cnt = 6; // view에 뿌려줄 숫자
-		ArrayList<FeedListDTO> result = new ArrayList<FeedListDTO>();
+		int cnt = 12; // view에 뿌려줄 숫자
 		Collections.shuffle(feedList);
-		if(feedList.size() < cnt) {
-			cnt = feedList.size();
+		
+		FeedListDTO nullList = null;
+		//logger.info("resList.size: "+feedList.size());
+		while(feedList.size() < cnt) {
+			feedList.add(nullList);	
 		}
+		
+		ArrayList<FeedListDTO> result = new ArrayList<FeedListDTO>();
 		for(int i = 0; i < cnt; i++) {
 			result.add(feedList.get(i));
 		}

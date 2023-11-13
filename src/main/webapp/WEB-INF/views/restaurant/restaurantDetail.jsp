@@ -39,23 +39,45 @@
 		margin-bottom: 20px;
 	}
 	#img_main{
+		position: absolute;
 		width: 400px;
 		height: 400px;		
+	}
+	.veganType{
+		margin-bottom: 5px;;
+	}
+	.veganType div{
+		height: 28px;
+		display: inline-block;
+		border-radius: 10%;
+		margin: 2px 1px;;
+		padding: 0px 4px;
+		background-color: #bbe8b7;
+		line-height: 28px;
+		text-align: center;
+	 	border: 0.5px solid #30492a;
+	 	font-size: 17px;
 	}
 	.restaurantContent{
 		display: inline-block;
 		width: 600px;
 		margin-left: 420px;
 	}
-
+	.restaurantContent h2, .restaurantContent h3 {
+     	display: inline-block;
+     	margin-right: 4px;
+     	margin-bottom: 15px;
+     }
+   	.restaurantContent p {
+   		margin-right: 4px;
+   		margin-top: 0px;
+   		margin-bottom: 0px;
+     }
 	.update_delete{
 		position: absolute;
 		top: 3px;
 		right: 3px;
 	}
-
-	
-	
 	.restaurantMenuList{
 		position: relative;
 		width: 100%;
@@ -116,10 +138,7 @@
 		width: 1000px;
 		height: 600px;
 	}
-     h2, h3 {
-     	display: inline-block;
-     	margin-right: 4px;
-     }
+
      #blankdiv{
      	width: 100%;
      	height: 200px;
@@ -136,7 +155,8 @@
 	<div class="restaurantTop">
 		<div class="restaurantImg_main"><img id="img_main" src = "/photo/${photoList[0]}" alt="restaurantImg"/></div>
 		<div class="restaurantContent">
-			<c:forEach items="${menuDetail}" var = "menu">#${menu.getVegan_type()}  </c:forEach>
+			<div class="veganType">
+			</div>
 			<h1>${restaurantDetail.getTitle()}</h1>			
 			<h2>식당 위치</h2>
 			<h3>${restaurantDetail.getAddress()}</h3><br>
@@ -151,9 +171,11 @@
 		<div class="update_delete">
 			<c:if test="${admin eq 'yes'}">
 				<button id="update">수정</button>
-				<button id="hidden">숨김</button>
+				<button id="hidden">
+					<c:if test="${restaurantDetail.getIs_hidden() eq 0}">숨김</c:if>
+					<c:if test="${restaurantDetail.getIs_hidden() eq 1}">숨김 해제</c:if>
+				</button>
 			</c:if>
-			<button id="report">신고</button>
 		</div>
 		
 	</div>
@@ -218,8 +240,33 @@
 <script>
 // header 카테고리 선택유지
 $('#go_rest').css('box-shadow','#95df95 0px 2px 0px 0px');
-var $imgList = document.getElementById('imgList');
 
+var veganArr = [];
+<c:forEach items="${menuDetail}" var = "menu">
+ 	var v = '${menu.getVegan_type()}';
+ 	if(!veganArr.includes(v)){
+ 		veganArr.push(v);
+ 	}
+</c:forEach>
+var veganType = '';
+veganArr.sort();
+veganArr.forEach(function(v,i){
+	 switch (v) {
+		case '1': veganType += '<div>#플루테리언</div>'; break;
+		case '2': veganType += '<div>#비건</div> '; break;
+		case '3': veganType += '<div>#락토</div> '; break;
+		case '4': veganType += '<div>#오보</div> '; break;
+		case '5': veganType += '<div>#락토오보</div> '; break;
+		case '6': veganType += '<div>#폴로</div> '; break;
+		case '7': veganType += '<div>#페스코</div>'; break;
+		case '8': veganType += '<div>#폴로페스코</div>'; break;
+		case '9': veganType += '<div>#플렉시테리언</div>'; break;
+	}
+});
+$('.veganType').html(veganType);
+
+
+var $imgList = document.getElementById('imgList');
 var photoArr = [];
 <c:forEach items="${photoList}" var ='item'>
 	photoArr.push("${item}");
@@ -259,25 +306,36 @@ $('#nextButton').on('click', function(){
 });
 
 // 수정
-$('#update').on('click',function(){
+function update(){
 	console.log('update click');
 	if(confirm('수정하시겠습니까?')){
 		location.href='update.go?post_id='+${restaurantDetail.getPost_id()};
 	}else{
 		console.log('수정 취소 클릭');
 	}
-});
+}
 
 // 숨김
+var hidden = '${restaurantDetail.getIs_hidden()}';
 $('#hidden').on('click',function(){
-	console.log('hidden click');
-	if(confirm('숨기시겠습니까?')){
-		console.log('숨김 확인 클릭');
-		location.href="hidden?post_id="+${restaurantDetail.getPost_id()};
-	}else{
-		console.log('숨김 취소 클릭');
-	}
+		console.log('hidden click');
+		var checkbox = hidden == 0 ? '숨기시겠습니까?':'숨김을 해제하시겠습니까?';
+		if(confirm(checkbox)){
+			location.href='hidden?post_id='+${restaurantDetail.getPost_id()}+'&is_hidden='+hidden;
+		}else{
+			console.log('숨김 취소 클릭');
+		}
 });
+
+if(hidden != 0){
+	var img = '<c:url value="/resources/main/hidden.png"/>';
+	$('.restaurantImg_main').append(
+		'<img class="restaurnatHidden" src="'+img+'" style="width:400px; height:400px; z-index:1,back-ground-color:grey; opacity:0.7"}/>'
+	);
+}
+
+
+
 
 // 즐겨찾기
 $('#favorite').on("click",function(){
@@ -305,44 +363,6 @@ $('#favorite').on("click",function(){
 	
 });
 
-
-
-/*
-$('#send_writeReview').on('click',function(){
-	if($('input[name="wirteReview"]').val() != ''){
-		if(confirm('리뷰를 작성하시겠습니까?')){
-			console.log('리뷰 확인 클릭');
-			var param = {};
-			param.user_no = '${loginInfo.getUser_no()}';
-			param.comment_text = $('input[name="wirteReview"]').val();
-			param.rating = $('select[name="rating"]').val();
-			param.post_id = '${restaurantDetail.getPost_id()}';
-			
-			console.log(param);
-			
-			$.ajax({
-				type:'post',
-				url:'reviewWrite',
-				data:param,
-				dataType:'JSON',
-				success:function(data){
-					console.log(data);
-				},
-				error:function(e){
-					console.log(e);
-				}
-			});
-		}else{
-			console.log('리뷰 취소 클릭');
-		}
-	}else{
-		alert('리뷰를 입력해주세요');
-	}
-});
-*/
-
-
-
 //지도 부분
 var title = '${restaurantDetail.getTitle()}'; // 식당 이름
 var addr = '${restaurantDetail.getAddress()}'; // 식당 주소
@@ -367,9 +387,6 @@ geocoder.addressSearch(addr, function(result, status) {
         var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
      	
         map.setCenter(coords);
-        console.log(coords);
-        console.log(coords.La);
-        console.log(coords.Ma);
         // 결과값으로 받은 위치를 마커로 표시합니다
         var marker = new kakao.maps.Marker({
             map: map,

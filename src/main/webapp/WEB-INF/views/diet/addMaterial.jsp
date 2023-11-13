@@ -53,6 +53,9 @@ input[type="submit"]:hover {
 				<p>
 						분류 : <input type="text" id="food_category" required name="food_category"
 							placeholder="* 분류명 입력" /></p>
+				<p>
+						원산지/제조사 : <input type="text"
+							required name="production" placeholder="원산지/제조사 입력" /></p>
 					<p>
 						1회 제공량(g) : <input type="text"
 							required name="serving_size" onkeyup="imsi(this)" placeholder="* g 입력" /></p>
@@ -94,13 +97,13 @@ input[type="submit"]:hover {
 							placeholder="* ㎍입력" /> ㎍</p>
 					<p>
 						비타민B6 <input type="text" onkeyup="imsi(this)" required name="vit_b6"
-							placeholder="* ㎍입력" /> ㎍</p>
+							placeholder="* mg입력" /> mg</p>
 					<p>
 						비타민B12 <input type="text" onkeyup="imsi(this)" required name="vit_b12"
-							placeholder="* ㎍입력" /> ㎍</p>
+							placeholder="* mg입력" /> mg</p>
 					<p>
 						비타민C <input type="text" onkeyup="imsi(this)" required name="vit_c"
-							placeholder="* ㎍입력" /> ㎍</p>
+							placeholder="* mg입력" /> mg</p>
 					<p>
 						필수 아미노산 <input type="text" onkeyup="imsi(this)" required name="essential"
 							placeholder="* mg입력" /> mg</p>

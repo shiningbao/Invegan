@@ -111,11 +111,16 @@ public class RestaurantService {
 		return dao.photoList(post_id);
 	}
 	
-	
-	public ArrayList<restaurantFilterListDTO> restaurantList(Double userLat, Double userLng) {
-		return dao.restaurantList(userLat, userLng);
+	// 리스트(관리자)
+	public ArrayList<restaurantFilterListDTO> restaurantList_admin(int page, Double userLat, Double userLng) {
+		int p = (page-1)*20;
+		return dao.restaurantList_admin(p, userLat, userLng);
 	}
-	
+	// 리스트(일반)
+	public ArrayList<restaurantFilterListDTO> restaurantList_user(int page, Double userLat, Double userLng) {
+		int p = (page-1)*20;
+		return dao.restaurantList_user(p, userLat, userLng);
+	}
 
 	// 메뉴를 DB에 인서트하는 메서드	
 	private boolean menuWrite(int post_id, Object object_menu) {
@@ -239,9 +244,14 @@ public class RestaurantService {
 		return 0;
 	}
 
-	public String hidden(int post_id) {
-		int result = dao.hidden(post_id);
-		return result == 1 ? "숨김 완료":"숨김 실패";
+	public String hidden(int post_id, int is_hidden) {
+		int result = 0;
+		if(is_hidden == 0) {
+			result = dao.hidden(post_id);		
+		}else {
+			result = dao.visible(post_id);			
+		}
+		return result == 1 ? "완료":"실패";
 	}
 
 
@@ -266,6 +276,13 @@ public class RestaurantService {
 		return result;
 	}
 
+
+	public int restaurantList_user_totalpage() {
+		return dao.restaurantList_user_totalpage();
+	}
+	public int restaurantList_admin_totalpage() {
+		return dao.restaurantList_admin_totalpage();
+	}
 
 
 	
