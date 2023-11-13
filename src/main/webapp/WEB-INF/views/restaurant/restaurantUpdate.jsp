@@ -140,11 +140,12 @@
 	<th colspan="2"><button type="button" id="write">수정</button>  <button type="button" id="cancle">취소</button></th>
 	</tr>
 </table>
-<c:import url="/main/footer"/>
 </body>
 
 <script>
 
+//header 카테고리 선택유지
+$('#go_rest').css('box-shadow','#95df95 0px 2px 0px 0px');
 //저장된 사진 불러오기
 	var imgDelList = [];
 	var $restaurantImg_saved = document.getElementById('restaurantImg_saved');

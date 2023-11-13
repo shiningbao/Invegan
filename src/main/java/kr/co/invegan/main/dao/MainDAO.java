@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import kr.co.invegan.board.dto.FeedListDTO;
 import kr.co.invegan.board.dto.RestaurantDTO;
 import kr.co.invegan.main.dto.distCntDTO;
-import kr.co.invegan.main.dto.restaurantFilterListDTO;
+import kr.co.invegan.board.dto.restaurantFilterListDTO;
 
 public interface MainDAO {
 
@@ -24,5 +24,7 @@ public interface MainDAO {
 	String interests(int user_no);
 
 	ArrayList<FeedListDTO> feedFilterList();
+
+	ArrayList<FeedListDTO> feedInterestFilterList(@Param("list") List<String> inte);
 
 }

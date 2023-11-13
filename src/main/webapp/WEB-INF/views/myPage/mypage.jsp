@@ -12,66 +12,205 @@
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 <script src="<c:url value='/resources/js/jquery.twbsPagination.js'/>" type="text/javascript"></script>
 <style>
-
-		#container{
-			width: 1000px;
-			margin: 0px auto;
-		}
-
-		.tabContainer {
-		    display: flex;
-		    justify-content: space-evenly;
-		    align-items: baseline;
-		    flex-direction: column;
-		    position: relative;
-		}
+	/*header 부트스트랩 적용 방지*/
+	body{
+		margin: 8px !important;
+	}
+	#container{
+		position : relative;
+		width: 1000px;
+		margin: 0px auto;
+	}
+	.profileContainer {
+		position : absolute;
+		height: 270px;
+		width: 100%;
+		background-color : #d8f3ec;
+		border : solid #b0b5b4;
+		border-radius : 17px;
 		
-        .profileContainer {
-            display: flex;
-            justify-content: center;
-		    align-items: center;
-		    position: relative;
-		    height: 187px;
-		    width: 100%; 
-		    margin: 67px 0;
-        }
+	}
+      
+	.myPageImg{
+		position : absolute;
+		top : 20px;
+		bottom : 20px;
+		left : 20px;
+		width : 180px;
+	
+	}
+      
+	.userInfo {
+		position : absolute;
+		top: 30px;
+		left : 300px;
+		font-size: 18px;
+		width: 221px;
+  
+}
+      
+	.additionalInfo{
+		position : absolute;
+		top: 30px;
+		right: -115px;
+		font-size: 18px;
+		width : 336px;
+      	
+}
+      
+	.is_admin{
+		position : absolute;
+		top: 10px;
+		right: 177px;
+		font-size: 14px;
+		text-decoration: underline;
+		text-decoration-color: #08ffb3; 
+		text-decoration-thickness: 2px;
+	
+}
+      
+	.delUser{
+		position : absolute;
+		top: 15px;
+		right: -24px;
+		cursor: pointer;
+		font-size: 14px;
+		width : 80px;
+}
 
-        .myPageImg {
+	.changeInfo{
+		position : absolute;
+		top: 312px; 
+		right: -9px;
+		cursor: pointer;
+		font-size: 18px;
+		font-weight: bold;
+		width : 120px;
+}
+	
+	/* .tabContainer {
+		position : absolute;
+		top : 383px;
+
+
+} */
+
+	ul.tabs{
+		position : absolute;
+		top : 383px;
+		margin: 0px;
+		padding: 0px;
+		list-style: none;
+}
+
+	ul.tabs li{
+		display: inline-block;
+		padding: 10px 15px;
+		margin: -3px;
+		cursor: pointer;
+		border: solid #b0b5b4;
+		border-radius : 5px;
+		border-bottom: none;
+		background-color : #d8f3ec;
+}
+
+	ul.tabs li.current{
+		width: 173px; 
+	    height: 53px; 
+	    line-height: 40px; 
+	    font-weight: bold;
+	    border: solid #b0b5b4;
+		border-bottom-color : #d8f3ec;
+}
+
+	.tab-content{
+		position : absolute;
+		display: none;
+}
+ 
+	.tab-content.current{
+	position : absolute;
+	top : 436px;
+	display: inherit;
+}
+ 
+	.tab-1{
+	position : absolute;
+	display: flex;
+	height: 102px;
+    width: 1200px;
+    right: -137px;
+    margin: 67px;
+    flex-wrap: inherit;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: baseline;
+   
+}
+
+ 	/* .button{
+		position : absolute;
+		top : 490px;
+		background-color : red;
+		width : 100px;
+	}  */
+	
+	#feedBtn{
+		position : absolute;
+		top : 493px;
+		background-color : white;
+		border-radius : 8px;
+		border : 2px solid #caeada;
+		width : 50px;
+}
+		
+	#restaurantBtn{
+		position : absolute;
+		top : 57px;
+		left : 54px;
+		background-color : white;
+		border-radius : 8px;
+		border : 2px solid #caeada;
+		width : 50px;
+} 
+
+	#restaurantBtn3{
+		position : absolute;
+		top : 57px;
+		left : 0px;
+		background-color : white;
+		border-radius : 8px;
+		border : 2px solid #caeada;
+		width : 50px;
+} 
+
+	.feedTable td,
+	.feedTable tr {
+   		border: none;
+   
+}
+
+	.feedTable td.itemContent {
+		border-bottom: 1px solid #caeada; 
+}
+
+	.restaurantTable td,
+	.restaurantTable tr {
+		border : none;
+}
+
+	.restaurantTable td.rtServerFileName {
+		border-bottom: 1px solid #caeada; 
+}
+
+       /* .myPageImg {
             top: -10px;
     		right: 1123px;
     		position: absolute;
-        }
+        }*/
 
-        .userInfo {
-        	top: 1px;
-        	right: 582px;
-            font-size: 18px;
-            margin-top: 27px;
-            margin-left: -55px;
-            width: 400px;
-            position: absolute;
-          
-        }
         
-        .additionalInfo{
-        	top: 1px;
-        	right: 2px;
-         	font-size: 18px;
-         	margin-top:27px;
-        	margin-left: 657px;
-        	position: absolute;
-        	width:492px;
-        	
-        }
-        
-        .changeInfo{
-	         position: absolute;
-			 top: 534px; 
-			 left: 1079px;
-			 cursor: pointer;
-			 font-size: 18px;
-			 font-weight: bold;
-        }
+       
         .modal {
 		    display: none;
 		    position: fixed;
@@ -91,6 +230,8 @@
 		    padding: 20px;
 		    border: 1px solid #888;
 		    width: 50%;
+		    overflow-y: scroll;
+        	max-height: 80vh;
 		}
 
 		.close {
@@ -102,65 +243,48 @@
 		    font-weight: bold;
 		    cursor: pointer;
 		}
+		.nickNameOvelay{
+			position : absolute;
+			top : 133px;
+			right : 110px;
+		
+		}
+		
+		 .updateNickname{
+		 	position : absolute;
+		 	width: 82px;
+		 	top : 175px;
+		 	right : 96px;
+		 }
+		
+		
 		.changeNickname {
 			cursor: pointer;
 		}
-		ul.tabs{
-			margin: 0px;
-			padding: 0px;
-			list-style: none;
-		}
-		ul.tabs li{
-			background: none;
-			color: #222;
-			display: inline-block;
-			padding: 10px 15px;
-			margin: -3px;
-			cursor: pointer;
-			border: solid aquamarine;
-			border-bottom: none;
+		
+		.pwDiv{
+			position : absolute;
+			top : 204px;
+			right : 102px;
+		
 		}
 		
-		ul.tabs li.current{
-			background: white;
-			color: black;
-			width: 173px; 
-		    height: 40px; 
-		    line-height: 40px; 
-		    font-weight: bold;
-		    position: relative;
-		}
-
-		.button {
-		    position: absolute;
-		    top: 105px;
+		.pwDiv2{
+			position : absolute;
+			top : 265px;
+			right : 121px;
+		
 		}
 		
+		 .completePw{
+		 	position : absolute;
+		 	width: 104px;
+		 	top : 304px;
+		 	right : 89px;
+		 }
 		
-		.tab-content{
-			display: none;
-			background: white;
-			padding: 15px;
-		}
-		
-		.tab-content.current{
-			display: inherit;
-		}
-		
-		.tab-1{
-			display: flex;
-			height: 102px;
-	        width: 1200px;
-	        right: -137px;
-		    margin: 67px;
-		    flex-wrap: inherit;
-		    justify-content: space-evenly;
-		    flex-direction: column;
-		    align-items: baseline;
-		    position: relative;
-		}
-		
-		table,td{
+		 
+/* 		table,td{
 			border : 1px solid black;
 			border-collapse : collapse;
 			padding : 5px 10px;
@@ -168,14 +292,14 @@
 			border-right:0;
 			border-bottom:0;
 			
-		}
+		} */
 		
 		#ListContainer {
+			position : absolute;
 			display: none;
-		    position: absolute;
-		    top: 170px;
-		    right: -29px;
-		    width: 1200px;
+		    top: 532px;
+		    left : 0px;
+		    width : 1000px;
 		}
 		
 		.titleLink{
@@ -186,60 +310,47 @@
     		font-size: 22px;
 		}
 		
-		.delUser{
-		  	position: absolute;
-			top: 225px;
-    		left: 1078px;
-			cursor: pointer;
-			font-size: 14px;
-		}
-		
+	
 		.profile img{
 			width: 40px;
 			border-radius:50%;
 			margin: 5px;
 		}
 		
-		.is_admin{
-			position: absolute;
-			top: 7px;
-			right:445px;
-			font-size: 14px;
-			text-decoration: underline;
-			text-decoration-color: aquamarine; 
-        	text-decoration-thickness: 2px;
-			
-		}
+		
 		#myInfo{
+			position : absolute;
+			top : 343px;
+			right : 90px;
 			border : 0;
 			border-collapse : collapse;
 		}
 		
 		 #updateImg{
+		 	position : relative;
 			border-radius: 50%;
 			margin: 5px;
 		 }
 		 
 		 .plusImg{
+		 	position : absolute;
 		 	font-weight: bold;
 		 	font-size: 70px;
 		 	top: 86px;
 		 	right : 695px;
-		 	position : absolute;
 		 	cursor : pointer;
 		 }
 		 
-		 .updateNickname{
-		 	width: 82px;
-		 }
-		 
-		 .completePw{
-		 	width: 104px;
-		 }
-		 
 		 .save{
+		 	position : absolute;
+		 	bottom : -333px;
+		 	right : 13px;
 		 	width: 80px;
 		 }
+		
+		 
+		
+		 
 		 
 		 .pagination{
 		 	display: none;
@@ -247,15 +358,23 @@
 		    margin: 20px 0;
 		    border-radius: 4px;
 		    width: 279px;
-		    position: absolute;
 		    top:700px;
 		    left: 549px;
 		 }
 		 
-		.feedTable td,
-		.feedTable tr {
-   			 border: none;
-   
+		
+		
+		.restaurantPhoto{
+			width:400px;
+		}
+		
+		.feed-image{
+			width:400px;
+		}
+
+		.tab-link current{
+		border-radius : 8px;
+		background-color : #caeada;
 		}
 		
     </style>
@@ -265,11 +384,11 @@
 <div id=container>
  <h3>마이페이지</h3>
  
- 	<c:set var="myPageImg" value="${dto.profile_image}" />
 	<div class="profileContainer">
+ 	<c:set var="myPageImg" value="${dto.profile_image}" />
 
   	<div class="myPageImg">
-        <img src="/photo/${myPageImg}" width="200" height="200">
+        <img src="/photo/${myPageImg}" width="180" height="220">
     </div>
     
    	<div class="userInfo">
@@ -303,23 +422,74 @@
 	<div class="changeInfo">회원정보 변경</div>
 	<div class="delUser" onclick="confirmDelete(${dto.user_no})">회원탈퇴</div>
 	
-	<div class="modal" id="updateModal">
+<div class="tabContainer">
+	<ul class="tabs">
+		<li class="tab-link current" data-tab="tab-1">작성한 글 모아보기</li>
+		<li class="tab-link" data-tab="tab-2">댓글 모아보기</li>
+		<li class="tab-link" data-tab="tab-3">나의 스크랩</li>
+	</ul>
+	
+	<div id="tab-1" class="tab-content current">
+		<h3>내가 작성한 피드 보기</h3>
+	</div>
+		<div class="button">
+			<!-- <input type="button" id= "requestBtn" value="요청"/>
+			<input type="button" id= "recipeBtn" value="레시피"/>
+			<input type="button" id = "freeBtn" value="자유게시판"/> -->
+			<input type="button" id = "feedBtn" value="피드" />
+		</div>
+	
+	<div id="tab-2" class="tab-content">
+		<h3>내가 작성한 댓글 보기</h3>
+		<div class="button">
+			<!-- <input type="button" value="레시피"/>
+			<input type="button" value="자유게시판"/> -->
+			<input type="button" id = "restaurantBtn" value="식당"/>
+			<!-- <input type="button" id = "feedBtn" value="피드"/> -->
+		</div>
+	</div>
+		
+	<div id="tab-3" class="tab-content">
+		<h3>내가 스크랩한 식당 보기</h3>
+			<!-- <input type="button" value="레시피"/> -->
+			<input type="button" id = "restaurantBtn3" value="식당"/>
+		
+	</div>
+	<!-- list 그리는 부분 -->
+	<div id="ListContainer">
+	</div>
+	
+</div>
+	
+	<div class="pageContainer">									
+		<nav aria-label="Page navigation" style="text-align:center">
+			<ul class="pagination" id="pagination"></ul>
+		</nav>					
+	</div>
+</div>
+
+<div class="modal" id="updateModal">
     <div class="modal-content">
         <h1>회원정보변경</h1>
         <hr>
         	<img src="/photo/${myPageImg}" id= updateImg width="150" height="150">
         	<div class="plusImg">+</div>
         	<input type="file" id="photo" name="photo" style="display: none">
+        	<div class="nickNameOvelay">
         	<label>닉네임 : <input type="text" name="nickname" value="${dto.nickname}"/></label>
-        	<input type="button" id="overlay" value="중복체크"/>
+        	<input type="button" id="overlay" value="중복체크"/></div>
         	<p>
         	<div class= "updateNickname" style= cursor:pointer>닉네임변경</div>
+        	<div class = "pwDiv">
         	<label>현재 비밀번호 <input type="text" name="password" value=""/></label>
         	<input type="button" id="pwConfirm" value="확인"/>
         	<p>
         	<label>변경 비밀번호 <input type="text" name="updatePw"/></label>
+        	</div>
         	<p>
+        	<div class= "pwDiv2">
     		<label>변경 비밀번호 확인<input type="text" name="updatePwConfirm"/></label>
+    		</div>
     		<div class="completePw" style=cursor:pointer>비밀번호 변경</div>
     		<table id=myInfo>
     		<tr>
@@ -377,61 +547,12 @@
         <span class="close">&times;</span>
     </div>
 	</div>
-	
-	 
-	
-	
-<div class="tabContainer">
-	<ul class="tabs">
-		<li class="tab-link current" data-tab="tab-1">작성한 글 모아보기</li>
-		<li class="tab-link" data-tab="tab-2">댓글 모아보기</li>
-		<li class="tab-link" data-tab="tab-3">나의 스크랩</li>
-	</ul>
-	
-	<div id="tab-1" class="tab-content current">
-		<h3>내가 작성한 글 보기</h3>
-		<div class="button">
-			<input type="button" id= "requestBtn" value="요청"/>
-			<input type="button" id= "recipeBtn" value="레시피"/>
-			<input type="button" id = "freeBtn" value="자유게시판"/>
-			<input type="button" id = "feed" value="피드"/>
-		</div>
-	</div>
-	
-	<div id="tab-2" class="tab-content">
-		<h3>내가 작성한 댓글 보기</h3>
-		<div class="button">
-			<input type="button" value="레시피"/>
-			<input type="button" value="식당"/>
-			<input type="button" value="자유게시판"/>
-			<input type="button" value="피드"/>
-		</div>
-	</div>
-		
-	<div id="tab-3" class="tab-content">
-		<h3>내가 스크랩한 글 보기</h3>
-		<div class="button">
-			<input type="button" value="레시피"/>
-			<input type="button" value="식당"/>
-		</div>
-	</div>
-	
-	<!-- list 그리는 부분 -->
-	<div id="ListContainer">
-	</div>
-	
-</div>
-	
-	<div class="pageContainer">									
-		<nav aria-label="Page navigation" style="text-align:center">
-			<ul class="pagination" id="pagination"></ul>
-		</nav>					
-	</div>
-</div>
 <%-- <c:import url="/main/footer" /> --%>
 </body>
 	
 <script>
+//header 카테고리 선택유지
+$('#go_myPage').css('box-shadow','#95df95 0px 2px 0px 0px');
 // var showPage = 1;
 
 // listCall(showPage);
@@ -705,11 +826,33 @@ $(document).ready(function(){
 		$("#"+tab_id).addClass('current');
 		
 		$('#ListContainer').hide();
+		
+		var tabText = $(this).text();
+	    updateButtons(tabText);
 	});
 
 });
 
-
+function updateButtons(tabText) {
+    var feedBtn = $('#feedBtn');
+    var restaurantBtn = $('#restaurantBtn');
+	var restaurantBtn3 = $('#restaurantBtn3');
+	
+    // 모든 버튼 숨기기
+    feedBtn.hide();
+    restaurantBtn.hide();
+    restaurantBtn3.hide();
+    
+    // 탭에 따라 필요한 버튼 보이기
+    if (tabText === '작성한 글 모아보기') {
+        feedBtn.show();
+    } else if (tabText === '댓글 모아보기') {
+        feedBtn.show();
+        restaurantBtn.show();
+    } else if (tabText === '나의 스크랩') {
+        restaurantBtn3.show();
+    }
+}
 
 
 
@@ -750,7 +893,7 @@ $(document).ready(function(){
 
 	// 회원탈퇴
 	function confirmDelete(user_no) {
-	    var result = confirm('정말 탈퇴하시겠습니까? "확인"을 선택하시면 탈퇴가 완료 됩니다.');
+	    var result = confirm('정말 탈퇴하시겠습니까?"확인"을 선택하시면 탈퇴가 완료 됩니다.');
 
 	    if (result) {
 	        // 사용자가 '확인'을 눌렀을 때의 처리
@@ -776,7 +919,7 @@ $(document).ready(function(){
 	    	
 	    	content += '<tr>';
 	        switch (activeButton) {
-	            case '요청':
+	          /*   case '요청':
 	                content += '<td>' + item.req_title + '</td>';
 	                content += '<td>' + '조회수 ' + item.views + '</td>';
 	                console.log(item.req_title);
@@ -785,20 +928,21 @@ $(document).ready(function(){
 	            case '자유게시판': 
 	                content += '<td>' + item.title + '</td>';
 	                content += '<td>' + '조회수 ' + item.views + '</td>';
-	                break; 
+	                break;  */
 	           	case '피드':
 	           		content += '<td class="profile"><img src="/photo/' + item.profile_image + '" alt="image">' + item.nickname + '</td>';
 	                content += '<tr></tr>';
 	                content += '<td colspan="2"><img src="/photo/' + item.server_file_name + '" alt="image"  class="feed-image" data-toggle="modal" data-target="#feedDetailModal"></td>';
 	                content += '<tr></tr>';
-	                content += '<td colspan="2">' + item.content + '</td >';
+	                content += '<td colspan="2" class="itemContent">' + item.content + '</td >';
 	                $('#ListContainer').addClass('feedTable');
 	                break;
 	            case '식당':
 	                content += '<td>' + item.title + '/별점 : ' + item.rating + '</td>';
 	                content += '<tr></tr>';
-	                content += '<td><a href="/invegan/restaurant/detail?post_id=' + item.post_id + '"><img src="/photo/' + item.server_file_name + '" alt="image"></td>';
+	                content += '<td class="rtServerFileName"><a href="/invegan/restaurant/detail?post_id=' + item.post_id + '"><img src="/photo/' + item.server_file_name + '" alt="image" class="restaurantPhoto"></td>';
 	                content += '<tr></tr>';
+	                $('#ListContainer').addClass('restaurantTable');
 	               
 	                break; 
 	                

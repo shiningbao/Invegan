@@ -30,9 +30,8 @@ thead td{
 }
 
 #yearMonth {
-	width: 40px;
-	font-size: 25px;
 	text-align: center;
+		font-size: 26px;
 }
 
 #day {
@@ -70,7 +69,7 @@ tbody tr td:not(.today){
 
 .today {
 	box-shadow:#ee0000 1px 1px 9px 0px;
-	font-size: 20px;
+	font-size: 16px;
 	font-weight: 600;
 }
 
@@ -85,33 +84,13 @@ tbody tr td:not(.today){
 }
 
 
-#calYear {
-	/* float: left; */
-	/* position: absolute; */
-	/* top: 13px; */
-	/* left: 215px; */
-	width: 55px;
-	font-size: 26px;
-	cursor: pointer;
-	display: inline-block;
-}
-
-#calMonth {
-	width: 30px;
-	/* position: absolute; */
-/* 	top: 13px; */
-	/* left: 300px; */
-	font-size: 26px;
-	display: inline-block;
-}
 .dayData{
 	height: 50px;
 }
 
 
-#yearMonth div:last-child{
+#yearMonth div{
 	display: inline-block;
-	width: 28px;
 }
 
 select {
@@ -120,11 +99,7 @@ select {
 	left: 5px;
 }
 
-
 #next , #prev{
-	/* position: absolute; */
-	/* top: 13px; */
-	/* right: 600px; */
 	text-align: center;
 	font-size: 34px;
 }
@@ -150,7 +125,6 @@ select {
 					<td colspan="5" id="yearMonth">
 						<div id="calYear"></div>
 						<div id="calMonth"></div>
-						<div>월</div>
 					</td>
 
 					<td onClick="nextCalendar();" id="next" style="cursor: pointer;">&#62;</td>
@@ -170,10 +144,12 @@ select {
 			</tbody>
 		</table>
 	</div>
-	<c:import url="/main/footer" />
+<%-- 	<c:import url="/main/footer" /> --%>
 </body>
 
 <script>
+	/*식단관리 페이지에서 카테고리 표시*/
+	$('#go_diet').css('box-shadow','#95df95 0px 2px 0px 0px');
 
 	var	nowMonth = new Date(); // 현재 달을 페이지를 로드한 날의 달로 초기화
 	var	today = new Date();
@@ -187,6 +163,7 @@ select {
 		location.href = "dietMgmt?date=" + selectDate;
 	} 
 
+	
 	// 숫자가 10보다 작을 때 앞에 0을 붙여서 반환
 	function leftPad(value) {
 		if (value < 10) {
@@ -208,9 +185,9 @@ select {
 				nowMonth.getMonth() + 1, 0); // 이번달 마지막날
 
 		let tbody_Calendar = document.querySelector(".Calendar > tbody");
-		document.getElementById("calYear").innerText = nowMonth.getFullYear(); // 연도 숫자 갱신
+		document.getElementById("calYear").innerText = nowMonth.getFullYear()+'년 '; // 연도 숫자 갱신
 		document.getElementById("calMonth").innerText = leftPad(nowMonth
-				.getMonth() + 1); // 월 숫자 갱신
+				.getMonth() + 1)+'월'; // 월 숫자 갱신
 
 		while (tbody_Calendar.rows.length > 0) { // 이전 출력결과가 남아있는 경우 초기화
 			tbody_Calendar.deleteRow(tbody_Calendar.rows.length - 1);
@@ -361,8 +338,8 @@ select {
 	
 
 	
-
-	document.getElementById("calYear").addEventListener("click",function(event) {
+	// 년도 변경 보류
+	/* document.getElementById("calYear").addEventListener("click",function(event) {
 		console.log('click');
 		// 클릭한 위치에 새로운 <select> 요소 생성
 		var selectElement = document.createElement("select");
@@ -397,7 +374,7 @@ select {
 			}
 
 		});
-	});
+	}); */
 	
 	
 	

@@ -2,7 +2,7 @@ package kr.co.invegan.main.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -13,9 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.invegan.board.dto.FeedListDTO;
+import kr.co.invegan.board.dto.restaurantFilterListDTO;
 import kr.co.invegan.main.dao.MainDAO;
 import kr.co.invegan.main.dto.distCntDTO;
-import kr.co.invegan.main.dto.restaurantFilterListDTO;
 import kr.co.invegan.member.dto.MemberDTO;
 
 @Service
@@ -27,7 +27,7 @@ public class MainService {
 
 	public ArrayList<restaurantFilterListDTO> restaurantFilterList(HttpSession session, double userLat, double userLng) {
 		
-		ArrayList<restaurantFilterListDTO> result = null;
+		ArrayList<restaurantFilterListDTO> resList = null;
 		String vegan_type;
 		List<String> vt = null;
 		distCntDTO distCnt = null;
@@ -85,7 +85,16 @@ public class MainService {
 			}
 		}
 		logger.info("vt :"+vt+" / dist: "+dist);
-		result = dao.restaurantFilterList(vt, userLat, userLng,dist);
+		resList = dao.restaurantFilterList(vt, userLat, userLng, dist);
+		
+		int cnt = 6; // view에 뿌려줄 숫자
+		ArrayList<restaurantFilterListDTO> result = new ArrayList<restaurantFilterListDTO>();
+		if(resList.size() < cnt) {
+			cnt = resList.size();
+		}
+		for (int i = 0; i < cnt; i++) {
+			result.add(resList.get(i));
+		}
 		
 		return result;
 
@@ -93,18 +102,31 @@ public class MainService {
 
 	public ArrayList<FeedListDTO> feedFilterList(HttpSession session) {
 		MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
-		
+		ArrayList<FeedListDTO> feedList = null;
 		if(loginInfo != null) {
 			// 로그인 상태
 			String interests = dao.interests(loginInfo.getUser_no());
+			List<String> inteList = new ArrayList<String>();
 			logger.info("interests: "+interests);
 			String[] inteArr = interests.split(",");
-			
+			for (String inte : inteArr) {
+				inteList.add("%"+inte+"%");
+			}
+			feedList = dao.feedInterestFilterList(inteList);
 		}else {
 			// 비로그인 상태
 			logger.info("비로그인");
+			feedList = dao.feedFilterList();
 		}
-		ArrayList<FeedListDTO> result = dao.feedFilterList();
+		int cnt = 6; // view에 뿌려줄 숫자
+		ArrayList<FeedListDTO> result = new ArrayList<FeedListDTO>();
+		Collections.shuffle(feedList);
+		if(feedList.size() < cnt) {
+			cnt = feedList.size();
+		}
+		for(int i = 0; i < cnt; i++) {
+			result.add(feedList.get(i));
+		}
 		return result;
 	}
     

@@ -4,152 +4,181 @@
 <head>
 <meta charset="UTF-8">
 
+
  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
  		<!-- <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"> -->
-	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-      <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-	  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!-- 	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> -->
+       <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
+<!-- 	  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+
 
 <style>
-	.top {
-		clear: both;
-		height: 150px;
-	}	
-	.logoImg{
-		position: inherit;
-		float: left;
-	}
-	.loginInfo{
-		position: inherit;
-		float: right;
-		width: 200px;
-		height: 30px;
-		margin-top: 25px;
-		margin-right: 50px;
-		
-	}
-	.loginInfo > p {
-		display: inline-block;
-	}
-	.infoModal{
-		border: 1px solid black;
-		display: none;
-		position: absolute;
-		background-color: grey;
-		z-index: 100;
 
-	}
-	#profileImg {
-	   width: 50px;
-	   height: 50px;
-	   border-radius: 50%;
-	   margin-right: 10px;
-	}
-	.sideBar{
-		width: 60px;
-		height: 372px;
-		position: fixed;
-		top: 35%;
-		right: 3%;
-	}	
-	.sideList{
-		width: 60px;
-		height: 60px;
-		margin: 1px 0px;
-		border: 1px solid black;
-		background-color: #F0F8FF;		
-	}
-	#last{
-		border: 2px gray solid;
-		width: 100%;
-	}
-	.nav{
-		margin: 0 auto;
-		width: 1000px;
-	}
-	.nav_item_1{
-		list-style: none;
-		float: left;
-		margin: 0 15px;
-		position: relative;
-	}
-	.nav_item_1 > a{
-		font-size: 40px;
-		text-decoration: none;
-		color: black;
+@font-face {
+    font-family: 'S-CoreDream-3Light';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
-	}
-	.nav_list_2{
-		display: none;
-		position: absolute;
-		top: 100%;
-		background-color: grey;
-	}
-	.nav_item_1{
-		list-style: none;
-		position: relative;
-	}
-	.nav_litm_2 > a{
-		text-align: center;
-		text-decoration: none;
-		font: 40px;
-	}
+* {
+    font-family: 'S-CoreDream-3Light', sans-serif; 
+}
+
+::-webkit-scrollbar {
+    width: 0; /* 스크롤바 너비를 0으로 설정하여 숨깁니다. */
+}
+
+#header-container{
+	height: 100px;
+	width: 1000px;
+	margin: 0 auto;
+	position: relative;
+	
+}
+.header-logoImg img{
+	width: 135px;
+	height: 100px;
+}
+.header-logoImg{
+	position: absolute;
+	left: -239px;
+}
+.header-logoImg img:hover{
+	cursor: pointer;
+}
+
+.header-logoImg, .header-navbar, .loginInfo{
+	display: inline-block;
+}
+.header-navbar{
+	position: absolute;
+    right: 0px;
+    top: 53px;
+}
+.header-nav_list{
+	list-style: none;
+	display: flex;
+	margin: 16px 0px;
+	padding: 0px;
+}
+.header-nav_item{
+	margin: 3px 10px;
+}
+.header-nav_item a{
+	all: initial;
+	font-size: 19px;
+	font-weight: 600;
+	
+}
+.header-nav_item a:hover{
+	cursor: pointer;
+	color:#95df95;
+}
+
+#header-loginBtn{
+	position: absolute;
+	right: 30px;
+	top:20px;
+}
+#header-loginBtn a{
+	all:initial;
+	font-size: 20px;
+	font-weight: 600;
+	cursor: pointer;
+}
+#header-loginBtn a:hover{
+	color:#95df95;
+}
+
+.loginInfo{
+	position: fixed;
+    right: 23px;
+    top: -15px;
+}
+
+.loginInfo p {
+	display: inline-block;
+	margin: 16px 0px !important;
+	font-size: 18px;
+    font-weight: 600;
+}
+#profileImg {
+   width: 40px;
+   height: 40px;
+   border-radius: 50%;
+   margin-right: 10px;
+   position: relative;
+   top: 12px;
+   vertical-align: baseline !important;
+}
+.infoMB{
+	width: 130px;
+	background: white;
+}
+.infoModal{
+	display: none;
+	border-radius: 5px;
+	box-shadow: gray 5px 5px 7px 0px;
+	text-align: center;
+}
+.infoModal div{
+	padding: 5px 10px;
+}
+.infoModal div:hover{
+	cursor: pointer;
+}
+
+.infoModal div a{
+	all: initial;
+	cursor: pointer;
+}
+
 </style>
 </head>
 <body>
-<header>
-	<div class="top">
-		<div class = "logoImg">
-			<img src="<c:url value='/resources/main/logo.png'/>" width=300px height=150px, alt="Logo Img" id="Logo"/>
+<header id="header-container">
+		<div class = "header-logoImg">
+			<img src="<c:url value='/resources/main/invegan_logo_master.png'/>"  alt="Logo Img" id="Logo"/>
+		</div>
+		<div class="header-navbar">
+			<nav class="header-nav">
+				<ul class="header-nav_list">
+					<li class="header-nav_item"><a id="go_diet" href="<c:url value='/diet/dietCalander'/>">식단관리</a></li>
+					<li class="header-nav_item" id="go_rest"><a href="<c:url value='/restaurant/list'/>">비건식당</a></li>
+					<li class="header-nav_item"><a id="go_feed" href="<c:url value='/feed/list.go'/>">피드</a></li>
+					<c:if test="${not empty loginInfo}">
+						<li class="header-nav_item"><a id="go_myPage" href="<c:url value='/myPage/info.go'/>">MyPage</a></li>
+					</c:if>
+				</ul>
+			</nav>
 		</div>
 		<div class="loginInfo">
-				<!-- 로그인 안했을 때 -->
+			<!-- 로그인 안했을 때 -->
 			<c:if test="${empty loginInfo}">
-				<p><a href = "<c:url value='/member/login.go'/>">로그인</a></p>
-				<p>/</p>
-				<p><a href = "<c:url value='/member/signup'/>">회원가입</a></p>
+				<p id="header-loginBtn"><a href = "<c:url value='/member/login.go'/>">Login</a></p>
 			</c:if>
 		
 			<!-- 로그인 했을 때 -->
  			<c:if test="${not empty loginInfo}">
 				<p><img id="profileImg" src="/photo/${loginInfo.getProfile_img()}" /></p>
 				<p id="loginNickname">${loginInfo.getNickname()}</p>
-				<p id="loginId">${loginInfo.getId()}</p>
+				<p id="loginId">( ${loginInfo.getId()} )</p>
 				<div class="infoMB">
-					<button id="infoButton">@</button>
 					<div class="infoModal">
 						<div class="infoModalList"><a href = "<c:url value='/member/logout'/>">로그아웃</a></div>
-						<div class="infoModalList"><a href = "<c:url value='/myPage/info.go'/>">마이페이지</a></div>
+						<div class="infoModalList"><a href = "<c:url value='/myPage/info.go'/>">MyPage</a></div>
 						<c:if test="${loginInfo.getIs_admin() eq '1'}">
-							<div class="infoModalList_admin"><a href = "<c:url value='/member/signup'/>">회원 관리</a></div>
-							<div class="infoModalList_admin"><a href = "<c:url value='/member/signup'/>">신고관리</a></div>
 							<div class="infoModalList_admin"><a href = "<c:url value='/diet/addMaterial.go'/>">식재료추가</a></div>
 						</c:if>
 					</div>
-				</div>
+				</div> 
 			</c:if>
 
 		</div>
 		
-	</div>
-		<nav class="nav">
-			<ul class="nav_list_1">
-				<li class="nav_item_1"><a href="<c:url value='/diet/dietCalander'/>">식단관리</a></li>
-				<li class="nav_item_1" id="nav_item_categori"><a href="<c:url value='/restaurant/list'/>">카테고리</a>
-	 				<ul class="nav_list_2">
-						<li class="nav_item_2"><a href="<c:url value='/restaurant/list'/>">식당</a></li>
-						<li class="nav_item_2"><a href="<c:url value='/restaurant/list'/>">레시피</a></li>
-						<li class="nav_item_2"><a href="<c:url value='/restaurant/list'/>">음식</a></li>
-						<li class="nav_item_2"><a href="<c:url value='/restaurant/list'/>">뷰티</a></li>
-						<li class="nav_item_2"><a href="<c:url value='/restaurant/list'/>">패션</a></li>
-					</ul>
-				</li>
-				<li class="nav_item_1"><a href="<c:url value='/feed/list.go'/>">피드</a></li>
-				<li class="nav_item_1"><a href="<c:url value='/restaurant/list'/>">자유게시판</a></li>
-				<li class="nav_item_1"><a href="<c:url value='/restaurant/list'/>">소식지</a></li>
-			</ul>
-		</nav>
-
+		
+<!-- 
 	<div class="sideBar">
 		<div class="sideList">
 			<p>위</p>
@@ -169,37 +198,48 @@
 		<div class="sideList">
 			<a>요청하기</a>
 		</div>
-	</div>
-	
-<hr id="last">
+	</div> -->
 
 </header>
+		<hr style="border:1px solid darkgrey; color:darkgrey; margin:8px;"/>
 
 <%-- 	<%@ include file="library.jsp" %> --%>
 </body>
 
 <script>
+	$('.infoModal div').hover(
+		function () {
+			$(this).find('a').css('color','#95df95');
+		},
+		function () {
+			$(this).find('a').css('color','#000');
+		}
+	);
 
 	$('#Logo').on('click',function(){
 		location.href = '<c:url value='/'/>';
 	});
-
-	$('#infoButton').on('click',function(){
+	
+	$(document).on('click', function(event) {
 		var displayChk = $('.infoModal').css('display');
-		console.log(displayChk);
-		if(displayChk == 'block'){
-			$('.infoModal').css({'display':'none'});
-		}else{
-			$('.infoModal').css({'display':'block'});
-		}
+	    if (!$(event.target).closest('#profileImg').length) {
+	        $('.infoModal').css({'display':'none'});
+	    }else{
+	    	if(displayChk == 'none'){
+				$('.infoModal').css({'display':'block'});
+	    	}else{
+		        $('.infoModal').css({'display':'none'});
+	    	}
+	    }
 	});
+	
 
-	$('#nav_item_categori').on('mouseover',function(){
+	/* $('#nav_item_categori').on('mouseover',function(){
 		$('.nav_list_2').css({"display":"block"});	
 	});
 	$('#nav_item_categori').on('mouseout',function(){
 		$('.nav_list_2').css({"display":"none"});	
-	});
+	}); */
 
 </script>
 </html>

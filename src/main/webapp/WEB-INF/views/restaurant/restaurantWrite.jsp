@@ -169,10 +169,11 @@
 	</tr>
 </table>
 </div>
-<c:import url="/main/footer"/>
 </body>
 
 <script>
+//header 카테고리 선택유지
+$('#go_rest').css('box-shadow','#95df95 0px 2px 0px 0px');
 
 var imgArr= [];
 var $restaurantImg_upload = document.getElementById('restaurantImg_upload');
