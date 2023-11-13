@@ -55,14 +55,19 @@ input:hover {
 </head>
 <body>
 
-	<h2>아이디/비밀번호 찾기</h2>
-
-	<br>
-
-	<input id="findId" type="button" name="findId" value="아이디 찾기" >
-
-	<input id="findPw" type="button" name="findPw" value="비밀번호 찾기" >
-
+	<table>
+		<tr>
+			<th colspan="2">
+				<h2>아이디/비밀번호 찾기</h2>
+			</th>
+		</tr>
+		<tr>
+			<th><input id="findId" type="button" name="findId" value="아이디 찾기" ></th>
+			<th><input id="findPw" type="button" name="findPw" value="비밀번호 찾기" ></th>
+		</tr>
+	
+	</table>
+	
 </body>
 
 <script>
