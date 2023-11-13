@@ -190,30 +190,36 @@ body {
 
 /* 원형 그래프*/
 #kcal, #carb, #prot, #fat {
-	width: calc(83% - 0px);
-	padding-bottom: calc(97% - 19px);
+	width: 84px;
+	height: 84px;
+	/* padding-bottom: calc(97% - 19px); */
 	margin: 3px auto;
 	border-radius: 50%;
 	position: relative;
 	text-align: center;
 	background: conic-gradient(#3F8BC9 0% 0%, #F2F2F2 0% 100%);
+	display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #kcal::before, #carb::before, #prot::before, #fat::before {
 	color: black;
-	width: 68%;
-	padding: calc(35% - 1.3vw) 0;
+	width: 55px;
+	height: 55px;
+	/* padding: calc(35% - 1.3vw) 0; */
 	background: #FFFFFF;
 	border-radius: 50%;
 	position: absolute;
-	left: 16%;
-	top: 15%;
 	content: attr(data-percent) '%';
 	transform: skew(-0.03deg);
 	margin: auto;
 	font-size: 1.1vw;
 	font-size: 23px;
-	padding: calc(43% - 1.3vw) 0;
+	/* padding: calc(43% - 1.3vw) 0; */
+	display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .graph-box {
@@ -718,7 +724,7 @@ body {
 	// 영양소 총 합을 그려주는 함수
 	function drawNutri(nutr, daily) {
 		console.log("nutr", nutr);
-		console.log("daily", daily)
+		console.log("daily", daily);
 
 		// 태그 가져오기
 		var kcal = document.querySelector("#kcal");

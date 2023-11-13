@@ -14,8 +14,8 @@
 
 #defaultMenuBox{
 	margin: 0 auto;
-    width: 94%;
-	white-space :nowrap;
+    width: 94%;	
+    height : 600px;
 	overflow: hidden;
 }
 #listArea, #showNutri, #contents-vertical{
@@ -23,12 +23,14 @@
 }
 #listArea {
     width: 72%;
+    height: 600px;
 }
 
 /* 식품 검색 구역*/
 
 #left-top-box{
 	position: relative;
+	white-space :nowrap;
 }
 #left-top-box div{
 	display: inline-block;
@@ -43,7 +45,7 @@
 	border: 1.5px solid gray;
 	color: gray;
 	border-radius: 5px;
-	box-shadow: lightgray 5px 4px 7px 1px;;
+	box-shadow: lightgray 5px 4px 7px 1px;
 	outline-color: #9eca9e;
 }
 #cateBtn button:hover{
@@ -116,7 +118,7 @@
 	margin: 16px 3px;
 	border-radius: 5px;
 	border: 1.5px solid black;
-	box-shadow: lightgray 5px 4px 7px 1px;;
+	box-shadow: lightgray 5px 4px 7px 1px;
 	outline-color: #9eca9e;
 	position: absolute;
 	top: 2px;
@@ -138,40 +140,40 @@
 }
 
 /* 식품 검색 리스트*/
-#foodList {
-
+#listBox { 	
+	height: 500px;
+	overflow: auto;
+    overflow-x: hidden;
 }
+
+#listBox::-webkit-scrollbar{
+	width: 3px;
+}
+#listBox::-webkit-thumb{
+	width: 3px;
+}
+#listBox::-webkit-track{
+	width: 3px;
+} 
 
 #foodListHead th {
 	padding: 3px 10px;
     height: 25px;
     border: 1.3px solid #59b879;
     border-radius: 3px;
+    white-space :nowrap;
+    position: sticky;
+	top: 0px;
+	background-color: white;
 }
 #msg {
 	text-align: center;
 }
 
-#foodListBox {
-	text-align:center;
-    width: 100%;
-    height: 480px;
-    overflow: auto;
-    overflow-x: hidden;
-    border-bottom: 1.5px solid darkgray;
-}
-#foodListBox::-webkit-scrollbar{
-	width: 3px;
-}
-#foodListBox::-webkit-thumb{
-	width: 3px;
-}
-#foodListBox::-webkit-track{
-	width: 3px;
-} 
 #foodList {
 	white-space: normal;
 	border-collapse: collapse;
+	text-align: center;
 }
 .foodItem td{
 }
@@ -188,12 +190,15 @@
     margin: 0px 15px;
     border-right: 1.5px solid gray;
     position: relative;
-    bottom: 14px;
+   	left : 820px;
+	bottom : 560px;
 }
 
 /*영양소 구역*/
 #showNutri{
 	position: absolute;
+	right : 58px;
+	top : 89px;
 }
 #showNutri table{
 	width: 265px;
@@ -246,131 +251,124 @@
 				</div>
 				<button id="addBtn" onclick="addMenu()">완료</button>
 			</div>
-	
-
 			<div id="listBox">
 				<table id="foodListHead">
 					<colgroup>
-						<col width="4%">
-						<col width="40%">
-						<col width="15%">
-						<col width="20%">
-						<col width="12%">
-						<col width="9%">
+							<col width="4%">
+							<col width="40%">
+							<col width="15%">
+							<col width="20%">
+							<col width="12%">
+							<col width="9%">
+					</colgroup>
+					<thead>
+						<tr>
+							<th>No.</th>
+							<th>식품명</th>
+							<th>분류</th>
+							<th>제조사</th>
+							<th>제공량(g)</th>
+							<th>kcal</th>
+						</tr>
+					</thead>
+					<tbody id="foodList">
+						<!-- 검색결과 영역 -->
+					</tbody>
+				</table>
+			</div>
+			<div id="contents-vertical"></div>
+			<div id="showNutri">
+				<table>
+					<colgroup>
+						<col width="60%"/>
+						<col width="40%"/>
 					</colgroup>
 					<tr>
-						<th>No.</th>
-						<th>식품명</th>
-						<th>분류</th>
-						<th>제조사</th>
-						<th>제공량(g)</th>
-						<th>kcal</th>
+						<td colspan="2" id="food_name"><h3>식품을 선택해주세요</h3></td>
+					</tr>
+					<tr>
+						<td>1회 제공량</td>
+						<td id="serving_size">0 g</td>
+					</tr>
+					<tr>
+						<td>kcal</td>
+						<td id="kcal">0 kcal</td>
+					</tr>
+					<tr>
+						<td>탄수화물</td>
+						<td id="carb">0 g</td>
+					</tr>
+					<tr>
+						<td>단백질</td>
+						<td id="prot">0 g</td>
+					</tr>
+					<tr>
+						<td>지방</td>
+						<td id="fat">0 g</td>
+					</tr>
+					<tr>
+						<td>총 당류</td>
+						<td id="sugar">0 g</td>
+					</tr>
+					<tr>
+						<td>총 식이섬유</td>
+						<td id="fiber">0 g</td>
+					</tr>
+					<tr>
+						<td>칼슘</td>
+						<td id="ca">0 mg</td>
+					</tr>
+					<tr>
+						<td>철</td>
+						<td id="fe">0 mg</td>
+					</tr>
+					<tr>
+						<td>마그네슘</td>
+						<td id="mg">0 mg</td>
+					</tr>
+					<tr>
+						<td>인</td>
+						<td id="p">0 mg</td>
+					</tr>
+					<tr>
+						<td>칼륨</td>
+						<td id="k">0 mg</td>
+					</tr>
+					<tr>
+						<td>나트륨</td>
+						<td id="na">0 mg</td>
+					</tr>
+					<tr>
+						<td>아연</td>
+						<td id="zn">0 mg</td>
+					</tr>
+					<tr>
+						<td>비타민A</td>
+						<td id="vit_a">0 µg</td>
+					</tr>
+					<tr>
+						<td>비타민B6</td>
+						<td id="vit_b6">0 mg</td>
+					</tr>
+					<tr>
+						<td>비타민B12</td>
+						<td id="vit_b12">0 mg</td>
+					</tr>
+					<tr>
+						<td>비타민C</td>
+						<td id="vit_c">0 mg</td>
+					</tr>
+					<tr>
+						<td>필수 아미노산</td>
+						<td id="essential">0 mg</td>
+					</tr>
+					<tr>
+						<td>오메가3</td>
+						<td id="omega3">0 g</td>
 					</tr>
 				</table>
-				<div id="foodListBox">
-					<div id="msg">
-						<h3>식품을 검색해 주세요</h3>
-					</div>
-					<table id="foodList">
-
-						<!-- 검색결과 영역 -->
-					</table>
-				</div>
 			</div>
 		</div>
-		<div id="contents-vertical"></div>
-		<div id="showNutri">
-			<table>
-				<colgroup>
-					<col width="60%"/>
-					<col width="40%"/>
-				</colgroup>
-				<tr>
-					<td colspan="2" id="food_name"><h3>식품을 선택해주세요</h3></td>
-				</tr>
-				<tr>
-					<td>1회 제공량</td>
-					<td id="serving_size">0 g</td>
-				</tr>
-				<tr>
-					<td>kcal</td>
-					<td id="kcal">0 kcal</td>
-				</tr>
-				<tr>
-					<td>탄수화물</td>
-					<td id="carb">0 g</td>
-				</tr>
-				<tr>
-					<td>단백질</td>
-					<td id="prot">0 g</td>
-				</tr>
-				<tr>
-					<td>지방</td>
-					<td id="fat">0 g</td>
-				</tr>
-				<tr>
-					<td>총 당류</td>
-					<td id="sugar">0 g</td>
-				</tr>
-				<tr>
-					<td>총 식이섬유</td>
-					<td id="fiber">0 g</td>
-				</tr>
-				<tr>
-					<td>칼슘</td>
-					<td id="ca">0 mg</td>
-				</tr>
-				<tr>
-					<td>철</td>
-					<td id="fe">0 mg</td>
-				</tr>
-				<tr>
-					<td>마그네슘</td>
-					<td id="mg">0 mg</td>
-				</tr>
-				<tr>
-					<td>인</td>
-					<td id="p">0 mg</td>
-				</tr>
-				<tr>
-					<td>칼륨</td>
-					<td id="k">0 mg</td>
-				</tr>
-				<tr>
-					<td>나트륨</td>
-					<td id="na">0 mg</td>
-				</tr>
-				<tr>
-					<td>아연</td>
-					<td id="zn">0 mg</td>
-				</tr>
-				<tr>
-					<td>비타민A</td>
-					<td id="vit_a">0 µg</td>
-				</tr>
-				<tr>
-					<td>비타민B6</td>
-					<td id="vit_b6">0 mg</td>
-				</tr>
-				<tr>
-					<td>비타민B12</td>
-					<td id="vit_b12">0 mg</td>
-				</tr>
-				<tr>
-					<td>비타민C</td>
-					<td id="vit_c">0 mg</td>
-				</tr>
-				<tr>
-					<td>필수 아미노산</td>
-					<td id="essential">0 mg</td>
-				</tr>
-				<tr>
-					<td>오메가3</td>
-					<td id="omega3">0 g</td>
-				</tr>
-			</table>
-		</div>
-
 	</div>
 </body>
 <script>
@@ -519,17 +517,16 @@
 			console.log($('#msg h3').css());
 			console.log($('#msg h3').html());
 		} else {
-			content += '<colgroup><col width="5%"><col width="39%"><col width="14%"><col width="20%"><col width="12%"><col width="9%"></colgroup>';
 			data.findFoodList
 					.forEach(function(item, idx) {
 						content += '<tr class="foodItem" onclick="selectFood(this)">';
 						content += '<td style="display:none"><input type="text" class="foodId" value="'+item.food_id+'"/></td>';
-						content += '<td>' + (idx + 1) + '</td>';
-						content += '<td>' + item.food_name + '</td>';
-						content += '<td>' + item.food_category + '</td>';
-						content += '<td>' + item.production + '</td>';
-						content += '<td>' + item.serving_size + '</td>';
-						content += '<td>' + item.kcal + '</td>';
+						content += '<td width="51.91px">' + (idx + 1) + '</td>';
+						content += '<td width="40%">' + item.food_name + '</td>';
+						content += '<td width="15%">' + item.food_category + '</td>';
+						content += '<td width="155.48px">' + item.production + '</td>';
+						content += '<td width="12%">' + item.serving_size + '</td>';
+						content += '<td width="9%">' + item.kcal + '</td>';
 						content += '</tr>';
 					}); 	
 		}

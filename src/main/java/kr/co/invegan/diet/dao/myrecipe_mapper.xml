@@ -5,15 +5,15 @@
 
 <mapper namespace="kr.co.invegan.diet.dao.MyRecipeDAO">
 	<select id = "mlist" parameterType="string" resultType="kr.co.invegan.diet.dto.FoodDataDTO">
-		SELECT * FROM FoodData
-			WHERE food_name LIKE CONCAT('%', #{param1}, '%')
-			ORDER BY CASE
-				WHEN food_name LIKE #{param1} THEN 1
-			    WHEN food_name LIKE CONCAT(#{param1}, ',%') THEN 2
-			    WHEN food_name LIKE CONCAT(#{param1}, '%') THEN 3
-			    WHEN food_name LIKE CONCAT('%', #{param1}, '%') THEN 4
-			    WHEN food_name LIKE CONCAT('%', #{param1}) THEN 5
-			ELSE 0 END;
+		SELECT * FROM FoodData 
+         WHERE REPLACE(food_name,' ','') LIKE CONCAT('%',REPLACE(#{param1},' ',''),'%')
+         ORDER BY CASE 
+            WHEN food_name LIKE #{param1} THEN 1
+            WHEN food_name LIKE CONCAT(#{param1}, ',%') THEN 2
+             WHEN food_name LIKE CONCAT(#{param1}, '%') THEN 3
+            WHEN food_name LIKE CONCAT('%',#{param1}, '%') THEN 4
+            WHEN food_name LIKE CONCAT('%', #{param1}) THEN 5
+         ELSE 0 END;
 	</select>
 	
 	<insert id = "mMaterial" parameterType="map">
