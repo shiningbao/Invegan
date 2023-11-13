@@ -412,7 +412,7 @@
 		}
 		
 		#feedImg{
-			width : 150px;
+			width : 212px;
 			text-align: center;
     		padding: 20px;
 		}
@@ -1028,7 +1028,7 @@ function drawFcList(fcmList) {
     	
     	content += '<div class = feedCmDiv>';
         content += '<div class="profile"><img src="/photo/' + item.profile_image + '" alt="image">' + item.nickname + '</div>';
-        content += '<div class="feedImg"><img src="/photo/' + item.server_file_name + '" alt="image"></div>';
+        content += '<div class="feedImg"><img src="/photo/' + item.server_file_name + '" alt="image" id="feedImg"></div>';
         content += '<div class="itemContent">' + shortenedContent + '</div>';
 
         content += '</div>';
