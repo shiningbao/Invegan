@@ -37,8 +37,8 @@
 	
 }
 .header-logoImg img{
-	width: 135px;
-	height: 100px;
+	width: 126px;
+    height: 104px;
 }
 .header-logoImg{
 	position: absolute;
@@ -78,23 +78,18 @@
 
 #header-loginBtn{
 	position: absolute;
-	right: 30px;
-	top:20px;
-}
-#header-loginBtn a{
-	all:initial;
-	font-size: 20px;
-	font-weight: 600;
+    right: 25px;
+    top: 24px;
 	cursor: pointer;
 }
-#header-loginBtn a:hover{
+#header-loginBtn:hover{
 	color:#95df95;
 }
 
 .loginInfo{
 	position: fixed;
-    right: 23px;
-    top: -15px;
+	right: 42px;
+    top: 5px;
 }
 
 .loginInfo p {
@@ -111,6 +106,9 @@
    position: relative;
    top: 12px;
    vertical-align: baseline !important;
+}
+#profileImg:hover{
+	cursor: pointer;
 }
 .infoMB{
 	width: 130px;
@@ -132,6 +130,27 @@
 .infoModal div a{
 	all: initial;
 	cursor: pointer;
+}
+
+/*login Modal*/
+.login-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 5;
+}
+.login-close{
+    font-size: 47px;
+    position: fixed;
+    right: 592px;
+    top: 251px;
+    color: #010101;
+    z-index: 5;
+    cursor: pointer;
 }
 
 </style>
@@ -156,7 +175,7 @@
 		<div class="loginInfo">
 			<!-- 로그인 안했을 때 -->
 			<c:if test="${empty loginInfo}">
-				<p id="header-loginBtn"><a href = "<c:url value='/member/login.go'/>">Login</a></p>
+				<p id="header-loginBtn">Login</p>
 			</c:if>
 		
 			<!-- 로그인 했을 때 -->
@@ -174,31 +193,14 @@
 					</div>
 				</div> 
 			</c:if>
-
 		</div>
-		
-		
-<!-- 
-	<div class="sideBar">
-		<div class="sideList">
-			<p>위</p>
+		<!-- 모달 창 -->
+		<div id="login-modal" class="login-modal">
+		    <div class="modal-content">
+		        <span class="login-close" id="closeModalBtn">&times;</span>
+		        <c:import url="/member/login.go"/>
+		    </div>
 		</div>
-		<div class="sideList">
-			<p>사</p>
-		</div>
-		<div class="sideList">
-			<p>이</p>
-		</div>
-		<div class="sideList">
-			<p>드</p>
-		</div>
-		<div class="sideList">
-			<p>바</p>
-		</div>
-		<div class="sideList">
-			<a>요청하기</a>
-		</div>
-	</div> -->
 
 </header>
 		<hr style="border:1px solid darkgrey; color:darkgrey; margin:8px;"/>
@@ -207,6 +209,21 @@
 </body>
 
 <script>
+
+	/* 로그인 모달 */	
+	$("#header-loginBtn").click(function openModal() {
+       $("#login-modal").css("display", "block");
+       $("body").css("overflow", "hidden");
+       $('#login-id').focus();
+   });
+
+   // 모달 닫기 버튼 및 모달 바깥 부분 클릭 시 이벤트
+   $("#closeModalBtn, .modal").click(function closeModal() {
+       $("#login-modal").css("display", "none");
+       $("body").css("overflow", "auto");
+   });
+   
+   
 	$('.infoModal div').hover(
 		function () {
 			$(this).find('a').css('color','#95df95');

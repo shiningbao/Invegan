@@ -50,8 +50,8 @@ input[type="text"] {
 } */
 
 .mainFeedPhoto {
-	width: 600px;
-	height: 400px;
+	width: 500px;
+	height: 500px;
 }
 
 .post-caption .username {
@@ -116,14 +116,14 @@ input[type="text"] {
 }
 .addBtnSearch, .addBtn{
 	display: none;
-	margin-left: 850px;
+	margin-left: 830px;
 	border:none;
 	background-color: transparent;
 	cursor: pointer;
 	
 }
 .addBtnImg{
-	width:100px;
+	width:40px;
 }
 
 .btn {
@@ -204,6 +204,13 @@ input[type="text"] {
 	#content{
 		height:200px;
 	}
+	
+	.post-time {
+    border-bottom: 1px solid #cdd6df;
+    width: 500px;
+    margin-bottom: 50px; 
+
+  }
 </style>
 
 </head>
@@ -239,8 +246,7 @@ input[type="text"] {
 						<input type="text" id="autoComplete" class="autoComplete" placeholder="미입력후 검색시 전체리스트">
 						<button type="button" id="searchbtn" class="btn btn-Dark"><b>검색</b></button>
 					</div>
-					<button type="button" id="write-btn" class="btn btn-success"
-						data-toggle="modal" data-target=".bd-example-modal-xl">피드게시글 작성</button>
+					<button type="button" id="write-btn" class="btn btn-success">피드게시글 작성</button>
 				</div>
 				<div class="col-4">
 					
@@ -274,6 +280,7 @@ input[type="text"] {
 
 	//header 카테고리 선택유지
 	$('#go_feed').css('box-shadow','#95df95 0px 2px 0px 0px');
+	
 	var loginInfo;
 	var limitcnt = 10;
 	var searchbt = '#전체리스트';
@@ -357,7 +364,7 @@ input[type="text"] {
 							backToTop();
 							limitcnt = 10;
 							console.log('click');
-							
+							$('.btn-outline-info').removeClass('active');
 							$('.addBtn').css('display', 'none');
 							$('.addBtnSearch').css('display', 'block');
 							
@@ -370,30 +377,32 @@ input[type="text"] {
 
 // 						$('body').css('overflow', 'auto');
 						$('#write-btn').on('click', function() {
-							 
-							
-							console.log('a');
-							console.log(loginInfo);
-							if (loginInfo == null) {
-								swal({
-			                	    title: "로그인이 필요합니다 !",
-			                	    text: "",
-			                	    icon: "error",
-			                	    allowOutsideClick : false //외부창 눌러서 끄기
-			                	}).then((result) =>{
-			                		if(result){
-			                			$('.bd-example-modal-xl').modal('show');
-			                			location.href="/invegan/member/login.go";  
-			                		}
-			                	})
-								
-							} else {
-								
+						    console.log('a');
+						    console.log(loginInfo);
+						    if (loginInfo == null) {
+						        swal({
+						            title: "로그인이 필요합니다 !",
+						            text: "",
+						            icon: "error",
+						            allowOutsideClick: false //외부창 눌러서 끄기
+						        }).then((result) => {
+						            if (result) {
+						                // loginInfo가 null일 때 로그인 페이지로 이동
+						                location.href = "/invegan/";
+						            }
+						        });
+						    } else {
+						        // loginInfo가 null이 아닐 때 모달 창을 수동으로 엽니다.
+						        $('.bd-example-modal-xl').modal('show');
+						    }
+						});
+						
 
 
-							}
 
-						})
+
+
+
 
 						// list 불러오기와 tag 선택했을떄 list 불러오기         
 						function listTagCall() {
@@ -488,10 +497,11 @@ input[type="text"] {
 									content += '<div class="post-details">';
 									content += '<div class="post-image">';
 									content += '<a href="#" class="post-link" data-post-id="'+ item.post_id+ '" data-toggle="modal" data-target="#detailModal" style="display: block; width: 100%; height: 100%;">';
+									console.log(item.post_id);
 									content += '<img src="/photo/' + item.server_file_name + '" class="mainFeedPhoto">';
 									content += '</a>';
 									content += '</div>';
-									content += '<div class="post-content"  style="width:600px">';
+									content += '<div class="post-content"  style="width:500px">';
 									
 									var feedContentTxt = item.content;
 									var truncatedTxt = truncateTxt(feedContentTxt, 100);
@@ -523,10 +533,10 @@ input[type="text"] {
 									content += '</div>';
 									var date = new Date(item.date);
 									var dateStr = date.toLocaleDateString("ko-KR"); //en-US
-									content += '<div class="tag-content">'+ item.tag_content + '</div>';
+									content += '<div class="tag-content" style="width:500px">'+ item.tag_content + '</div>';
 									content += '<div class="post-time">'+ dateStr + '</div>';
 									content += '</div>';
-									content += '<hr>';
+									
 
 									});
 							$('#feedList').html(content);

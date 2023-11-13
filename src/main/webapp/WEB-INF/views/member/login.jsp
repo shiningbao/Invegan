@@ -1,152 +1,141 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
 <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
- 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login</title>
+
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <style>
-    table, th, td{
-        
-        border-collapse: collapse;
-        padding: 5px 10px;
-        
-    }
-    
-    input[type="submit"]{
-    	height: 50px;
-    }    
-    
-    body {
-    background-color: #edf0ef; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-	}
 
-.login-table {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-	}
-
-th {
-    background-color: #b7c5c9; 
-    padding: 10px;
-    text-align: center;
-	}
-
-input {
-
-    padding: 8px;
-    margin: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-	}
-
-#login, #signup, #find {
-    background-color: #4682b4;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-	}
-
-#login:hover, #signup:hover, #find:hover {
-    background-color: #36648b; /* hover */
-	}
-
-    label {
-    display: block;
-    margin-bottom: 10px;
+#container{
+	width: 1000px;
+	margin: 0 auto;
 }
+#loginArea{
+	border-radius: 5px;
+	position:fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 549px;
+    height: 416px;
+    margin: 0 auto;
+    background-color: white;
+}
+#login-txt{
+	width: 50%;
+	margin: 10px auto;
+	text-align: center;
 
+}
+#login-box{
+	position: relative;
+	left:108px;
+	padding: 0px 30px;
+	text-align: center;
+	border-collapse: separate;
+}
+#login-box input{
+	width: 190px;
+    height: 40px;
+    font-size: 15px;
+    font-weight: 600;
+    padding-left: 10px;
+    padding-right: 20px;
+    border: none;
+    border-bottom: 2px solid #a8dca8;
+    margin: 5px;
+    outline: none;
+    text-align: center;
+}
+#login-btn-box{
+	text-align: center;
+}
+#loginBtn, #signupBtn{
+	background: none;
+	border: none;
+	font-size: 15px;
+	font-weight: 600;
+	cursor: pointer;
+	display: inline-block;
+	margin: 0 auto;
+}
+#loginBtn:hover, #signupBtn:hover{
+	color:#95df95;
+}
+#login-logo{
+	margin: 45px;
+	text-align: center; 
+}
+#login-logo img{
+    width: 139px;
+    height: 125px;
+}
+#bottom-box{
+	position: absolute;
+	bottom: 20px;
+    right: 188px;
+    
+}
+#findIdPw{
+	background: none;
+	border: none;
+	font-size: 13px;
+	font-weight: 600;
+	cursor: pointer;
+}
+#findIdPw:hover{
+	color: #95df95;
+}
 </style>
 </head>
 <body>
-
-	<table>
-	        <tr>
-	            <th>ID</th>
-	            <th>
-	                <input type="text" name="id" value="" placeholder="아이디를 입력 하세요"/>
-	            </th>
-	            <th rowspan="2">
-	                <input type="button" id="login" value="login"/>
-	            </th>
-	        </tr>
-	        <tr>
-	            <th>PW</th>
-	            <th>
-	                <input type="password" name="pw" value="" placeholder="비밀번호를 입력 하세요"/>
-	            </th>                
-	        </tr>
-	        <tr>
-	            <th colspan="3">
-	                <input id="signup" type="button" value="회원가입"/>
-	                <input id="find" type="button" value="아이디/비밀번호 찾기"/>
-	            </th>    
-	        </tr>
-	    </table>
-	    
-
+	<div id="container">
+		<div id="loginArea">
+		 	<div id="login-logo">
+				<img alt="invegan-logo" src="<c:url value='/resources/main/invegan_logo_master.png'/>">
+			</div>
+			<form action="member/login" method="post">
+				<table id="login-box">
+					<tr>
+						<th>ID : </th>
+						<td><input id="login-id" type="text" name="id" /></td>
+					</tr>
+					<tr>
+						<th>PW : </th>
+						<td><input type="password" name="pw" /></td>
+					</tr>
+				</table>
+				<div id="login-btn-box">
+					<button id="loginBtn">Login</button>
+					<button id="signupBtn" type="button" onclick="goSignUp()">SignUp</button>
+				</div>
+				<div id="bottom-box">
+					<button id="findIdPw" type="button" onclick="goFindIdPw()">forgot your id / password?</button>
+				</div>
+			</form>
+		</div>
+	</div>
 </body>
 <script>
-
-
-$('#login').on('click',function(){
-	var id = $('input[name="id"]').val();
-	var pw = $('input[name="pw"]').val();
-	console.log(id+"/"+pw);
-	
-	$.ajax({
-		type:'post',
-		url:'login',
-		data:{'id':id, 'pw':pw},
-		dataType:'JSON',
-		success:function(data){
-			console.log(data);
-			alert(data.msg);
-			if(data.loginInfo != null){
-				location.href = '<c:url value='/'/>';
-				//location.reload();
-					
-			}		
-		},
-		error:function(e){
-			console.log(e);
-		}
-	}); 
-	
-});
-
-
-	$('#signup').on('click',function(){
+		
+	function goSignUp() {
 		console.log('회원가입 페이지 진입');
-		location.href='signup';
-	});
-	
-	$('#find').on('click',function(){
+		location.href = 'member/signup.go';
+	};
+
+	function goFindIdPw(){
 		console.log('아이디 비밀번호 찾기 페이지 진입');
-		location.href='find';
-	});
-	
+		location.href = 'member/find';
+	};
+
 	var msg = "${msg}";
-	if(msg != ""){
+	if (msg != "") {
 		alert(msg);
 	}
-
-		
-
-	
-	
-
 </script>
 </html>

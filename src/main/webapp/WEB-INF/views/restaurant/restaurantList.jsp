@@ -10,6 +10,7 @@
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
 <style>	
+
 	.restaurantListContainer{
 		width: 1000px;
 		margin: 0px auto;

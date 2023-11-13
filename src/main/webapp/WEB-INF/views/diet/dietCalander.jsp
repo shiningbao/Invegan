@@ -185,9 +185,9 @@ select {
 				nowMonth.getMonth() + 1, 0); // 이번달 마지막날
 
 		let tbody_Calendar = document.querySelector(".Calendar > tbody");
-		document.getElementById("calYear").innerText = nowMonth.getFullYear()+'년 '; // 연도 숫자 갱신
+		document.getElementById("calYear").innerText = nowMonth.getFullYear(); // 연도 숫자 갱신
 		document.getElementById("calMonth").innerText = leftPad(nowMonth
-				.getMonth() + 1)+'월'; // 월 숫자 갱신
+				.getMonth() + 1); // 월 숫자 갱신
 
 		while (tbody_Calendar.rows.length > 0) { // 이전 출력결과가 남아있는 경우 초기화
 			tbody_Calendar.deleteRow(tbody_Calendar.rows.length - 1);

@@ -7,7 +7,6 @@
 	display: flex;
 	align-items: center;
 	padding: 10px;
-	border-bottom: 1px solid #e1e1e1;
 }
 
 .post-header img {
@@ -92,7 +91,7 @@
 
 <body>
 
-	<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" data-backdrop="true" id="detailModal" style="padding-right: 500px;">
+	<div class="modal fade bd-detail-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" data-backdrop="true" id="detailModal" style="padding-right: 500px;">
 		<div class="modal-dialog modal-xl" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -351,8 +350,9 @@ $(document).ready(function(){
           for (var i = 0; i < imageFiles.length; i++) {
       	    var imageUrl = '/photo/' + imageFiles[i];
       	    content += '<div class="post-wrapper">';
-      	    content += '<div class="post-img-slider"><img class="pstimg" src="' + imageUrl + '" style="width: 400px; height: 300px;"> </div>'; // 여기에서 너비와 높이를 조정하세요
+      	    content += '<div class="post-img-slider"><img class="pstimg" src="' + imageUrl + '" style="width: 500px; height: 500px;"> </div>'; // 여기에서 너비와 높이를 조정하세요
       	    content += '</div>';
+      	    
       	}
            
            content += '<div class="post-caption detailPostCaption">';
