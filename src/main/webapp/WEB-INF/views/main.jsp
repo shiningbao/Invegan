@@ -131,9 +131,6 @@
 
 <c:import url="/main/header"/>
 
-<div id="feedDetailModal" class="feedDetailModal">
-			<%@ include file="feed/feedDetail.jsp"%>
-		</div>
 
 	<div class="banner">
 	</div>
