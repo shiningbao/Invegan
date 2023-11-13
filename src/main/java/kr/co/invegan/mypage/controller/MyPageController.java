@@ -42,6 +42,7 @@ public class MyPageController {
 			MyPageDTO dto = service.userInfo(user_no);
 			model.addAttribute("dto", dto);
 			logger.info("dto:" + dto);
+			
 			return "myPage/mypage";
 		} else {
 			return "redirect:/login";
@@ -108,15 +109,15 @@ public class MyPageController {
 	
 	@RequestMapping(value = "/myPage/feedCmListCall")
 	@ResponseBody
-	public HashMap<String, Object> feedCmListCall(@RequestParam String boardType, @RequestParam Integer user_no) {
+	public HashMap<String, Object> feedCmListCall(@RequestParam String tabType, @RequestParam Integer user_no) {
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		ArrayList<MyPageDTO> fcmList = null;
 
 
-		logger.info(boardType+"/"+user_no);
+		logger.info(tabType+"/"+user_no);
 	
-		if(boardType.equals("피드")) { 
+		if(tabType.equals("댓글 모아보기")) { 
 			fcmList = service.feedComments(user_no); } 
 	
 		result.put("user_no", user_no);
@@ -128,28 +129,27 @@ public class MyPageController {
 		return result;
 	}
 	
-	@RequestMapping(value = "/myPage/rtCmListCall")
-	@ResponseBody
-	public HashMap<String, Object> rtCmListCall(@RequestParam String boardType, @RequestParam Integer user_no) {
-
-		HashMap<String, Object> result = new HashMap<String, Object>();
-		ArrayList<MyPageDTO> rtCmList = null;
-
-
-		logger.info(boardType+"/"+user_no);
-	
-		if(boardType.equals("피드")) { 
-			rtCmList = service.restaurantComments(user_no); 
-		} 
-		
-		result.put("user_no", user_no);
-		logger.info("user_no:" + user_no);
-		result.put("rtCmList", rtCmList);
-		// result.put("page", page);
-		// logger.info("보여줄 페이지 : " + page);
-
-		return result;
-	}
+	/*
+	 * @RequestMapping(value = "/myPage/rtCmListCall")
+	 * 
+	 * @ResponseBody public HashMap<String, Object> rtCmListCall(@RequestParam
+	 * String boardType, @RequestParam Integer user_no) {
+	 * 
+	 * HashMap<String, Object> result = new HashMap<String, Object>();
+	 * ArrayList<MyPageDTO> rtCmList = null;
+	 * 
+	 * 
+	 * logger.info(boardType+"/"+user_no);
+	 * 
+	 * if(boardType.equals("식당")) { rtCmList = service.restaurantComments(user_no);
+	 * }
+	 * 
+	 * result.put("user_no", user_no); logger.info("user_no:" + user_no);
+	 * result.put("rtCmList", rtCmList); // result.put("page", page); //
+	 * logger.info("보여줄 페이지 : " + page);
+	 * 
+	 * return result; }
+	 */
 
 	@RequestMapping(value = "/myPage/favoriteListCall")
 	@ResponseBody
