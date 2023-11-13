@@ -37,7 +37,7 @@
 			  #sbutton, #gram {
 			  	float: right;
 			  }
-			  
+			  		
 			  #sbutton {
 			  	margin-bottom: 10px;
 			  }
@@ -144,7 +144,7 @@
 							<th width="3%">칼륨(mg)</th>
 							<th width="4%">나트륨(mg)</th>
 							<th width="3%">아연(mg)</th>
-							<th width="4%">비타민A(ug)</th>
+							<th width="4%">비타민A(µg)</th>
 							<th width="4%">비타민B6(mg)</th>
 							<th width="4%">비타민B12(mg)</th>
 							<th width="4%">비타민C(mg)</th>

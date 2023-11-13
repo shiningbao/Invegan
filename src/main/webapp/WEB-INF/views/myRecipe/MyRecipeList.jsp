@@ -10,16 +10,19 @@
 			/* 카테고리 버튼 */
 			.cbutton {
 				background: none;
-				width : 60px;
-				height: 40px;
+				width : 61.6px;
+				height: 40.8px;
 				border: 1.5px solid gray;
 				background-color: white;
 				border-radius: 5px;
 				cursor: pointer;
 				text-align: center;
-				font-size : 16px;
+				font-size : 17px;
+				color : gray;
 				box-shadow: lightgray 5px 4px 7px 1px;
 				outline-color: #9eca9e;
+				padding : 8px 13px;
+				margin: 0px 3px;
 			}
 			
 			.cbutton:hover {
@@ -45,7 +48,8 @@
 				width : 720px;
 				margin: 46px 0px 0px 30px;
 				position: absolute;
-				top: -20px;
+				top: -30px;
+				left: 6px;
 			}
 			
 			#rbox table {
@@ -54,7 +58,7 @@
 				font-size: 15px;
 			}
 			#rbox th {
-				height: 38px;
+				height: 29px;
 				border: 1.3px solid #59b879;
     			border-radius: 3px;
 			}
@@ -64,7 +68,7 @@
 			}
 			
 			#thead {
-				margin-top : 10px;
+				margin-top : 16px;
 			}
 			
 			#mrbody {
@@ -83,6 +87,11 @@
 			#mrList {
 				border-collapse: collapse;
 				width: 718.4px;
+			}
+			
+			#mrList tr:hover {
+				cursor: pointer;
+				box-shadow:  #59B879 0px 0px 5px 1px;
 			}
 			
 			/* 레시피 추가 버튼 */
@@ -124,7 +133,6 @@
 			}
 			
 			.fbutton:hover {
-				background-color: rgb(115 211 147 / 19%);
 				border: 1.5px solid #9eca9e;
 				cursor: pointer;
 			}
@@ -140,7 +148,8 @@
 				width: 720px;
 				margin: 46px 10px 0px 30px;
 				position: absolute;
-				bottom: 50px;
+				bottom: 75px;
+				left: 6px;
 			}
 			
 			#rmbox table{
@@ -149,7 +158,7 @@
 				font-size : 15px;
 			}
 			#rmbox th {
-				height: 38px;
+				height: 29px;
 			}
 			#rmbox td {
 				height: 33px;
@@ -197,23 +206,45 @@
 				font-size: 40px;
 			}
 			
+			#mm{
+				position: absolute;
+				left: 271px;
+   				top: -38px;
+   				font-weight: 600;
+			}
+			
+			#rMaterialList tr:hover {
+				cursor: pointer;
+				box-shadow:  #59B879 0px 0px 5px 1px;
+			}
+			
 			/* 재료 추가 버튼 */
 			#minsert {
-				top : 10px;
+				position: absolute;
+				right: 105px;
+				top: -48px;	
+			}
+			
+			/* 재료 삭제 버튼 */
+			#mdelete {
+				position: absolute;
+				right: 78px;
+				top: -48px;
 			}
 
 			/* rN:영양소 표시 */			
 			#rNutri {
 				width: 310px;
-				height: 560px;
+				height: 590px;
 				border-left: 2px solid lightgray;
 				position: absolute;
-				top : 40px;
+				top : 2px;
 				right: 50px;
 			}
 			
 			#rNutri table{
 				width: 300px;
+				height: 590px;
 				padding : 5px 10px;
 				margin-left: 10px; 
 				border-collapse: collapse;
@@ -229,13 +260,17 @@
 			#rNutri td{
 				width : 150px;
 				height: 19px;
-				font-size: 13px;
-				padding : 3px 10px;
+				font-size: 16px;
+				padding : 1px 5px 1px 1px;
 			}
 			
-			td.nutri {
-				text-align: center;
-			}
+			#rNutri tr td:first-child {
+           		text-align: right;
+      		}
+      		
+      		#rNutri tr td:secend-child {
+           		text-align: left;
+      		}
 			
 			/* 모달창 */		
 			.modal {
@@ -298,20 +333,9 @@
 			<br>
 			<div id="rmbox">
 				<div id="mtop">
-					<table>
-						<colgroup>
-							<col width="50%">
-							<col width="25%">
-							<col width="25%">
-						</colgroup>
-						<tr>
-							<th colspan="2"  style="width : 350px;">재료</th>
-							<th>
-								<input type ="button" id="minsert" onclick="minsert()" value="+"/>
-								<input type ="button" id="mdelete" onclick="mdel()" value="-"/>
-							</th>
-						</tr>
-					</table>
+				<a id="mm">재료</a>
+				<input type ="button" id="minsert" onclick="minsert()" value="+"/>
+				<input type ="button" id="mdelete" onclick="mdel()" value="-"/>
 				</div>
 				<div id="rmhead">
 					<table>
@@ -352,7 +376,7 @@
 					<tr><td>칼륨</td><td class="nutri">0 mg</td></tr>
 					<tr><td>나트륨</td><td class="nutri">0 mg</td></tr>
 					<tr><td>아연</td><td class="nutri">0 mg</td></tr>
-					<tr><td>비타민A</td><td class="nutri">0 ug</td></tr>
+					<tr><td>비타민A</td><td class="nutri">0 µg</td></tr>
 					<tr><td>비타민B6</td><td class="nutri">0 mg</td></tr>
 					<tr><td>비타민B12</td><td class="nutri">0 mg</td></tr>
 					<tr><td>비타민C</td><td class="nutri">0 mg</td></tr>
@@ -549,7 +573,7 @@
 						content += '<tr>'+'<td>'+'칼륨 '+'</td>'+'<td class="nutri">'+'0 mg'+'</td>'+'</tr>';
 						content += '<tr>'+'<td>'+'나트륨 '+'</td>'+'<td class="nutri">'+'0 mg'+'</td>'+'</tr>';
 						content += '<tr>'+'<td>'+'아연 '+'</td>'+'<td class="nutri">'+'0 mg'+'</td>'+'</tr>';
-						content += '<tr>'+'<td>'+'비타민A '+'</td>'+'<td class="nutri">'+'0 ug'+'</td>'+'</tr>';
+						content += '<tr>'+'<td>'+'비타민A '+'</td>'+'<td class="nutri">'+'0 µg'+'</td>'+'</tr>';
 						content += '<tr>'+'<td>'+'비타민B6 '+'</td>'+'<td class="nutri">'+'0 mg'+'</td>'+'</tr>';
 						content += '<tr>'+'<td>'+'비타민B12 '+'</td>'+'<td class="nutri">'+'0 mg'+'</td>'+'</tr>';
 						content += '<tr>'+'<td>'+'비타민C '+'</td>'+'<td class="nutri">'+'0 mg'+'</td>'+'</tr>';
