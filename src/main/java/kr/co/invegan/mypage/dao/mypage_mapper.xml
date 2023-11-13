@@ -57,18 +57,18 @@
 	LEFT JOIN
 	    ImageTable it1 ON b.post_id = it1.idx 
 	WHERE
-	    m.user_no = #{param1} AND b.category = '피드' ORDER BY date DESC;
+	    m.user_no = #{param1} AND b.category = '피드' GROUP BY b.post_id ORDER BY date DESC;
 	</select>
 	
 	<delete id="delUser" parameterType="int">
 		DELETE FROM Members WHERE user_no = #{user_no}
 	</delete>
 
-	<select id="recipeComments" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
+	<!-- <select id="recipeComments" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
 		SELECT DISTINCT title,views FROM Board 
 		WHERE post_id IN (SELECT post_id FROM Comments WHERE user_no = #{param1}) 
 		AND post_id IN (SELECT post_id FROM Board WHERE category='레시피')
-	</select>
+	</select> -->
 	
 	<select id="recipeFavorite" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
 		SELECT title,views FROM Board 
@@ -76,11 +76,11 @@
 		AND category='레시피'
 	</select>
 	
-	<select id="freeComments" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
+	<!-- <select id="freeComments" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
 		SELECT title,views FROM Board 
 		WHERE post_id IN (SELECT post_id FROM Comments WHERE user_no = #{param1}) 
 		AND post_id IN(SELECT post_id FROM Board WHERE category='자유게시판')
-	</select>
+	</select> -->
 	
 	<select id="feedComments" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
 		SELECT 
@@ -96,7 +96,7 @@
 		WHERE
 		    b.category = '피드'
 		    AND b.post_id IN (SELECT post_id FROM Comments)
-		    AND m.user_no=#{param1}
+		    AND m.user_no=#{param1} GROUP BY b.post_id 
 		ORDER BY
 		    b.date DESC
 	</select>

@@ -128,7 +128,7 @@ $(document).ready(function(){
      
      $.ajax({
          type: 'GET',
-         url: 'feedDetailCall', // 데이터를 제공하는 서버의 엔드포인트로 변경
+         url: 'feed/feedDetailCall', // 데이터를 제공하는 서버의 엔드포인트로 변경
          data: { post_id: post_id },
          success: function(data) {
              drawdetailList(data.detailList,data.findBoardUserno,data.user_no); // 게시글 상세보기 리스트
@@ -179,7 +179,7 @@ $(document).ready(function(){
 	    // 예를 들어, 아래처럼 HTML 요소에 추가할 수 있습니다.
 	    $('#feedDetail .post-comments').html(commentContent);
 	   
-	}
+	}  
   $(document).on('click', '.comment-edit-btn', function () {
 	  swal({
   	      title: "댓글을 수정하시겠습니까??",

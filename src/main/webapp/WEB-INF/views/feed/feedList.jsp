@@ -166,18 +166,6 @@ input[type="text"] {
 
 
 
-.btn-info{
-	
-	width:70px;
-	height:40px;
-	
-	
-}
-
-#post-tag {
-    font-size: 15px;
-    
-}
 
 .mainFeedPhoto{
 	border:1px solid gray;
@@ -211,6 +199,15 @@ input[type="text"] {
     margin-bottom: 50px; 
 
   }
+  
+  #post-tag{
+  	font-size : 12px;
+  	height: 30px;
+  	width :60px;
+  	text-align:center;
+  	margin-left : 5px;
+  	
+  }
 </style>
 
 </head>
@@ -235,18 +232,23 @@ input[type="text"] {
 			<div class="row">
 				<div class ="col-3 custom-col-3" style="position:fixed">
 					<h4>기본태그</h4>
-					<button type="button" class="btn btn-outline-info" name="food">#식품</button>
-					<button type="button" class="btn btn-outline-info" name="beauty">#뷰티</button>
-					<button type="button" class="btn btn-outline-info" name="fashion">#패션</button>
-					<button type="button" class="btn btn-outline-info" name="daily">#일상</button>
-					<button type="button" class="btn btn-outline-info" name="restaurant">#식당</button>
-					<button type="button" class="btn btn-outline-info" name="recipe">#레시피</button>
+					<button class="btn btn-outline-info clickTagSearch" name="food">#식품</button>
+					<button class="btn btn-outline-info clickTagSearch" name="beauty">#뷰티</button>
+					<button class="btn btn-outline-info clickTagSearch" name="fashion">#패션</button>
+					<button class="btn btn-outline-info clickTagSearch" name="daily">#일상</button>
+					<button class="btn btn-outline-info clickTagSearch" name="restaurant">#식당</button>
+					<button class="btn btn-outline-info clickTagSearch" name="recipe">#레시피</button>
 					<h4>자유태그</h4>
 					<div id="autoSearch">
 						<input type="text" id="autoComplete" class="autoComplete" placeholder="미입력후 검색시 전체리스트">
-						<button type="button" id="searchbtn" class="btn btn-Dark"><b>검색</b></button>
+						<button id="searchbtn" class="btn btn-Dark"><b>검색</b></button>
 					</div>
-					<button type="button" id="write-btn" class="btn btn-success">피드게시글 작성</button>
+					<h4>작성자 검색</h4>
+					<div id="nickNameSearch">
+						<input type="text"  class="nameSearch" placeholder="닉네임을 정확하게 입력해주세요.">
+						<button id="nameSearchBtn" class="btn btn-Dark"><b>검색</b></button>
+					</div>
+					<button id="write-btn" class="btn btn-success">피드게시글 작성</button>
 				</div>
 				<div class="col-4">
 					
@@ -285,7 +287,7 @@ input[type="text"] {
 	var limitcnt = 10;
 	var searchbt = '#전체리스트';
 	//     var autoText ="*";
-	$(document).ready(function () {
+	
     listTagCall();
 		
     
@@ -303,9 +305,10 @@ input[type="text"] {
                             console.log(data.resultList);
                             response($.map(data.resultList,function (item) {
                                     return {
-                                    label: item.tag_content, // 목록에 표시되는 값
-                                    value: item.tag_content,
-                                    idx: item.tag_id};
+                                    	label: item.tag_content + ' (' + item.tag_count + ')', // 목록에 표시되는 값
+                                        value: item.tag_content, // 실제 입력 필드에 삽입되는 값
+                                        idx: item.tag_id
+                                    };
                                      })); //response
                             },
                             error: function (e) { //실패
@@ -321,7 +324,7 @@ input[type="text"] {
                 ,
                 autoFocus: true // true == 첫 번째 항목에 자동으로 초점이 맞춰짐
                 ,
-                delay: 100 //autocomplete 딜레이 시간(ms)
+                delay: 50 //autocomplete 딜레이 시간(ms)
                 ,
                 select: function (evt, ui) {
                     // 아이템 선택시 실행 ui.item 이 선택된 항목을 나타내는 객체, lavel/value/idx를 가짐
@@ -330,50 +333,11 @@ input[type="text"] {
                     console.log(ui.item.idx);
                 }
             });
-						function autoListCall() {
-							console.log('autoListCall 호출');
-
-							$.ajax({
-								url : 'autoSearchTag',
-								data : {
-									'autoText' : autoText,
-									'limitcnt' : limitcnt
-								},
-								success : function(data) {
-									console.log(data);
-									console.log(data.searchResult);
-									console.log(data.limitcnt);
-									console.log(data.listSize);
-									drawList(data.list);
-									if (data.limitcnt > data.listSize) {
-										$('.addBtnSearch').prop('disabled',true);
-										
-									} else {
-										$('.addBtnSearch').prop('disabled',false);
-									}
-								},
-								error : function(e) {
-									console.log('에러발생' + e);
-								},
-							});
-						}
+						
 						
 						
 
-						$('#searchbtn').on('click', function() {
-							backToTop();
-							limitcnt = 10;
-							console.log('click');
-							$('.btn-outline-info').removeClass('active');
-							$('.addBtn').css('display', 'none');
-							$('.addBtnSearch').css('display', 'block');
-							
-							autoText = $('#autoComplete').val();
-							console.log(autoText);
-
-							autoListCall();
-
-						})
+						
 
 // 						$('body').css('overflow', 'auto');
 						$('#write-btn').on('click', function() {
@@ -438,25 +402,28 @@ input[type="text"] {
 							});
 						}
 						// 기본태그를 클릭했을때 나오는 리스트 처리
-						$(document).on('click', '.btn-outline-info', function() {
+						$(document).on('click', '.clickTagSearch', function() {
 							backToTop();
+							$('.addBtnImg').show();
 							limitcnt = 10;
 							$('.addBtn').css('display', 'block');
 							$('.addBtnSearch').css('display', 'none');
 							searchbt =$(this).text();
 							$('#autoComplete').val('');
+							$('.nameSearch').val('');
 							console.log(searchbt);
 							console.log(limitcnt);
 							listTagCall();
 							
-							$('.btn-outline-info').removeClass('active'); // 모든 버튼에서 active 클래스 제거
+							$('.clickTagSearch').removeClass('active'); // 모든 버튼에서 active 클래스 제거
+							console.log(this);
 						    $(this).addClass('active');
 
 						});
 
 						// 전체리스트와 피드태그를 선택했을때 더보기 처리
 						$('.addBtn').on('click', function() {
-
+					
 							limitcnt += 10;
 							console.log('click');
 							console.log('aa');
@@ -472,7 +439,7 @@ input[type="text"] {
 							autoListCall();
 
 						})
-
+						
 						function drawList(list) {
 							console.log(list);
 							var content = '';
@@ -481,15 +448,25 @@ input[type="text"] {
 								var tags = item.tag_content;
 								var allowedTags = [ '#식품', '#패션','#일상', '#레시피', '#뷰티', '#식당' ];
 									
+								var selectedTagIndex = allowedTags.findIndex(function (tag) {
+								    return tag.toLowerCase() === clickedTag;
+								});
+
+								if (selectedTagIndex !== -1) {
+								    var selectedTag = allowedTags.splice(selectedTagIndex, 1);
+								    allowedTags = [selectedTag[0]].concat(allowedTags);
+								}
+								
 									content += '<div class="post">';
 									if (tags) {
 										allowedTags.forEach(function(tag) {
 											if (tags.includes(tag)) {
-												var tagClass = tag.toLowerCase() === clickedTag ? 'btn-info active' : 'btn-info';
-							                    content += '<button class="btn ' + tagClass + '" id="post-tag">' + tag + '</button>';
+												
+							                    content += '<button class="btn btn-outline-info listTags active " id="post-tag">' + tag + '</button>';
 												}
 											});
 										}
+									
 									content += '<div class="post-header">';
 									content += '<div class="user-profile"><img src="/photo/' + item.profile_image + '"></div>'; // 사용자의 프로필 사진
 									content += '<span class="username">'+ item.nickname + '</span>';
@@ -542,20 +519,99 @@ input[type="text"] {
 							$('#feedList').html(content);
 
 						}
+						
+						
+						function autoListCall() {
+							console.log('autoListCall 호출');
 
-						$('#search-button').on('click', function() {
-							var searchTerm = $('#search').val();
-							console.log(searchTerm);
+							$.ajax({
+								url : 'autoSearchTag',
+								data : {
+									'autoText' : autoText,
+									'limitcnt' : limitcnt
+								},
+								success : function(data) {
+									console.log(data);
+									console.log(data.searchResult);
+									console.log(data.limitcnt);
+									console.log(data.listSize);
+									drawList(data.list);
+									
+									if (data.limitcnt > data.listSize) {
+										$('.addBtnSearch').prop('disabled',true);
+										
+									} else {
+										$('.addBtnSearch').prop('disabled',false);
+									}
+								},
+								error : function(e) {
+									console.log('에러발생' + e);
+								},
+							});
+						}
+						
+						//자동완성 검색
+						$(document).on('click','#searchbtn',function(){
+							backToTop();
+							autoText = $('#autoComplete').val();
+							$('.nameSearch').val('');
+							limitcnt = 10;
+							console.log('click');
+							$('.clickTagSearch').removeClass('active');
+							$('.addBtn').css('display', 'none');
+							$('.addBtnSearch').css('display', 'block');
+							$('.addBtnImg').show();
+							
 
-						});
-						$(document).on('click', '#post-tag', function() {
-							var tagbt = $(this).text();
-							console.log(tagbt);
-						});
-
-					});
+							autoListCall();
+						})
+						
+						//닉네임 검색
+						$(document).on('click','#nameSearchBtn',function(){
+							backToTop();
+							var nameText =$('.nameSearch').val();
+							console.log(nameText);
+							
+							$.ajax({
+								url:'feed/nameSearch',
+								data:{nameText : nameText},
+								success:function(data){
+									 if (data.list.length === 0) {
+							                
+							                showNoResultsMessage();
+							            } else {
+							                
+							                drawList(data.list);
+							                $('.addBtnImg').hide();
+							            }
+									drawList(data.list);
+									$('.addBtnImg').hide();
+								},
+								error:function(e){
+									console.log('닉네임 검색 오류'+e);
+								},
+							});
+						})
+						
+					function showNoResultsMessage(){
+							swal({
+                                title: "해당 닉네임이 작성한 게시글이 없습니다.",
+                                text: "",
+                                icon: "error"
+                            }).then((result) => {
+					            if (result) {
+					                // loginInfo가 null일 때 로그인 페이지로 이동
+					                location.href = "list.go";
+					            }
+					        });
+					    } 
+							
+						
 	
 	
+	
+					
+					
 
 		function backToTop() {
 			  const position =
@@ -568,7 +624,9 @@ input[type="text"] {
 				  }
 				}
 
-
+		
+		
+		
 
 
 

@@ -67,7 +67,7 @@
 		position: absolute;
 		top: 1px;
 		margin: 0px;
-		z-index: 1;
+		z-index: 10;
 	}
 	.cFL_R_VT div{
 		height: 30px;
@@ -79,7 +79,7 @@
 		line-height: 30px;
 		text-align: center;
 		
-	 	border: 1px solid black;
+	 	border: 1px soild #black;
 		
 	}
 	.cFL_R_Name{
@@ -124,14 +124,17 @@
 	.blank{
 		margin-bottom: 200px;
 	}
-	
 
 </style>
 </head>
 <body>
 
 <c:import url="/main/header"/>
-	
+
+<div id="feedDetailModal" class="feedDetailModal">
+			<%@ include file="feed/feedDetail.jsp"%>
+		</div>
+
 	<div class="banner">
 	</div>
 	<br>
@@ -253,7 +256,7 @@
 				<i class="fi fi-rr-angle-double-left" id="feedButtonL"></i>
 			</div>
 			
-			<div class="cFL_Feed">
+			<div class="cFL_Feed" >
 				<div class="cFL_F_Head">
 					<img src="#" alt="ProfileImg" width="50px" height="50px" style="border-radius:50%; margin-right: 10px;"/>
 					<p></p>
@@ -265,7 +268,7 @@
 				</div>
 			</div>
 			
-			<div class="cFL_Feed">
+			<div class="cFL_Feed" >
 				<div class="cFL_F_Head">
 					<img src="#" alt="ProfileImg" width="50px" height="50px" style="border-radius:50%; margin-right: 10px;"/>
 					<p></p>
@@ -276,7 +279,7 @@
 					<div class="cFL_F_Tag"></div>
 				</div>
 			</div>
-			<div class="cFL_Feed">
+			<div class="cFL_Feed " >
 				<div class="cFL_F_Head">
 					<img src="#" alt="ProfileImg" width="50px" height="50px" style="border-radius:50%; margin-right: 10px;"/>
 					<p></p>
@@ -303,26 +306,12 @@
 
 
 <script>
-
 var RFL;
 var FFL
 var r_idx = 0;
 var f_idx = 0;
-
 var r_length = 0;
 var f_length = 0;
-
-var msg = "${msg}";
-if(msg != ""){
-	console.log(msg);
-	alert(msg);
-} 
-var needLogin = "${needLogin}";
-	console.log("nees",needLogin);
-if(needLogin != null){
-/* 	 $("#login-modal").css("display", "block");
-     $("body").css("overflow", "hidden"); */
-}
 
 $('#login').on('click',function(){
 	location.href='member/login.go';
@@ -352,7 +341,6 @@ function geoSubmit(data){
 		data:data,
 		dataType:'JSON',
 		success:function(data){
-			
 			console.log(data);
 			RFL = data.RFL;
 			FFL = data.FFL;
@@ -463,11 +451,17 @@ function feedListView(idx){
 	}
 }
 
+
 $('.cFL_Feed').on('click',function(){
-	console.log($(this).attr('post_id'));
+	
 	var post_id = $(this).attr('post_id');
-	//location.href = '';
+	console.log(post_id);
+	location.href="feed/list.go;
+	
+	
 });
+
+
 
 $('#feedButtonL').on('click',function(){
 	console.log(f_length);

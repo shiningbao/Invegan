@@ -115,7 +115,7 @@ public class FeedController {
 		return "feed/feedDetail";
 	}
 
-	@RequestMapping(value = "feedDetailCall")
+	@RequestMapping(value = {"feedDetailCall", "feed/feedDetailCall"})
 	@ResponseBody
 	public HashMap<String, Object> feedDetailCall(HttpSession session, @RequestParam("post_id") int post_id) {
 
@@ -260,6 +260,18 @@ public class FeedController {
 		service.feedEditComment(params);
 
 		return "success";
+	}
+	
+	@RequestMapping(value = "feed/nameSearch")
+	@ResponseBody
+	public HashMap<String, Object> nameSearch(@RequestParam String nameText) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		logger.info("닉네임 검색 컨트롤러");
+		logger.info("nameText :" + nameText);
+		ArrayList<FeedListDTO> nameSearchList = service.nameSearch(nameText);
+		
+		result.put("list", nameSearchList);
+		return result;
 	}
 
 }
