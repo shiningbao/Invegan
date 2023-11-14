@@ -13,7 +13,7 @@ import kr.co.invegan.board.dto.restaurantFilterListDTO;
 
 public interface MainDAO {
 
-	ArrayList<RestaurantDTO> prf();
+//	ArrayList<RestaurantDTO> prf();
 
 	int veganType(int user_no);
 
