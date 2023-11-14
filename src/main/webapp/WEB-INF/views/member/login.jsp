@@ -91,6 +91,17 @@
 #findIdPw:hover{
 	color: #95df95;
 }
+
+
+.login-close{
+    font-size: 47px;
+    color: #010101;
+    z-index: 5;
+    cursor: pointer;
+    position: absolute;
+    top: -2%;
+    left: 92%;
+}
 </style>
 </head>
 <body>
@@ -98,6 +109,7 @@
 		<div id="loginArea">
 		 	<div id="login-logo">
 				<img alt="invegan-logo" src="<c:url value='/resources/main/invegan_logo_master.png'/>">
+			<span class="login-close" id="closeModalBtn">&times;</span>
 			</div>
 			<form action="member/login" method="post">
 				<table id="login-box">
@@ -135,7 +147,10 @@
 
 	var msg = "${msg}";
 	if (msg != "") {
-		alert(msg);
+		swal({
+		    title: msg,
+		    icon: "warning" //"info,success,warning,error" 중 택1
+		});
 	}
 </script>
 </html>

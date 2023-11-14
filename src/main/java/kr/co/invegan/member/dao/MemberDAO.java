@@ -10,7 +10,7 @@ public interface MemberDAO {
 
 	MemberDTO login(HashMap<String, Object> params);
 
-	int signup(HashMap<String, String> params);
+	int signup(HashMap<String, Object> params);
 	
 	String findId(String email);
 	
