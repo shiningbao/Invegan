@@ -90,6 +90,9 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
+	.pagination {
+		justify-content: center;
+	}
 	.pageDiv{
 		width: 100%;
 	}
