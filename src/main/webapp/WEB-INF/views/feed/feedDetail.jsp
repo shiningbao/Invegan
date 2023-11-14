@@ -9,6 +9,7 @@
 	padding: 10px;
 }
 
+
 .post-header img {
 	width: 40px;
 	height: 40px;
@@ -48,9 +49,9 @@
 
 #detailModal {
 	padding-right: 500px !important;
-	
 }
-.modal-backdrop{
+
+.modal-backdrop {
 	display: block !important;
 }
 
@@ -69,6 +70,17 @@
 
 .detailPostCaption {
 	margin-top: 300px;
+}
+.detail-href{
+    width: 500px;
+    border-bottom: 1px solid #ccc; 
+    padding: 10px; 
+}
+.comment-edit-btn, .comment-del-btn{
+	width:50px;
+	font-size:12px !important;
+	height:30px;
+	margin-right:10px;
 }
 </style>
 
@@ -332,7 +344,9 @@ $(document).ready(function(){
     	  maxImageIndex = imageFiles.length - 1;
           content += '<div class="post">';
           content += '<div class="post-header">';
-          content += '<div class="user-profile"><img src="/photo/' + item.profile_image + '"></div>';
+          var defaultImagePath = '/invegan/resources/main/profile.jpg';
+			var profileImagePath = item.profile_image ? '/photo/' + item.profile_image : defaultImagePath;
+			content += '<div class="user-profile"><img src="' + profileImagePath + '"></div>';
           content += '<span class="username">' + item.nickname + '</span>';
           content += '</div>';
           
@@ -360,7 +374,7 @@ $(document).ready(function(){
            content += '</div>';
            
           content += '<div class="post-comments">';
-          content += '<div class="comment">';             
+          content += '<div class="comment comments">';             
 //           content += '<span class="username">' + item.comment_user_nickname + '</span> ';
           content += '<div class="detail-href">';
 //           content += '<span class="comment">' + item.comment_text + '</span> '
