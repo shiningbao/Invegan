@@ -31,19 +31,15 @@
 		margin-right: 20px;
 
 	}
-	.restarurantList{
-		width: 100%;
-	}
 	.restaurantDiv{
 		width: 100%;
-		
+		cursor: pointer;
 	}
 	.restaurantDiv_1{
 		position: relative;	
 		width: 24.5%;
 		margin: 0px auto 10px auto;
 		display: inline-block;
-		cursor: pointer;
 	}
 	.restaurantImg{
 		position: relative;
@@ -90,9 +86,7 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
-	.pageDiv{
-		margin: 0px auto;
-	}
+	
 	
 </style>
 
@@ -104,22 +98,39 @@
 			<div id="restaurantListHeadTitle">식당 리스트</div>
 			<button id="writeButton" type="button" onclick="location.href='write.go'">식당 작성</button>
 		</div>
-		<div class="restarurantList">
-			<div class="restaurantDiv">
-				<div class="restaurantDiv_1">
-					<div class="restaurantImg"><img class="Img" src="<c:url value='/resources/main/logo.png'/>"></div>
-					<div class="res_title">게시물 없음</div>
-					<div class="res_dist">-</div>
-					<div class="veganType"></div>
-				</div>
+		<div class="restaurantDiv">
+			<div class="restaurantDiv_1">
+				<div class="restaurantImg"><img class="Img" src="<c:url value='/resources/main/logo.png'/>"></div>
+				<div class="res_title">게시물 없음</div>
+				<div class="res_dist">-</div>
+				<div class="veganType"></div>
+			</div>
+			<div class="restaurantDiv_1">
+				<div class="restaurantImg"><img class="Img" src="<c:url value='/resources/main/logo.png'/>"></div>
+				<div class="res_title">게시물 없음</div>
+				<div class="res_dist">-</div>
+				<div class="veganType"></div>
+			</div>
+			<div class="restaurantDiv_1">
+				<div class="restaurantImg"><img class="Img" src="<c:url value='/resources/main/logo.png'/>"></div>
+				<div class="res_title">게시물 없음</div>
+				<div class="res_dist">-</div>
+				<div class="veganType"></div>
+			</div>
+			<div class="restaurantDiv_1">
+				<div class="restaurantImg"><img class="Img" src="<c:url value='/resources/main/logo.png'/>"></div>
+				<div class="res_title">게시물 없음</div>
+				<div class="res_dist">-</div>
+				<div class="veganType"></div>
 			</div>
 		</div>
+
 	</div>
-	<div class="pageDiv">
+
 		<nav aria-label="Page navigation" style="text-align:center">
 			<ul class="pagination" id="pagination"></ul>
 		</nav>	
-	</div>
+
 	
 	
 </body>
@@ -131,6 +142,17 @@ var showPage = 1;
 var data;
 callList(showPage);
 
+function appendTag(){
+	var $restaurantListContainer = document.getElementsByClassName('restaurantListContainer')[0];
+	$restaurantListContainer.innerHTML='';
+	for(var i = 0; i < 5; i++){
+		var cloneTag = copyTag;
+		console.log(copyTag);
+		console.log(cloneTag);
+		$restaurantListContainer.appendChild(cloneTag);
+	}
+}
+
 function callList(showPage){
 	$.ajax({
 		type:'get',
@@ -140,30 +162,14 @@ function callList(showPage){
 		success:function(result){
 			data = result;
 			console.log(data);
-			drawDiv(data.restaurant.length());
+			appendTag(5);
 			drawList(data);
 		},
 		error:function(e){
 			console.log(e);
 		}
-	});
+	});	
 }
-
-function drawDiv(len){
-	var totalcontent = '<div class="restaurantDiv"></div>';
-	var content = '<div class="restaurantDiv_1"><div class="restaurantImg"><img class="Img" src="#"></div>';
-	content += '<div class="res_title">게시물 없음</div>	<div class="res_dist">-</div><div class="veganType"></div></div>';
-	$('.restarurantList').html('');
-	for(var i = 0; i < len; i++){
-		// 0 4 8 
-		if(i%4 == 0){
-			$('.restarurantList').append(totalcontent)
-		}
-		$('.restaurantDiv').last().append(content);
-	}
-}
-
-
 
 function drawList(data){
 	if(data.admin == 'yes'){ // 작성 버튼 보여주는
@@ -216,6 +222,7 @@ function drawList(data){
 			}
 		}
 	});
+
 };
 
 $('.restaurantDiv_1').on('click',function(){
@@ -225,5 +232,7 @@ $('.restaurantDiv_1').on('click',function(){
 	}
 });
 
+
+	
 </script>
 </html>
