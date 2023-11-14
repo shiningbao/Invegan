@@ -10,10 +10,11 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
 	.banner{
-		background-color : #20B2AA;
-		width: 1000px;
-		height: 400px;
-		margin: 0 auto;
+    	border-radius: 10px;
+	    background-color: #fff977;
+	    width: 1000px;
+	    height: 400px;
+	    margin: 0 auto;
 	}
 	.custom{
 		width: 1200px;
@@ -23,6 +24,14 @@
 	.customFilterArea{
 		height: 80px;
 		clear: both;
+	}
+	.customFilterArea a{
+		all:initial;
+		color:grey;
+	}
+	.customFilterArea a:hover{
+		cursor: pointer;
+		color : #000;
 	}
 	.cF_title{
 		position: inherit;
@@ -48,9 +57,14 @@
 		height: 90px;
 		margin: 150px auto;
 		text-align: center;
-		font-size: 60px;
+		font-size: 25px;
 		font-weight: 600;
 		cursor: pointer;
+		color: grey;
+	}
+	.customFilterButton:hover{
+		color:black;
+		
 	}
 	.cFL_Res{
 		position: relative;
@@ -61,7 +75,7 @@
 	.cFL_R_Img{
 		width: 325px;
 		height: 325px;
-		background-color: #00CED1;
+		background-color: #b1b1b1;
 		margin: 0 auto;
 	}
 	.cFL_R_VT{
@@ -86,7 +100,7 @@
 	.cFL_R_Name{
 		text-align: center;
 		font-weight: 600;
-		font-size: 30px;
+		font-size: 20px;
 		margin: 0 0;
 		white-space: nowrap;
 		overflow: hidden;
@@ -110,7 +124,7 @@
 	.cFL_F_Img{
 		width: 325px;
 		height: 325px;
-		background-color: #00CED1;
+		background-color: #b1b1b1;
 		margin: 0 auto;
 	}
 	.cFL_F_Con{
@@ -141,7 +155,7 @@
 	<div class="custom">
 		<!-- 식당 -->
 		<div class="customFilterArea">
-			<div class="cF_title"><h1>추천 식당</h1></div>
+			<!-- <div class="cF_title"><h2>추천 식당</h2></div> -->
 			<div class="cF_move"><h3><a href="<c:url value='/restaurant/list'/>">더보기...</a></h3></div>
 		</div>
 		<div class="customFilterList">
@@ -176,8 +190,8 @@
 		
 		<!-- 피드 -->
 		<div class="customFilterArea">
-			<div class="cF_title"><h1>추천 피드</h1></div>
-			<div class="cF_move"><h3><a href="<c:url value='/feed/list.go'/>">더보기...</a></h3></div>
+			<!-- <div class="cF_title"><h2>추천 피드</h2></div> -->
+			<div class="cF_move"><p><a href="<c:url value='/feed/list.go'/>">더보기...</a></p></div>
 		</div>
 		<div class="customFilterList" id="restaurantList">
 			<div class="customFilterButton">
