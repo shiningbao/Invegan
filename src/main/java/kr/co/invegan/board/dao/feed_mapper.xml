@@ -317,7 +317,7 @@
 		LEFT JOIN Members m2 ON c.user_no = m2.user_no
 		LEFT JOIN ImageTable it2 ON m.user_no = it2.idx AND it2.category = '회원'
 		WHERE
-		b.category = '피드' AND m.nickname =#{nameText}
+		b.category = '피드' AND REPLACE (m.nickname,' ','') LIKE CONCAT('%',REPLACE(#{nameText},' ',''),'%')
 		GROUP BY b.post_id
 		ORDER BY
 		b.date DESC;
