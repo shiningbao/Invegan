@@ -16,6 +16,9 @@
 	    height: 400px;
 	    margin: 0 auto;
 	}
+	.main-content{
+		margin: -35px 30px;
+	}
 	.custom{
 		width: 1200px;
 		height: auto;
@@ -108,12 +111,15 @@
 	}
 	
 	.cFL_Feed{
+		border-radius: 6px;
+   		border: 1px solid grey;
 		position: relative;
 		width : 328px;
 		margin: 0px 2px;
 		cursor: pointer;
 	}
 	.cFL_F_Head{
+		padding: 6px 0px 0px 6px;
 		align-items: center;
 		display: flex;
 		margin-bottom: 3px;
@@ -154,90 +160,93 @@
 	<!-- 맞춤 정보 제공 --> 
 	<div class="custom">
 		<!-- 식당 -->
-		<div class="customFilterArea">
-			<!-- <div class="cF_title"><h2>추천 식당</h2></div> -->
-			<div class="cF_move"><h3><a href="<c:url value='/restaurant/list'/>">더보기...</a></h3></div>
-		</div>
-		<div class="customFilterList">
-			<div class="customFilterButton">
-				<i class="fi fi-rr-angle-double-left" id="restaurantButtonL"></i>
+		<div id="fist-content" class="main-content">
+			<div class="customFilterArea">
+				<!-- <div class="cF_title"><h2>추천 식당</h2></div> -->
+				<div class="cF_move"><h3><a href="<c:url value='/restaurant/list'/>">더보기...</a></h3></div>
 			</div>
-			<div class="cFL_Res">
-				<div class="cFL_R_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
-				<div class="cFL_R_Con">
-					<div class="cFL_R_Name"></div>
+			<div class="customFilterList">
+				<div class="customFilterButton">
+					<i class="fi fi-rr-angle-double-left" id="restaurantButtonL"></i>
 				</div>
-				<div class="cFL_R_VT"></div>
-			</div>
-			<div class="cFL_Res">
-				<div class="cFL_R_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
-				<div class="cFL_R_Con">
-					<div class="cFL_R_Name"></div>
-				</div>
+				<div class="cFL_Res">
+					<div class="cFL_R_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
+					<div class="cFL_R_Con">
+						<div class="cFL_R_Name"></div>
+					</div>
 					<div class="cFL_R_VT"></div>
-			</div>
-			<div class="cFL_Res">
-				<div class="cFL_R_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
-				<div class="cFL_R_Con">
-					<div class="cFL_R_Name"></div>
 				</div>
-					<div class="cFL_R_VT"></div>
-			</div>
-			<div class="customFilterButton">
-				<i class="fi fi-rr-angle-double-right" id="restaurantButtonR"></i>
+				<div class="cFL_Res">
+					<div class="cFL_R_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
+					<div class="cFL_R_Con">
+						<div class="cFL_R_Name"></div>
+					</div>
+						<div class="cFL_R_VT"></div>
+				</div>
+				<div class="cFL_Res">
+					<div class="cFL_R_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
+					<div class="cFL_R_Con">
+						<div class="cFL_R_Name"></div>
+					</div>
+						<div class="cFL_R_VT"></div>
+				</div>
+				<div class="customFilterButton">
+					<i class="fi fi-rr-angle-double-right" id="restaurantButtonR"></i>
+				</div>
 			</div>
 		</div>
 		
 		<!-- 피드 -->
-		<div class="customFilterArea">
-			<!-- <div class="cF_title"><h2>추천 피드</h2></div> -->
-			<div class="cF_move"><p><a href="<c:url value='/feed/list.go'/>">더보기...</a></p></div>
-		</div>
-		<div class="customFilterList" id="restaurantList">
-			<div class="customFilterButton">
-				<i class="fi fi-rr-angle-double-left" id="feedButtonL"></i>
+		<div id="second-content" class="main-content">
+			<div class="customFilterArea">
+				<!-- <div class="cF_title"><h2>추천 피드</h2></div> -->
+				<div class="cF_move"><p><a href="<c:url value='/feed/list.go'/>">더보기...</a></p></div>
 			</div>
-			
-			<div class="cFL_Feed" >
-				<div class="cFL_F_Head">
-					<img src="#" alt="ProfileImg" width="50px" height="50px" style="border-radius:50%; margin-right: 10px;"/>
-					<p></p>
+			<div class="customFilterList" id="restaurantList">
+				<div class="customFilterButton">
+					<i class="fi fi-rr-angle-double-left" id="feedButtonL"></i>
 				</div>
-				<div class="cFL_F_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
-				<div class="cFL_F_Con">
-					<div class="cFL_F_Text"></div>
-					<div class="cFL_F_Tag"></div>
-				</div>
-			</div>
-			
-			<div class="cFL_Feed" >
-				<div class="cFL_F_Head">
-					<img src="#" alt="ProfileImg" width="50px" height="50px" style="border-radius:50%; margin-right: 10px;"/>
-					<p></p>
-				</div>
-				<div class="cFL_F_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
-				<div class="cFL_F_Con">
-					<div class="cFL_F_Text"></div>
-					<div class="cFL_F_Tag"></div>
-				</div>
-			</div>
-			<div class="cFL_Feed " >
-				<div class="cFL_F_Head">
-					<img src="#" alt="ProfileImg" width="50px" height="50px" style="border-radius:50%; margin-right: 10px;"/>
-					<p></p>
-				</div>
-				<div class="cFL_F_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
-				<div class="cFL_F_Con">
-					<div class="cFL_F_Text"></div>
-					<div class="cFL_F_Tag"></div>
-				</div>
-			</div>
 				
-			<div class="customFilterButton">
-				<i class="fi fi-rr-angle-double-right" id="feedButtonR"></i>
+				<div class="cFL_Feed" >
+					<div class="cFL_F_Head">
+						<img src="#" alt="ProfileImg" width="50px" height="50px" style="border-radius:50%; margin-right: 10px;"/>
+						<p></p>
+					</div>
+					<div class="cFL_F_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
+					<div class="cFL_F_Con">
+						<div class="cFL_F_Text"></div>
+						<div class="cFL_F_Tag"></div>
+					</div>
+				</div>
+				
+				<div class="cFL_Feed" >
+					<div class="cFL_F_Head">
+						<img src="#" alt="ProfileImg" width="50px" height="50px" style="border-radius:50%; margin-right: 10px;"/>
+						<p></p>
+					</div>
+					<div class="cFL_F_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
+					<div class="cFL_F_Con">
+						<div class="cFL_F_Text"></div>
+						<div class="cFL_F_Tag"></div>
+					</div>
+				</div>
+				<div class="cFL_Feed " >
+					<div class="cFL_F_Head">
+						<img src="#" alt="ProfileImg" width="50px" height="50px" style="border-radius:50%; margin-right: 10px;"/>
+						<p></p>
+					</div>
+					<div class="cFL_F_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
+					<div class="cFL_F_Con">
+						<div class="cFL_F_Text"></div>
+						<div class="cFL_F_Tag"></div>
+					</div>
+				</div>
+					
+				<div class="customFilterButton">
+					<i class="fi fi-rr-angle-double-right" id="feedButtonR"></i>
+				</div>
 			</div>
 		</div>
-	
 	</div>
 		
 	<div class="blank"></div>
