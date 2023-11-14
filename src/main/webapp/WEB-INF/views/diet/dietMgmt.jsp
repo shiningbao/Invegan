@@ -9,6 +9,8 @@
 <link rel="stylesheet"
 	href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<!-- alert ,cofirm 창 -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
 body {
 	position: relative;
@@ -638,27 +640,33 @@ body {
 					$(this).find('.deleteX').hide();
 				});
 
-				$('.deleteX').click(function() {
-					var menuName = $(this).siblings('label').text();
-					var deleteConf = confirm(menuName+ ' 을(를) 삭제하시겠습니까?');
-					
-					var tdMenuName = $(this).closest('.menu_name');
-					
-					var dietId = tdMenuName.find('input').eq(0).val();
-					var menuId = tdMenuName.find('input').eq(1).val();
-					var category = tdMenuName.find('input').eq(2).val();
-					
-					var params = {
-							'diet_id':dietId,
-							'menu_id':menuId,
-							'category':category
-					}
-					console.log(params);
-					if (deleteConf) {
-						deleteMenu(params);
-					} else {
-
-					}
+				$('.deleteX').click(function () {
+				    var menuName = $(this).siblings('label').text();
+				    
+				    swal({
+				        title: menuName + '을(를) 삭제하시겠습니까?',
+				        text: "",
+				        icon: "warning",
+				        buttons: ["취소", "삭제"],
+				        dangerMode: true,
+				    }).then((isConfirmed) => {
+				        if (isConfirmed) {
+				            var tdMenuName = $(this).closest('.menu_name');
+				            
+				            var dietId = tdMenuName.find('input').eq(0).val();
+				            var menuId = tdMenuName.find('input').eq(1).val();
+				            var category = tdMenuName.find('input').eq(2).val();
+				            
+				            var params = {
+				                'diet_id': dietId,
+				                'menu_id': menuId,
+				                'category': category
+				            };
+				            
+				            console.log(params);
+				            deleteMenu(params);
+				        }
+				    });
 				});
 			});
 

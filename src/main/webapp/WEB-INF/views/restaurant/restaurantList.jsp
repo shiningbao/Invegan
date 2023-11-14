@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
     <script src="../resources/js/jquery.twbsPagination.js" type="text/javascript"></script>
@@ -41,7 +41,7 @@
 	.restaurantDiv_1{
 		position: relative;	
 		width: 24.5%;
-		margin: 0px auto 10px auto;
+		margin: 0px 2px 10px 2px;
 		display: inline-block;
 		cursor: pointer;
 	}
@@ -91,9 +91,17 @@
 		text-overflow: ellipsis;
 	}
 	.pageDiv{
+		width: 100%;
+	}
+	.pageDiv nav ul{
 		margin: 0px auto;
 	}
-	
+	.blank{
+		margin-bottom: 200px;
+	}
+	.active a{
+		background-color: grey;
+	}
 </style>
 
 </head>
@@ -114,12 +122,13 @@
 				</div>
 			</div>
 		</div>
+		<div class="pageDiv">
+			<nav aria-label="Page navigation" style="text-align:center">
+				<ul class="pagination" id="pagination"></ul>
+			</nav>	
+		</div>
 	</div>
-	<div class="pageDiv">
-		<nav aria-label="Page navigation" style="text-align:center">
-			<ul class="pagination" id="pagination"></ul>
-		</nav>	
-	</div>
+	<div class="blank"></div>
 	
 	
 </body>
@@ -140,7 +149,7 @@ function callList(showPage){
 		success:function(result){
 			data = result;
 			console.log(data);
-			drawDiv(data.restaurant.length());
+			drawDiv(data.restaurantList.length);
 			drawList(data);
 		},
 		error:function(e){
@@ -152,7 +161,7 @@ function callList(showPage){
 function drawDiv(len){
 	var totalcontent = '<div class="restaurantDiv"></div>';
 	var content = '<div class="restaurantDiv_1"><div class="restaurantImg"><img class="Img" src="#"></div>';
-	content += '<div class="res_title">게시물 없음</div>	<div class="res_dist">-</div><div class="veganType"></div></div>';
+	content += '<div class="res_title">게시물 없음</div><div class="res_dist">-</div><div class="veganType"></div></div>';
 	$('.restarurantList').html('');
 	for(var i = 0; i < len; i++){
 		// 0 4 8 
@@ -190,7 +199,7 @@ function drawList(data){
 		$('.restaurantDiv_1').eq(i).attr('post_id',restaurant.post_id);
 		$('.restaurantDiv_1').eq(i).find($('.Img')).attr('src','/photo/'+restaurant.server_file_name);
 		$('.restaurantDiv_1').eq(i).find($('.res_title')).html(restaurant.title);
-		$('.restaurantDiv_1').eq(i).find($('.res_dist')).html('현재 위치와의 거리: '+restaurant.km);
+		$('.restaurantDiv_1').eq(i).find($('.res_dist')).html('현재 위치와의 거리: '+restaurant.km+' Km');
 		$('.restaurantDiv_1').eq(i).find($('.veganType')).html(veganType);
 		
 		if(restaurant.is_hidden == 1){
@@ -205,7 +214,8 @@ function drawList(data){
 	// 페이징 UI 그리기(플러그인 사용)
 	$('#pagination').twbsPagination({
 		startPage:showPage, // 보여줄 페이지
-		totalPages:4, // 총 페이지 수(총 갯수/페이지당 보여줄 게시물 수) : 서버에서 계산해서 가져와야함
+		totalPages:data.pages, // 총 페이지 수(총 갯수/페이지당 보여줄 게시물 수) : 서버에서 계산해서 가져와야함
+		activeClass : "active",
 		visiblePages:5,
 		onPageClick:function(e,page){// 번호 클릭시 실행할 내용
 			//console.log(e);
