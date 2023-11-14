@@ -168,9 +168,9 @@ input[type="text"] {
 	top: 0; /* 페이지의 상단에 고정합니다. */
 }
 
-.col-3 {position st;
+ /*.col-3 {position st;
 	z-index: 1;
-}
+}*/
 
 #write-btn {
 	width: 200px;
@@ -224,6 +224,7 @@ input[type="text"] {
 				<button class="btn btn-outline-info clickTagSearch" name="daily">#일상</button>
 				<button class="btn btn-outline-info clickTagSearch" name="restaurant">#식당</button>
 				<button class="btn btn-outline-info clickTagSearch" name="recipe">#레시피</button>
+				<button class="btn btn-outline-info " style="width:310px">전체보기</button>
 				<h4>태그검색</h4>
 				<div id="autoSearch">
 					<input type="text" id="autoComplete" class="autoComplete" placeholder="미입력후 검색시 전체리스트">
@@ -570,8 +571,6 @@ input[type="text"] {
              							$('.addBtn').css('display', 'none');
              							$('.addBtnSearch').css('display', 'block');
              							$('.addBtnImg').show();
-             							
-             						   
 
              							autoListCall();
              							 
