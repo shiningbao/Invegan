@@ -29,6 +29,9 @@ body {
 
 input[type="text"] {
 	width: 100%;
+    height: 45px;
+    padding-left: 10px;
+    font-size: 18px;
 }
 
 .post-header img {
@@ -47,7 +50,7 @@ input[type="text"] {
 	height: auto;
 } */
 .mainFeedPhoto {
-	width: 500px;
+	width: 100%;
 	height: 500px;
 }
 
@@ -167,23 +170,22 @@ input[type="text"] {
 	position: sticky;
 	top: 0; /* 페이지의 상단에 고정합니다. */
 }
-
- /*.col-3 {position st;
+.col-3 {
 	z-index: 1;
-}*/
+}
 
 #write-btn {
-	width: 200px;
-	height: 50px;
+    width: 158px;
+    height: 50px;
+    margin: 0 77px;
 }
 
 #content {
 	height: 200px;
 }
-
 .post-time {
 /* 	border-bottom: 1px solid #cdd6df; */
-	width: 500px;
+	width: 100%;
 	margin-bottom: 50px;
 }
 
@@ -217,7 +219,7 @@ input[type="text"] {
 	<div class="container-fluid">
 
 		<div class="row">
-			<div class="col-3 custom-col-3" style="position: fixed; left: 35px; top: 145px;">
+			<div class="col-3 custom-col-3" style="position: fixed; left: 35px; top: 145px; width: 340px;">
 				<button class="btn btn-outline-info clickTagSearch" name="food">#식품</button>
 				<button class="btn btn-outline-info clickTagSearch" name="beauty">#뷰티</button>
 				<button class="btn btn-outline-info clickTagSearch" name="fashion">#패션</button>
@@ -242,7 +244,7 @@ input[type="text"] {
 				<button id="write-btn" class="btn btn-success">피드게시글 작성</button>
 			</div>
 			<div class="col-4"></div>
-			<div class="col-6">
+			<div class="col-4">
 				<div id="feedList" class="feedListPost">
 					<!-- 피드 리스트 동적으로 그리기 -->
 				</div>
@@ -482,7 +484,7 @@ input[type="text"] {
 									content += '<img src="/photo/' + item.server_file_name + '" class="mainFeedPhoto">';
 									content += '</a>';
 									content += '</div>';
-									content += '<div class="post-content"  style="width:500px">';
+									content += '<div class="post-content"  style="width:100%">';
 									
 									var feedContentTxt = item.content;
 									var truncatedTxt = truncateTxt(feedContentTxt, 100);
@@ -514,7 +516,7 @@ input[type="text"] {
 									content += '</div>';
 									var date = new Date(item.date);
 									var dateStr = date.toLocaleDateString("ko-KR"); //en-US
-									content += '<div class="tag-content" style="width:500px; color: #808080;">'+ item.tag_content + '</div>';
+									content += '<div class="tag-content" style="width:100%; color: #808080;">'+ item.tag_content + '</div>';
 									content += '<div class="post-time">'+ dateStr + '</div>';
 									content += '</div>';
 									
