@@ -92,6 +92,7 @@ public class RestaurantService {
 			e.printStackTrace();
 		}
 		msg = "수정 완료";
+		
 		return msg;
 	}
 	
