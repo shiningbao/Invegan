@@ -133,7 +133,7 @@
 <c:import url="/main/header"/>
 
 
-	<div class="banner">
+	<div class="banner"><img src='<c:url value="/resources/main/invegan_source03.png"/>' alt="banner_1" width="100%" height="100%"/>
 	</div>
 	<br>
 
