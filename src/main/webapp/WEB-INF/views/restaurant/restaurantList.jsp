@@ -90,6 +90,9 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
+	.pagination {
+		justify-content: center;
+	}
 	.pageDiv{
 		width: 100%;
 	}
@@ -160,7 +163,7 @@ function callList(showPage){
 
 function drawDiv(len){
 	var totalcontent = '<div class="restaurantDiv"></div>';
-	var content = '<div class="restaurantDiv_1" onclick="restaurantClick()"><div class="restaurantImg"><img class="Img" src="#"></div>';
+	var content = '<div class="restaurantDiv_1" onclick="restaurantClick(this)"><div class="restaurantImg"><img class="Img" src="#"></div>';
 	content += '<div class="res_title">게시물 없음</div><div class="res_dist">-</div><div class="veganType"></div></div>';
 	$('.restarurantList').html('');
 	for(var i = 0; i < len; i++){
@@ -227,8 +230,8 @@ function drawList(data){
 	});
 };
 
-function restaurantClick(){
-	var post_id = $(this).attr('post_id');
+function restaurantClick(e){
+	var post_id = e.getAttribute('post_id');
 	console.log(post_id);
 	if(post_id != null){
 		location.href = 'detail?post_id='+post_id;
