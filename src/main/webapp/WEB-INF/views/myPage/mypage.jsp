@@ -326,7 +326,7 @@
 	
 		.profile img{
 			width: 30px;
-			border-radius:50%;
+			border-radius: 50%;
 			margin: 5px;
 		}
 		
@@ -453,7 +453,7 @@
     	height: 250px;
 }
 
-	.interCheck{
+	/* .interCheck{
 		position : absolute;
 		right : 40px;
 		top : -12px;
@@ -476,7 +476,7 @@
 		right : 89px;
 		top : 49px;
 		font-weight : bold;
-	}
+	} */
 	
 /* 	#vgPurpose{
 		position : absolute;
