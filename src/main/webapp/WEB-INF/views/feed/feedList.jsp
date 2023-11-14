@@ -168,9 +168,10 @@ input[type="text"] {
 	top: 0; /* 페이지의 상단에 고정합니다. */
 }
 
- /*.col-3 {position st;
+ .col-3 {
 	z-index: 1;
-}*/
+
+}
 
 #write-btn {
 	width: 200px;
@@ -182,7 +183,7 @@ input[type="text"] {
 }
 
 .post-time {
-/* 	border-bottom: 1px solid #cdd6df; */
+	/* 	border-bottom: 1px solid #cdd6df; */
 	width: 500px;
 	margin-bottom: 50px;
 }
@@ -194,7 +195,6 @@ input[type="text"] {
 	text-align: center;
 	margin-left: 5px;
 }
-
 </style>
 
 </head>
@@ -224,7 +224,8 @@ input[type="text"] {
 				<button class="btn btn-outline-info clickTagSearch" name="daily">#일상</button>
 				<button class="btn btn-outline-info clickTagSearch" name="restaurant">#식당</button>
 				<button class="btn btn-outline-info clickTagSearch" name="recipe">#레시피</button>
-				<button class="btn btn-outline-info " style="width:310px">전체보기</button>
+				<button class="btn btn-outline-info clickResult" style="width: 310px">전체보기</button>
+
 				<h4>태그검색</h4>
 				<div id="autoSearch">
 					<input type="text" id="autoComplete" class="autoComplete" placeholder="미입력후 검색시 전체리스트">
@@ -269,16 +270,22 @@ input[type="text"] {
 </body>
 <script>
 	// 메인에서 리스트로 넘어올때 처리
+	var post_id;
+	
 	$(document).ready(function(){
 		var nickname = "${getNickname}";
-		if(nickname != ''){
+		post_id = "${getPost_id}";
+		if(nickname != '' && post_id != ''){
 			console.log('nickname from main page',nickname);
 			$('.nameSearch').val(nickname);
-			var searchBtn = $('#nameSearchBtn');
-			searchBtn.trigger('click');
+			var searchNick = $('#nameSearchBtn');
+			searchNick.trigger('click');			
 			searchNick();
 		}
 	});
+	
+
+	
 
 	//header 카테고리 선택유지
 	$('#go_feed').css('box-shadow','#95df95 0px 2px 0px 0px');
@@ -526,79 +533,115 @@ input[type="text"] {
 						
 						
 						function autoListCall() {
-							console.log('autoListCall 호출');
+						    console.log('autoListCall 호출');
 
-							$.ajax({
-								url : 'autoSearchTag',
-								data : {
-									'autoText' : autoText,
-									'limitcnt' : limitcnt
-								},
-								success : function(data) {
-									console.log(data);
-									console.log(data.searchResult);
-									console.log(data.limitcnt);
-									console.log(data.listSize);
-									drawList(data.list);
-									if(data.listSize<1){
-										 swal({
-									  	      title: "해당 태그의 게시글이 없습니다.",
-									  	      text: "",
-									  	      icon: "info",
-									  	  });
-									}
-									if (data.limitcnt > data.listSize) {
-										$('.addBtnSearch').prop('disabled',true);
-										
-									} else {
-										$('.addBtnSearch').prop('disabled',false);
-									}
-								},
-								error : function(e) {
-									console.log('에러발생' + e);
-								},
-							});
+						    $.ajax({
+						        url: 'autoSearchTag',
+						        data: {
+						            'autoText': autoText,
+						            'limitcnt': limitcnt
+						        },
+						        success: function (data) {
+						            console.log(data);
+						            console.log(data.searchResult);
+						            console.log(data.limitcnt);
+						            console.log(data.listSize);
+						            drawList(data.list);
+						            if (data.listSize < 1) {
+						                swal({
+						                    title: "해당 태그의 게시글이 없습니다.",
+						                    text: "",
+						                    icon: "info",
+						                }).then((result) => {
+						                    if (result) {
+						                        flag = true;
+						                        location.href = "list.go";
+						                    }
+						                }); // 이 부분에 괄호 추가
+						            }
+
+						            if (data.limitcnt > data.listSize) {
+						                $('.addBtnSearch').prop('disabled', true);
+						            } else {
+						                $('.addBtnSearch').prop('disabled', false);
+						            }
+						        },
+						        error: function (e) {
+						            console.log('에러발생' + e);
+						        },
+						    });
 						}
+						//자동완성 검색 // 전체보기
+						function clickResult() {
+						    backToTop();
+						    autoText = $('#autoComplete').val();
+						    $('.nameSearch').val('');
+						    limitcnt = 10;
+						    console.log('click');
+						    $('.clickTagSearch').removeClass('active');
+						    $('.addBtn').css('display', 'none');
+						    $('.addBtnSearch').css('display', 'block');
+						    $('.addBtnImg').show();
 						
-						//자동완성 검색
-						$(document).on('click','#searchbtn',function(){
-             							backToTop();
-             							autoText = $('#autoComplete').val();
-             							$('.nameSearch').val('');
-             							limitcnt = 10;
-             							console.log('click');
-             							$('.clickTagSearch').removeClass('active');
-             							$('.addBtn').css('display', 'none');
-             							$('.addBtnSearch').css('display', 'block');
-             							$('.addBtnImg').show();
-
-             							autoListCall();
-             							 
-             						})
+						    autoListCall();
+						}
+						$(document).on('click', '#searchbtn', function () {
+						    clickResult();
+						});
+             			//전체보기			
+						$('.clickResult').on('click',function(){
+							$('#autoComplete').val('');
+							clickResult();
+							
+						});
+						
+						
 						
 						//닉네임 검색
 						function searchNick(){
-							backToTop();
-							var nameText = $('.nameSearch').val();
-							console.log('nameText chk',nameText);
 							
-							$.ajax({
-								url:'feed/nameSearch',
-								data:{nameText : nameText},
-								success:function(data){
-									 if (data.list.length === 0) {    
-							                showNoResultsMessage();
-							            } else {							                
-							                drawList(data.list);
-							                $('.addBtnImg').hide();
-							            }
-									drawList(data.list);
-									$('.addBtnImg').hide();
-								},
-								error:function(e){
-									console.log('닉네임 검색 오류'+e);
-								},
-							});
+							if (post_id == '') {
+								backToTop();
+								var nameText = $('.nameSearch').val();
+								console.log('nameText chk',nameText);
+								
+								$.ajax({
+									url:'feed/nameSearch',
+									data:{nameText : nameText},
+									success:function(data){
+										 if (data.list.length === 0) {    
+								                showNoResultsMessage();
+								            } else {							                
+								                drawList(data.list);
+								                $('.addBtnImg').hide();
+								            }
+										drawList(data.list);
+										$('.addBtnImg').hide();
+									},
+									error:function(e){
+										console.log('닉네임 검색 오류'+e);
+									},
+								});
+							} else {
+								var nameText = $('.nameSearch').val();
+								console.log('nameText chk',nameText);
+								console.log('post_id',post_id);
+						
+								$.ajax({
+									url:'feed/mainClickFeed.do',
+									data:{"nameText":nameText, "post_id":post_id},
+									dataType:'json',
+									success:function(data){
+										console.log(data);
+										drawList(data.list);
+										post_id = '';
+									},
+									error:function(e){
+										console.log(e);
+									}
+								});
+							}
+
 						}
 						
 					function showNoResultsMessage(){

@@ -287,12 +287,14 @@
 			}
 			
 			#modal-content {
-				 position: absolute;
+				 display: flex;
+				 position: fixed;
 				 background-color: #fefefe;
-				 margin : 5% 0% 5% 11%;
 				 padding: 20px;
 				 border: 1px solid #888;
 				 width: 800px;
+				 left: 181.2px;
+				 top: 46.95px;
 			}
 
 		</style>	
@@ -390,7 +392,7 @@
 		<div id="mModal" class="modal">
 			<div id="modal-content">
 				<!-- 모달의 내용이 출력됨 -->
-				<p>모달 내용을 이곳에 추가하세요.</p>
+				<p>로딩중......</p>
 			</div>	
 		</div>
 	</body>
