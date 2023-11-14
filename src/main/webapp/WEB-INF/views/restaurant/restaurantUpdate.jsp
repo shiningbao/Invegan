@@ -262,7 +262,7 @@ $('#go_rest').css('box-shadow','#95df95 0px 2px 0px 0px');
 				delButton.textContent = '삭제';
 				divTag.appendChild(delButton);
 			}else{
-				alert('이미지 파일 아님');
+				alert('이미지 파일이 아닙니다');
 				$('#restarunatWriteImg')[0].files = new DataTransfer().files;
 				$restaurantImg.innerHTML='<p id="preview">등록된 사진이 없습니다.</p>';
 				break;
@@ -328,36 +328,36 @@ $('#write').on('click',function(e){
 
 	var blankcnt = 0;
 	var len = $menu_name.length;
-/*	
+
 	if($title.val() == ''){
-		alert('식당 이름');
+		alert('식당 이름을 입력해 주세요');
 		blankcnt ++;
 		$title.focus();
 	}else if($address.val() == ''){
-		alert('식당 주소');
+		alert('식당 주소를 입력해 주세요');
 		blankcnt ++;
 		$address.focus();
 	}else if($content.val() == ''){
-		alert('식당 소개');
+		alert('식당 소개를 입력해 주세요');
 		blankcnt ++;
 		$content.focus();
 	}else if($phone.val() == ''){
-		alert('식당 연락처');
+		alert('식당 연락처를 입력해 주세요');
 		blankcnt ++;
 		$phone.focus();
 	}else if($hours.val() == ''){
-		alert('영업시간');
+		alert('영업시간을 입력해 주세요');
 		blankcnt ++;
 		$hours.focus();
 	}else{
 		for(var i = 0; i < len; i++){
 			if($menu_name.eq(i).val() == ''){
-				alert('메뉴');
+				alert('메뉴를 입력해 주세요');
 				blankcnt ++;
 				$menu_name.eq(i).focus();
 				break;
 			}else if($price.eq(i).val() == ''){
-				alert('가격');
+				alert('가격을 입력해 주세요');
 				blankcnt ++;
 				$price.eq(i).focus();
 				break;
@@ -366,7 +366,7 @@ $('#write').on('click',function(e){
 			var regex = new RegExp('[a-zA-Zㄱ-ㅎ가-힣]');
 			var match = regex.test($price.eq(i).val()); // 패턴이 일치하면 true, 아니면 false
 			if(match){
-				alert('가격에 숫자만');
+				alert('가격에 숫자만 입력해 주세요');
 				blankcnt ++;
 				break;
 			}
@@ -375,7 +375,7 @@ $('#write').on('click',function(e){
 	
 	console.log("공백 및 패턴 확인 blankcnt : ");
 	console.log(blankcnt);	
-*/	
+	
 	if(blankcnt == 0){
 		var formData = new FormData();
 
