@@ -503,7 +503,7 @@ input[type="text"] {
 									content += '</div>';
 									var date = new Date(item.date);
 									var dateStr = date.toLocaleDateString("ko-KR"); //en-US
-									content += '<div class="tag-content" style="width:500px">'+ item.tag_content + '</div>';
+									content += '<div class="tag-content" style="width:500px; color: #808080;">'+ item.tag_content + '</div>';
 									content += '<div class="post-time">'+ dateStr + '</div>';
 									content += '</div>';
 									

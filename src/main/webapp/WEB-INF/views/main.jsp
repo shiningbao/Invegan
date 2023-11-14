@@ -215,7 +215,7 @@
 					<div class="cFL_F_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
 					<div class="cFL_F_Con">
 						<div class="cFL_F_Text"></div>
-						<div class="cFL_F_Tag"></div>
+						<div class="cFL_F_Tag" style="margin-top: 20px; color: #808080;"></div>
 					</div>
 				</div>
 				
@@ -227,7 +227,7 @@
 					<div class="cFL_F_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
 					<div class="cFL_F_Con">
 						<div class="cFL_F_Text"></div>
-						<div class="cFL_F_Tag"></div>
+						<div class="cFL_F_Tag" style="margin-top: 20px; color: #808080;"></div>
 					</div>
 				</div>
 				<div class="cFL_Feed " >
@@ -238,7 +238,7 @@
 					<div class="cFL_F_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
 					<div class="cFL_F_Con">
 						<div class="cFL_F_Text"></div>
-						<div class="cFL_F_Tag"></div>
+						<div class="cFL_F_Tag" style="margin-top: 20px; color: #808080;"></div>
 					</div>
 				</div>
 					
