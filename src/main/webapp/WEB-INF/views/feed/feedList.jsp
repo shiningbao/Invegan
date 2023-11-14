@@ -74,9 +74,6 @@ input[type="text"] {
 	font-weight: bold;
 }
 
-.user-profile {
-	
-}
 .side-tag{
 	width: 310px;
 }
@@ -337,16 +334,22 @@ input[type="text"] {
 </body>
 <script>
 	// 메인에서 리스트로 넘어올때 처리
+	var post_id;
+	
 	$(document).ready(function(){
 		var nickname = "${getNickname}";
-		if(nickname != ''){
+		post_id = "${getPost_id}";
+		if(nickname != '' && post_id != ''){
 			console.log('nickname from main page',nickname);
 			$('.nameSearch').val(nickname);
-			var searchBtn = $('#nameSearchBtn');
-			searchBtn.trigger('click');
+			var searchNick = $('#nameSearchBtn');
+			searchNick.trigger('click');			
 			searchNick();
 		}
 	});
+	
+
+	
 
 	//header 카테고리 선택유지
 	$('#go_feed').css('box-shadow','#95df95 0px 2px 0px 0px');
@@ -668,27 +671,49 @@ input[type="text"] {
 						
 						//닉네임 검색
 						function searchNick(){
-							backToTop();
-							var nameText = $('.nameSearch').val();
-							console.log('nameText chk',nameText);
-							$('#autoComplete').val('');
-							$.ajax({
-								url:'feed/nameSearch',
-								data:{nameText : nameText},
-								success:function(data){
-									 if (data.list.length === 0) {    
-							                showNoResultsMessage();
-							            } else {							                
-							                drawList(data.list);
-							                $('.addBtnImg').hide();
-							            }
-									drawList(data.list);
-									$('.addBtnImg').hide();
-								},
-								error:function(e){
-									console.log('닉네임 검색 오류'+e);
-								},
-							});
+							
+							if (post_id == '') {
+								backToTop();
+								var nameText = $('.nameSearch').val();
+								console.log('nameText chk',nameText);
+								
+								$.ajax({
+									url:'feed/nameSearch',
+									data:{nameText : nameText},
+									success:function(data){
+										 if (data.list.length === 0) {    
+								                showNoResultsMessage();
+								            } else {							                
+								                drawList(data.list);
+								                $('.addBtnImg').hide();
+								            }
+										drawList(data.list);
+										$('.addBtnImg').hide();
+									},
+									error:function(e){
+										console.log('닉네임 검색 오류'+e);
+									},
+								});
+							} else {
+								var nameText = $('.nameSearch').val();
+								console.log('nameText chk',nameText);
+								console.log('post_id',post_id);
+						
+								$.ajax({
+									url:'feed/mainClickFeed.do',
+									data:{"nameText":nameText, "post_id":post_id},
+									dataType:'json',
+									success:function(data){
+										console.log(data);
+										drawList(data.list);
+										post_id = '';
+									},
+									error:function(e){
+										console.log(e);
+									}
+								});
+							}
+
 						}
 						
 					function showNoResultsMessage(){

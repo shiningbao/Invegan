@@ -215,4 +215,8 @@ public class FeedService {
 		
 	}
 
+	public ArrayList<FeedListDTO> mainClickFeed(HashMap <String, Object> params) {
+		return dao.mainClickFeed(params);
+	}
+
 }

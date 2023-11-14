@@ -410,7 +410,7 @@ $('.cFL_Feed').on('click',function(){
 	console.log(post_id);
 	var nickname = $(this).find('.nickname').text();
 	console.log('select nickname',nickname);
-    location.href="feed/list.go/"+nickname;
+    location.href="feed/list.go/"+nickname+","+post_id;
 });
 
 
