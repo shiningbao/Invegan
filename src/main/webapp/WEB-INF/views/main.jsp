@@ -436,7 +436,7 @@ $('#feedButtonR').on('click',function(){
 
 var clickImg = 0;
 $('.banner').on('click',function(){
-	var imgArr = ['invegan_source01.png','invegan_source02.png','invegan_source03.jpg','invegan_logo_master.png'];
+	var imgArr = ['invegan_source01.png','vegan_type.jpeg','invegan_source03.jpg','invegan_source04.jpg','invegan_logo_master.png'];
 	var len = imgArr.length;
 	clickImg ++;
 	if(clickImg >= len){

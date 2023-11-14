@@ -110,7 +110,7 @@
 	
 	
 	.restaurantImg{
-		background-color: yellow;
+		background-color: #bbe8b7;
 		width: 1000px;
 		margin: 0 auto;
 		display: inline-block;
@@ -136,7 +136,7 @@
 	    margin-top: 20px;
 	}
 	.restaurantMap{
-		background-color: green;
+		background-color: #bbe8b7;
 		width: 1000px;
 		height: 600px;
 		margin: 0 auto;

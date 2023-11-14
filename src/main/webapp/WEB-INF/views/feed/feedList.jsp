@@ -198,7 +198,7 @@ input[type="text"] {
 .post-time {
 /* 	border-bottom: 1px solid #cdd6df; */
 	width: 500px;
-	margin-bottom: 50px;
+	margin-bottom: 10px;
 }
 
 #post-tag {
@@ -677,7 +677,7 @@ input[type="text"] {
 								backToTop();
 								var nameText = $('.nameSearch').val();
 								console.log('nameText chk',nameText);
-								
+								$('#autoComplete').val('');
 								$.ajax({
 									url:'feed/nameSearch',
 									data:{nameText : nameText},
