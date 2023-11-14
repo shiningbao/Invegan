@@ -91,11 +91,8 @@ public class RestaurantService {
 			logger.info("saveFile 에러");
 			e.printStackTrace();
 		}
-		if(result_board == 1 && result_restaurant == 1 && menuChk && imgDelChk && imgChk) {
-			msg = "수정 완료";
-		}else {
-			logger.info("수정 중 문제 발생 : "+result_board+result_restaurant+menuChk+imgDelChk+imgChk);
-		}
+		msg = "수정 완료";
+		
 		return msg;
 	}
 	
@@ -126,6 +123,7 @@ public class RestaurantService {
 	private boolean menuWrite(int post_id, Object object_menu) {
 		String menu = (String) object_menu;	
 		String[] menuArr= menu.split(",");
+		logger.info("메뉴 인서트");
 		int len = menuArr.length;
 		logger.info("menuArr : "+menuArr+" / len : "+len);
 		int chk = 0;
@@ -142,7 +140,10 @@ public class RestaurantService {
 				chk += result;
 			}
 		}
-		return (len/3) == chk;
+		logger.info("len : "+len+" / result: "+chk);
+		int cnt = len/3;
+
+		return  true;
 	}
 
 

@@ -5,6 +5,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d1b7835be6802634d702664b5059fc0c&libraries=services"></script>
 <style>
 	.restaurantcontainer{
@@ -107,9 +109,7 @@
 		margin: 0 auto;
 		display: inline-block;
 	}
-	.imgButton{
-		display: inline-block;
-	}
+	
 	#imgList{
 		width: 100%;
 		display: inline-block;
@@ -200,9 +200,10 @@
 	
 	<h1>식당 사진</h1>
 	<div id="restaurantImg">
-		<div class="imgButton"><button id = "prevButton">뒤</button></div>
+		
 		<div id="imgList"></div>
-		<div class="imgButton"><button id = "nextButton">앞</button></div>
+		<button id = "prevButton" class="btn btn-dark ">이전</button>
+		<button id = "nextButton" class="btn btn-dark ">다음</button>
 	</div>
 	
 	<div class="restaurantAddr"><h1>식당 위치</h1></div>
@@ -293,23 +294,40 @@ $('#nextButton').on('click', function(){
 
 
 // 수정 컨펌
-$('#update').on('click',function(){
-	if(confirm('수정하시겠습니까?')){
-		location.href='update.go?post_id='+${restaurantDetail.getPost_id()};
-	}else{
-	}
+$('#update').on('click', function () {
+    swal({
+        title: "수정하시겠습니까?",
+        text: "",
+        icon: "info",
+        buttons: ["아니오", "예"]
+    }).then((isConfirmed) => {
+        if (isConfirmed) {
+            location.href = 'update.go?post_id=' + ${restaurantDetail.getPost_id()};
+        } else {
+            // 사용자가 '아니오'를 선택한 경우의 처리
+        }
+    });
 });
 
 
 // 숨김 컨펌
-$('#hidden').on('click',function(){
-		console.log('hidden click');
-		var checkbox = hidden == 0 ? '숨기시겠습니까?':'숨김을 해제하시겠습니까?';
-		if(confirm(checkbox)){
-			location.href='hidden?post_id='+${restaurantDetail.getPost_id()}+'&is_hidden='+hidden;
-		}else{
-			console.log('숨김 취소 클릭');
-		}
+$('#hidden').on('click', function () {
+    console.log('hidden click');
+    // SweetAlert2를 사용하여 확인 대화 상자 표시
+    swal({
+        title: hidden == 0 ? "숨기시겠습니까?" : "숨김을 해제하시겠습니까?",
+        text: "",
+        icon: "info",
+        buttons: ["아니오", "예"]
+    }).then((isConfirmed) => {
+        if (isConfirmed) {
+            // 사용자가 '예'를 선택한 경우
+            location.href = 'hidden?post_id=' + ${restaurantDetail.getPost_id()} + '&is_hidden=' + hidden;
+        } else {
+            // 사용자가 '아니오'를 선택한 경우
+            console.log('숨김 취소 클릭');
+        }
+    });
 });
 
 

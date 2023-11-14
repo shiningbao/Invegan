@@ -88,17 +88,16 @@
 		z-index: 10;
 	}
 	.cFL_R_VT div{
-		box-shadow: #000000 4px 2px 7px 0px !important;
+		box-shadow: #4f4f4f 3px 3px 4px 0px !important;
 	    font-weight: 600;
+	    border-radius: 8px;
 	    height: 30px;
 	    display: inline-block;
-	    border-radius: 8px;
 	    margin: 2px 2px;
 	    padding: 0px 7px;
 	    background-color: #c5e0b5;
 	    line-height: 30px;
 	    text-align: center;
-	    border: 1px soild #black;
 		
 	}
 	.cFL_R_Name{
@@ -211,7 +210,7 @@
 				<div class="cFL_Feed" >
 					<div class="cFL_F_Head">
 						<img src="#" alt="ProfileImg" width="50px" height="50px" style="border-radius:50%; margin-right: 10px;"/>
-						<p></p>
+						<p class="nickname"></p>
 					</div>
 					<div class="cFL_F_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
 					<div class="cFL_F_Con">
@@ -223,7 +222,7 @@
 				<div class="cFL_Feed" >
 					<div class="cFL_F_Head">
 						<img src="#" alt="ProfileImg" width="50px" height="50px" style="border-radius:50%; margin-right: 10px;"/>
-						<p></p>
+						<p class="nickname"></p>
 					</div>
 					<div class="cFL_F_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
 					<div class="cFL_F_Con">
@@ -234,7 +233,7 @@
 				<div class="cFL_Feed " >
 					<div class="cFL_F_Head">
 						<img src="#" alt="ProfileImg" width="50px" height="50px" style="border-radius:50%; margin-right: 10px;"/>
-						<p></p>
+						<p class="nickname"></p>
 					</div>
 					<div class="cFL_F_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
 					<div class="cFL_F_Con">
@@ -407,21 +406,11 @@ function feedListView(idx){
 
 
 $('.cFL_Feed').on('click',function(){
-	
 	var post_id = $(this).attr('post_id');
 	console.log(post_id);
-	
-	swal({
-	      title: "피드 상세보기는 리스트에서 확인해주시기 바랍니다.",
-	      text: "닉네임을 검색해주세요!",
-	      icon: "info",
-	  }).then((result) => {
-	      if (result) {
-	          location.href="feed/list.go";
-	      }
-	      
-	  });
-	
+	var nickname = $(this).find('.nickname').text();
+	console.log('select nickname',nickname);
+    location.href="feed/list.go/"+nickname;
 });
 
 

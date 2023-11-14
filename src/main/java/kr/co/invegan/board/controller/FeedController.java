@@ -1,11 +1,7 @@
 package kr.co.invegan.board.controller;
 
-import java.lang.System.Logger;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -15,17 +11,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import kr.co.invegan.board.dto.FeedDTO;
 import kr.co.invegan.board.dto.FeedListDTO;
-import kr.co.invegan.board.dto.PhotoDTO;
 import kr.co.invegan.board.service.FeedService;
 import kr.co.invegan.member.dto.MemberDTO;
 
@@ -70,6 +65,14 @@ public class FeedController {
 	public String list() {
 		logger.info("controller list 접근");
 		return "feed/feedList";
+	}
+	
+	// 메인에서 리스트로 넘어갈때
+	@RequestMapping(value = "list.go/{nickname}")
+	public String listForNickname(RedirectAttributes reAttr, @PathVariable String nickname) {
+		logger.info("메인페이지에서 피드게시판으로");
+		reAttr.addFlashAttribute("getNickname", nickname);
+		return "redirect:/feed/list.go";
 	}
 
 	// 전체 리스트불러오기와 Tag를 선택했을떄 리스트불러오기
@@ -120,13 +123,16 @@ public class FeedController {
 	public HashMap<String, Object> feedDetailCall(HttpSession session, @RequestParam("post_id") int post_id) {
 
 		int user_no = 0;
+		int is_admin = 0;
 		logger.info("상세보기 접근");
 		logger.info("post id:" + post_id);
 		memberdto = (MemberDTO) session.getAttribute("loginInfo");
 
 		if (memberdto != null) {
 			user_no = memberdto.getUser_no();
+			is_admin = memberdto.getIs_admin();
 			session.setAttribute("user_no", user_no);
+			session.setAttribute("is_admin", is_admin);
 		}
 		logger.info("로그인 user_no :" + user_no);
 		logger.info("memberdto :" + memberdto);
@@ -151,6 +157,7 @@ public class FeedController {
 		result.put("commentList", commentList);
 		result.put("findBoardUserno", findBoardUserno);
 		result.put("user_no", user_no);
+		result.put("is_admin", is_admin);
 
 		return result;
 	}
