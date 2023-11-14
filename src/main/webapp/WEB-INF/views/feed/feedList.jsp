@@ -182,7 +182,7 @@ input[type="text"] {
 }
 
 .post-time {
-	border-bottom: 1px solid #cdd6df;
+/* 	border-bottom: 1px solid #cdd6df; */
 	width: 500px;
 	margin-bottom: 50px;
 }
@@ -194,6 +194,7 @@ input[type="text"] {
 	text-align: center;
 	margin-left: 5px;
 }
+
 </style>
 
 </head>
@@ -484,7 +485,7 @@ input[type="text"] {
 									content += '<div class="post-caption">';
 									content += '</div>';
 									content += '<div class="post-comments">';
-									content += '<div class="comment">';
+									content += '<div class="comment comments">';
 
 									if (item.comment_user_nickname !== null && item.comment_text !== null) {
 									    content += '<span class="username">' + item.comment_user_nickname + '</span>';

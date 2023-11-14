@@ -9,6 +9,7 @@
 	padding: 10px;
 }
 
+
 .post-header img {
 	width: 40px;
 	height: 40px;
@@ -69,6 +70,17 @@
 
 .detailPostCaption {
 	margin-top: 300px;
+}
+.detail-href{
+    width: 500px;
+    border-bottom: 1px solid #ccc; 
+    padding: 10px; 
+}
+.comment-edit-btn, .comment-del-btn{
+	width:50px;
+	font-size:12px !important;
+	height:30px;
+	margin-right:10px;
 }
 </style>
 
@@ -362,7 +374,7 @@ $(document).ready(function(){
            content += '</div>';
            
           content += '<div class="post-comments">';
-          content += '<div class="comment">';             
+          content += '<div class="comment comments">';             
 //           content += '<span class="username">' + item.comment_user_nickname + '</span> ';
           content += '<div class="detail-href">';
 //           content += '<span class="comment">' + item.comment_text + '</span> '
