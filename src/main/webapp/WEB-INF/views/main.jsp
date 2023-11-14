@@ -368,13 +368,12 @@ function feedListView(idx){
 			}else{
 				$('.cFL_Feed').eq(i).find('.cFL_F_Head').find($('img')).attr('src', '/photo/'+FFL[i+idx].profile_image);
 			}
-			
 			$('.cFL_Feed').eq(i).find('.cFL_F_Head').find($('p')).html(FFL[i+idx].nickname);
 			$('.cFL_Feed').eq(i).find('.cFL_F_Img').find($('img')).attr('alt', 'Feed Img(post_id:'+FFL[i+idx].post_id+')');
 			$('.cFL_Feed').eq(i).find($('.cFL_F_Text')).html(FFL[i+idx].content);
 			$('.cFL_Feed').eq(i).find($('.cFL_F_Tag')).html(FFL[i+idx].tag_content);
 			if(FFL[i+idx].server_file_name == null){
-				$('.cFL_Feed').eq(i).find('.cFL_F_Img').find($('img')).attr('src', '<c:url value="/resources/main/profile.png"/>');
+				$('.cFL_Feed').eq(i).find('.cFL_F_Img').find($('img')).attr('src', '<c:url value="/resources/main/logo.png"/>');
 			}else{
 				$('.cFL_Feed').eq(i).find('.cFL_F_Img').find($('img')).attr('src', '/photo/'+FFL[i+idx].server_file_name);
 			}
