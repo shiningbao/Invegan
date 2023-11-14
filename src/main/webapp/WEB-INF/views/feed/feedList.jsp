@@ -225,6 +225,7 @@ input[type="text"] {
 				<button class="btn btn-outline-info clickTagSearch" name="daily">#일상</button>
 				<button class="btn btn-outline-info clickTagSearch" name="restaurant">#식당</button>
 				<button class="btn btn-outline-info clickTagSearch" name="recipe">#레시피</button>
+				<button class="btn btn-outline-info " style="width:310px">전체보기</button>
 				<h4>자유태그</h4>
 				<div id="autoSearch">
 					<input type="text" id="autoComplete" class="autoComplete" placeholder="미입력후 검색시 전체리스트">
@@ -560,8 +561,6 @@ input[type="text"] {
              							$('.addBtn').css('display', 'none');
              							$('.addBtnSearch').css('display', 'block');
              							$('.addBtnImg').show();
-             							
-             						   
 
              							autoListCall();
              							 

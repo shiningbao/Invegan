@@ -5,6 +5,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d1b7835be6802634d702664b5059fc0c&libraries=services"></script>
 <style>
 	.restaurantcontainer{
@@ -107,9 +109,7 @@
 		margin: 0 auto;
 		display: inline-block;
 	}
-	.imgButton{
-		display: inline-block;
-	}
+	
 	#imgList{
 		width: 100%;
 		display: inline-block;
@@ -200,9 +200,10 @@
 	
 	<h1>식당 사진</h1>
 	<div id="restaurantImg">
-		<div class="imgButton"><button id = "prevButton">뒤</button></div>
+		
 		<div id="imgList"></div>
-		<div class="imgButton"><button id = "nextButton">앞</button></div>
+		<button id = "prevButton" class="btn btn-dark ">이전</button>
+		<button id = "nextButton" class="btn btn-dark ">다음</button>
 	</div>
 	
 	<div class="restaurantAddr"><h1>식당 위치</h1></div>
