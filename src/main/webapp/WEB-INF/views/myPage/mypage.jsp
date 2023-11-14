@@ -54,7 +54,7 @@
 	.additionalInfo{
 		position : absolute;
 		top: 30px;
-		right: -115px;
+		right: 10px;
 		font-size: 18px;
 		width : 336px;
       	
@@ -63,7 +63,7 @@
 	.is_admin{
 		position : absolute;
 		top: 10px;
-		right: 177px;
+		right: 274px;
 		font-size: 14px;
 		text-decoration: underline;
 		text-decoration-color: #08ffb3; 

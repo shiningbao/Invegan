@@ -88,16 +88,17 @@
 		z-index: 10;
 	}
 	.cFL_R_VT div{
-		height: 30px;
-		display: inline-block;
-		border-radius: 10%;
-		margin: 2px 2px;;
-		padding: 0px 7px;
-		background-color: #bbe8b7;
-		line-height: 30px;
-		text-align: center;
-		
-	 	border: 1px soild #black;
+		box-shadow: #000000 4px 2px 7px 0px !important;
+	    font-weight: 600;
+	    height: 30px;
+	    display: inline-block;
+	    border-radius: 8px;
+	    margin: 2px 2px;
+	    padding: 0px 7px;
+	    background-color: #c5e0b5;
+	    line-height: 30px;
+	    text-align: center;
+	    border: 1px soild #black;
 		
 	}
 	.cFL_R_Name{
@@ -215,7 +216,7 @@
 					<div class="cFL_F_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
 					<div class="cFL_F_Con">
 						<div class="cFL_F_Text"></div>
-						<div class="cFL_F_Tag"></div>
+						<div class="cFL_F_Tag" style="margin-top: 20px; color: #808080;"></div>
 					</div>
 				</div>
 				
@@ -227,7 +228,7 @@
 					<div class="cFL_F_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
 					<div class="cFL_F_Con">
 						<div class="cFL_F_Text"></div>
-						<div class="cFL_F_Tag"></div>
+						<div class="cFL_F_Tag" style="margin-top: 20px; color: #808080;"></div>
 					</div>
 				</div>
 				<div class="cFL_Feed " >
@@ -238,7 +239,7 @@
 					<div class="cFL_F_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
 					<div class="cFL_F_Con">
 						<div class="cFL_F_Text"></div>
-						<div class="cFL_F_Tag"></div>
+						<div class="cFL_F_Tag" style="margin-top: 20px; color: #808080;"></div>
 					</div>
 				</div>
 					

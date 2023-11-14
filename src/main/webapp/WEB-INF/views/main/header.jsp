@@ -44,8 +44,8 @@
     height: 104px;
 }
 .header-logoImg{
-	position: absolute;
-	left: -328px;;
+	position: fixed;
+    left: 6px;
 }
 .header-logoImg img:hover{
 	cursor: pointer;
