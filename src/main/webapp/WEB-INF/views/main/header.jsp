@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
  		<!-- <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"> -->
 <!-- 	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> -->
@@ -20,6 +20,9 @@
     font-weight: normal;
     font-style: normal;
 }
+
+
+
 
 * {
     font-family: 'S-CoreDream-3Light', sans-serif; 
@@ -126,7 +129,6 @@
 .infoModal div:hover{
 	cursor: pointer;
 }
-
 .infoModal div a{
 	all: initial;
 	cursor: pointer;
@@ -143,15 +145,7 @@
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 99;
 }
-.login-close{
-    font-size: 47px;
-    position: absolute;
-    right: 5%;
-    top: 1%;
-    color: #010101;
-    z-index: 5;
-    cursor: pointer;
-}
+
 
 </style>
 </head>
@@ -216,26 +210,21 @@
        $('#login-id').focus();
    });
 
-   // 모달 닫기 버튼 및 모달 바깥 부분 클릭 시 이벤트
+   // 로그인 모달 닫기 버튼 및 모달 바깥 부분 클릭 시 이벤트
    $("#closeModalBtn, .modal").click(function closeModal() {
        $("#login-modal").css("display", "none");
        $("body").css("overflow", "auto");
    });
    
-   
-	$('.infoModal div').hover(
-		function () {
-			$(this).find('a').css('color','#95df95');
-		},
-		function () {
-			$(this).find('a').css('color','#000');
-		}
-	);
+   	
 
+	// logo 클릭시 메인페이지
 	$('#Logo').on('click',function(){
 		location.href = '<c:url value='/'/>';
 	});
 	
+	
+	// 로그인 계정 메뉴바
 	$(document).on('click', function(event) {
 		var displayChk = $('.infoModal').css('display');
 	    if (!$(event.target).closest('#profileImg').length) {
@@ -248,7 +237,15 @@
 	    	}
 	    }
 	});
-	
+	// 로그인 계정 메뉴바 리스트 hover 효과	
+	$('.infoModal div').hover(
+		function () {
+			$(this).find('a').css('color','#95df95');
+		},
+		function () {
+			$(this).find('a').css('color','#000');
+		}
+	);
 
 	/* $('#nav_item_categori').on('mouseover',function(){
 		$('.nav_list_2').css({"display":"block"});	

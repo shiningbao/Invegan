@@ -39,7 +39,6 @@ public class DietController {
 	@RequestMapping(value = "diet/dietCalander")
 	public String tempCalander(HttpSession session, RedirectAttributes reAttr) {
 		logger.info("식단 캘린더 페이지 이동 요청");
-//		String page = "redirect:/";
 		String page = "redirect:/";
 
 		loginInfo = (MemberDTO) session.getAttribute("loginInfo");

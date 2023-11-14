@@ -7,8 +7,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>회원가입</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<<<<<<< HEAD
+
+<!-- icon --> 
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+=======
 <!-- alert ,cofirm 창 -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+>>>>>>> ad3f697f1a11af22787bf10e6fb1557b8b6be0da
 <style>
 .container{
 	width: 1000px;
@@ -18,7 +24,7 @@
     position: absolute;
     font-size: 25px;
     top: -44px;
-    right: 233px;
+    right: 193px;
 }
 #signup-img, #signup-box, h2{
     display: inline-block;
@@ -44,6 +50,7 @@
 #signup-form td{
 	vertical-align: middle;
 	padding: 0 10px;
+	font-weight: 600;
 }
 #signup-form input:not(input[type="submit"]){
 	outline:none;
@@ -80,6 +87,7 @@ input[type="radio"] ,input[type="checkbox"]{
 .box{
 	width: 95px;
 	border: none;
+	font-weight: 600;
 }
 .box:hover{
 	cursor: pointer;
@@ -100,6 +108,7 @@ option{
 	border: none;
 	background: none;
 	cursor: pointer;
+	font-weight: 600;
 }
 #validateId:hover{
 	color:#95df95;
@@ -116,6 +125,20 @@ option{
 	color:#95df95;
 }
 
+#question:hover{
+	cursor:pointer;
+}
+
+#vegan-type-img{
+	display:none;
+	width: 574px;
+    height: 381px;
+    position: absolute;
+    top: -98px;
+    right: 16px;
+}
+
+
 </style>
 </head>
 <body>
@@ -131,14 +154,14 @@ option{
 					<tr>
 						<th>아이디</th>
 						<td><input type="text" required name="id" id="id" />
-							<button id="validateId" class="idTrueFalse">중복체크</button>
+							<button id="validateId" class="idTrueFalse" type="button">중복체크</button>
 							</td>
 					</tr>
 	
 					<tr>
 						<th><label for="password">비밀번호</label></th>
 						<td><input id="pw" type="password" name="pw"
-							required maxlength="10" autocomplete="off" /></td>
+							required maxlength="10" autocomplete="off" placeholder="최대 10자 까지"/></td>
 					</tr>
 					<tr>
 						<th><label for="passwordchk">비밀번호 확인</label></th>
@@ -171,9 +194,8 @@ option{
 					</tr>
 					<tr>
 						<th>생년월일</th>
-						<td colspan="2">
+						<td>
 							<input id="birthdate" class="box" name="birthdate" type="hidden"/>
-							<!-- <input id="year" name="birthdate" type="text" required /> -->
 							<select id="birthYear" class="box">
 								<option value="" disabled selected>년</option>
 							</select>
@@ -192,7 +214,8 @@ option{
 					</tr>
 					<tr>
 						<th><label for="vegan_type">식단 유형</label></th>
-						<td colspan="2"><select id="vegan_type" class="box" name="vegan_type">
+						<td>
+							<select id="vegan_type" class="box" name="vegan_type">
 								<option value="1">플루테리언</option>
 								<option value="2">비건</option>
 								<option value="3">락토</option>
@@ -202,12 +225,15 @@ option{
 								<option value="7">페스코</option>
 								<option value="8">폴로페스코</option>
 								<option value="9">플렉시테리언</option>
-						</select></td>
+							</select>
+							<i id="question" class="xi-help-o"></i>
+							<img id="vegan-type-img" alt="vegan-type" src="<c:url value='/resources/main/vegan_type.jpeg'/>"/>
+						</td>
 					</tr>
 					<tr>
 						<th>비건 목적</th>
 						<td id="v-purpose">
-							<input type="radio" name="vegan_purpose" value="질병으로 인한 동물성 식품 섭취불가" />
+							<input type="radio" name="vegan_purpose" value="질병으로 인한 동물성 식품 섭취불가" checked="checked"/>
 							<p>질병으로 인한 동물성 식품 섭취불가</p><br/>
 							<input type="radio" name="vegan_purpose" value="건강 개선" />
 							<p>건강 개선</p><br/>
@@ -256,6 +282,14 @@ option{
 	</div>
 </body>
 <script>
+
+	var msg = "${msg}";
+	if(msg != ""){
+		swal({
+		    title: msg ,
+		    icon: "warning" //"info,success,warning,error" 중 택1
+		});
+	}
 	// select 태그의 이메일을 선택할때마다
 	$('#domain-list').change(function(){
 		console.log('change select val');
@@ -299,25 +333,23 @@ option{
 	}
 	
 	// 아이디 중복 검사
-	var idValid = 1;
+	var idValid = 1; // 기본값 1   => 이미 사용중인 아이디일때의 결과값을 의미
 	
 	$('#validateId').on('click', function() {
 		var validateId = $('#id').val();
 		console.log(validateId);
 		if(validateId == ''){
 			swal({
-              	    title: "아이디를 입력해 주세요.",
-              	    text: "",
-              	    icon: "error"
-              	});
+			    title: '아이디를 입력해 주세요.',
+			    icon: "warning" //"info,success,warning,error" 중 택1
+			});
 		}else{
 			var regex = /^[a-zA-Z0-9_]{6,15}$/;
 			if(!regex.test(validateId)){	// 영어또는 '_'만 입력가능 6~15자
 				swal({
-              	    title: "6자에서 15자까지 영문 또는 \'_\'만 입력 가능합니다",
-              	    text: "",
-              	    icon: "error"
-              	});
+				    title: '6자에서 15자까지 영문 또는 \'_\'만 입력 가능합니다',
+				    icon: "warning" //"info,success,warning,error" 중 택1
+				});
 				$('#id').val('');
 				return false;
 			} 
@@ -329,17 +361,16 @@ option{
 					console.log(data.success);
 					if (data.success > 0) {
 						swal({
-		              	    title: "이미 사용중인 아이디 입니다.",
-		              	    text: "",
-		              	    icon: "error"
-		              	});
+						    title: '이미 사용중인 아이디 입니다.',
+						    icon: "warning" //"info,success,warning,error" 중 택1
+						});
 						console.log(data.success);
 						idValid = data.success;
 						$('#id').focus();
+						console.log('idValid',idValid);
 					} else {
 						swal({
 		              	    title: "사용 가능한 아이디입니다.",
-		              	    text: "",
 		              	    icon: "success"
 		              	});
 						console.log(data.success);
@@ -355,32 +386,76 @@ option{
 	
 	
 	
-
+	// 서버로 보내기 전 데이터 가공
 	$("#submitBtn").on("click",function(event) {
 			var id = document.getElementById("id");
-			var regId = /^[a-zA-Z0-9]{4,12}$/;
 			console.log('valid stat ',idValid);
 			
 			if(idValid == 0){
 				// 이메일 입력 필드
+				console.log('a'+$('#email-id').val());
+				console.log('b',$('#domain').val());
+				if($('#email-id').val() == '' || $('#domain').val() == '' ){
+					console.log('이메일 입력 오류');
+ 					event.preventDefault();
+ 					swal({	// alert 창
+					    title: "이메일을 모두 입력해주세요",
+					    icon: "warning" //"info,success,warning,error" 중 택1
+					});
+				}
 				var email = $('#email-id').val()+'@'+$('#domain').val();
 				$('#result_email').val(email);
 				console.log('email 최종 체크',email );
 
  				// 생년월일 입력 필드
+ 				if($('#birthYear').val() == null || $('#birthMonth').val()==null || $('#birthDay').val()==null){
+ 					console.log('생년월일 입력 오류');
+ 					event.preventDefault();
+ 					swal({	// alert 창
+					    title: "생년월일을 모두 선택해주세요",
+					    icon: "warning" //"info,success,warning,error" 중 택1
+					});
+ 				}
 				var birthdate = $('#birthYear').val()+'-'+$('#birthMonth').val()+'-'+$('#birthDay').val();
 					$('#birthdate').val(birthdate);
+					
+				// 관심사 1개 이상 필수 체크
+				var interChkBox = $('input[name="interests"]:checked');
+				if(interChkBox.length == 0){
+					event.preventDefault();
+					swal({	// alert 창
+					    title: "관심사는 1개 이상 선택 해주세요",
+					    icon: "warning" //"info,success,warning,error" 중 택1
+					});
+				}
 			}else{
 				swal({
-              	    title: "아이디 중복 체크를 해주세요",
-              	    text: "",
-              	    icon: "error"
-              	});
-				return false;
+				    title: '아이디 중복 체크를 해주세요',
+				    icon: "warning" //"info,success,warning,error" 중 택1
+				});
+				event.preventDefault();
 			};
 			
 				
 	});	
+	
+	
+	// 비건 타입 종류 보기 
+	$('#question').click(
+			
+		function(){
+			var disp = $('#vegan-type-img').css('display');
+			console.log(disp);
+			if(disp==='none'){
+				console.log('none');
+				$('#vegan-type-img').css('display','block');
+			}else{
+				console.log('block');
+				$('#vegan-type-img').css('display','none');
+			}
+		}
+	
+	);
 		
 			
 </script>
