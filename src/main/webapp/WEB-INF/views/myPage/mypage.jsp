@@ -609,7 +609,7 @@
 		        <img src="/invegan/resources/main/profile.jpg" id= updateImg width="150" height="150">
 		    </c:otherwise>
 			</c:choose>
-        	<img src="/photo/${myPageImg}" id= updateImg width="150" height="150">
+        	
         	<div class="plusImg">+</div>
         	<input type="file" id="photo" name="photo" style="display: none">
         	<div class="nickNameOvelay">
