@@ -88,16 +88,16 @@
 		z-index: 10;
 	}
 	.cFL_R_VT div{
-		height: 30px;
-		display: inline-block;
-		border-radius: 10%;
-		margin: 2px 2px;;
-		padding: 0px 7px;
-		background-color: #bbe8b7;
-		line-height: 30px;
-		text-align: center;
-		
-	 	border: 1px soild #black;
+		box-shadow: #4f4f4f 3px 3px 4px 0px !important;
+	    font-weight: 600;
+	    border-radius: 8px;
+	    height: 30px;
+	    display: inline-block;
+	    margin: 2px 2px;
+	    padding: 0px 7px;
+	    background-color: #c5e0b5;
+	    line-height: 30px;
+	    text-align: center;
 		
 	}
 	.cFL_R_Name{

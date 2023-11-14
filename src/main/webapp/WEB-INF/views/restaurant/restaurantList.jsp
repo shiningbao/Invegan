@@ -62,9 +62,11 @@
 		z-index: 1;
 	}
 	.veganType div{
+		box-shadow: #4f4f4f 3px 3px 4px 0px;
+	    font-weight: 600;
+	    border-radius: 8px;
 		height: 24px;
 		display: inline-block;
-		border-radius: 10%;
 		margin: 2px 1px;;
 		padding: 0px 4px;
 		background-color: #bbe8b7;
