@@ -15,9 +15,9 @@
 	
 	<select id="rangeCnt" resultType="kr.co.invegan.main.dto.distCntDTO">
 		SELECT
-		    SUM(CASE WHEN tb.km BETWEEN 1 AND 5 THEN 1 ELSE 0 END) AS 'count5'
-		    ,SUM(CASE WHEN tb.km BETWEEN 1 AND 10 THEN 1 ELSE 0 END) AS 'count10'
-		    ,SUM(CASE WHEN tb.km BETWEEN 1 AND 15 THEN 1 ELSE 0 END) AS 'count15'
+<!-- 		    SUM(CASE WHEN tb.km BETWEEN 1 AND 5 THEN 1 ELSE 0 END) AS 'count5' -->
+<!-- 		    ,SUM(CASE WHEN tb.km BETWEEN 1 AND 10 THEN 1 ELSE 0 END) AS 'count10' -->
+		    SUM(CASE WHEN tb.km BETWEEN 1 AND 15 THEN 1 ELSE 0 END) AS 'count15'
 		FROM
 			(SELECT CAST(6371 * ACOS(COS(RADIANS(#{lat})) * COS(RADIANS(lat)) * COS(RADIANS(#{lng} - lng)) + SIN(RADIANS(#{lat})) * SIN(RADIANS(lat))) AS SIGNED) AS km from Restaurant r
 			WHERE r.post_id IN(SELECT post_id FROM RestaurantMenu WHERE vegan_type IN

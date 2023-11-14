@@ -45,7 +45,7 @@
 		LEFT JOIN (SELECT post_id , GROUP_CONCAT(DISTINCT vegan_type ORDER by vegan_type SEPARATOR ',') AS vegan FROM RestaurantMenu GROUP BY post_id) AS v ON r.post_id =v.post_id
 		LEFT JOIN (SELECT idx, server_file_name FROM ImageTable it WHERE category ='식당' GROUP BY idx) AS im ON r.post_id = im.idx
 		LEFT JOIN Board b ON r.post_id = b.post_id
-		LIMIT #{p}, 20
+		ORDER BY km ASC LIMIT #{p}, 20
 	</select>
 	
 	<select id="restaurantList_user_totalpage" resultType="int">
@@ -60,7 +60,7 @@
 		LEFT JOIN (SELECT idx, server_file_name FROM ImageTable it WHERE category ='식당' GROUP BY idx) AS im ON r.post_id = im.idx
 		LEFT JOIN Board b ON r.post_id = b.post_id
 		WHERE b.is_hidden = 0
-		LIMIT #{p}, 20
+		ORDER BY km ASC LIMIT #{p}, 20
 	</select>
 	
 	

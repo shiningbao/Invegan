@@ -414,10 +414,16 @@ $('#write').on('click',function(e){
 			contentType:false,
 			processData:false,
 			enctype : 'multipart/form-data',
-			success:function(data){
-				console.log(data);
-				alert(data.결과);
-				location.href = 'detail?post_id=${restaurant.getPost_id()}';
+			success: function (data) {
+			    console.log(data);
+
+			    swal({
+			        title: data.결과,
+			        text: "",
+			        icon: "success"
+			    }).then(() => {
+			        location.href = 'detail?post_id=${restaurant.getPost_id()}';
+			    });
 			},
 			error:function(e){
 				console.log(e);

@@ -184,14 +184,27 @@
 				    dataType:'json',
 				    success:function(data){
 				       console.log(data);
-				       drawList(data.mlist);
+				       if (data.mlist.length == 0){
+							swal({
+					            title: "입력하신 재료가 존재하지 않습니다.",
+					            text: "관리자에게 문의해 주세요",
+					            icon: "info",
+					        });
+							$('input[name="fname"]').val('');	
+				       } else {
+							drawList(data.mlist);
+				       }			       
 				    },
 				    error:function(e){
 				       console.log(e);
 				    }
 				});
 			} else {
-				alert('검색어를 입력해 주세요');				
+				swal({
+            	    title: "검색어를 입력해주세요 !",
+            	    text: "",
+            	    icon: "error",
+            	})		
 			}
 			
 
