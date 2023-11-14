@@ -40,7 +40,7 @@
 		width: 800px;
 		white-space: nowrap;
 		overflow-x: scroll;
-		background-color: #E0E0E0;
+		background-color: #CCFFCC;
 	}
 	#preview{
 		font-size: 2vw;
@@ -51,7 +51,7 @@
 	.divImg{
 		position: relative;
 		width: 300px;
-		border: 1px solid black;
+		border: 0.5px solid #30492a;
 		margin: 1px;
 		padding: 2px;
 		display: inline-block;
@@ -76,7 +76,7 @@
 	}
 	.menuDiv {
 		margin: 2px 0px;
-		border: 1px solid black;
+		border: 0.5px solid #30492a;
 	}
 	.menuTable{
 		width: 100%;
@@ -84,7 +84,9 @@
 	select{
 		width: 100%;
 	}
-
+	.blank{
+		margin-bottom: 200px;
+	}
 </style>
 </head>
 <body>
@@ -169,6 +171,7 @@
 	</tr>
 </table>
 </div>
+<div class="blank"></div>
 </body>
 
 <script>
@@ -289,7 +292,7 @@ $('#write').on('click',function(e){
 
 	if($title.val() == ''){
 		swal({
-	        title: "식당 이름"",
+	        title: "식당 이름을 입력해 주세요",
 	        text: "",
 	        icon: "info"
 	    });
@@ -297,7 +300,7 @@ $('#write').on('click',function(e){
 		$title.focus();
 	}else if($address.val() == ''){
 		swal({
-	        title: "식당 주소",
+	        title: "식당 주소를 입력해 주세요",
 	        text: "",
 	        icon: "info"
 	    });
@@ -305,7 +308,7 @@ $('#write').on('click',function(e){
 		$address.focus();
 	}else if($content.val() == ''){
 		swal({
-	        title: "식당 소개",
+	        title: "식당 소개를 입력해 주세요",
 	        text: "",
 	        icon: "info"
 	    });
@@ -313,7 +316,7 @@ $('#write').on('click',function(e){
 		$content.focus();
 	}else if($phone.val() == ''){
 		swal({
-	        title: "식당 연락처"",
+	        title: "식당 연락처를 입력해 주세요",
 	        text: "",
 	        icon: "info"
 	    });
@@ -321,7 +324,7 @@ $('#write').on('click',function(e){
 		$phone.focus();
 	}else if($hours.val() == ''){
 		swal({
-	        title: "영업시간",
+	        title: "영업시간을 입력해 주세요",
 	        text: "",
 	        icon: "info"
 	    });
@@ -330,12 +333,20 @@ $('#write').on('click',function(e){
 	}else{
 		for(var i = 0; i < len; i++){
 			if($menu_name.eq(i).val() == ''){
-				alert('메뉴');
+				swal({
+			        title: "메뉴를 입력해 주세요",
+			        text: "",
+			        icon: "info"
+			    });
 				blankcnt ++;
 				$menu_name.eq(i).focus();
 				break;
 			}else if($price.eq(i).val() == ''){
-				alert('가격');
+				swal({
+			        title: "가격을 입력해 주세요",
+			        text: "",
+			        icon: "info"
+			    });
 				blankcnt ++;
 				$price.eq(i).focus();
 				break;
@@ -344,7 +355,11 @@ $('#write').on('click',function(e){
 			var regex = new RegExp('[a-zA-Zㄱ-ㅎ가-힣]');
 			var match = regex.test($price.eq(i).val()); // 패턴이 일치하면 true, 아니면 false
 			if(match){
-				alert('가격에 숫자만');
+				swal({
+			        title: "가격에 숫자만 입력해 주세요",
+			        text: "",
+			        icon: "info"
+			    });
 				blankcnt ++;
 				break;
 			}
@@ -392,19 +407,16 @@ $('#write').on('click',function(e){
 			success: function(data) {
 			    var result = data.result;
 			    console.log(result);
-
 			    swal({
 			        title: result,
 			        text: "",
-			        icon: "info",
-			        buttons: ["확인"]
-			    }).then((value) => {
-			        if (result === '권한없음') {
-			            location.href = '/main';
-			        } else if (result === '식당 작성 완료') {
-			            location.href = 'list';
-			        }
+			        icon: "info"
 			    });
+		        if (result == '식당을 등록했습니다') {
+		            location.href = 'list';
+		        } else {
+		            location.href = '/main';
+		        }
 			},
 			error:function(e){
 				console.log(e);

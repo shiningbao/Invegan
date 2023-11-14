@@ -88,7 +88,35 @@
 	</select> -->
 	
 	<select id="feedComments" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
-		SELECT
+	SELECT
+		    b.post_id,
+		    b.content,
+		    m2.nickname AS nickname,
+		    m.user_no,
+		    it2.server_file_name AS profile_image,
+		    it.server_file_name AS server_file_name
+		FROM
+		    Comments c
+		JOIN
+		    Members m ON c.user_no = m.user_no
+		JOIN
+		    Board b ON c.post_id = b.post_id 
+		JOIN
+		    Members m2 ON b.user_no = m2.user_no
+		LEFT JOIN
+		    ImageTable it ON it.idx = b.post_id AND it.category = '피드'
+		LEFT JOIN
+		    ImageTable it2 ON b.user_no = it2.idx AND it2.category = '회원'
+		WHERE
+		    c.user_no = #{param1} AND b.category = '피드'
+		GROUP BY
+		    c.post_id 
+		ORDER BY
+		    c.comment_id DESC
+	
+	
+	
+	<!-- 	SELECT
 		    b.post_id,
 		    b.content,
 		    m2.nickname AS nickname,
@@ -109,29 +137,8 @@
 		GROUP BY
 		    c.post_id 
 		ORDER BY
-		    c.comment_id DESC
-		    
-		<!-- SELECT
-		    b.post_id,
-		    b.content,
-		    m.nickname,
-		    m.user_no,
-		    it2.server_file_name AS profile_image,
-		    it.server_file_name AS server_file_name
-		FROM
-		    Comments c
-		JOIN
-		    Members m ON c.user_no = m.user_no
-		JOIN
-		    Board b ON c.post_id = b.post_id 
-		LEFT JOIN
-		    ImageTable it ON it.idx = b.post_id AND it.category = '피드'
-		LEFT JOIN
-		    ImageTable it2 ON b.user_no = it2.idx AND it2.category = '회원'
-		WHERE
-		    c.user_no = #{param1} and b.category='피드' group by c.post_id 
-		ORDER BY
 		    c.comment_id DESC -->
+		    
 	</select>
 	
 <!-- 	<select id="restaurantComments" resultType="kr.co.invegan.mypage.dto.MyPageDTO">

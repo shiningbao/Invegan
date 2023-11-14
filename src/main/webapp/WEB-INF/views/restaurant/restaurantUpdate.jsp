@@ -10,7 +10,7 @@
 
 <style>
 	.restaurantWriteTable {
-		border: 1px solid black;
+/* 		border: 0.5px solid #30492a; */
 		width: 1000px;
 		margin: 0 auto;
 	}
@@ -37,7 +37,8 @@
 		width: 800px;
 		white-space: nowrap;
 		overflow-x: scroll;
-		background-color: #E0E0E0;
+ 		background-color: #CCFFCC;
+ 		border: 0.5px solid #30492a;
 	}
 	#preview{
 		font-size: 2vw;
@@ -48,7 +49,7 @@
 	.divImg{
 		position: relative;
 		width: 304px;
-		border: 1px solid black;
+		border: 0.5px solid #30492a;
 		margin: 1px;
 		padding: 2px;
 		display: inline-block;
@@ -73,7 +74,7 @@
 	}
 	.menuDiv {
 		margin: 2px 0px;
-		border: 1px solid black;
+		border: 0.5px solid #30492a;
 	}
 	.menuTable{
 		width: 100%;
@@ -81,7 +82,9 @@
 	select{
 		width: 100%;
 	}
-
+	.blank{
+		margin-bottom: 200px;
+	}
 </style>
 </head>
 <body>
@@ -140,6 +143,7 @@
 	<th colspan="2"><button type="button" id="write">수정</button>  <button type="button" id="cancle">취소</button></th>
 	</tr>
 </table>
+<div class="blank"></div>
 </body>
 
 <script>
@@ -262,7 +266,7 @@ $('#go_rest').css('box-shadow','#95df95 0px 2px 0px 0px');
 				delButton.textContent = '삭제';
 				divTag.appendChild(delButton);
 			}else{
-				alert('이미지 파일 아님');
+				alert('이미지 파일이 아닙니다');
 				$('#restarunatWriteImg')[0].files = new DataTransfer().files;
 				$restaurantImg.innerHTML='<p id="preview">등록된 사진이 없습니다.</p>';
 				break;
@@ -328,36 +332,64 @@ $('#write').on('click',function(e){
 
 	var blankcnt = 0;
 	var len = $menu_name.length;
-/*	
+
 	if($title.val() == ''){
-		alert('식당 이름');
+		swal({
+	        title: "식당 이름을 입력해 주세요",
+	        text: "",
+	        icon: "info"
+	    });
 		blankcnt ++;
 		$title.focus();
 	}else if($address.val() == ''){
-		alert('식당 주소');
+		swal({
+	        title: "식당 주소를 입력해 주세요",
+	        text: "",
+	        icon: "info"
+	    });
 		blankcnt ++;
 		$address.focus();
 	}else if($content.val() == ''){
-		alert('식당 소개');
+		swal({
+	        title: "식당 소개를 입력해 주세요",
+	        text: "",
+	        icon: "info"
+	    });
 		blankcnt ++;
 		$content.focus();
 	}else if($phone.val() == ''){
-		alert('식당 연락처');
+		swal({
+	        title: "식당 연락처를 입력해 주세요",
+	        text: "",
+	        icon: "info"
+	    });
 		blankcnt ++;
 		$phone.focus();
 	}else if($hours.val() == ''){
-		alert('영업시간');
+		swal({
+	        title: "영업시간을 입력해 주세요",
+	        text: "",
+	        icon: "info"
+	    });
 		blankcnt ++;
 		$hours.focus();
 	}else{
 		for(var i = 0; i < len; i++){
 			if($menu_name.eq(i).val() == ''){
-				alert('메뉴');
+				swal({
+			        title: "메뉴를 입력해 주세요",
+			        text: "",
+			        icon: "info"
+			    });
 				blankcnt ++;
 				$menu_name.eq(i).focus();
 				break;
 			}else if($price.eq(i).val() == ''){
-				alert('가격');
+				swal({
+			        title: "가격을 입력해 주세요",
+			        text: "",
+			        icon: "info"
+			    });
 				blankcnt ++;
 				$price.eq(i).focus();
 				break;
@@ -366,16 +398,19 @@ $('#write').on('click',function(e){
 			var regex = new RegExp('[a-zA-Zㄱ-ㅎ가-힣]');
 			var match = regex.test($price.eq(i).val()); // 패턴이 일치하면 true, 아니면 false
 			if(match){
-				alert('가격에 숫자만');
+				swal({
+			        title: "가격에 숫자만 입력해 주세요",
+			        text: "",
+			        icon: "info"
+			    });
 				blankcnt ++;
 				break;
 			}
 		}
 	}
-	
 	console.log("공백 및 패턴 확인 blankcnt : ");
-	console.log(blankcnt);	
-*/	
+	console.log(blankcnt);
+	
 	if(blankcnt == 0){
 		var formData = new FormData();
 

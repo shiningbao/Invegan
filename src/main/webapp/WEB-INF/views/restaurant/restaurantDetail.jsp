@@ -110,7 +110,7 @@
 	
 	
 	.restaurantImg{
-		background-color: yellow;
+		background-color: #bbe8b7;
 		width: 1000px;
 		margin: 0 auto;
 		display: inline-block;
@@ -136,7 +136,7 @@
 	    margin-top: 20px;
 	}
 	.restaurantMap{
-		background-color: green;
+		background-color: #bbe8b7;
 		width: 1000px;
 		height: 600px;
 		margin: 0 auto;
@@ -197,13 +197,13 @@
 				<th>가격</th>
 				<th>비건 단계</th>
 			</tr>
-			<c:forEach items="${menuDetail}" var = "menu">
-				<tr>
-					<td width="50%">${menu.getMenu_name()}</td>
-					<td width="25%">${menu.getPrice()}</td>
-					<td width="25%">${menu.getVegan_type()}</td>
-				</tr>
-			</c:forEach>
+<%-- 			<c:forEach items="${menuDetail}" var = "menu"> --%>
+<!-- 				<tr> -->
+<%-- 					<td width="50%">${menu.getMenu_name()}</td> --%>
+<%-- 					<td width="25%">${menu.getPrice()}</td> --%>
+<%-- 					<td width="25%">${menu.getVegan_type()}</td> --%>
+<!-- 				</tr> -->
+<%-- 			</c:forEach> --%>
 		</table>
 	</div>
 	
@@ -238,34 +238,42 @@ if(hidden != 0){
 }
 
 var contents = $('.restaurantContent').find('p').html();
-console.log(contents);
 var splitCon = contents.replace(/\n/g, '<br>');
 $('.restaurantContent').find('div').html(splitCon);
 $('.restaurantContent').find('p').html('');
 
 var veganArr = [];
-<c:forEach items="${menuDetail}" var = "menu">
- 	var v = '${menu.getVegan_type()}';
+var menuContent = '';
+<c:forEach items="${menuDetail}" var = "menu" varStatus='i'>
+ 	var idx = '${i.index}';
+	 switch ('${menu.getVegan_type()}') {
+		case '1': v = '#플루테리언'; break;
+		case '2': v = '#비건'; break;
+		case '3': v = '#락토'; break;
+		case '4': v = '#오보'; break;
+		case '5': v = '#락토오보'; break;
+		case '6': v = '#폴로'; break;
+		case '7': v = '#페스코'; break;
+		case '8': v = '#폴로페스코'; break;
+		case '9': v = '#플렉시테리언'; break;
+	}
+	menuContent += '<tr><td width="50%">${menu.getMenu_name()}</td><td width="25%">${menu.getPrice()}</td>';
+	menuContent += '<td width="25%">'+v+'</td></tr>';
  	if(!veganArr.includes(v)){
  		veganArr.push(v);
  	}
 </c:forEach>
-var veganType = '';
+$('.menuTable').append(menuContent);
 veganArr.sort();
+var veganType = '';
 veganArr.forEach(function(v,i){
-	 switch (v) {
-		case '1': veganType += '<div>#플루테리언</div>'; break;
-		case '2': veganType += '<div>#비건</div> '; break;
-		case '3': veganType += '<div>#락토</div> '; break;
-		case '4': veganType += '<div>#오보</div> '; break;
-		case '5': veganType += '<div>#락토오보</div> '; break;
-		case '6': veganType += '<div>#폴로</div> '; break;
-		case '7': veganType += '<div>#페스코</div>'; break;
-		case '8': veganType += '<div>#폴로페스코</div>'; break;
-		case '9': veganType += '<div>#플렉시테리언</div>'; break;
-	}
+	veganType += '<div>'+v+'</div>';
 });
 $('.veganType').html(veganType);
+
+
+
+
 
 
 var $imgList = document.getElementById('imgList');
