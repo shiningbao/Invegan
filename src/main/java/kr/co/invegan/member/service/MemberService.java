@@ -5,6 +5,8 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -69,23 +71,60 @@ public class MemberService {
          }
          return pw;
     }
-    public String signup(HashMap<String, String> params) {
-        String msg = "회원 가입이 실패하였습니다";
-        logger.info("service 접근");
+    
+    public int signup(HashMap<String, Object> params) {
+        logger.info("회원가입 요청");
         int row = dao.signup(params);
-        if (row > 0) {
-            msg = "회원 가입이 성공하였습니다";
-        }
         logger.info("row : "+row);
-        
-        return msg;
+        if(row > 0) {
+        	logger.info("회원가입 성공");
+        }else {
+        	logger.info("회원가입 실패");
+        }
+        return row;
     }
-
+    
+    // 아이디 중복 확인
 	public int validateId(String validateId) {
 		logger.info("validateId() 실행"+ validateId);
-		 
 		return dao.validateId(validateId);
-		
 	}
+	
+	// 회원가입시 파라미터 값 체크
+	public String paramsChk(HashMap<String, Object> params) {
+		logger.info("회원가입 params check : "+params );
+		String pw = (String) params.get("pw");
+		String pw_chk = (String) params.get("pw_chk");
+		logger.info("pw : "+pw+" | "+"pw chk : "+pw_chk);
+		String nickname = (String) params.get("nickname");
+		String email = (String) params.get("email");
+		String birthdate = (String) params.get("birthdate");
+		if(!pw.equals(pw_chk)) {
+			return "비밀번호가 일치 하지 않습니다.";
+		}else if(pw.length()>10){
+			return "비밀번호는 10자리 이내로 입력해주세요";
+		}
+		if(nickname.equals("")) {
+			return "닉네임을 입력해주세요";
+		}
+		if(nickname.length() > 8) {
+			return "닉네임의 길이는 최대 8자입니다."; 
+		}
+		String regex = "^[a-zA-Z0-9가-힣]{1,8}$";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(nickname);
+        if(!matcher.matches()) {
+        	return "닉네임은 영문과 한글만 입력가능합니다."; 
+        }
+		if(email.equals("@")) {
+			return "이메일을 입력해주세요";
+		}
+		if(birthdate.equals("")){
+			return "태어난 날을 선택해주세요.";
+		}
+	
+		return "complete";
+	}
+	
 
 }

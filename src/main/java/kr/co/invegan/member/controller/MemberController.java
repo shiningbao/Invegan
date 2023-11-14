@@ -1,26 +1,15 @@
 package kr.co.invegan.member.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -122,26 +111,40 @@ public class MemberController {
 	//회원가입 go
 	@RequestMapping(value = { "/member/signup.go" }, method = RequestMethod.GET)
 	public String signupGo() {
-
+		logger.info("회원가입 go");
 		return "member/signup";
 	}
-
+	
 	// 회원가입 do
 	@RequestMapping(value = "/member/signup.do", method = RequestMethod.POST)
-	public String signupDo(Model model, @RequestParam HashMap<String, String> params, @RequestParam String[] interests) {
+	public String signupDo(Model model, @RequestParam HashMap<String, Object> params, @RequestParam String[] interests) {
 		logger.info("params"+params);
-		String page = "member/signup";
+		String page = "/member/signup";
 		
+		// 파라미터 값 check
+		String paramsChk = service.paramsChk(params);
 		
-		// "interests" 배열을 쉼표로 구분된 하나의 문자열로 결합
-	    String combinedInterests = String.join(",", interests);
-	    logger.info("Combined interests: " + combinedInterests);
-	    //HashMap에서 값을 집어 넣을 때 put 사용
-	    //combinedInterests 값을 interests라는 이름으로 집어넣음
-	    params.put("interests", combinedInterests);
-	    logger.info("params : "+params);
-		String msg = service.signup(params);
-		model.addAttribute("msg", msg);
+		int row = 0;
+		if(paramsChk.equals("complete")) {
+			
+			// "interests" 배열을 쉼표로 구분된 하나의 문자열로 결합
+			String combinedInterests = String.join(",", interests);
+			logger.info("Combined interests: " + combinedInterests);
+			//HashMap에서 값을 집어 넣을 때 put 사용
+			//combinedInterests 값을 interests라는 이름으로 집어넣음
+			params.put("interests", combinedInterests);
+			logger.info("params : "+params);
+			
+			row = service.signup(params);
+			if(row > 0 ) {
+				page = "redirect:/";
+				model.addAttribute("msg", "환영합니다. "+params.get("id")+" 님\n로그인 해주세요");
+			}else {
+				model.addAttribute("msg", "회원가입실패");
+			}
+		}else {
+			model.addAttribute("msg", paramsChk);
+		}
 		
 		return page;
 	}

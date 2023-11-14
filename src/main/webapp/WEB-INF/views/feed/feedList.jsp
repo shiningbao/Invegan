@@ -243,7 +243,7 @@ input[type="text"] {
 						<input type="text" id="autoComplete" class="autoComplete" placeholder="미입력후 검색시 전체리스트">
 						<button id="searchbtn" class="btn btn-Dark"><b>검색</b></button>
 					</div>
-					<h4>작성자 검색</h4>
+					<h4>닉네임 검색</h4>
 					<div id="nickNameSearch">
 						<input type="text"  class="nameSearch" placeholder="닉네임을 정확하게 입력해주세요.">
 						<button id="nameSearchBtn" class="btn btn-Dark"><b>검색</b></button>
@@ -468,7 +468,9 @@ input[type="text"] {
 										}
 									
 									content += '<div class="post-header">';
-									content += '<div class="user-profile"><img src="/photo/' + item.profile_image + '"></div>'; // 사용자의 프로필 사진
+									var defaultImagePath = '/invegan/resources/main/profile.jpg';
+									var profileImagePath = item.profile_image ? '/photo/' + item.profile_image : defaultImagePath;
+									content += '<div class="user-profile"><img src="' + profileImagePath + '"></div>'; // 사용자의 프로필 사진
 									content += '<span class="username">'+ item.nickname + '</span>';
 									content += '</div>';
 									content += '<div class="post-details">';

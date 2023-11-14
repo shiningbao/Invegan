@@ -6,7 +6,8 @@
 <title>인비건 INVEGAN</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
-
+<!-- alert ,cofirm 창 -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
 	.banner{
 		background-color : #20B2AA;
@@ -381,8 +382,17 @@ $('.cFL_Feed').on('click',function(){
 	
 	var post_id = $(this).attr('post_id');
 	console.log(post_id);
-	location.href="feed/list.go";
 	
+	swal({
+	      title: "피드 상세보기는 리스트에서 확인해주시기 바랍니다.",
+	      text: "닉네임을 검색해주세요!",
+	      icon: "info",
+	  }).then((result) => {
+	      if (result) {
+	          location.href="feed/list.go";
+	      }
+	      
+	  });
 	
 });
 

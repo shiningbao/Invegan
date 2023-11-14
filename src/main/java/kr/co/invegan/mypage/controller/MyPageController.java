@@ -176,8 +176,10 @@ public class MyPageController {
 	
 	
 	@RequestMapping(value = "/myPage/delUser")
-	public String deleteInfo(@RequestParam int user_no) {
+	public String deleteInfo(@RequestParam int user_no, HttpSession session) {
 		service.delUser(user_no);
+		session.invalidate();
+
 		logger.info("user_no:" + user_no);
 		return "redirect:/";
 	}

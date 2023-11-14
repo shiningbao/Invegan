@@ -11,6 +11,8 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 <script src="<c:url value='/resources/js/jquery.twbsPagination.js'/>" type="text/javascript"></script>
+<!-- alert ,cofirm 창 -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
 	/*header 부트스트랩 적용 방지*/
 	body{
@@ -184,12 +186,7 @@
 		display : flex;
 		overflow-x : auto;
 	}
-	
-	.feedImg img {
-	    width: 160px;
-	    /*object-fit: cover;*/
-	    
-}
+
 
 	/* .feedImg {
 		text-align : center;
@@ -214,28 +211,30 @@
     		right: 1123px;
     		position: absolute;
         }*/
-
-        
+		
+       
        
         .modal {
 		    display: none;
 		    position: fixed;
-		    z-index: 1;
+		    z-index: 11;
 		    left: 0;
 		    top: 0;
 		    width: 100%;
 		    height: 100%;
 		    overflow: auto;
-		    background-color: rgba(0,0,0,0.4);
+		    background-color: rgba(0,0,0,0.5);
 		}
 
 		.modal-content {
-			position: relative;
 		    background-color: white;
-		    margin: 6% auto;
 		    border: 1px solid #888;
-		    width: 50%;
+		    width: 600px;
 		    height: 651px;
+		    position: fixed;
+		    top: 50%;
+		    left: 50%;
+		    transform: translate(-50%, -50%);
 		}
 
 		.close {
@@ -259,6 +258,7 @@
 		 	width: 82px;
 		 	top : 175px;
 		 	right : 96px;
+		 	font-weight : bold;
 		 }
 		
 		
@@ -285,6 +285,7 @@
 		 	width: 104px;
 		 	top : 304px;
 		 	right : 89px;
+		 	font-weight : bold;
 		 	
 		 }
 		
@@ -307,7 +308,6 @@
 		    width : 100%;
 		    overflow-x:auto; 
 		    white-space:nowrap; 
-		    margin:0 auto
 		}
 		
 		.titleLink{
@@ -352,12 +352,12 @@
 		 }
 		 
 		 .plusImg{
-		 	position : absolute;
-		 	font-weight: bold;
-		 	font-size: 70px;
-		 	top: 64px;
-		 	right : 720px;
-		 	cursor : pointer;
+	 	    position: absolute;
+		    font-weight: bold;
+		    font-size: 40px;
+		    top: 86px;
+		    right: 436px;
+		    cursor: pointer;
 		 }
 		 
 		 .save{
@@ -365,6 +365,7 @@
 		 	top : 614px;
 		 	right : 13px;
 		 	width: 80px;
+		 	font-weight : bold;
 		 }
 
 		.restaurantPhoto img{
@@ -374,48 +375,85 @@
 		.title{
 			text-align : center;
 		}
-		
-		.feedCmContainer{
-		    width : 80%;
-		}
-		
-		.feed-image{
-			width:400px;
-		}
 
 		.tab-link current{
 		border-radius : 8px;
 		background-color : #caeada;
 		}
-		
-		.feedDiv{
+	
+		.favDiv{
 			position : relative;
 			display : inline-block;
 			width : 20%;
 			margin : 0px auto 10px auto;
 			top : 39px;
-		}
-	
-		.favDiv{
-			display : inline-block;
+			min-height: 250px;
 			
 		}
 		
-		.feedCmDiv{
-			position : relative;
-			display : inline-block;
-			top : 39px;
-		}
+		#restaurantPhoto{
+		width : 212px;
+		text-align: center;
+   		padding: 20px;
+}
 		
-		.rtCmDiv{
-			display : inline-block;
-		}
+	.favDiv .favImg img {
+	    height: 100%;
+	    object-fit: cover;
+}
+
+	.favDiv .favImg {
+    	height: 250px;
+}
+
+	.feedDiv{
+		position : relative;
+		display : inline-block;
+		width : 20%;
+		margin : 0px auto 10px auto;
+		top : 39px;
+		min-height: 250px;
+}
 		
-		#feedImg{
-			width : 150px;
-			text-align: center;
-    		padding: 20px;
-		}
+	#feedImg{
+		width : 212px;
+   		padding: 20px;
+}
+		
+	.feedDiv .feedImage img {
+	    height: 100%;
+	    object-fit: cover;
+}
+
+	.feedDiv .feedImage {
+    	height: 250px;
+}
+
+	.fCDiv{
+		position : relative;
+		display : inline-block;
+		width : 20%;
+		margin : 0px auto 10px auto;
+		top : 39px;
+		min-height: 250px;
+}
+
+	
+	#fCImg{
+		width : 212px;
+   		padding: 20px;
+}
+		
+	.fCDiv .fCImage img {
+	    height: 100%;
+	    object-fit: cover;
+}
+
+	.fCDiv .fCImage {
+    	height: 250px;
+}
+
+
     </style>
 </head>
 <body>
@@ -596,8 +634,8 @@
 			<div class="save" style=cursor:pointer>저장하기</div>
      
         <span class="close">&times;</span>
-    </div>
-	</div>
+   	</div>
+</div>
 <%-- <c:import url="/main/footer" /> --%>
 </body>
 	
@@ -707,9 +745,17 @@ $('#overlay').on('click',function(){
 			console.log(data.use);
 			overlayChk = data.use;
 			if(data.use){
-				alert('사용할 수 있는 닉네임 입니다.');
+				 swal({
+			  	      title: "사용할 수 있는 닉네임 입니다.",
+			  	      text: "",
+			  	      icon: "success"
+			  	  });
 			}else{
-				alert('중복된 닉네임 입니다.');
+				swal({
+			  	      title: "중복된 닉네임 입니다.",
+			  	      text: "",
+			  	      icon: "error"
+			  	  });
 				$('input[name="nickname"]').val('');
 			}
 		}, 
@@ -726,12 +772,20 @@ $('.updateNickname').on('click',function(){
 	console.log('nickname='+nickname);
 	
 	 if (!overlayChk) {
-	        alert('닉네임 중복 체크를 먼저 진행해주세요.');
+	        swal({
+		  	      title: "닉네임 중복 체크를 먼저 진행해주세요.",
+		  	      text: "",
+		  	      icon: "info"
+		  	  });
 	        return; 
 	    }
 	
 	if(nickname==''){
-		alert('변경할 닉네임을 입력해주세요.');
+		swal({
+	  	      title: "변경할 닉네임을 입력해주세요.",
+	  	      text: "",
+	  	      icon: "info"
+	  	  });
 	}
 	$.ajax({
 		type:'get', 
@@ -743,7 +797,11 @@ $('.updateNickname').on('click',function(){
 		success: function(data){
 			console.log(data);
 			if(data.cnt==1){
-				alert('닉네임이 변경 되었습니다.');
+				swal({
+			  	      title: "닉네임이 변경 되었습니다.",
+			  	      text: "",
+			  	      icon: "success"
+			  	  });
 		}
 			},
 		error: function(error){
@@ -769,9 +827,17 @@ $('#pwConfirm').on('click',function(){
 		success: function(data){
 			console.log(data);
 			if(data.crPw==pw){
-				alert('현재 비밀번호와 일치합니다.');
+				swal({
+			  	      title: "현재 비밀번호와 일치합니다.",
+			  	      text: "",
+			  	      icon: "success"
+			  	  });
 			}else{
-				alert('현재 비밀번호와 일치하지 않습니다.');
+				swal({
+			  	      title: "현재 비밀번호와 일치하지 않습니다.",
+			  	      text: "",
+			  	      icon: "error"
+			  	  });
 			}
 	
 		}, 
@@ -789,7 +855,11 @@ $('.completePw').on('click',function(){
 	var updatePwConfirm = $('input[name="updatePwConfirm"]').val();
 	console.log(user_no+'/'+updatePw+'/'+updatePwConfirm);
 	if(updatePw==''){
-		alert('변경할 비밀번호를 입력해주세요.');
+		swal({
+	  	      title: "변경할 비밀번호를 입력해주세요.",
+	  	      text: "",
+	  	      icon: "info"
+	  	  });
 	}else{
 	$.ajax({
 		type:'get', 
@@ -803,9 +873,17 @@ $('.completePw').on('click',function(){
 		success: function(data){
 			console.log(data);
 			if(data.completePw==1){
-				alert('비밀번호가 변경 되었습니다.');
+				swal({
+			  	      title: "비밀번호가 변경 되었습니다.",
+			  	      text: "",
+			  	      icon: "success"
+			  	  });
 			}else{
-				alert('변경할 비밀번호가 서로 다릅니다. 다시 한 번 확인해주세요.');
+				swal({
+			  	      title: "변경할 비밀번호가 서로 다릅니다. 다시 한 번 확인해주세요.",
+			  	      text: "",
+			  	      icon: "error"
+			  	  });
 			}
 			
 		}, 
@@ -832,15 +910,27 @@ $('.save').on('click',function(){
         user_no: user_no,
         vegan_type: vegan_type,
         vegan_purpose: vegan_purpose,
-        interests: JSON.stringify(interests) // 배열을 JSON 문자열로 변환 
+        interests: interests.join(',')// 배열을 JSON 문자열로 변환 
     };
 	
 	if(interests==''){
-		alert('관심사를 선택해주세요.');
+		swal({
+	  	      title: "관심사를 선택해주세요.",
+	  	      text: "",
+	  	      icon: "info"
+	  	  });
 	}else if(vegan_purpose==undefined){
-		alert('나의 비건 목적을 선택해주세요.');
+		swal({
+	  	      title: "나의 비건 목적을 선택해주세요.",
+	  	      text: "",
+	  	      icon: "info"
+	  	  });
 	}else if(vegan_type==0){
-		alert('나의 비건 단계를 선택해주세요.');
+		swal({
+	  	      title: "나의 비건 단계를 선택해주세요.",
+	  	      text: "",
+	  	      icon: "info"
+	  	  });
 	}else{
 	$.ajax({
 		type:'get', 
@@ -850,7 +940,11 @@ $('.save').on('click',function(){
 		success: function(data){
 			console.log(data);
 			if(data.cnt>0){
-				alert('변경이 완료 되었습니다.');
+				swal({
+			  	      title: "변경이 완료 되었습니다.",
+			  	      text: "",
+			  	      icon: "success"
+			  	  });
 				location.reload();
 			}
 			
@@ -864,17 +958,36 @@ $('.save').on('click',function(){
 
 //회원탈퇴
 function confirmDelete(user_no) {
-    var result = confirm('정말 탈퇴하시겠습니까?"확인"을 선택하시면 탈퇴가 완료 됩니다.');
-
-    if (result) {
-        // 사용자가 '확인'을 눌렀을 때의 처리
-        alert('탈퇴가 완료 되었습니다.')
-        location.href = './delUser?user_no=' + user_no;
-    } else {
-        // 사용자가 '취소'를 눌렀을 때의 처리
-        alert('탈퇴가 취소 되었습니다.');
-    }
+    swal({
+        title: "정말 탈퇴하시겠습니까?",
+        text: '확인을 선택하시면 탈퇴가 완료됩니다.',
+        icon: "warning",
+        buttons: ["취소", "확인"],
+        dangerMode: true,
+    })
+    .then((isConfirmed) => {
+        if (isConfirmed) {
+            // 사용자가 '확인'을 눌렀을 때의 처리
+            swal('탈퇴가 완료 되었습니다.', {
+                icon: "success",
+            }).then(() => {
+                location.href = './delUser?user_no=' + user_no;
+            });
+        } else {
+            // 사용자가 '취소'를 눌렀을 때의 처리
+            swal('탈퇴가 취소 되었습니다.', {
+                icon: "info",
+            });
+        }
+    });
 }
+
+
+
+
+
+
+
 
 $(document).ready(function(){
     $('ul.tabs li').click(function(){
@@ -965,7 +1078,7 @@ function drawList(list) {
     	
     	content += '<div class="feedDiv">';
         content += '<div class="profile"><img src="/photo/' + item.profile_image + '" alt="image">' + item.nickname + '</div>';
-        content += '<div class="feedImg"><img src="/photo/' + item.server_file_name + '" alt="image" id="feedImg"></div>';
+        content += '<div class="feedImage"><img src="/photo/' + item.server_file_name + '" alt="image" id="feedImg"></div>';
         content += '<div class="itemContent">' + shortenedContent + '</div>';
 
          content += '</div>';
@@ -1026,9 +1139,9 @@ function drawFcList(fcmList) {
         
     	 var shortenedContent = item.content.length > 10 ? item.content.substring(0, 10) + '...' : item.content;
     	
-    	content += '<div class = feedCmDiv>';
+    	content += '<div class = "fCDiv">';
         content += '<div class="profile"><img src="/photo/' + item.profile_image + '" alt="image">' + item.nickname + '</div>';
-        content += '<div class="feedImg"><img src="/photo/' + item.server_file_name + '" alt="image"></div>';
+        content += '<div class="fCImage"><img src="/photo/' + item.server_file_name + '" alt="image" id="fCImg"></div>';
         content += '<div class="itemContent">' + shortenedContent + '</div>';
 
         content += '</div>';
@@ -1114,7 +1227,7 @@ function drawFavList(favList) {
         content += '<div class="favDiv">';
 
         content += '<div class="title">' + item.title + '</div>';
-        content += '<div class="favImg"><a href="/invegan/restaurant/detail?post_id=' + item.post_id + '"><img src="/photo/' + item.server_file_name + '" alt="image" class="restaurantPhoto"></div>';
+        content += '<div class="favImg"><a href="/invegan/restaurant/detail?post_id=' + item.post_id + '"><img src="/photo/' + item.server_file_name + '" alt="image" id="restaurantPhoto"></div>';
 
         content += '</div>';
     });
