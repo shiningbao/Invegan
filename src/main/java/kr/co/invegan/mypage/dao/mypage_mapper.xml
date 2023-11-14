@@ -30,7 +30,7 @@
 		SELECT COUNT(nickname) FROM Members WHERE nickname=#{param1}
 	</select>
 	
-	<select id="requestBoardList" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
+	<!-- <select id="requestBoardList" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
 		select req_title,views from Request  WHERE user_no=#{param1}
 	</select>
 	
@@ -41,7 +41,7 @@
 	<select id="freeBoardList" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
     	SELECT title,views FROM Board WHERE user_no=#{param1} and category="자유게시판"
 	</select>
-	
+	 -->
 	<select id="feedList" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
 	SELECT
     it1.server_file_name,
@@ -78,12 +78,12 @@
 		AND post_id IN (SELECT post_id FROM Board WHERE category='레시피')
 	</select> -->
 	
-	<select id="recipeFavorite" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
+<!-- 	<select id="recipeFavorite" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
 		SELECT title,views FROM Board 
 		WHERE post_id IN (SELECT post_id FROM Favorite WHERE user_no = #{param1})
 		AND category='레시피'
 	</select>
-	
+	 -->
 	<!-- <select id="freeComments" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
 		SELECT title,views FROM Board 
 		WHERE post_id IN (SELECT post_id FROM Comments WHERE user_no = #{param1}) 
@@ -91,25 +91,30 @@
 	</select> -->
 	
 	<select id="feedComments" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
-		SELECT 
-		    it2.server_file_name AS profile_image,
-		    m.nickname,
+		SELECT
+		    b.post_id,
 		    b.content,
+		    m.nickname,
+		    m.user_no,
+		    it2.server_file_name AS profile_image,
 		    it.server_file_name AS server_file_name
 		FROM
-		    Board b
-		    JOIN Members m ON m.user_no = b.user_no
-		    LEFT JOIN ImageTable it2 ON m.user_no = it2.idx AND it2.category = '회원'
-		    JOIN ImageTable it ON b.post_id = it.idx
+		    Comments c
+		JOIN
+		    Members m ON c.user_no = m.user_no
+		JOIN
+		    Board b ON c.post_id = b.post_id 
+		LEFT JOIN
+		    ImageTable it ON it.idx = b.post_id AND it.category = '피드'
+		LEFT JOIN
+		    ImageTable it2 ON m.user_no = it2.image_id AND it2.category = '회원'
 		WHERE
-		    b.category = '피드'
-		    AND b.post_id IN (SELECT post_id FROM Comments)
-		    AND m.user_no=#{param1} GROUP BY b.post_id 
+		    c.user_no = #{param1} and b.category='피드' group by c.post_id 
 		ORDER BY
-		    b.date DESC
+		    c.comment_id DESC
 	</select>
 	
-	<select id="restaurantComments" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
+<!-- 	<select id="restaurantComments" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
 	SELECT
 	    B.title,
 	    B.post_id,
@@ -123,14 +128,15 @@
 	    Comments C ON B.post_id = C.post_id
 	WHERE 
 	    B.category = '식당' AND IT.category = '식당' AND C.user_no = #{param1} GROUP BY B.post_id;
-	</select>
+	</select> -->
 	
 	<select id="restaurantFavorite" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
-	SELECT b.title,b.post_id,b.user_no,i.server_file_name FROM Board b 
-	JOIN Favorite f ON b.post_id=f.post_id 
-	JOIN ImageTable i ON b.post_id=i.idx 
-	WHERE b.user_no=#{param1} and b.category='식당' 
-	GROUP BY post_id
+		SELECT b.title, f.post_id, i.server_file_name
+		FROM Favorite f
+		JOIN Board b ON f.post_id = b.post_id
+		JOIN Members m ON f.user_no = m.user_no
+		JOIN ImageTable i ON b.post_id = i.idx
+		WHERE m.user_no = #{param1} GROUP BY b.post_id;
 	</select>
 	
 	<update id="updateNickname" parameterType="hashmap">

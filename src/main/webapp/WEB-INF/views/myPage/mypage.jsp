@@ -186,12 +186,7 @@
 		display : flex;
 		overflow-x : auto;
 	}
-	
-	.feedImg img {
-	    width: 160px;
-	    /*object-fit: cover;*/
-	    
-}
+
 
 	/* .feedImg {
 		text-align : center;
@@ -236,7 +231,7 @@
 		    background-color: white;
 		    margin: 6% auto;
 		    border: 1px solid #888;
-		    width: 50%;
+		    width: 41%;
 		    height: 651px;
 		}
 
@@ -261,6 +256,7 @@
 		 	width: 82px;
 		 	top : 175px;
 		 	right : 96px;
+		 	font-weight : bold;
 		 }
 		
 		
@@ -287,6 +283,7 @@
 		 	width: 104px;
 		 	top : 304px;
 		 	right : 89px;
+		 	font-weight : bold;
 		 	
 		 }
 		
@@ -309,7 +306,6 @@
 		    width : 100%;
 		    overflow-x:auto; 
 		    white-space:nowrap; 
-		    margin:0 auto
 		}
 		
 		.titleLink{
@@ -358,7 +354,7 @@
 		 	font-weight: bold;
 		 	font-size: 70px;
 		 	top: 64px;
-		 	right : 720px;
+		 	right : 586px;
 		 	cursor : pointer;
 		 }
 		 
@@ -367,6 +363,7 @@
 		 	top : 614px;
 		 	right : 13px;
 		 	width: 80px;
+		 	font-weight : bold;
 		 }
 
 		.restaurantPhoto img{
@@ -376,48 +373,87 @@
 		.title{
 			text-align : center;
 		}
-		
-		.feedCmContainer{
-		    width : 80%;
-		}
-		
-		.feed-image{
-			width:400px;
-		}
 
 		.tab-link current{
 		border-radius : 8px;
 		background-color : #caeada;
 		}
-		
-		.feedDiv{
+	
+		.favDiv{
 			position : relative;
 			display : inline-block;
 			width : 20%;
 			margin : 0px auto 10px auto;
 			top : 39px;
-		}
-	
-		.favDiv{
-			display : inline-block;
+			min-height: 250px;
 			
 		}
 		
-		.feedCmDiv{
-			position : relative;
-			display : inline-block;
-			top : 39px;
-		}
+		#restaurantPhoto{
+		width : 212px;
+		text-align: center;
+   		padding: 20px;
+}
 		
-		.rtCmDiv{
-			display : inline-block;
-		}
+	.favDiv .favImg img {
+	    height: 100%;
+	    object-fit: cover;
+}
+
+	.favDiv .favImg {
+    	height: 250px;
+}
+
+	.feedDiv{
+		position : relative;
+		display : inline-block;
+		width : 20%;
+		margin : 0px auto 10px auto;
+		top : 39px;
+		min-height: 250px;
+}
 		
-		#feedImg{
-			width : 212px;
-			text-align: center;
-    		padding: 20px;
-		}
+	#feedImg{
+		width : 212px;
+		text-align: center;
+   		padding: 20px;
+}
+		
+	.feedDiv .feedImage img {
+	    height: 100%;
+	    object-fit: cover;
+}
+
+	.feedDiv .feedImage {
+    	height: 250px;
+}
+
+	.fCDiv{
+		position : relative;
+		display : inline-block;
+		width : 20%;
+		margin : 0px auto 10px auto;
+		top : 39px;
+		min-height: 250px;
+}
+
+	
+	#fCImg{
+		width : 212px;
+		text-align: center;
+   		padding: 20px;
+}
+		
+	.fCDiv .fCImage img {
+	    height: 100%;
+	    object-fit: cover;
+}
+
+	.fCDiv .fCImage {
+    	height: 250px;
+}
+
+
     </style>
 </head>
 <body>
@@ -874,7 +910,7 @@ $('.save').on('click',function(){
         user_no: user_no,
         vegan_type: vegan_type,
         vegan_purpose: vegan_purpose,
-        interests: JSON.stringify(interests) // 배열을 JSON 문자열로 변환 
+        interests: interests.join(',')// 배열을 JSON 문자열로 변환 
     };
 	
 	if(interests==''){
@@ -1042,7 +1078,7 @@ function drawList(list) {
     	
     	content += '<div class="feedDiv">';
         content += '<div class="profile"><img src="/photo/' + item.profile_image + '" alt="image">' + item.nickname + '</div>';
-        content += '<div class="feedImg"><img src="/photo/' + item.server_file_name + '" alt="image" id="feedImg"></div>';
+        content += '<div class="feedImage"><img src="/photo/' + item.server_file_name + '" alt="image" id="feedImg"></div>';
         content += '<div class="itemContent">' + shortenedContent + '</div>';
 
          content += '</div>';
@@ -1103,9 +1139,9 @@ function drawFcList(fcmList) {
         
     	 var shortenedContent = item.content.length > 10 ? item.content.substring(0, 10) + '...' : item.content;
     	
-    	content += '<div class = feedCmDiv>';
+    	content += '<div class = "fCDiv">';
         content += '<div class="profile"><img src="/photo/' + item.profile_image + '" alt="image">' + item.nickname + '</div>';
-        content += '<div class="feedImg"><img src="/photo/' + item.server_file_name + '" alt="image" id="feedImg"></div>';
+        content += '<div class="fCImage"><img src="/photo/' + item.server_file_name + '" alt="image" id="fCImg"></div>';
         content += '<div class="itemContent">' + shortenedContent + '</div>';
 
         content += '</div>';
@@ -1191,7 +1227,7 @@ function drawFavList(favList) {
         content += '<div class="favDiv">';
 
         content += '<div class="title">' + item.title + '</div>';
-        content += '<div class="favImg"><a href="/invegan/restaurant/detail?post_id=' + item.post_id + '"><img src="/photo/' + item.server_file_name + '" alt="image" class="restaurantPhoto"></div>';
+        content += '<div class="favImg"><a href="/invegan/restaurant/detail?post_id=' + item.post_id + '"><img src="/photo/' + item.server_file_name + '" alt="image" id="restaurantPhoto"></div>';
 
         content += '</div>';
     });
