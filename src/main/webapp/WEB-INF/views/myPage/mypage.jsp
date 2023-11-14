@@ -494,7 +494,7 @@
  
 	<div class="profileContainer">
  	<c:set var="myPageImg" value="${dto.profile_image}" />
-
+	
   	<div class="myPageImg">
         <img src="/photo/${myPageImg}" width="180" height="220">
     </div>
@@ -504,6 +504,8 @@
         <label>아이디 : </label> ${dto.id}<br>
         <label>생년월일 : </label> ${dto.birthdate}<br>
         <label>성별 : </label> ${dto.gender}<br>
+        
+
     </div>
     
     <div class="is_admin">
