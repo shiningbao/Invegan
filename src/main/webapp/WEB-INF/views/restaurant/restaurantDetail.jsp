@@ -49,9 +49,11 @@
 		margin-bottom: 5px;;
 	}
 	.veganType div{
+		box-shadow: #4f4f4f 3px 3px 4px 0px;
+	    font-weight: 600;
+	    border-radius: 8px;
 		height: 28px;
 		display: inline-block;
-		border-radius: 10%;
 		margin: 2px 1px;;
 		padding: 0px 4px;
 		background-color: #bbe8b7;
@@ -64,6 +66,9 @@
 		display: inline-block;
 		width: 600px;
 		margin-left: 420px;
+	}
+	.restaurantcontainer h1{
+		margin-top: 10px;
 	}
 	.restaurantContent h2, .restaurantContent h3 {
      	display: inline-block;
@@ -86,13 +91,13 @@
 	}
 	.menuTable {
 		width: 100%;
-		border: 1px solid black;
+		border: 0.5px solid #30492a;
 		border-collapse: collapse;
 		font-size: 20px;
 		text-align: center;
 	}
 	.menuTable tr th{
-		background-color: #E0E0E0;
+		background-color: #bbe8b7;
 		border: 1px solid black;
 		border-collapse: collapse;
 		text-align: center;
@@ -127,6 +132,7 @@
 	.restaurantAddr{
 		display: inline-block;
 	    margin-right: 20px;
+	    margin-top: 20px;
 	}
 	.restaurantMap{
 		background-color: green;
@@ -137,6 +143,7 @@
 	#map{
 		width: 1000px;
 		height: 600px;
+		border: 0.5px solid #30492a;
 	}
 
      #blankdiv{
@@ -168,6 +175,7 @@
 			<h3>${restaurantDetail.getHours()}</h3><br>
 			<h2>식당 소개 </h2>
 			<p>${restaurantDetail.getContent()}</p>
+			<div></div>
 		</div>
 		<div class="update_delete">
 			<c:if test="${admin eq 'yes'}">
@@ -227,6 +235,12 @@ if(hidden != 0){
 		'<img class="restaurnatHidden" src="'+img+'" style="width:400px; height:400px; z-index:1,back-ground-color:grey; opacity:0.7"}/>'
 	);
 }
+
+var contents = $('.restaurantContent').find('p').html();
+console.log(contents);
+var splitCon = contents.replace(/\n/g, '<br>');
+$('.restaurantContent').find('div').html(splitCon);
+$('.restaurantContent').find('p').html('');
 
 var veganArr = [];
 <c:forEach items="${menuDetail}" var = "menu">
