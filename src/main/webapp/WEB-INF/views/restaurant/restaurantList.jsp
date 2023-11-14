@@ -160,7 +160,7 @@ function callList(showPage){
 
 function drawDiv(len){
 	var totalcontent = '<div class="restaurantDiv"></div>';
-	var content = '<div class="restaurantDiv_1"><div class="restaurantImg"><img class="Img" src="#"></div>';
+	var content = '<div class="restaurantDiv_1" onclick="restaurantClick()"><div class="restaurantImg"><img class="Img" src="#"></div>';
 	content += '<div class="res_title">게시물 없음</div><div class="res_dist">-</div><div class="veganType"></div></div>';
 	$('.restarurantList').html('');
 	for(var i = 0; i < len; i++){
@@ -215,7 +215,6 @@ function drawList(data){
 	$('#pagination').twbsPagination({
 		startPage:showPage, // 보여줄 페이지
 		totalPages:data.pages, // 총 페이지 수(총 갯수/페이지당 보여줄 게시물 수) : 서버에서 계산해서 가져와야함
-		activeClass : "active",
 		visiblePages:5,
 		onPageClick:function(e,page){// 번호 클릭시 실행할 내용
 			//console.log(e);
@@ -228,12 +227,14 @@ function drawList(data){
 	});
 };
 
-$('.restaurantDiv_1').on('click',function(){
+function restaurantClick(){
 	var post_id = $(this).attr('post_id');
+	console.log(post_id);
 	if(post_id != null){
-		location.href = 'detail?post_id='+post_id
+		location.href = 'detail?post_id='+post_id;
 	}
-});
+}
+
 
 </script>
 </html>
