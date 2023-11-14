@@ -299,7 +299,9 @@
 			border-bottom:0;
 			
 		} */
-		
+		#listContainer::-webkit-scrollbar {
+    		width: 20px; /* 스크롤바 너비를 0으로 설정하여 숨깁니다. */
+		}
 		#listContainer {
 			position : absolute;
 			display: flex;

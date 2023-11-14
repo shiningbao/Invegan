@@ -446,5 +446,15 @@ $('.banner').on('click',function(){
 });
 
 
+var msg = "${msg}";
+if(msg != ""){
+	console.log(msg);
+	swal({
+  	    title: msg,
+  	    text: "",
+  	    icon: "success"
+  	});
+}
+
 </script>
 </html>
