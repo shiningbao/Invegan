@@ -42,6 +42,7 @@ public class MyPageController {
 			MyPageDTO dto = service.userInfo(user_no);
 			model.addAttribute("dto", dto);
 			logger.info("dto:" + dto);
+			logger.info(dto.getProfile_image());
 			
 			return "myPage/mypage";
 		} else {

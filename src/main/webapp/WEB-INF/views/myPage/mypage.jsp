@@ -231,12 +231,12 @@
 		    border: 1px solid #888;
 		    width: 600px;
 		    height: 651px;
+		    padding : 10px;
 		    position: fixed;
 		    top: 50%;
 		    left: 50%;
 		    transform: translate(-50%, -50%);
-		}
-
+}
 		.close {
 			position: absolute;
 		    top: 10px;
@@ -326,20 +326,20 @@
 	
 		.profile img{
 			width: 30px;
-			border-radius:50%;
+			border-radius: 50%;
 			margin: 5px;
 		}
 		
 		.profile {
 			position : absolute;
 			left : 16px;
-			top : -31px;
+			top : -12px;
 		}
 		
 		#myInfo{
 			position : absolute;
 			top : 343px;
-			right : 61px;
+			right : 82px;
 			border : 0;
 			border-collapse : collapse;
 			padding: 5px 10px;
@@ -453,6 +453,37 @@
     	height: 250px;
 }
 
+	/* .interCheck{
+		position : absolute;
+		right : 40px;
+		top : -12px;
+	}
+	
+	#vgType{
+		position : absolute;
+		right : 248px;
+		top : 51px;
+	}
+	
+	#vegan_type{
+		position : absolute;
+		right : 89px;
+		top : 49px;
+	}
+	
+	#purpose{
+		position : absolute;
+		right : 89px;
+		top : 49px;
+		font-weight : bold;
+	} */
+	
+/* 	#vgPurpose{
+		position : absolute;
+		right : 89px;
+		top : 30px;
+	} */
+
 
     </style>
 </head>
@@ -463,16 +494,26 @@
  
 	<div class="profileContainer">
  	<c:set var="myPageImg" value="${dto.profile_image}" />
-
-  	<div class="myPageImg">
+ 	<c:choose>
+    <c:when test="${not empty myPageImg}">
+        <img src="/photo/${myPageImg}" width="180" height="220" class="myPageImg">
+    </c:when>
+    <c:otherwise>
+        <img src="/invegan/resources/main/profile.jpg" width="180" height="220" class="myPageImg">
+    </c:otherwise>
+</c:choose>
+  	<%-- <div class="myPageImg">
         <img src="/photo/${myPageImg}" width="180" height="220">
-    </div>
+
+    </div> --%>
     
    	<div class="userInfo">
         <label>가입 날짜 :</label> ${dto.join_date}<br>
         <label>아이디 : </label> ${dto.id}<br>
         <label>생년월일 : </label> ${dto.birthdate}<br>
         <label>성별 : </label> ${dto.gender}<br>
+        
+
     </div>
     
     <div class="is_admin">
@@ -560,6 +601,14 @@
     <div class="modal-content">
         <h1>회원정보변경</h1>
         <hr>
+        	<c:choose>
+			    <c:when test="${not empty myPageImg}">
+			        <img src="/photo/${myPageImg}" id= updateImg width="150" height="150">
+			    </c:when>
+			    <c:otherwise>
+		        <img src="/invegan/resources/main/profile.jpg" id= updateImg width="150" height="150">
+		    </c:otherwise>
+			</c:choose>
         	<img src="/photo/${myPageImg}" id= updateImg width="150" height="150">
         	<div class="plusImg">+</div>
         	<input type="file" id="photo" name="photo" style="display: none">
@@ -569,20 +618,20 @@
         	<p>
         	<div class= "updateNickname" style= cursor:pointer>닉네임변경</div>
         	<div class = "pwDiv">
-        	<label>현재 비밀번호 <input type="text" name="password" value=""/></label>
+        	<label>현재 비밀번호 <input type="password" name="password" value=""/></label>
         	<input type="button" id="pwConfirm" value="확인"/>
         	<p>
-        	<label>변경 비밀번호 <input type="text" name="updatePw"/></label>
+        	<label>변경 비밀번호 <input type="password" name="updatePw"/></label>
         	</div>
         	<p>
         	<div class= "pwDiv2">
-    		<label>변경 비밀번호 확인  <input type="text" name="updatePwConfirm"/></label>
+    		<label>변경 비밀번호 확인  <input type="password" name="updatePwConfirm"/></label>
     		</div>
     		<div class="completePw" style=cursor:pointer>비밀번호 변경</div>
     		<table id=myInfo>
     		<tr>
 				<td>나의 관심사</td>
-				<td colspan="2">
+				<td colspan="2" class="interCheck">
 				<input type="checkbox" name="interests" value="식당" id="interests"/> 식당
 				<input type="checkbox" name="interests" value="레시피" id="interests"/> 레시피
 				<input type="checkbox" name="interests" value="식품" id="interests"/> 식품
@@ -593,7 +642,7 @@
 				</td>
 			</tr>
 			<tr>
-			<td><label for"vegan_type">나의 비건 단계  </label></td>
+			<td><label for"vegan_type" id="vgType">나의 비건 단계  </label></td>
 				<td colspan="2">
 				    <select id="vegan_type" name="vegan_type">
 				    	<option value="0">비건단계</option>
@@ -611,8 +660,8 @@
 			</tr>
 			
 			<tr>
-				<td>나의 비건 목적</td>
-				<td colspan="2">
+				<td id="purpose">나의 비건 목적</td>
+				<td colspan="2" id="vgPurpose">
 					<input type="radio" name="vegan_purpose" value="질병으로 인해" />질병으로 인해
 					동물성 식품을 먹지 못함
 					<p>
@@ -1046,6 +1095,7 @@ $(document).ready(function(){
 
 
 
+	
 function feedListCall(){
 	var user_no = $('input[name="user_no"]').val();
 	var tabType = $('.tabs li.current').text();
@@ -1054,7 +1104,7 @@ function feedListCall(){
 	    url: 'feedListCall',
 	    data:{
 	    	'tabType':tabType,
-	    	'user_no':user_no
+	    	'user_no':user_no,
 	    },
 	    dataType: 'JSON',
 	    success: function(data) {
@@ -1075,9 +1125,9 @@ function drawList(list) {
     list.forEach(function(item, idx) {
        
     	 var shortenedContent = item.content.length > 10 ? item.content.substring(0, 10) + '...' : item.content;
-    	
+    	console.log(image);
     	content += '<div class="feedDiv">';
-        content += '<div class="profile"><img src="/photo/' + item.profile_image + '" alt="image">' + item.nickname + '</div>';
+        content += '<div class="profile">' + '작성자 : ' + item.nickname + '</div>';
         content += '<div class="feedImage"><img src="/photo/' + item.server_file_name + '" alt="image" id="feedImg"></div>';
         content += '<div class="itemContent">' + shortenedContent + '</div>';
 
@@ -1140,7 +1190,7 @@ function drawFcList(fcmList) {
     	 var shortenedContent = item.content.length > 10 ? item.content.substring(0, 10) + '...' : item.content;
     	
     	content += '<div class = "fCDiv">';
-        content += '<div class="profile"><img src="/photo/' + item.profile_image + '" alt="image">' + item.nickname + '</div>';
+        content += '<div class="profile">' + '작성자 : '+ item.nickname + '</div>';
         content += '<div class="fCImage"><img src="/photo/' + item.server_file_name + '" alt="image" id="fCImg"></div>';
         content += '<div class="itemContent">' + shortenedContent + '</div>';
 
