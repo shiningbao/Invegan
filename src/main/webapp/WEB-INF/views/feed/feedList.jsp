@@ -299,6 +299,7 @@ input[type="text"] {
                                         idx: item.tag_id
                                     };
                                      })); //response
+                                     
                             },
                             error: function (e) { //실패
                                 console.log("AJAX 오류 발생:");
@@ -378,6 +379,7 @@ input[type="text"] {
 									drawList(data.list);
 									loginInfo = data.loginInfo;
 									console.log(loginInfo);
+									
 									if (data.limitcnt > data.listSize) {
 										$('.addBtn').prop('disabled', true);
 										
@@ -501,7 +503,7 @@ input[type="text"] {
 									content += '</div>';
 									var date = new Date(item.date);
 									var dateStr = date.toLocaleDateString("ko-KR"); //en-US
-									content += '<div class="tag-content" style="width:500px">'+ item.tag_content + '</div>';
+									content += '<div class="tag-content" style="width:500px; color: #808080;">'+ item.tag_content + '</div>';
 									content += '<div class="post-time">'+ dateStr + '</div>';
 									content += '</div>';
 									
@@ -527,7 +529,13 @@ input[type="text"] {
 									console.log(data.limitcnt);
 									console.log(data.listSize);
 									drawList(data.list);
-									
+									if(data.listSize<1){
+										 swal({
+									  	      title: "해당 태그의 게시글이 없습니다.",
+									  	      text: "",
+									  	      icon: "info",
+									  	  });
+									}
 									if (data.limitcnt > data.listSize) {
 										$('.addBtnSearch').prop('disabled',true);
 										
@@ -543,19 +551,21 @@ input[type="text"] {
 						
 						//자동완성 검색
 						$(document).on('click','#searchbtn',function(){
-							backToTop();
-							autoText = $('#autoComplete').val();
-							$('.nameSearch').val('');
-							limitcnt = 10;
-							console.log('click');
-							$('.clickTagSearch').removeClass('active');
-							$('.addBtn').css('display', 'none');
-							$('.addBtnSearch').css('display', 'block');
-							$('.addBtnImg').show();
-							
+             							backToTop();
+             							autoText = $('#autoComplete').val();
+             							$('.nameSearch').val('');
+             							limitcnt = 10;
+             							console.log('click');
+             							$('.clickTagSearch').removeClass('active');
+             							$('.addBtn').css('display', 'none');
+             							$('.addBtnSearch').css('display', 'block');
+             							$('.addBtnImg').show();
+             							
+             						   
 
-							autoListCall();
-						})
+             							autoListCall();
+             							 
+             						})
 						
 						//닉네임 검색
 						$(document).on('click','#nameSearchBtn',function(){
@@ -567,11 +577,9 @@ input[type="text"] {
 								url:'feed/nameSearch',
 								data:{nameText : nameText},
 								success:function(data){
-									 if (data.list.length === 0) {
-							                
+									 if (data.list.length === 0) {    
 							                showNoResultsMessage();
-							            } else {
-							                
+							            } else {							                
 							                drawList(data.list);
 							                $('.addBtnImg').hide();
 							            }

@@ -76,12 +76,13 @@
     border-bottom: 1px solid #ccc; 
     padding: 10px; 
 }
-.comment-edit-btn, .comment-del-btn{
+.comment-edit-btn, .comment-del-btn, #comment-save-btn, #comment-cancle-btn{
 	width:50px;
 	font-size:12px !important;
 	height:30px;
 	margin-right:10px;
 }
+
 </style>
 
 <head>
@@ -388,7 +389,7 @@ $(document).ready(function(){
           content += '</div>';
           var date = new Date(item.date);
           var dateStr = date.toLocaleDateString("ko-KR");
-          content += '<div class="tag-content">' + item.tag_content + '</div>';
+          content += '<div class="tag-content" style="width:500px; color: #808080;">' + item.tag_content + '</div>';
           content += '<div class="post-time">' + dateStr + '</div>';
           content += '</div>';
           
