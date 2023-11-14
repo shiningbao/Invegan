@@ -173,76 +173,6 @@
 			</div>
 		</div>
 		
-		<!-- 레시피 -->
-		<div class="customFilterArea">
-			<div class="cF_title"><h1>추천 레시피</h1></div>
-			<div class="cF_move"><h3><a href="#">더보기...</a></h3></div>
-		</div>
-		<div class="customFilterList" id="restaurantList">
-			<div class="customFilterButton">
-				<i class="fi fi-rr-angle-double-left" id="restaurantButtonL"></i>
-			</div>
-			<div class="cFL_Res">
-				<div class="cFL_R_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
-				<div class="cFL_R_Con">
-					<div class="cFL_R_VT"></div>
-					<div class="cFL_R_Name"></div>
-				</div>
-			</div>
-			<div class="cFL_Res">
-				<div class="cFL_R_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
-				<div class="cFL_R_Con">
-					<div class="cFL_R_VT"></div>
-					<div class="cFL_R_Name"></div>
-				</div>
-			</div>
-			<div class="cFL_Res">
-				<div class="cFL_R_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
-				<div class="cFL_R_Con">
-					<div class="cFL_R_VT"></div>
-					<div class="cFL_R_Name"></div>
-				</div>
-			</div>
-			<div class="customFilterButton">
-				<i class="fi fi-rr-angle-double-right" id="restaurantButtonR"></i>
-			</div>
-		</div>
-		
-		<!-- 제품 -->
-		<div class="customFilterArea">
-			<div class="cF_title"><h1>추천 제품</h1></div>
-			<div class="cF_move"><h3><a href="#">더보기...</a></h3></div>
-		</div>
-		<div class="customFilterList" id="restaurantList">
-			<div class="customFilterButton">
-				<i class="fi fi-rr-angle-double-left" id="restaurantButtonL"></i>
-			</div>
-			<div class="cFL_Res">
-				<div class="cFL_R_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
-				<div class="cFL_R_Con">
-					<div class="cFL_R_VT"></div>
-					<div class="cFL_R_Name"></div>
-				</div>
-			</div>
-			<div class="cFL_Res">
-				<div class="cFL_R_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
-				<div class="cFL_R_Con">
-					<div class="cFL_R_VT"></div>
-					<div class="cFL_R_Name"></div>
-				</div>
-			</div>
-			<div class="cFL_Res">
-				<div class="cFL_R_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
-				<div class="cFL_R_Con">
-					<div class="cFL_R_VT"></div>
-					<div class="cFL_R_Name"></div>
-				</div>
-			</div>
-			<div class="customFilterButton">
-				<i class="fi fi-rr-angle-double-right" id="restaurantButtonR"></i>
-			</div>
-		</div>
-		
 		<!-- 피드 -->
 		<div class="customFilterArea">
 			<div class="cF_title"><h1>추천 피드</h1></div>
@@ -296,8 +226,6 @@
 	</div>
 		
 	<div class="blank"></div>
-
-<%-- <c:import url="/main/footer"/> --%>
 
 </body>
 

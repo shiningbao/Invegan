@@ -34,8 +34,8 @@
 	</insert>
 	
 	
-	<select id="restaurantList_admin_totalpage">
-		SELECT CEIL(COUNT(idx)/20) AS pages FROM Board WHERE category ='식당'
+	<select id="restaurantList_admin_totalpage" resultType="int">
+		SELECT CEIL(COUNT(post_id)/20) AS pages FROM Board WHERE category ='식당'
 	</select>
 	
 	<select id="restaurantList_admin" resultType="kr.co.invegan.board.dto.restaurantFilterListDTO">
@@ -48,8 +48,8 @@
 		LIMIT #{p}, 20
 	</select>
 	
-	<select id="restaurantList_user_totalpage">
-		SELECT CEIL(COUNT(idx)/20) AS pages FROM Board WHERE category ='식당' AND is_hidden = 0
+	<select id="restaurantList_user_totalpage" resultType="int">
+		SELECT CEIL(COUNT(post_id)/20) AS pages FROM Board WHERE category ='식당' AND is_hidden = 0
 	</select>
 	
 	<select id="restaurantList_user" resultType="kr.co.invegan.board.dto.restaurantFilterListDTO">

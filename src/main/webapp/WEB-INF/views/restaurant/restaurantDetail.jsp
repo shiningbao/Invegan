@@ -149,14 +149,16 @@
 <c:import url="/main/header"/>
 <div class="restaurantcontainer">
 	<div id="restaurantTitle">
-	<h1>${restaurantDetail.getTitle()}</h1>
-	<img id="favorite" src="<c:if test='${favoriteChk eq 0}'><c:url value='/resources/main/favorite_X.png'/></c:if><c:if test='${favoriteChk eq 1}'><c:url value='/resources/main/favorite_O.png'/></c:if>" alt="favoriteIcon"/>
+		<h1>${restaurantDetail.getTitle()}</h1>
+		<img id="favorite" 
+			src="<c:if test='${favoriteChk eq 0}'><c:url value='/resources/main/favorite_X.png'/></c:if>
+				<c:if test='${favoriteChk eq 1}'><c:url value='/resources/main/favorite_O.png'/></c:if>" 
+			alt="favoriteIcon"/>
 	</div>
 	<div class="restaurantTop">
 		<div class="restaurantImg_main"><img id="img_main" src = "/photo/${photoList[0]}" alt="restaurantImg"/></div>
 		<div class="restaurantContent">
-			<div class="veganType">
-			</div>
+			<div class="veganType"></div>
 			<h1>${restaurantDetail.getTitle()}</h1>			
 			<h2>식당 위치</h2>
 			<h3>${restaurantDetail.getAddress()}</h3><br>
@@ -167,7 +169,6 @@
 			<h2>식당 소개 </h2>
 			<p>${restaurantDetail.getContent()}</p>
 		</div>
-		
 		<div class="update_delete">
 			<c:if test="${admin eq 'yes'}">
 				<button id="update">수정</button>
@@ -177,7 +178,6 @@
 				</button>
 			</c:if>
 		</div>
-		
 	</div>
 	
 	<h1>비건 메뉴</h1>
@@ -212,34 +212,20 @@
 	</div>
 	
 	<div id="blankdiv"></div>
-	<!-- 
-	<button id="review">리뷰</button>
-	<button id="feed">관련 피드</button>
-	
-	<div class="reviewDiv">
-		<p>리뷰</p>
-		<p>리뷰 작성자 닉네임 : </p>
-		
-		<p>리뷰 작성 : ${loginInfo.getNickname()}</p>
-		<input name="wirteReview" type="text"/>
-		<select name="rating">
-			<option value="1">1</option>
-			<option value="2">2</option>
-			<option value="3">3</option>
-			<option value="4">4</option>
-			<option value="5">5</option>
-		</select>
-		<button id="send_writeReview">리뷰 작성</button>
-	</div>
-
-	
- -->
 </div>	
 </body>
 
 <script>
 // header 카테고리 선택유지
 $('#go_rest').css('box-shadow','#95df95 0px 2px 0px 0px');
+
+var hidden = '${restaurantDetail.getIs_hidden()}';
+if(hidden != 0){
+	var img = '<c:url value="/resources/main/hidden.png"/>';
+	$('.restaurantImg_main').append(
+		'<img class="restaurnatHidden" src="'+img+'" style="width:400px; height:400px; z-index:1,back-ground-color:grey; opacity:0.7"}/>'
+	);
+}
 
 var veganArr = [];
 <c:forEach items="${menuDetail}" var = "menu">
@@ -305,18 +291,17 @@ $('#nextButton').on('click', function(){
 	photoView(cnt);
 });
 
-// 수정
-function update(){
-	console.log('update click');
+
+// 수정 컨펌
+$('#update').on('click',function(){
 	if(confirm('수정하시겠습니까?')){
 		location.href='update.go?post_id='+${restaurantDetail.getPost_id()};
 	}else{
-		console.log('수정 취소 클릭');
 	}
-}
+});
 
-// 숨김
-var hidden = '${restaurantDetail.getIs_hidden()}';
+
+// 숨김 컨펌
 $('#hidden').on('click',function(){
 		console.log('hidden click');
 		var checkbox = hidden == 0 ? '숨기시겠습니까?':'숨김을 해제하시겠습니까?';
@@ -326,15 +311,6 @@ $('#hidden').on('click',function(){
 			console.log('숨김 취소 클릭');
 		}
 });
-
-if(hidden != 0){
-	var img = '<c:url value="/resources/main/hidden.png"/>';
-	$('.restaurantImg_main').append(
-		'<img class="restaurnatHidden" src="'+img+'" style="width:400px; height:400px; z-index:1,back-ground-color:grey; opacity:0.7"}/>'
-	);
-}
-
-
 
 
 // 즐겨찾기
@@ -360,7 +336,6 @@ $('#favorite').on("click",function(){
 			console.log(e);
 		}
 	});
-	
 });
 
 //지도 부분
@@ -404,7 +379,6 @@ geocoder.addressSearch(addr, function(result, status) {
             position: coords,
            	content: iwContent
 		});
-		
         infowindow.open(map, marker);
     } 
 });
