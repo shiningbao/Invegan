@@ -153,7 +153,7 @@
 <c:import url="/main/header"/>
 
 
-	<div class="banner"><img src='<c:url value="/resources/main/invegan_source03.png"/>' alt="banner_1" width="100%" height="100%"/>
+	<div class="banner"><img src='<c:url value="/resources/main/invegan_source01.png"/>' alt="banner_1" width="100%" height="100%"/>
 	</div>
 	<br>
 
@@ -432,6 +432,17 @@ $('#feedButtonR').on('click',function(){
 		f_idx += 3;
 	}
 	feedListView(f_idx);
+});
+
+var clickImg = 0;
+$('.banner').on('click',function(){
+	var imgArr = ['invegan_source01.png','invegan_source02.png','invegan_source03.jpg','invegan_logo_master.png'];
+	var len = imgArr.length;
+	clickImg ++;
+	if(clickImg >= len){
+		clickImg -= len;
+	}
+	$('.banner').find('img').attr('src','./resources/main/'+imgArr[clickImg]);
 });
 
 

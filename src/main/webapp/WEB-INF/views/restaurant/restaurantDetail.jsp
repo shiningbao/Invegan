@@ -32,6 +32,7 @@
 		width: 100%;
 		position: relative;
 		margin-bottom: 20px;
+		min-height: 410px;
 		
 	}
 	.restaurantImg_main{

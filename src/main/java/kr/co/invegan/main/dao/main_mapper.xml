@@ -63,7 +63,7 @@
 		LEFT JOIN (SELECT idx, server_file_name FROM ImageTable it WHERE category = '회원') AS m_img on m_img.idx = m.user_no
 		LEFT JOIN (SELECT idx, server_file_name FROM ImageTable it WHERE category = '피드' GROUP BY idx) AS b_img ON b_img.idx = b.post_id
 		LEFT JOIN (SELECT ft.post_id, GROUP_CONCAT(t.tag_content SEPARATOR ' ') AS tag_content FROM FeedTags ft LEFT JOIN Tags t ON ft.tag_id =t.tag_id GROUP BY ft.post_id) AS tag ON tag.post_id = b.post_id
-		WHERE (b.category = '피드' AND b.is_hidden = 0 OR(
+		WHERE (b.category = '피드' AND b.is_hidden = 0 AND(
 			<foreach collection="list" item="item" separator=" OR ">
 				tag.tag_content LIKE #{item}
 			</foreach>

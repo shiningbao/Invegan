@@ -97,6 +97,7 @@
 	}
 	.pageDiv{
 		width: 100%;
+		margin-top: 30px;
 	}
 	.pageDiv nav ul{
 		margin: 0px auto;
