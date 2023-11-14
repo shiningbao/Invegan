@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<!--  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
  		<!-- <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"> -->
 <!-- 	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> -->
        <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
@@ -152,7 +152,10 @@
 </style>
 </head>
 <body>
-<header id="header-container">
+<header>
+
+<div id="header-container">
+	
 		<div class = "header-logoImg">
 			<img src="<c:url value='/resources/main/invegan_logo_master.png'/>"  alt="Logo Img" id="Logo"/>
 		</div>
@@ -197,9 +200,9 @@
 		    </div>
 		</div>
 
-</header>
+</div>
 		<hr style="border:1px solid darkgrey; color:darkgrey; margin:8px;"/>
-
+</header>
 <%-- 	<%@ include file="library.jsp" %> --%>
 </body>
 

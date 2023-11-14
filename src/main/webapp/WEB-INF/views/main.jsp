@@ -10,10 +10,14 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
 	.banner{
-		background-color : #20B2AA;
-		width: 1000px;
-		height: 400px;
-		margin: 0 auto;
+    	border-radius: 10px;
+	    background-color: #fff977;
+	    width: 1000px;
+	    height: 400px;
+	    margin: 0 auto;
+	}
+	.main-content{
+		margin: -35px 30px;
 	}
 	.custom{
 		width: 1200px;
@@ -23,6 +27,14 @@
 	.customFilterArea{
 		height: 80px;
 		clear: both;
+	}
+	.customFilterArea a{
+		all:initial;
+		color:grey;
+	}
+	.customFilterArea a:hover{
+		cursor: pointer;
+		color : #000;
 	}
 	.cF_title{
 		position: inherit;
@@ -48,9 +60,14 @@
 		height: 90px;
 		margin: 150px auto;
 		text-align: center;
-		font-size: 60px;
+		font-size: 25px;
 		font-weight: 600;
 		cursor: pointer;
+		color: grey;
+	}
+	.customFilterButton:hover{
+		color:black;
+		
 	}
 	.cFL_Res{
 		position: relative;
@@ -61,7 +78,7 @@
 	.cFL_R_Img{
 		width: 325px;
 		height: 325px;
-		background-color: #00CED1;
+		background-color: #b1b1b1;
 		margin: 0 auto;
 	}
 	.cFL_R_VT{
@@ -86,7 +103,7 @@
 	.cFL_R_Name{
 		text-align: center;
 		font-weight: 600;
-		font-size: 30px;
+		font-size: 20px;
 		margin: 0 0;
 		white-space: nowrap;
 		overflow: hidden;
@@ -94,12 +111,15 @@
 	}
 	
 	.cFL_Feed{
+		border-radius: 6px;
+   		border: 1px solid grey;
 		position: relative;
 		width : 328px;
 		margin: 0px 2px;
 		cursor: pointer;
 	}
 	.cFL_F_Head{
+		padding: 6px 0px 0px 6px;
 		align-items: center;
 		display: flex;
 		margin-bottom: 3px;
@@ -110,7 +130,7 @@
 	.cFL_F_Img{
 		width: 325px;
 		height: 325px;
-		background-color: #00CED1;
+		background-color: #b1b1b1;
 		margin: 0 auto;
 	}
 	.cFL_F_Con{
@@ -140,90 +160,93 @@
 	<!-- 맞춤 정보 제공 --> 
 	<div class="custom">
 		<!-- 식당 -->
-		<div class="customFilterArea">
-			<div class="cF_title"><h1>추천 식당</h1></div>
-			<div class="cF_move"><h3><a href="<c:url value='/restaurant/list'/>">더보기...</a></h3></div>
-		</div>
-		<div class="customFilterList">
-			<div class="customFilterButton">
-				<i class="fi fi-rr-angle-double-left" id="restaurantButtonL"></i>
+		<div id="fist-content" class="main-content">
+			<div class="customFilterArea">
+				<!-- <div class="cF_title"><h2>추천 식당</h2></div> -->
+				<div class="cF_move"><h3><a href="<c:url value='/restaurant/list'/>">더보기...</a></h3></div>
 			</div>
-			<div class="cFL_Res">
-				<div class="cFL_R_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
-				<div class="cFL_R_Con">
-					<div class="cFL_R_Name"></div>
+			<div class="customFilterList">
+				<div class="customFilterButton">
+					<i class="fi fi-rr-angle-double-left" id="restaurantButtonL"></i>
 				</div>
-				<div class="cFL_R_VT"></div>
-			</div>
-			<div class="cFL_Res">
-				<div class="cFL_R_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
-				<div class="cFL_R_Con">
-					<div class="cFL_R_Name"></div>
-				</div>
+				<div class="cFL_Res">
+					<div class="cFL_R_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
+					<div class="cFL_R_Con">
+						<div class="cFL_R_Name"></div>
+					</div>
 					<div class="cFL_R_VT"></div>
-			</div>
-			<div class="cFL_Res">
-				<div class="cFL_R_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
-				<div class="cFL_R_Con">
-					<div class="cFL_R_Name"></div>
 				</div>
-					<div class="cFL_R_VT"></div>
-			</div>
-			<div class="customFilterButton">
-				<i class="fi fi-rr-angle-double-right" id="restaurantButtonR"></i>
+				<div class="cFL_Res">
+					<div class="cFL_R_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
+					<div class="cFL_R_Con">
+						<div class="cFL_R_Name"></div>
+					</div>
+						<div class="cFL_R_VT"></div>
+				</div>
+				<div class="cFL_Res">
+					<div class="cFL_R_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
+					<div class="cFL_R_Con">
+						<div class="cFL_R_Name"></div>
+					</div>
+						<div class="cFL_R_VT"></div>
+				</div>
+				<div class="customFilterButton">
+					<i class="fi fi-rr-angle-double-right" id="restaurantButtonR"></i>
+				</div>
 			</div>
 		</div>
 		
 		<!-- 피드 -->
-		<div class="customFilterArea">
-			<div class="cF_title"><h1>추천 피드</h1></div>
-			<div class="cF_move"><h3><a href="<c:url value='/feed/list.go'/>">더보기...</a></h3></div>
-		</div>
-		<div class="customFilterList" id="restaurantList">
-			<div class="customFilterButton">
-				<i class="fi fi-rr-angle-double-left" id="feedButtonL"></i>
+		<div id="second-content" class="main-content">
+			<div class="customFilterArea">
+				<!-- <div class="cF_title"><h2>추천 피드</h2></div> -->
+				<div class="cF_move"><p><a href="<c:url value='/feed/list.go'/>">더보기...</a></p></div>
 			</div>
-			
-			<div class="cFL_Feed" >
-				<div class="cFL_F_Head">
-					<img src="#" alt="ProfileImg" width="50px" height="50px" style="border-radius:50%; margin-right: 10px;"/>
-					<p></p>
+			<div class="customFilterList" id="restaurantList">
+				<div class="customFilterButton">
+					<i class="fi fi-rr-angle-double-left" id="feedButtonL"></i>
 				</div>
-				<div class="cFL_F_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
-				<div class="cFL_F_Con">
-					<div class="cFL_F_Text"></div>
-					<div class="cFL_F_Tag"></div>
-				</div>
-			</div>
-			
-			<div class="cFL_Feed" >
-				<div class="cFL_F_Head">
-					<img src="#" alt="ProfileImg" width="50px" height="50px" style="border-radius:50%; margin-right: 10px;"/>
-					<p></p>
-				</div>
-				<div class="cFL_F_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
-				<div class="cFL_F_Con">
-					<div class="cFL_F_Text"></div>
-					<div class="cFL_F_Tag"></div>
-				</div>
-			</div>
-			<div class="cFL_Feed " >
-				<div class="cFL_F_Head">
-					<img src="#" alt="ProfileImg" width="50px" height="50px" style="border-radius:50%; margin-right: 10px;"/>
-					<p></p>
-				</div>
-				<div class="cFL_F_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
-				<div class="cFL_F_Con">
-					<div class="cFL_F_Text"></div>
-					<div class="cFL_F_Tag"></div>
-				</div>
-			</div>
 				
-			<div class="customFilterButton">
-				<i class="fi fi-rr-angle-double-right" id="feedButtonR"></i>
+				<div class="cFL_Feed" >
+					<div class="cFL_F_Head">
+						<img src="#" alt="ProfileImg" width="50px" height="50px" style="border-radius:50%; margin-right: 10px;"/>
+						<p></p>
+					</div>
+					<div class="cFL_F_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
+					<div class="cFL_F_Con">
+						<div class="cFL_F_Text"></div>
+						<div class="cFL_F_Tag"></div>
+					</div>
+				</div>
+				
+				<div class="cFL_Feed" >
+					<div class="cFL_F_Head">
+						<img src="#" alt="ProfileImg" width="50px" height="50px" style="border-radius:50%; margin-right: 10px;"/>
+						<p></p>
+					</div>
+					<div class="cFL_F_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
+					<div class="cFL_F_Con">
+						<div class="cFL_F_Text"></div>
+						<div class="cFL_F_Tag"></div>
+					</div>
+				</div>
+				<div class="cFL_Feed " >
+					<div class="cFL_F_Head">
+						<img src="#" alt="ProfileImg" width="50px" height="50px" style="border-radius:50%; margin-right: 10px;"/>
+						<p></p>
+					</div>
+					<div class="cFL_F_Img"><img src="#" alt="#" width="325px" height="325px"/></div>
+					<div class="cFL_F_Con">
+						<div class="cFL_F_Text"></div>
+						<div class="cFL_F_Tag"></div>
+					</div>
+				</div>
+					
+				<div class="customFilterButton">
+					<i class="fi fi-rr-angle-double-right" id="feedButtonR"></i>
+				</div>
 			</div>
 		</div>
-	
 	</div>
 		
 	<div class="blank"></div>
@@ -368,13 +391,12 @@ function feedListView(idx){
 			}else{
 				$('.cFL_Feed').eq(i).find('.cFL_F_Head').find($('img')).attr('src', '/photo/'+FFL[i+idx].profile_image);
 			}
-			
 			$('.cFL_Feed').eq(i).find('.cFL_F_Head').find($('p')).html(FFL[i+idx].nickname);
 			$('.cFL_Feed').eq(i).find('.cFL_F_Img').find($('img')).attr('alt', 'Feed Img(post_id:'+FFL[i+idx].post_id+')');
 			$('.cFL_Feed').eq(i).find($('.cFL_F_Text')).html(FFL[i+idx].content);
 			$('.cFL_Feed').eq(i).find($('.cFL_F_Tag')).html(FFL[i+idx].tag_content);
 			if(FFL[i+idx].server_file_name == null){
-				$('.cFL_Feed').eq(i).find('.cFL_F_Img').find($('img')).attr('src', '<c:url value="/resources/main/profile.png"/>');
+				$('.cFL_Feed').eq(i).find('.cFL_F_Img').find($('img')).attr('src', '<c:url value="/resources/main/logo.png"/>');
 			}else{
 				$('.cFL_Feed').eq(i).find('.cFL_F_Img').find($('img')).attr('src', '/photo/'+FFL[i+idx].server_file_name);
 			}
