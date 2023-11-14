@@ -286,7 +286,7 @@ function getError() {
 function geoSubmit(data){
 	$.ajax({
 		type:'post',
-		url:'main/RFL',
+		url:'main/FL',
 		data:data,
 		dataType:'JSON',
 		success:function(data){
