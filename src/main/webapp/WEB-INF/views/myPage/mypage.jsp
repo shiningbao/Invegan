@@ -233,6 +233,7 @@
 		    border: 1px solid #888;
 		    width: 41%;
 		    height: 651px;
+		    padding : 10px;
 		}
 
 		.close {
@@ -337,7 +338,7 @@
 		#myInfo{
 			position : absolute;
 			top : 343px;
-			right : 61px;
+			right : 82px;
 			border : 0;
 			border-collapse : collapse;
 			padding: 5px 10px;
@@ -450,6 +451,37 @@
 	.fCDiv .fCImage {
     	height: 250px;
 }
+
+	.interCheck{
+		position : absolute;
+		right : 40px;
+		top : -12px;
+	}
+	
+	#vgType{
+		position : absolute;
+		right : 248px;
+		top : 51px;
+	}
+	
+	#vegan_type{
+		position : absolute;
+		right : 89px;
+		top : 49px;
+	}
+	
+	#purpose{
+		position : absolute;
+		right : 89px;
+		top : 49px;
+		font-weight : bold;
+	}
+	
+/* 	#vgPurpose{
+		position : absolute;
+		right : 89px;
+		top : 30px;
+	} */
 
 
     </style>
@@ -580,7 +612,7 @@
     		<table id=myInfo>
     		<tr>
 				<td>나의 관심사</td>
-				<td colspan="2">
+				<td colspan="2" class="interCheck">
 				<input type="checkbox" name="interests" value="식당" id="interests"/> 식당
 				<input type="checkbox" name="interests" value="레시피" id="interests"/> 레시피
 				<input type="checkbox" name="interests" value="식품" id="interests"/> 식품
@@ -591,7 +623,7 @@
 				</td>
 			</tr>
 			<tr>
-			<td><label for"vegan_type">나의 비건 단계  </label></td>
+			<td><label for"vegan_type" id="vgType">나의 비건 단계  </label></td>
 				<td colspan="2">
 				    <select id="vegan_type" name="vegan_type">
 				    	<option value="0">비건단계</option>
@@ -609,8 +641,8 @@
 			</tr>
 			
 			<tr>
-				<td>나의 비건 목적</td>
-				<td colspan="2">
+				<td id="purpose">나의 비건 목적</td>
+				<td colspan="2" id="vgPurpose">
 					<input type="radio" name="vegan_purpose" value="질병으로 인해" />질병으로 인해
 					동물성 식품을 먹지 못함
 					<p>
