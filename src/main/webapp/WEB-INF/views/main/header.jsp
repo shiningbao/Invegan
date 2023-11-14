@@ -152,7 +152,10 @@
 </style>
 </head>
 <body>
-<header id="header-container">
+<header>
+
+<div id="header-container">
+	
 		<div class = "header-logoImg">
 			<img src="<c:url value='/resources/main/invegan_logo_master.png'/>"  alt="Logo Img" id="Logo"/>
 		</div>
@@ -197,9 +200,9 @@
 		    </div>
 		</div>
 
-</header>
+</div>
 		<hr style="border:1px solid darkgrey; color:darkgrey; margin:8px;"/>
-
+</header>
 <%-- 	<%@ include file="library.jsp" %> --%>
 </body>
 
