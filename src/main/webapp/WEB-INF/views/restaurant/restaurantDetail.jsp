@@ -293,23 +293,40 @@ $('#nextButton').on('click', function(){
 
 
 // 수정 컨펌
-$('#update').on('click',function(){
-	if(confirm('수정하시겠습니까?')){
-		location.href='update.go?post_id='+${restaurantDetail.getPost_id()};
-	}else{
-	}
+$('#update').on('click', function () {
+    swal({
+        title: "수정하시겠습니까?",
+        text: "",
+        icon: "info",
+        buttons: ["아니오", "예"]
+    }).then((isConfirmed) => {
+        if (isConfirmed) {
+            location.href = 'update.go?post_id=' + ${restaurantDetail.getPost_id()};
+        } else {
+            // 사용자가 '아니오'를 선택한 경우의 처리
+        }
+    });
 });
 
 
 // 숨김 컨펌
-$('#hidden').on('click',function(){
-		console.log('hidden click');
-		var checkbox = hidden == 0 ? '숨기시겠습니까?':'숨김을 해제하시겠습니까?';
-		if(confirm(checkbox)){
-			location.href='hidden?post_id='+${restaurantDetail.getPost_id()}+'&is_hidden='+hidden;
-		}else{
-			console.log('숨김 취소 클릭');
-		}
+$('#hidden').on('click', function () {
+    console.log('hidden click');
+    // SweetAlert2를 사용하여 확인 대화 상자 표시
+    swal({
+        title: hidden == 0 ? "숨기시겠습니까?" : "숨김을 해제하시겠습니까?",
+        text: "",
+        icon: "info",
+        buttons: ["아니오", "예"]
+    }).then((isConfirmed) => {
+        if (isConfirmed) {
+            // 사용자가 '예'를 선택한 경우
+            location.href = 'hidden?post_id=' + ${restaurantDetail.getPost_id()} + '&is_hidden=' + hidden;
+        } else {
+            // 사용자가 '아니오'를 선택한 경우
+            console.log('숨김 취소 클릭');
+        }
+    });
 });
 
 

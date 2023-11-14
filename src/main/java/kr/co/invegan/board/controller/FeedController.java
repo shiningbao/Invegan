@@ -120,13 +120,16 @@ public class FeedController {
 	public HashMap<String, Object> feedDetailCall(HttpSession session, @RequestParam("post_id") int post_id) {
 
 		int user_no = 0;
+		int is_admin = 0;
 		logger.info("상세보기 접근");
 		logger.info("post id:" + post_id);
 		memberdto = (MemberDTO) session.getAttribute("loginInfo");
 
 		if (memberdto != null) {
 			user_no = memberdto.getUser_no();
+			is_admin = memberdto.getIs_admin();
 			session.setAttribute("user_no", user_no);
+			session.setAttribute("is_admin", is_admin);
 		}
 		logger.info("로그인 user_no :" + user_no);
 		logger.info("memberdto :" + memberdto);
@@ -151,6 +154,7 @@ public class FeedController {
 		result.put("commentList", commentList);
 		result.put("findBoardUserno", findBoardUserno);
 		result.put("user_no", user_no);
+		result.put("is_admin", is_admin);
 
 		return result;
 	}

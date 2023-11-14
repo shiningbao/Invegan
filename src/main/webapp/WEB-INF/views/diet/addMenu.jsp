@@ -96,12 +96,21 @@
 	var selectDate = $('#getDate').val();
 	defaultMenu();
 	
-	function winClose(){
-		console.log("닫기 클릭");
-		if(confirm("입력된 내용은 사라집니다\n창을 닫으시겠습니까?")){
-			self.close();
-		} 
-	} 
+	function winClose() {
+	    console.log("닫기 클릭");
+
+	    swal({
+	        title: "입력된 내용은 사라집니다",
+	        text: "창을 닫으시겠습니까?",
+	        icon: "warning",
+	        buttons: ["아니오", "예"]
+	    }).then((isConfirmed) => {
+	        if (isConfirmed) {
+	            self.close();
+	        } else {
+	        }
+	    });
+	}
 	
 	var menu_category;
 	var recipe_name;

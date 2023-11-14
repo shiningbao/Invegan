@@ -144,10 +144,11 @@ $(document).ready(function(){
          url: 'feed/feedDetailCall', // 데이터를 제공하는 서버의 엔드포인트로 변경
          data: { post_id: post_id },
          success: function(data) {
-             drawdetailList(data.detailList,data.findBoardUserno,data.user_no); // 게시글 상세보기 리스트
+             drawdetailList(data.detailList,data.findBoardUserno,data.user_no,data.is_admin); // 게시글 상세보기 리스트
              drawcommentList(data.commentList,data.user_no);
              loginInfo = data.loginInfo;
              console.log(loginInfo);
+             console.log('is_admin============='+data.is_admin);
              
              $('.feedDetailModal').css({ 'display': 'block' });
          },
@@ -336,8 +337,9 @@ $(document).ready(function(){
 	var maxImageIndex = 0	
   	
   // 게시글 상세보기 리스트  
-  function drawdetailList(detailList, findBoardUserno, user_no) {
+  function drawdetailList(detailList, findBoardUserno, user_no,is_admin) {
       console.log(detailList);
+      console.log('is_admin ==============='+is_admin);
       var content = '';
 
       detailList.forEach(function (item) {
@@ -351,7 +353,7 @@ $(document).ready(function(){
           content += '<span class="username">' + item.nickname + '</span>';
           content += '</div>';
           
-			if (loginInfo != null && user_no == findBoardUserno) {
+			if (loginInfo != null && (user_no == findBoardUserno || is_admin == 1)) {
         	  
         	  content += '<div class="post-btn-group">';
         	  content += '<button class="btn btn-dark" id="post-del-btn" data-post-id="' + item.post_id + '">삭제</button>';
