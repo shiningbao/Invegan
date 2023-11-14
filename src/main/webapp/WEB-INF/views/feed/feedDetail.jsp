@@ -48,9 +48,9 @@
 
 #detailModal {
 	padding-right: 500px !important;
-	
 }
-.modal-backdrop{
+
+.modal-backdrop {
 	display: block !important;
 }
 
@@ -332,7 +332,9 @@ $(document).ready(function(){
     	  maxImageIndex = imageFiles.length - 1;
           content += '<div class="post">';
           content += '<div class="post-header">';
-          content += '<div class="user-profile"><img src="/photo/' + item.profile_image + '"></div>';
+          var defaultImagePath = '/invegan/resources/main/profile.jpg';
+			var profileImagePath = item.profile_image ? '/photo/' + item.profile_image : defaultImagePath;
+			content += '<div class="user-profile"><img src="' + profileImagePath + '"></div>';
           content += '<span class="username">' + item.nickname + '</span>';
           content += '</div>';
           

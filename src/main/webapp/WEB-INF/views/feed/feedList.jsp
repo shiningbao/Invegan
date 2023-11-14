@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -18,10 +17,9 @@
 
 <style>
 /*header 부트스트랩 적용 방지*/
-body{
+body {
 	margin: 8px !important;
 }
-
 
 /* 왼쪽 사이드바 메뉴 스타일 */
 .container {
@@ -48,7 +46,6 @@ input[type="text"] {
 	max-width: 50%;
 	height: auto;
 } */
-
 .mainFeedPhoto {
 	width: 500px;
 	height: 500px;
@@ -74,8 +71,6 @@ input[type="text"] {
 .user-profile {
 	
 }
-
-
 
 /* .feedWriteModal {
 	display: none;
@@ -111,167 +106,160 @@ input[type="text"] {
 	background-image: none;
 	border: none;
 }
-.no-comment{
-	color : gray;
+
+.no-comment {
+	color: gray;
 }
-.addBtnSearch, .addBtn{
+
+.addBtnSearch, .addBtn {
 	display: none;
 	margin-left: 830px;
-	border:none;
+	border: none;
 	background-color: transparent;
 	cursor: pointer;
-	
 }
-.addBtnImg{
-	width:40px;
+
+.addBtnImg {
+	width: 40px;
 }
 
 .btn {
-	width:100px;
-	margin-top:5px;
-	margin-bottom:5px;
-	height:40px;
+	width: 100px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	height: 40px;
 }
 
 .addBtn:disabled {
-    
-    cursor: not-allowed;
-    opacity: 0.5; 
-    
+	cursor: not-allowed;
+	opacity: 0.5;
 }
 
 .addBtnSearch:disabled {
-    
-    cursor: not-allowed;
-    opacity: 0.5;
-} 
-
-.addBtn:disabled:hover::before,
-.addBtnSearch:disabled:hover::before {
-    content: "마지막 게시글입니다";
-    /* 다른 스타일링을 추가하거나 위치를 조절할 수 있습니다. */
-    position: absolute;
-    background-color: #fff; /* 텍스트 배경색 */
-    padding: 5px;
-    border: 1px solid #ccc; /* 텍스트 테두리 스타일 */
-    border-radius: 5px;
-    color: #333; /* 텍스트 색상 */
+	cursor: not-allowed;
+	opacity: 0.5;
 }
 
-.btn-success{
-	width:150px;
-	margin-bottom:5px;
-	height:40px;
+.addBtn:disabled:hover::before, .addBtnSearch:disabled:hover::before {
+	content: "마지막 게시글입니다";
+	/* 다른 스타일링을 추가하거나 위치를 조절할 수 있습니다. */
+	position: absolute;
+	background-color: #fff; /* 텍스트 배경색 */
+	padding: 5px;
+	border: 1px solid #ccc; /* 텍스트 테두리 스타일 */
+	border-radius: 5px;
+	color: #333; /* 텍스트 색상 */
 }
 
-
-
-
-.mainFeedPhoto{
-	border:1px solid gray;
+.btn-success {
+	width: 150px;
+	margin-bottom: 5px;
+	height: 40px;
 }
 
-.custom-col-1{
-  border-left: 1px solid #000; /* 선의 스타일, 색상 및 두께를 조정합니다. */
-  height: 100vh; /* 컨테이너의 높이에 맞추도록 설정합니다. */
-  position: sticky;
-  top: 0; /* 페이지의 상단에 고정합니다. */
+.mainFeedPhoto {
+	border: 1px solid gray;
 }
 
-.col-3{
-	position st;
-	z-index:1;
-	
+.custom-col-1 {
+	border-left: 1px solid #000; /* 선의 스타일, 색상 및 두께를 조정합니다. */
+	height: 100vh; /* 컨테이너의 높이에 맞추도록 설정합니다. */
+	position: sticky;
+	top: 0; /* 페이지의 상단에 고정합니다. */
 }
 
-#write-btn{
-	width:200px;
-	height:50px;
+.col-3 {position st;
+	z-index: 1;
 }
-	
-	#content{
-		height:200px;
-	}
-	
-	.post-time {
-    border-bottom: 1px solid #cdd6df;
-    width: 500px;
-    margin-bottom: 50px; 
 
-  }
-  
-  #post-tag{
-  	font-size : 12px;
-  	height: 30px;
-  	width :60px;
-  	text-align:center;
-  	margin-left : 5px;
-  	
-  }
+#write-btn {
+	width: 200px;
+	height: 50px;
+}
+
+#content {
+	height: 200px;
+}
+
+.post-time {
+	border-bottom: 1px solid #cdd6df;
+	width: 500px;
+	margin-bottom: 50px;
+}
+
+#post-tag {
+	font-size: 12px;
+	height: 30px;
+	width: 60px;
+	text-align: center;
+	margin-left: 5px;
+}
 </style>
 
 </head>
 
 <body>
 	<c:import url="/main/header" />
-	
 
-		<div id="feedWriteModal" class="feedWriteModal">
-			<%@ include file="feedWrite.jsp"%>
-		</div>
 
-		<div id="feedDetailModal" class="feedDetailModal">
-			<%@ include file="feedDetail.jsp"%>
-		</div>
+	<div id="feedWriteModal" class="feedWriteModal">
+		<%@ include file="feedWrite.jsp"%>
+	</div>
 
-	
-	
-	
+	<div id="feedDetailModal" class="feedDetailModal">
+		<%@ include file="feedDetail.jsp"%>
+	</div>
+
+
+
+
 	<div class="container-fluid">
-		
-			<div class="row">
-				<div class ="col-3 custom-col-3" style="position:fixed">
-					<h4>기본태그</h4>
-					<button class="btn btn-outline-info clickTagSearch" name="food">#식품</button>
-					<button class="btn btn-outline-info clickTagSearch" name="beauty">#뷰티</button>
-					<button class="btn btn-outline-info clickTagSearch" name="fashion">#패션</button>
-					<button class="btn btn-outline-info clickTagSearch" name="daily">#일상</button>
-					<button class="btn btn-outline-info clickTagSearch" name="restaurant">#식당</button>
-					<button class="btn btn-outline-info clickTagSearch" name="recipe">#레시피</button>
-					<h4>자유태그</h4>
-					<div id="autoSearch">
-						<input type="text" id="autoComplete" class="autoComplete" placeholder="미입력후 검색시 전체리스트">
-						<button id="searchbtn" class="btn btn-Dark"><b>검색</b></button>
-					</div>
-					<h4>닉네임 검색</h4>
-					<div id="nickNameSearch">
-						<input type="text"  class="nameSearch" placeholder="닉네임을 정확하게 입력해주세요.">
-						<button id="nameSearchBtn" class="btn btn-Dark"><b>검색</b></button>
-					</div>
-					<button id="write-btn" class="btn btn-success">피드게시글 작성</button>
+
+		<div class="row">
+			<div class="col-3 custom-col-3" style="position: fixed">
+				<h4>기본태그</h4>
+				<button class="btn btn-outline-info clickTagSearch" name="food">#식품</button>
+				<button class="btn btn-outline-info clickTagSearch" name="beauty">#뷰티</button>
+				<button class="btn btn-outline-info clickTagSearch" name="fashion">#패션</button>
+				<button class="btn btn-outline-info clickTagSearch" name="daily">#일상</button>
+				<button class="btn btn-outline-info clickTagSearch" name="restaurant">#식당</button>
+				<button class="btn btn-outline-info clickTagSearch" name="recipe">#레시피</button>
+				<h4>자유태그</h4>
+				<div id="autoSearch">
+					<input type="text" id="autoComplete" class="autoComplete" placeholder="미입력후 검색시 전체리스트">
+					<button id="searchbtn" class="btn btn-Dark">
+						<b>검색</b>
+					</button>
 				</div>
-				<div class="col-4">
-					
+				<h4>닉네임 검색</h4>
+				<div id="nickNameSearch">
+					<input type="text" class="nameSearch" placeholder="닉네임을 정확하게 입력해주세요.">
+					<button id="nameSearchBtn" class="btn btn-Dark">
+						<b>검색</b>
+					</button>
 				</div>
-				<div class="col-6">
-					<div id="feedList" class="feedListPost">
-							<!-- 피드 리스트 동적으로 그리기 -->
-					</div>
-				</div>		
+				<button id="write-btn" class="btn btn-success">피드게시글 작성</button>
 			</div>
+			<div class="col-4"></div>
+			<div class="col-6">
+				<div id="feedList" class="feedListPost">
+					<!-- 피드 리스트 동적으로 그리기 -->
+				</div>
+			</div>
+		</div>
 
 	</div>
-		<!-- 가운데에 내용 배치 -->
-		
+	<!-- 가운데에 내용 배치 -->
 
 
-		<button id="addBtn" class="addBtn">
-			<img src="<c:url value='/resources/main/morebtn.png' />" alt="More Button" class="addBtnImg">
-		</button>
 
-		<button id="addBtnSearch" class="addBtnSearch">
-			<img src="<c:url value='/resources/main/morebtn.png' />" alt="More Button" class="addBtnImg">
-		</button>
+	<button id="addBtn" class="addBtn">
+		<img src="<c:url value='/resources/main/morebtn.png' />" alt="More Button" class="addBtnImg">
+	</button>
+
+	<button id="addBtnSearch" class="addBtnSearch">
+		<img src="<c:url value='/resources/main/morebtn.png' />" alt="More Button" class="addBtnImg">
+	</button>
 
 	<!-- 위와 같은 구조의 다른 Instagram 피드 게시물들을 추가 -->
 
@@ -607,13 +595,7 @@ input[type="text"] {
 					            }
 					        });
 					    } 
-							
-						
-	
-	
-	
-					
-					
+
 
 		function backToTop() {
 			  const position =
