@@ -191,10 +191,14 @@ input[type="text"] {
 #content {
 	height: 200px;
 }
+.post{
+	width: 500px;
+	margin: 0 auto;
+}
 .post-time {
 /* 	border-bottom: 1px solid #cdd6df; */
 	width: 500px;
-	margin-bottom: 50px;
+	margin-bottom: 10px;
 }
 
 #post-tag {
@@ -216,9 +220,6 @@ input[type="text"] {
     border-radius: 0px;
 }
 
-.container-fluid{
-	margin-left: 500px !important;
-}
 .side-searchTag, .side-searchNick{
 	width: 100%;
 }
@@ -275,7 +276,7 @@ input[type="text"] {
 
 	<div class="container-fluid" >
 
-		<div class="row">
+		<div class="list-box">
 			<div class="col-3 custom-col-3" style="position: fixed; left: 90px; top: 222px; width: 310px; padding: 0;">
 				<div class="side-tag">
 					<button class="btn btn-outline-info clickTagSearch" name="food">#식품</button>
@@ -307,7 +308,7 @@ input[type="text"] {
 				<button id="write-btn" class="btn btn-success">피드게시글 작성</button>
 			</div>
 			<div></div>
-			<div class="col-4">
+			<div >
 				<div id="feedList" class="feedListPost">
 					<!-- 피드 리스트 동적으로 그리기 -->
 				</div>
@@ -676,7 +677,7 @@ input[type="text"] {
 								backToTop();
 								var nameText = $('.nameSearch').val();
 								console.log('nameText chk',nameText);
-								
+								$('#autoComplete').val('');
 								$.ajax({
 									url:'feed/nameSearch',
 									data:{nameText : nameText},

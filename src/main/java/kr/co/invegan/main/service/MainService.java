@@ -106,7 +106,7 @@ public class MainService {
 			logger.info("interests: "+interests);
 			String[] inteArr = interests.split(",");
 			for (String inte : inteArr) {
-				inteList.add("%"+inte+"%");
+				inteList.add('%'+inte+'%');
 			}
 			System.out.println(inteList);
 			feedList = dao.feedInterestFilterList(inteList);

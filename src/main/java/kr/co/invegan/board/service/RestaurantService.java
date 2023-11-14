@@ -36,7 +36,7 @@ public class RestaurantService {
 	
 	// 작성 메서드
 	public String restaurantWrite(int user_no, MultipartFile[] uploadImages, HashMap<String, Object> param){
-		String msg = "식당 작성 실패";
+		String msg = "식당 등록에 실패했습니다";
 		RestaurantDTO dto = insert_RestaurantDTO(user_no, param); // 1. RestaurantDTO에 담기
 		
 		// 2. Board, Restaurant 테이블 인서트
@@ -55,7 +55,7 @@ public class RestaurantService {
 			e.printStackTrace();
 		}
 		if(result_board == 1 && result_restaurant == 1 && menuChk && imgChk) {
-			msg = "식당 작성 완료";
+			msg = "식당을 등록했습니다";
 		}else {
 			logger.info("작성 중 문제 발생 : "+result_board+result_restaurant+menuChk+imgChk);
 		}
@@ -66,7 +66,7 @@ public class RestaurantService {
 	
 	// 수정 메서드
 	public String restaurantUpdate(int user_no, MultipartFile[] uploadImages, HashMap<String, Object> param) {
-		String msg = "수정 실패";
+		String msg = "식당 수정에 실패했습니다";
 		// 업데이트
 		logger.info("restaurantUpdate");
 		
@@ -91,7 +91,7 @@ public class RestaurantService {
 			logger.info("saveFile 에러");
 			e.printStackTrace();
 		}
-		msg = "수정 완료";
+		msg = "식당을 수정했습니다";
 		
 		return msg;
 	}

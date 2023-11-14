@@ -40,7 +40,7 @@
 		width: 800px;
 		white-space: nowrap;
 		overflow-x: scroll;
-		background-color: #E0E0E0;
+		background-color: #CCFFCC;
 	}
 	#preview{
 		font-size: 2vw;
@@ -51,7 +51,7 @@
 	.divImg{
 		position: relative;
 		width: 300px;
-		border: 1px solid black;
+		border: 0.5px solid #30492a;
 		margin: 1px;
 		padding: 2px;
 		display: inline-block;
@@ -76,7 +76,7 @@
 	}
 	.menuDiv {
 		margin: 2px 0px;
-		border: 1px solid black;
+		border: 0.5px solid #30492a;
 	}
 	.menuTable{
 		width: 100%;
@@ -84,7 +84,9 @@
 	select{
 		width: 100%;
 	}
-
+	.blank{
+		margin-bottom: 200px;
+	}
 </style>
 </head>
 <body>
@@ -169,6 +171,7 @@
 	</tr>
 </table>
 </div>
+<div class="blank"></div>
 </body>
 
 <script>
@@ -218,7 +221,11 @@ function upload(uploadImages){
 			delButton.textContent = '삭제';
 			divTag.appendChild(delButton);
 		}else{
-			alert('이미지 파일 아님');
+			swal({
+                title: "이미지 파일이 아닙니다.",
+                text: "",
+                icon: "error"
+            })
 			$('#restarunatWriteImg')[0].files = new DataTransfer().files;
 			$restaurantImg.innerHTML='<p id="preview">등록된 사진이 없습니다.</p>';
 			break;
@@ -284,34 +291,62 @@ $('#write').on('click',function(e){
 	var len = $menu_name.length;
 
 	if($title.val() == ''){
-		alert('식당 이름');
+		swal({
+	        title: "식당 이름을 입력해 주세요",
+	        text: "",
+	        icon: "info"
+	    });
 		blankcnt ++;
 		$title.focus();
 	}else if($address.val() == ''){
-		alert('식당 주소');
+		swal({
+	        title: "식당 주소를 입력해 주세요",
+	        text: "",
+	        icon: "info"
+	    });
 		blankcnt ++;
 		$address.focus();
 	}else if($content.val() == ''){
-		alert('식당 소개');
+		swal({
+	        title: "식당 소개를 입력해 주세요",
+	        text: "",
+	        icon: "info"
+	    });
 		blankcnt ++;
 		$content.focus();
 	}else if($phone.val() == ''){
-		alert('식당 연락처');
+		swal({
+	        title: "식당 연락처를 입력해 주세요",
+	        text: "",
+	        icon: "info"
+	    });
 		blankcnt ++;
 		$phone.focus();
 	}else if($hours.val() == ''){
-		alert('영업시간');
+		swal({
+	        title: "영업시간을 입력해 주세요",
+	        text: "",
+	        icon: "info"
+	    });
 		blankcnt ++;
 		$hours.focus();
 	}else{
 		for(var i = 0; i < len; i++){
 			if($menu_name.eq(i).val() == ''){
-				alert('메뉴');
+				swal({
+			        title: "메뉴를 입력해 주세요",
+			        text: "",
+			        icon: "info"
+			    });
 				blankcnt ++;
 				$menu_name.eq(i).focus();
 				break;
 			}else if($price.eq(i).val() == ''){
-				alert('가격');
+				swal({
+			        title: "가격을 입력해 주세요",
+			        text: "",
+			        icon: "info"
+			    });
 				blankcnt ++;
 				$price.eq(i).focus();
 				break;
@@ -320,7 +355,11 @@ $('#write').on('click',function(e){
 			var regex = new RegExp('[a-zA-Zㄱ-ㅎ가-힣]');
 			var match = regex.test($price.eq(i).val()); // 패턴이 일치하면 true, 아니면 false
 			if(match){
-				alert('가격에 숫자만');
+				swal({
+			        title: "가격에 숫자만 입력해 주세요",
+			        text: "",
+			        icon: "info"
+			    });
 				blankcnt ++;
 				break;
 			}
@@ -365,15 +404,19 @@ $('#write').on('click',function(e){
 			contentType:false,
 			processData:false,
 			enctype : 'multipart/form-data',
-			success:function(data){
-				var result = data.result;
-				console.log(result);
-				alert(result);
-				if(result == '권한없음'){
-					location.href = '/main'
-				}else if(result == '식당 작성 완료'){
-					location.href = 'list';
-				}
+			success: function(data) {
+			    var result = data.result;
+			    console.log(result);
+			    swal({
+			        title: result,
+			        text: "",
+			        icon: "info"
+			    });
+		        if (result == '식당을 등록했습니다') {
+		            location.href = 'list';
+		        } else {
+		            location.href = '/main';
+		        }
 			},
 			error:function(e){
 				console.log(e);

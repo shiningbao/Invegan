@@ -44,11 +44,11 @@
 }
 
 #detailModal .modal-content {
-	width: 1000px;
+	width: 700px;
 }
 
 #detailModal {
-	padding-right: 500px !important;
+	padding-right: 200px !important;
 }
 
 .modal-backdrop {
@@ -82,7 +82,10 @@
 	height:30px;
 	margin-right:10px;
 }
-
+.comment-box{
+	width: 500px;
+    margin: 0 auto;
+}
 </style>
 
 <head>
