@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -68,10 +69,15 @@ public class FeedController {
 	}
 	
 	// 메인에서 리스트로 넘어갈때
-	@RequestMapping(value = "list.go/{nickname}")
-	public String listForNickname(RedirectAttributes reAttr, @PathVariable String nickname) {
+	@RequestMapping(value = "list.go/{param}")
+	public String listForNickname(RedirectAttributes reAttr, @PathVariable String param) {
 		logger.info("메인페이지에서 피드게시판으로");
-		reAttr.addFlashAttribute("getNickname", nickname);
+		String[] Array = StringUtils.split(param, ",");
+		logger.info("Array[0] : "+Array[0]);
+		logger.info("Array[1] : "+Array[1]);
+		
+		reAttr.addFlashAttribute("getNickname", Array[0]);
+		reAttr.addFlashAttribute("getPost_id", Array[1]);
 		return "redirect:/feed/list.go";
 	}
 
@@ -278,6 +284,17 @@ public class FeedController {
 		ArrayList<FeedListDTO> nameSearchList = service.nameSearch(nameText);
 		
 		result.put("list", nameSearchList);
+		return result;
+	}
+	
+	@RequestMapping(value = "feed/mainClickFeed.do")
+	@ResponseBody
+	public HashMap<String, Object> mainClickFeed(@RequestParam HashMap <String, Object> params) {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		logger.info("params :" + params);
+		ArrayList<FeedListDTO> mainClickFeed = service.mainClickFeed(params);
+		
+		result.put("list", mainClickFeed);
 		return result;
 	}
 

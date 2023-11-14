@@ -52,6 +52,8 @@ public interface FeedDAO {
 
 	ArrayList<FeedListDTO> nameSearch(String nameText);
 
+	ArrayList<FeedListDTO> mainClickFeed(HashMap<String, Object> params);
+
 
 
 }
