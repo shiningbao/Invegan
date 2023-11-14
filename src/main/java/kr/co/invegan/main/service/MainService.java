@@ -39,21 +39,11 @@ public class MainService {
 		if(loginInfo != null) {
 			// 회원 맞춤 정보 제공
 			vegan_type = ""+dao.veganType(loginInfo.getUser_no());
-			vt = Arrays.asList(vegan_type); //회원의 비건단계
+			vt = Arrays.asList(vegan_type); //회원의 비건단계를 리스트에 담아서 이용
 			
 			distCnt = dao.rangeCnt(vt, userLat, userLng);
-			logger.info("distCnt : "+distCnt);
-			if(distCnt != null) {
-				logger.info("distCnt : "+distCnt.getCount5()+"/"+distCnt.getCount10()+"/"+distCnt.getCount15()+"/");
-				if(distCnt.getCount5() >= 20) {
-					dist = 5;
-				}else if(distCnt.getCount10() >= 20) {
-					dist = 10;
-				}else if(distCnt.getCount15() >= 20) {
-					dist = 15;
-				}
-			}
-			if(dist == 0) {
+			logger.info("15km 이내 조건에 맞는 식당 수 : "+distCnt.getCount15());
+			if(distCnt.getCount15() < 20) {
 				// 비건단계 확대
 				vt = null;
 				if(vegan_type.equals("1")) vt = Arrays.asList("1");
@@ -66,25 +56,26 @@ public class MainService {
 				if(vegan_type.equals("8")) vt = Arrays.asList("1","2","3","4","5","6","7","8");
 				if(vegan_type.equals("9")) vt = Arrays.asList("1","2","3","4","5","6","7","8","9");
 				logger.info("식당 수 부족, 비건 단계 확대 / vt: "+vt);
+			}else {
+				dist = 15;
 			}
+			
 		}else {
 			logger.info("비로그인");
 			vt = Arrays.asList("1","2","3","4","5","6","7","8","9");
 		}
 		
+		
 		if(dist == 0) {
 			distCnt = dao.rangeCnt(vt, userLat, userLng);
-			logger.info("rangeCnt : "+ distCnt.getCount5()+"/"+ distCnt.getCount10()+"/"+ distCnt.getCount15());
-			if(distCnt.getCount5() >= 20) {
-				dist = 5;
-			}else if(distCnt.getCount10() >= 20) {
-				dist = 10;
-			}else if(distCnt.getCount15() >= 20) {
-				dist = 15;
+			logger.info("15km 이내 조건에 맞는 식당 수 : "+distCnt.getCount15());
+			if(distCnt.getCount15() < 20) {
+				dist = 500;
 			}else {
-				dist = 1000;
+				dist = 15;
 			}
 		}
+		
 		logger.info("vt :"+vt+" / dist: "+dist);
 		resList = dao.restaurantFilterList(vt, userLat, userLng, dist);
 
@@ -93,7 +84,6 @@ public class MainService {
 		Collections.shuffle(resList); // 순서 섞기
 		
 		restaurantFilterListDTO nullList = null;
-		//logger.info("resList.size: "+resList.size());
 		while(resList.size() < cnt) {
 			resList.add(nullList);	
 		}
