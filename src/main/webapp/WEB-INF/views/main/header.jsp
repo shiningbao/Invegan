@@ -146,6 +146,7 @@
     z-index: 99;
 }
 
+
 </style>
 </head>
 <body>
@@ -190,7 +191,6 @@
 		<!-- 모달 창 -->
 		<div id="login-modal" class="login-modal">
 		    <div class="modal-content">
-		        
 		        <c:import url="/member/login.go"/>
 		    </div>
 		</div>

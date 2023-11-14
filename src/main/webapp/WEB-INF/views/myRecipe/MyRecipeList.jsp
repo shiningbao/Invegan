@@ -5,6 +5,8 @@
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
 		<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+		<!-- alert ,cofirm 창 -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 		<style>					
 				
 			/* 카테고리 버튼 */
@@ -657,7 +659,11 @@
 		// 재료 추가 모달 이동
 		function minsert() {
 			if (menu_id == null){
-				alert('재료를 추가할 레시피를 선택해주세요');
+				swal({
+		            title: "재료를 추가할 레시피를 선택해주세요",
+		            text: "",
+		            icon: "info",
+		        });
 			} else {
 				
 				// 재료추가 모달창
@@ -689,7 +695,11 @@
         function mdel() {
         	
 			if (material_id == null) {
-				alert('제거하실 재료를 선택해주세요');
+				swal({
+		            title: "제거하실 재료를 선택해주세요",
+		            text: "",
+		            icon: "info",
+		        });
 				listCall();
 			} else{
 				var deletechk = confirm('재료를 삭제하시겠습니까?');
@@ -703,7 +713,11 @@
 		        		success:function(data){
 		        			console.log(data);
 		        			if (data.success == true) {
-		        				alert('재료가 삭제되었습니다.');
+		        				swal({
+		        		            title: "재료가 삭제되었습니다.",
+		        		            text: "",
+		        		            icon: "info",
+		        		        });
 		        				myRecipeMenu();
 		        			}
 
@@ -719,29 +733,43 @@
         // 레시피 삭제
 		function rdel(){
 			if (menu_id == null) {
-				alert('제거하실 레시피를 선택해주세요');
+				swal({
+		            title: "제거하실 레시피를 선택해주세요",
+		            text: "",
+		            icon: "info",
+		        });
 				listCall();
 			} else {
-				if(!confirm('레시피를 삭제하시겠습니까?')){
-					return false
-				}else {
-					$.ajax({
-		        		type:'get',
-		        		url:'rdelete.do',
-		        		data:{"menu_id":menu_id},
-		        		dataType:'json',
-		        		success:function(data){
-		        			console.log(data);
-		        			if (data.success == true) {
-		        				alert('레시피가 삭제되었습니다.');
-		        				myRecipeMenu();
-		        			}	
-		        		},
-		        		error:function(e){
-		        			console.log(e);
-		        		}
-		        	});
-				}
+			    swal({
+			        title: '레시피를 삭제하시겠습니까?',
+			        text: "",
+			        icon: "warning",
+			        buttons: ["아니오", "네"]
+			    }).then((isConfirmed) => {
+			        if (isConfirmed) {
+			            $.ajax({
+			                type: 'get',
+			                url: 'rdelete.do',
+			                data: { "menu_id": menu_id },
+			                dataType: 'json',
+			                success: function (data) {
+			                    console.log(data);
+			                    if (data.success == true) {
+			                        swal('레시피가 삭제되었습니다.', {
+			                            icon: "success",
+			                        }).then(() => {
+			                            myRecipeMenu();
+			                        });
+			                    }
+			                },
+			                error: function (e) {
+			                    console.log(e);
+			                }
+			            });
+			        } else {
+			            return false;
+			        }
+			    });
 			}
 		}
 		
@@ -758,37 +786,60 @@
 		// 식단 추가
 		function dinsert() {
 			if (diet_category == '') {
-				alert('아침, 점심, 저녁, 기타 중 하나를 선택해주세요');
+				swal({
+		            title: "아침, 점심, 저녁, 기타 중 하나를 선택해주세요",
+		            text: "",
+		            icon: "info",
+		        });
 			} else if (menu_id == null) {
-				alert('레시피를 선택해 주세요');
+				swal({
+		            title: "레시피를 선택해 주세요",
+		            text: "",
+		            icon: "info",
+		        });
 			} else if (grams == 0) {
-				alert('레시피에 재료를 추가해 주세요');
+				swal({
+		            title: "레시피에 재료를 추가해 주세요",
+		            text: "",
+		            icon: "info",
+		        });
 			} else {
-				if(!confirm("선택한 레시피를 식단에 추가하시겠습니까?")){
-					return false;
-				}else{
-					var param = {};
-					param.diet_category = diet_category;
-					param.menu_id = menu_id;
-					param.date = selectDate;
-					
-					console.log(param);
-					
-					$.ajax ({
-						type:'get',
-						url:'dinsert.do',
-						data:param,
-						dataType:'json',
-						success:function(data) {
-							console.log(data);
-							opener.location.reload();
-							self.close();
-						},
-						error:function(e) {
-							console.log(e);
-						}
-					});
-				}
+			    swal({
+			        title: "선택한 레시피를 식단에 추가하시겠습니까?",
+			        text: "",
+			        icon: "info",
+			        buttons: ["아니오", "네"]
+			    }).then((isConfirmed) => {
+			        if (isConfirmed) {
+			            var param = {};
+			            param.diet_category = diet_category;
+			            param.menu_id = menu_id;
+			            param.date = selectDate;
+
+			            console.log(param);
+
+			            $.ajax({
+			                type: 'get',
+			                url: 'dinsert.do',
+			                data: param,
+			                dataType: 'json',
+			                success: function (data) {
+			                    console.log(data);
+			                    swal("레시피가 식단에 추가되었습니다.", {
+			                        icon: "success",
+			                    }).then(() => {
+			                        opener.location.reload();
+			                        self.close();
+			                    });
+			                },
+			                error: function (e) {
+			                    console.log(e);
+			                }
+			            });
+			        } else {
+			            return false;
+			        }
+			    });
 			}
 		}
 
