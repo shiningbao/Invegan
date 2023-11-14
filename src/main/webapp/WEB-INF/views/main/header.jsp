@@ -45,7 +45,7 @@
 }
 .header-logoImg{
 	position: absolute;
-	left: -239px;
+	left: -328px;;
 }
 .header-logoImg img:hover{
 	cursor: pointer;
@@ -93,6 +93,7 @@
 	position: fixed;
 	right: 42px;
     top: 5px;
+    z-index: 10;
 }
 
 .loginInfo p {
@@ -125,6 +126,7 @@
 }
 .infoModal div{
 	padding: 5px 10px;
+	
 }
 .infoModal div:hover{
 	cursor: pointer;
