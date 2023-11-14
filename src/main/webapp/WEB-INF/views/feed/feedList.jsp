@@ -217,15 +217,14 @@ input[type="text"] {
 	<div class="container-fluid">
 
 		<div class="row">
-			<div class="col-3 custom-col-3" style="position: fixed">
-				<h4>기본태그</h4>
+			<div class="col-3 custom-col-3" style="position: fixed; left: 35px; top: 145px;">
 				<button class="btn btn-outline-info clickTagSearch" name="food">#식품</button>
 				<button class="btn btn-outline-info clickTagSearch" name="beauty">#뷰티</button>
 				<button class="btn btn-outline-info clickTagSearch" name="fashion">#패션</button>
 				<button class="btn btn-outline-info clickTagSearch" name="daily">#일상</button>
 				<button class="btn btn-outline-info clickTagSearch" name="restaurant">#식당</button>
 				<button class="btn btn-outline-info clickTagSearch" name="recipe">#레시피</button>
-				<h4>자유태그</h4>
+				<h4>태그검색</h4>
 				<div id="autoSearch">
 					<input type="text" id="autoComplete" class="autoComplete" placeholder="미입력후 검색시 전체리스트">
 					<button id="searchbtn" class="btn btn-Dark">
@@ -234,8 +233,8 @@ input[type="text"] {
 				</div>
 				<h4>닉네임 검색</h4>
 				<div id="nickNameSearch">
-					<input type="text" class="nameSearch" placeholder="닉네임을 정확하게 입력해주세요.">
-					<button id="nameSearchBtn" class="btn btn-Dark">
+					<input type="text" class="nameSearch" >
+					<button id="nameSearchBtn" class="btn btn-Dark" onclick="searchNick()">
 						<b>검색</b>
 					</button>
 				</div>
@@ -268,6 +267,17 @@ input[type="text"] {
 
 </body>
 <script>
+	// 메인에서 리스트로 넘어올때 처리
+	$(document).ready(function(){
+		var nickname = "${getNickname}";
+		if(nickname != ''){
+			console.log('nickname from main page',nickname);
+			$('.nameSearch').val(nickname);
+			var searchBtn = $('#nameSearchBtn');
+			searchBtn.trigger('click');
+			searchNick();
+		}
+	});
 
 	//header 카테고리 선택유지
 	$('#go_feed').css('box-shadow','#95df95 0px 2px 0px 0px');
@@ -568,10 +578,10 @@ input[type="text"] {
              						})
 						
 						//닉네임 검색
-						$(document).on('click','#nameSearchBtn',function(){
+						function searchNick(){
 							backToTop();
-							var nameText =$('.nameSearch').val();
-							console.log(nameText);
+							var nameText = $('.nameSearch').val();
+							console.log('nameText chk',nameText);
 							
 							$.ajax({
 								url:'feed/nameSearch',
@@ -590,7 +600,7 @@ input[type="text"] {
 									console.log('닉네임 검색 오류'+e);
 								},
 							});
-						})
+						}
 						
 					function showNoResultsMessage(){
 							swal({
