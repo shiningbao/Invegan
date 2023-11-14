@@ -415,7 +415,6 @@
 		
 	#feedImg{
 		width : 212px;
-		text-align: center;
    		padding: 20px;
 }
 		
@@ -440,7 +439,6 @@
 	
 	#fCImg{
 		width : 212px;
-		text-align: center;
    		padding: 20px;
 }
 		
