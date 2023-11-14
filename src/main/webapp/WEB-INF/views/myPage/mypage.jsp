@@ -494,10 +494,18 @@
  
 	<div class="profileContainer">
  	<c:set var="myPageImg" value="${dto.profile_image}" />
-  	<div class="myPageImg">
+ 	<c:choose>
+    <c:when test="${not empty myPageImg}">
+        <img src="/photo/${myPageImg}" width="180" height="220" class="myPageImg">
+    </c:when>
+    <c:otherwise>
+        <img src="/invegan/resources/main/profile.jpg" width="180" height="220" class="myPageImg">
+    </c:otherwise>
+</c:choose>
+  	<%-- <div class="myPageImg">
         <img src="/photo/${myPageImg}" width="180" height="220">
 
-    </div>
+    </div> --%>
     
    	<div class="userInfo">
         <label>가입 날짜 :</label> ${dto.join_date}<br>
@@ -593,7 +601,15 @@
     <div class="modal-content">
         <h1>회원정보변경</h1>
         <hr>
-        	<img src="/photo/${myPageImg}" id= updateImg width="150" height="150">
+        	<c:choose>
+			    <c:when test="${not empty myPageImg}">
+			        <img src="/photo/${myPageImg}" id= updateImg width="150" height="150">
+			    </c:when>
+			    <c:otherwise>
+		        <img src="/invegan/resources/main/profile.jpg" id= updateImg width="150" height="150">
+		    </c:otherwise>
+			</c:choose>
+        	<%-- <img src="/photo/${myPageImg}" id= updateImg width="150" height="150"> --%>
         	<div class="plusImg">+</div>
         	<input type="file" id="photo" name="photo" style="display: none">
         	<div class="nickNameOvelay">
