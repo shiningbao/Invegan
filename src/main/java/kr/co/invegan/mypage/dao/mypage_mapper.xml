@@ -44,7 +44,7 @@
 	 -->
 	<select id="feedList" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
 	SELECT
-    it1.server_file_name,
+    it.server_file_name,
     it2.server_file_name AS profile_image,
     m.nickname,
     b.content
@@ -55,7 +55,7 @@
 	JOIN
 	    Board b ON m.user_no = b.user_no
 	LEFT JOIN
-	    ImageTable it1 ON b.post_id = it1.idx 
+	     ImageTable it ON it.idx = b.post_id AND it.category = '피드'
 	WHERE
 	    m.user_no = #{param1} AND b.category = '피드' GROUP BY b.post_id ORDER BY date DESC;
 	</select>
