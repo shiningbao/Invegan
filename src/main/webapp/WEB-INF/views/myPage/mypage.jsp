@@ -211,28 +211,30 @@
     		right: 1123px;
     		position: absolute;
         }*/
-
-        
+		
+       
        
         .modal {
 		    display: none;
 		    position: fixed;
-		    z-index: 1;
+		    z-index: 11;
 		    left: 0;
 		    top: 0;
 		    width: 100%;
 		    height: 100%;
 		    overflow: auto;
-		    background-color: rgba(0,0,0,0.4);
+		    background-color: rgba(0,0,0,0.5);
 		}
 
 		.modal-content {
-			position: relative;
 		    background-color: white;
-		    margin: 6% auto;
 		    border: 1px solid #888;
-		    width: 41%;
+		    width: 600px;
 		    height: 651px;
+		    position: fixed;
+		    top: 50%;
+		    left: 50%;
+		    transform: translate(-50%, -50%);
 		}
 
 		.close {
@@ -350,12 +352,12 @@
 		 }
 		 
 		 .plusImg{
-		 	position : absolute;
-		 	font-weight: bold;
-		 	font-size: 70px;
-		 	top: 64px;
-		 	right : 586px;
-		 	cursor : pointer;
+	 	    position: absolute;
+		    font-weight: bold;
+		    font-size: 40px;
+		    top: 86px;
+		    right: 436px;
+		    cursor: pointer;
 		 }
 		 
 		 .save{
@@ -632,8 +634,8 @@
 			<div class="save" style=cursor:pointer>저장하기</div>
      
         <span class="close">&times;</span>
-    </div>
-	</div>
+   	</div>
+</div>
 <%-- <c:import url="/main/footer" /> --%>
 </body>
 	
