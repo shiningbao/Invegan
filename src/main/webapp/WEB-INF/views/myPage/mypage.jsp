@@ -236,7 +236,7 @@
 		    top: 50%;
 		    left: 50%;
 		    transform: translate(-50%, -50%);
-
+}
 		.close {
 			position: absolute;
 		    top: 10px;
@@ -333,7 +333,7 @@
 		.profile {
 			position : absolute;
 			left : 16px;
-			top : -31px;
+			top : -12px;
 		}
 		
 		#myInfo{
@@ -494,9 +494,9 @@
  
 	<div class="profileContainer">
  	<c:set var="myPageImg" value="${dto.profile_image}" />
-	
   	<div class="myPageImg">
         <img src="/photo/${myPageImg}" width="180" height="220">
+
     </div>
     
    	<div class="userInfo">
@@ -602,14 +602,14 @@
         	<p>
         	<div class= "updateNickname" style= cursor:pointer>닉네임변경</div>
         	<div class = "pwDiv">
-        	<label>현재 비밀번호 <input type="text" name="password" value=""/></label>
+        	<label>현재 비밀번호 <input type="password" name="password" value=""/></label>
         	<input type="button" id="pwConfirm" value="확인"/>
         	<p>
-        	<label>변경 비밀번호 <input type="text" name="updatePw"/></label>
+        	<label>변경 비밀번호 <input type="password" name="updatePw"/></label>
         	</div>
         	<p>
         	<div class= "pwDiv2">
-    		<label>변경 비밀번호 확인  <input type="text" name="updatePwConfirm"/></label>
+    		<label>변경 비밀번호 확인  <input type="password" name="updatePwConfirm"/></label>
     		</div>
     		<div class="completePw" style=cursor:pointer>비밀번호 변경</div>
     		<table id=myInfo>
@@ -1079,6 +1079,7 @@ $(document).ready(function(){
 
 
 
+	
 function feedListCall(){
 	var user_no = $('input[name="user_no"]').val();
 	var tabType = $('.tabs li.current').text();
@@ -1087,7 +1088,7 @@ function feedListCall(){
 	    url: 'feedListCall',
 	    data:{
 	    	'tabType':tabType,
-	    	'user_no':user_no
+	    	'user_no':user_no,
 	    },
 	    dataType: 'JSON',
 	    success: function(data) {
@@ -1108,9 +1109,9 @@ function drawList(list) {
     list.forEach(function(item, idx) {
        
     	 var shortenedContent = item.content.length > 10 ? item.content.substring(0, 10) + '...' : item.content;
-    	
+    	console.log(image);
     	content += '<div class="feedDiv">';
-        // content += '<div class="profile"><img src="/photo/' + item.profile_image + '" alt="image">' + item.nickname + '</div>';
+        content += '<div class="profile">' + '작성자 : ' + item.nickname + '</div>';
         content += '<div class="feedImage"><img src="/photo/' + item.server_file_name + '" alt="image" id="feedImg"></div>';
         content += '<div class="itemContent">' + shortenedContent + '</div>';
 
@@ -1173,7 +1174,7 @@ function drawFcList(fcmList) {
     	 var shortenedContent = item.content.length > 10 ? item.content.substring(0, 10) + '...' : item.content;
     	
     	content += '<div class = "fCDiv">';
-        // content += '<div class="profile"><img src="/photo/' + item.profile_image + '" alt="image">' + item.nickname + '</div>';
+        content += '<div class="profile">' + '작성자 : '+ item.nickname + '</div>';
         content += '<div class="fCImage"><img src="/photo/' + item.server_file_name + '" alt="image" id="fCImg"></div>';
         content += '<div class="itemContent">' + shortenedContent + '</div>';
 
