@@ -15,6 +15,9 @@
 <!-- alert ,cofirm 창 -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+<!-- xeicon -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+
 <style>
 /*header 부트스트랩 적용 방지*/
 body {
@@ -28,7 +31,7 @@ body {
 }
 
 input[type="text"] {
-	width: 100%;
+	width: 310px;
     height: 45px;
     padding-left: 10px;
     font-size: 18px;
@@ -50,7 +53,7 @@ input[type="text"] {
 	height: auto;
 } */
 .mainFeedPhoto {
-	width: 100%;
+	width: 500px;
 	height: 500px;
 }
 
@@ -73,6 +76,9 @@ input[type="text"] {
 
 .user-profile {
 	
+}
+.side-tag{
+	width: 310px;
 }
 
 /* .feedWriteModal {
@@ -97,6 +103,9 @@ input[type="text"] {
 	/* prevent horizontal scrollbar */
 	overflow-x: hidden;
 	height: auto;
+}
+#autoComplete:focus, #autoComplete:hover {
+	font-weight: 600;
 }
 
 .ui-menu-item div.ui-state-hover, .ui-menu-item div.ui-state-active {
@@ -179,7 +188,7 @@ input[type="text"] {
 #write-btn {
     width: 158px;
     height: 50px;
-    margin: 0 77px;
+    margin: 20px 77px;
 }
 
 #content {
@@ -187,7 +196,7 @@ input[type="text"] {
 }
 .post-time {
 /* 	border-bottom: 1px solid #cdd6df; */
-	width: 100%;
+	width: 500px;
 	margin-bottom: 50px;
 }
 
@@ -197,6 +206,56 @@ input[type="text"] {
 	width: 60px;
 	text-align: center;
 	margin-left: 5px;
+}
+
+#nameSearchBtn, #searchBtn{
+	background: none;
+    width: 45px;
+    position: absolute;
+    right: 0px;
+    right: 15px;
+    height: 35px;
+    border-left: 1px solid black;
+    border-radius: 0px;
+}
+
+.container-fluid{
+	margin-left: 500px !important;
+}
+.side-searchTag, .side-searchNick{
+	width: 100%;
+}
+
+
+/*작성버튼*/
+#write-btn{
+	color: #86bd86;
+    width: 152px;
+    background: none;
+    padding: 6px 10px;
+    font-size: 17px;
+    margin: 16px 3px;
+    border-radius: 5px;
+    border: 2px solid #86bd86;
+    box-shadow: lightgray 5px 4px 7px 1px;
+    outline-color: #86bd86;
+    position: absolute;
+    bottom: -85px;
+    left: 71px;
+}
+#write-btn:hover{
+	cursor: pointer;
+	color: black;
+	border: 1.3px solid black;
+}
+#write-btn:active{
+	box-shadow: lightgray 3px 2px 9px 0px;
+	border: 1.3px solid #9eca9e;
+	color: #9eca9e;
+ 	position: absolute;
+    bottom: -87px;
+    left: 73px;
+	
 }
 </style>
 
@@ -217,35 +276,40 @@ input[type="text"] {
 
 
 
-	<div class="container-fluid">
+	<div class="container-fluid" >
 
 		<div class="row">
-			<div class="col-3 custom-col-3" style="position: fixed; left: 35px; top: 145px; width: 340px;">
-				<button class="btn btn-outline-info clickTagSearch" name="food">#식품</button>
-				<button class="btn btn-outline-info clickTagSearch" name="beauty">#뷰티</button>
-				<button class="btn btn-outline-info clickTagSearch" name="fashion">#패션</button>
-				<button class="btn btn-outline-info clickTagSearch" name="daily">#일상</button>
-				<button class="btn btn-outline-info clickTagSearch" name="restaurant">#식당</button>
-				<button class="btn btn-outline-info clickTagSearch" name="recipe">#레시피</button>
-				<button class="btn btn-outline-info clickResult" style="width: 310px">전체보기</button>
-
-				<h4>태그검색</h4>
-				<div id="autoSearch">
-					<input type="text" id="autoComplete" class="autoComplete" placeholder="미입력후 검색시 전체리스트">
-					<button id="searchbtn" class="btn btn-Dark">
-						<b>검색</b>
-					</button>
+			<div class="col-3 custom-col-3" style="position: fixed; left: 90px; top: 222px; width: 310px; padding: 0;">
+				<div class="side-tag">
+					<button class="btn btn-outline-info clickTagSearch" name="food">#식품</button>
+					<button class="btn btn-outline-info clickTagSearch" name="beauty">#뷰티</button>
+					<button class="btn btn-outline-info clickTagSearch" name="fashion">#패션</button>
+					<button class="btn btn-outline-info clickTagSearch" name="daily">#일상</button>
+					<button class="btn btn-outline-info clickTagSearch" name="restaurant">#식당</button>
+					<button class="btn btn-outline-info clickTagSearch" name="recipe">#레시피</button>
+					<button class="btn btn-outline-info clickResult" style="width: 310px">전체보기</button>
 				</div>
-				<h4>닉네임 검색</h4>
-				<div id="nickNameSearch">
-					<input type="text" class="nameSearch" >
-					<button id="nameSearchBtn" class="btn btn-Dark" onclick="searchNick()">
-						<b>검색</b>
-					</button>
+				<div class="side-searchTag">
+					<label>태그 검색</label>
+					<div id="autoSearch">
+						<input type="text" id="autoComplete" class="autoComplete">
+						<button id="searchBtn" class="btn btn-Dark">
+							<i class="xi-search"></i>
+						</button>
+					</div>
+				</div>
+				<div class="side-searchNick">
+					<label>닉네임 검색</label>
+					<div id="nickNameSearch">
+						<input type="text" class="nameSearch" >
+						<button id="nameSearchBtn" class="btn btn-Dark" onclick="searchNick()">
+							<i class="xi-search"></i>
+						</button>
+					</div>
 				</div>
 				<button id="write-btn" class="btn btn-success">피드게시글 작성</button>
 			</div>
-			<div class="col-4"></div>
+			<div></div>
 			<div class="col-4">
 				<div id="feedList" class="feedListPost">
 					<!-- 피드 리스트 동적으로 그리기 -->
@@ -336,8 +400,16 @@ input[type="text"] {
                     console.log(ui.item.label);
                     console.log(ui.item.value);
                     console.log(ui.item.idx);
+                    setTimeout(function(){
+                    	$('#autoComplete').autocomplete('close');
+                    },200); //엔터로 검색시 리스트 사라짐
                 }
-            });
+            }).keydown(function (e) {
+                if (e.keyCode === 13) { // Enter 키 코드는 13
+                    clickResult();
+                     console.log('엔터 키 눌림, 검색 실행');
+                 }
+             });
 						
 						
 						
@@ -481,12 +553,12 @@ input[type="text"] {
 									content += '</div>';
 									content += '<div class="post-details">';
 									content += '<div class="post-image">';
-									content += '<a href="#" class="post-link" data-post-id="'+ item.post_id+ '" data-toggle="modal" data-target="#detailModal" style="display: block; width: 100%; height: 100%;">';
+									content += '<a href="#" class="post-link" data-post-id="'+ item.post_id+ '" data-toggle="modal" data-target="#detailModal" style="display: block; width: 500px; height: 500px;">';
 									console.log(item.post_id);
 									content += '<img src="/photo/' + item.server_file_name + '" class="mainFeedPhoto">';
 									content += '</a>';
 									content += '</div>';
-									content += '<div class="post-content"  style="width:100%">';
+									content += '<div class="post-content"  style="width:500px">';
 									
 									var feedContentTxt = item.content;
 									var truncatedTxt = truncateTxt(feedContentTxt, 100);
@@ -518,7 +590,7 @@ input[type="text"] {
 									content += '</div>';
 									var date = new Date(item.date);
 									var dateStr = date.toLocaleDateString("ko-KR"); //en-US
-									content += '<div class="tag-content" style="width:100%; color: #808080;">'+ item.tag_content + '</div>';
+									content += '<div class="tag-content" style="width:500px; color: #808080;">'+ item.tag_content + '</div>';
 									content += '<div class="post-time">'+ dateStr + '</div>';
 									content += '</div>';
 									
@@ -582,7 +654,7 @@ input[type="text"] {
 						
 						    autoListCall();
 						}
-						$(document).on('click', '#searchbtn', function () {
+						$(document).on('click', '#searchBtn', function () {
 						    clickResult();
 						});
              			//전체보기			
@@ -599,7 +671,7 @@ input[type="text"] {
 							backToTop();
 							var nameText = $('.nameSearch').val();
 							console.log('nameText chk',nameText);
-							
+							$('#autoComplete').val('');
 							$.ajax({
 								url:'feed/nameSearch',
 								data:{nameText : nameText},
