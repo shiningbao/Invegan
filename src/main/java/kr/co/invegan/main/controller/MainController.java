@@ -32,18 +32,21 @@ public class MainController {
 	public String main(HttpSession session) {
 		return "main";
 	}
-
-	@RequestMapping(value = "/main/RFL", method = RequestMethod.POST)
+	
+	// 개인 맞춤 필터 리스트 제공
+	@RequestMapping(value = "/main/FL", method = RequestMethod.POST)
 	@ResponseBody
-	public HashMap<String, Object> geo(HttpSession session, @RequestParam HashMap<String, String> param) {
+	public HashMap<String, Object> FL(HttpSession session, @RequestParam HashMap<String, String> param) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
-		double userLat = Double.parseDouble(param.get("lat"));
-		double userLng = Double.parseDouble(param.get("lng"));
+		
+		double userLat = Double.parseDouble(param.get("lat")); // 위도
+		double userLng = Double.parseDouble(param.get("lng")); // 경도
 		session.setAttribute("userLat", userLat);
 		session.setAttribute("userLng", userLng);
 		logger.info("latlng: " + userLat + " " + userLng);
-		ArrayList<restaurantFilterListDTO> RFL = service.restaurantFilterList(session, userLat, userLng);
-		ArrayList<FeedListDTO> FFL = service.feedFilterList(session);
+		
+		ArrayList<restaurantFilterListDTO> RFL = service.restaurantFilterList(session, userLat, userLng); // 레스토랑 필터 리스트
+		ArrayList<FeedListDTO> FFL = service.feedFilterList(session); // 피드 필터 리스트
 		result.put("RFL", RFL);
 		result.put("FFL", FFL);
 		return result;
@@ -58,18 +61,20 @@ public class MainController {
 		} else {
 			logger.info("비회원");
 		}
-
-		/*
-		 * if(loginInfo != null) { memberInfo = service.merberInfo(loginInfo.getId()); }
-		 * session.setAttribute("memberInfo", memberInfo); session.setAttribute("id",
-		 * memberInfo.getId()); logger.info("id : "+session.getAttribute("id"));
-		 */
 		return "main/header";
 	}
 
+	
+	
+	
+	/*
 	@RequestMapping(value = "/main/footer")
 	public String mainFooter(Model model) {
 		return "main/footer";
 	}
-
+	*/
 }
+
+
+
+
