@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,7 +65,7 @@
 	.is_admin{
 		position : absolute;
 		top: 10px;
-		right: 274px;
+		right: 298px;
 		font-size: 14px;
 		text-decoration: underline;
 		text-decoration-color: #08ffb3; 
@@ -230,7 +232,7 @@
 		    background-color: white;
 		    border: 1px solid #888;
 		    width: 600px;
-		    height: 651px;
+		    height: 723px;
 		    padding : 10px;
 		    position: fixed;
 		    top: 50%;
@@ -254,11 +256,11 @@
 		}
 		
 		 .updateNickname{
-		 	position : absolute;
-		 	width: 82px;
-		 	top : 175px;
-		 	right : 96px;
-		 	font-weight : bold;
+		 	    position: absolute;
+			    width: 104px;
+			    top: 167px;
+			    right: 10px;
+			    font-weight: bold;
 		 }
 		
 		
@@ -268,8 +270,9 @@
 		
 		.pwDiv{
 			position : absolute;
-			top : 204px;
+			top : 203px;
 			right : 102px;
+			margin : 5px;
 		
 		}
 		
@@ -281,11 +284,11 @@
 		}
 		
 		 .completePw{
-		 	position : absolute;
-		 	width: 104px;
-		 	top : 304px;
-		 	right : 89px;
-		 	font-weight : bold;
+		 	position: absolute;
+		    width: 123px;
+		    top: 332px;
+		    right: 6px;
+		    font-weight: bold;
 		 	
 		 }
 		
@@ -333,16 +336,16 @@
 		.profile {
 			position : absolute;
 			left : 16px;
-			top : -12px;
+			top : -26px;
 		}
 		
 		#myInfo{
-			position : absolute;
-			top : 343px;
-			right : 82px;
-			border : 0;
-			border-collapse : collapse;
-			padding: 5px 10px;
+			position: absolute;
+		    top: 350px;
+		    right: 23px;
+		    border: 0;
+		    border-collapse: collapse;
+		    padding: 5px 10px;
 		}
 		
 		 #updateImg{
@@ -362,10 +365,11 @@
 		 
 		 .save{
 		 	position : absolute;
-		 	top : 614px;
+		 	top : 664px;
 		 	right : 13px;
 		 	width: 80px;
 		 	font-weight : bold;
+		 	font-size : 20px;
 		 }
 
 		.restaurantPhoto img{
@@ -459,11 +463,7 @@
 		top : -12px;
 	}
 	
-	#vgType{
-		position : absolute;
-		right : 248px;
-		top : 51px;
-	}
+	
 	
 	#vegan_type{
 		position : absolute;
@@ -471,19 +471,119 @@
 		top : 49px;
 	}
 	
-	#purpose{
-		position : absolute;
-		right : 89px;
-		top : 49px;
-		font-weight : bold;
-	} */
+		
 	
 /* 	#vgPurpose{
 		position : absolute;
 		right : 89px;
 		top : 30px;
 	} */
+	#myInfo td {
+	    padding: 10px; /* 셀 안의 여백 설정 */
+	}
+	
+	#purpose{
+	
+		font-weight : bold;
+	}
+	
+	#myInterests{
+		font-weight : bold;
+	}
 
+#changePw {
+    display: block;
+    margin-bottom: 8px; /* 레이블과 입력 필드 간격 조절 */
+}
+
+input[name="password"] {
+	position : absolute;
+	right : 3px;
+	top : -13px;
+    width: 183px; /* 입력 필드의 너비 조절 */
+    padding: 1px;
+    margin-bottom: 12px; /* 입력 필드 간격 조절 */
+}
+
+#pwConfirm {
+    position: absolute;
+    top: -13px;
+    right: -89px;
+    width: 80px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 2px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 12px;
+}
+		#overlay{
+		    position: absolute;
+		    background-color: #4CAF50;
+		    color: white;
+		    border: none;
+		    border-radius: 4px;
+		    width: 80px;
+		    padding: 3px 8px;
+		    top: -1px;
+		    right: -92px;
+}
+	
+
+
+	input[name="updatePwConfirm"]{
+		position : absolute;
+		top : -19px;
+		width : 183px;
+		right : -8px;
+	}
+	
+	input[name="nickname"]{
+		width : 183px;
+	}
+	
+	input[name="updatePw"]{
+		position: absolute;
+	    width: 184px;
+	    top: 91px;
+	    right: 3px;
+	}
+	
+	.nick{
+		position : absolute;
+		width : 42px;
+		top : 3px;
+		right : 233px;
+		font-weight : bold;
+	}
+	
+	#crPw{
+		position : absolute;
+		width : 103px;
+		top : -10px;
+		right : 177px;
+		font-weight : bold;
+	}
+	
+	#crPw2{
+		position : absolute;
+		width : 87px;
+		top : 40px;
+		right : 194px;
+		font-weight : bold;
+	}
+	
+	#crPw3{
+		position : absolute;
+		width : 87px;
+		top: 30px;
+	    right: 185px;
+	    text-align: center;
+	    font-weight : bold;
+	}
+	
+	
 
     </style>
 </head>
@@ -613,48 +713,48 @@
         	<div class="plusImg">+</div>
         	<input type="file" id="photo" name="photo" style="display: none">
         	<div class="nickNameOvelay">
-        	<label>닉네임 : <input type="text" name="nickname" value="${dto.nickname}"/></label>
+        	<div class="nick">닉네임</div><input type="text" name="nickname" value="${dto.nickname}"/>
         	<input type="button" id="overlay" value="중복체크"/></div>
         	<p>
-        	<div class= "updateNickname" style= cursor:pointer>닉네임변경</div>
+        	<div class= "updateNickname" style= cursor:pointer>닉네임 변경하기</div>
         	<div class = "pwDiv">
-        	<label>현재 비밀번호 <input type="password" name="password" value=""/></label>
+        	<div id="crPw">현재 비밀번호</div><input type="password" name="password" value=""/>
         	<input type="button" id="pwConfirm" value="확인"/>
         	<p>
-        	<label>변경 비밀번호 <input type="password" name="updatePw"/></label>
+        	<div id="crPw2">변경 비밀번호</div><input type="password" name="updatePw"/>
         	</div>
         	<p>
         	<div class= "pwDiv2">
-    		<label>변경 비밀번호 확인  <input type="password" name="updatePwConfirm"/></label>
+    		<div id="crPw3">변경 비밀번호 확인</div><input type="password" name="updatePwConfirm"/>
     		</div>
-    		<div class="completePw" style=cursor:pointer>비밀번호 변경</div>
+    		<div class="completePw" style=cursor:pointer>비밀번호 변경하기</div>
     		<table id=myInfo>
     		<tr>
-				<td>나의 관심사</td>
+				<td id="myInterests">나의 관심사</td>
 				<td colspan="2" class="interCheck">
-				<input type="checkbox" name="interests" value="식당" id="interests"/> 식당
-				<input type="checkbox" name="interests" value="레시피" id="interests"/> 레시피
-				<input type="checkbox" name="interests" value="식품" id="interests"/> 식품
+				<input type="checkbox" name="interests" value="식당" id="interests" ${fn:contains(dto.interests, '식당') ? 'checked' : ''}/> 식당
+				<input type="checkbox" name="interests" value="레시피" id="interests" ${fn:contains(dto.interests, '레시피') ? 'checked' : ''}/> 레시피
+				<input type="checkbox" name="interests" value="식품" id="interests" ${fn:contains(dto.interests, '식품') ? 'checked' : ''}/> 식품
 				<p>
-				<input type="checkbox" name="interests" value="뷰티" id="interests"/> 뷰티
-				<input type="checkbox" name="interests" value="패션" id="interests"/> 패션
-				<input type="checkbox" name="interests" value="일상" id="interests"/> 일상
+				<input type="checkbox" name="interests" value="뷰티" id="interests" ${fn:contains(dto.interests, '뷰티') ? 'checked' : ''}/> 뷰티
+				<input type="checkbox" name="interests" value="패션" id="interests" ${fn:contains(dto.interests, '패션') ? 'checked' : ''}/> 패션
+				<input type="checkbox" name="interests" value="일상" id="interests" ${fn:contains(dto.interests, '일상') ? 'checked' : ''}/> 일상
 				</td>
 			</tr>
 			<tr>
-			<td><label for"vegan_type" id="vgType">나의 비건 단계  </label></td>
+			<td ><label for"vegan_type" id="vgType">나의 비건 단계  </label></td>
 				<td colspan="2">
 				    <select id="vegan_type" name="vegan_type">
-				    	<option value="0">비건단계</option>
-				        <option value="1">플루테리언</option>
-				        <option value="2">비건</option>
-				        <option value="3">락토</option>
-				        <option value="4">오보</option>
-				        <option value="5">락토오보</option>
-				        <option value="6">폴로</option>
-				        <option value="7">페스코</option>
-				        <option value="8">폴로페스코</option>
-				        <option value="9">플렉시테리언</option>
+				    	<option value="0" ${dto.vegan_type == '0' ? 'selected' : ''}>비건단계</option>
+				        <option value="1" ${dto.vegan_type == '1' ? 'selected' : ''}>플루테리언</option>
+				        <option value="2" ${dto.vegan_type == '2' ? 'selected' : ''}>비건</option>
+				        <option value="3" ${dto.vegan_type == '3' ? 'selected' : ''}>락토</option>
+				        <option value="4" ${dto.vegan_type == '4' ? 'selected' : ''}>오보</option>
+				        <option value="5" ${dto.vegan_type == '5' ? 'selected' : ''}>락토오보</option>
+				        <option value="6" ${dto.vegan_type == '6' ? 'selected' : ''}>폴로</option>
+				        <option value="7" ${dto.vegan_type == '7' ? 'selected' : ''}>페스코</option>
+				        <option value="8" ${dto.vegan_type == '8' ? 'selected' : ''}>폴로페스코</option>
+				        <option value="9" ${dto.vegan_type == '9' ? 'selected' : ''}>플렉시테리언</option>
 				    </select>
 				    </td>
 			</tr>
@@ -662,21 +762,21 @@
 			<tr>
 				<td id="purpose">나의 비건 목적</td>
 				<td colspan="2" id="vgPurpose">
-					<input type="radio" name="vegan_purpose" value="질병으로 인해" />질병으로 인해
+					<input type="radio" name="vegan_purpose" value="질병으로 인해" ${dto.vegan_purpose == '질병으로 인해' ? 'checked' : ''}/>질병으로 인해
 					동물성 식품을 먹지 못함
 					<p>
-						<input type="radio" name="vegan_purpose" value="건강 개선" />건강 개선
+						<input type="radio" name="vegan_purpose" value="건강 개선" ${dto.vegan_purpose == '건강 개선' ? 'checked' : ''}/>건강 개선
 					</p>
 					<p>
-						<input type="radio" name="vegan_purpose" value="체중 조절 및 미용" />체중 조절 및 미용
+						<input type="radio" name="vegan_purpose" value="체중 조절 및 미용" ${dto.vegan_purpose == '체중 조절 및 미용' ? 'checked' : ''}/>체중 조절 및 미용
 					</p>
 					<p>
-						<input type="radio" name="vegan_purpose" value="동물 학대를 방지" />동물 학대를 방지
+						<input type="radio" name="vegan_purpose" value="동물 학대를 방지" ${dto.vegan_purpose == '동물 학대를 방지' ? 'checked' : ''}/>동물 학대를 방지
 					</p>
 					<p>
-						<input type="radio" name="vegan_purpose" value="환경 문제" />환경 문제
+						<input type="radio" name="vegan_purpose" value="환경 문제" ${dto.vegan_purpose == '환경 문제' ? 'checked' : ''}/>환경 문제
 					</p> 
-					<input type="radio" name="vegan_purpose" value="개인적인 신념이나 종교" />개인적인 신념이나 종교
+					<input type="radio" name="vegan_purpose" value="개인적인 신념이나 종교" ${dto.vegan_purpose == '개인적인 신념이나 종교' ? 'checked' : ''}/>개인적인 신념이나 종교
 				</td>
 			</tr>
 			</table>
@@ -822,7 +922,7 @@ $('.updateNickname').on('click',function(){
 	
 	 if (!overlayChk) {
 	        swal({
-		  	      title: "닉네임 중복 체크를 먼저 진행해주세요.",
+		  	      title: "닉네임 중복 체크를 진행해주세요.",
 		  	      text: "",
 		  	      icon: "info"
 		  	  });
@@ -959,7 +1059,7 @@ $('.save').on('click',function(){
         user_no: user_no,
         vegan_type: vegan_type,
         vegan_purpose: vegan_purpose,
-        interests: interests.join(',')// 배열을 JSON 문자열로 변환 
+        interests: interests.join(',')
     };
 	
 	if(interests==''){
@@ -1121,13 +1221,17 @@ function feedListCall(){
 
 function drawList(list) {
     var content = '';
-
+	var image = '${dto.profile_image}';
     list.forEach(function(item, idx) {
        
     	 var shortenedContent = item.content.length > 10 ? item.content.substring(0, 10) + '...' : item.content;
-    	console.log(image);
+    	
     	content += '<div class="feedDiv">';
-        content += '<div class="profile">' + '작성자 : ' + item.nickname + '</div>';
+    	 if (image != '') {
+             content += '<div class="profile"><img src="/photo/' + image+ '" alt="image">'+item.nickname+'</div>';
+         } else {
+             content += '<div class="profile"><img src="/invegan/resources/main/profile.jpg">'+item.nickname+'</div>';
+         }
         content += '<div class="feedImage"><img src="/photo/' + item.server_file_name + '" alt="image" id="feedImg"></div>';
         content += '<div class="itemContent">' + shortenedContent + '</div>';
 
@@ -1184,13 +1288,17 @@ function feedCmListCall() {
 
 function drawFcList(fcmList) {
     var content = '';
-
+ 	console.log(fcmList);
     fcmList.forEach(function(item, idx) {
         
     	 var shortenedContent = item.content.length > 10 ? item.content.substring(0, 10) + '...' : item.content;
     	
-    	content += '<div class = "fCDiv">';
-        content += '<div class="profile">' + '작성자 : '+ item.nickname + '</div>';
+    	content += '<div class ="fCDiv">';
+    	 if (item.profile_image != null) {
+             content += '<div class="profile"><img src="/photo/' + item.profile_image + '" alt="image">'+item.nickname+'</div>';
+         } else {
+             content += '<div class="profile"><img src="/invegan/resources/main/profile.jpg">'+item.nickname+'</div>';
+         }
         content += '<div class="fCImage"><img src="/photo/' + item.server_file_name + '" alt="image" id="fCImg"></div>';
         content += '<div class="itemContent">' + shortenedContent + '</div>';
 
