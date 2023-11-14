@@ -218,7 +218,11 @@ function upload(uploadImages){
 			delButton.textContent = '삭제';
 			divTag.appendChild(delButton);
 		}else{
-			alert('이미지 파일 아님');
+			swal({
+                title: "이미지 파일이 아닙니다.",
+                text: "",
+                icon: "error"
+            })
 			$('#restarunatWriteImg')[0].files = new DataTransfer().files;
 			$restaurantImg.innerHTML='<p id="preview">등록된 사진이 없습니다.</p>';
 			break;
@@ -284,23 +288,43 @@ $('#write').on('click',function(e){
 	var len = $menu_name.length;
 
 	if($title.val() == ''){
-		alert('식당 이름');
+		swal({
+	        title: "식당 이름"",
+	        text: "",
+	        icon: "info"
+	    });
 		blankcnt ++;
 		$title.focus();
 	}else if($address.val() == ''){
-		alert('식당 주소');
+		swal({
+	        title: "식당 주소",
+	        text: "",
+	        icon: "info"
+	    });
 		blankcnt ++;
 		$address.focus();
 	}else if($content.val() == ''){
-		alert('식당 소개');
+		swal({
+	        title: "식당 소개",
+	        text: "",
+	        icon: "info"
+	    });
 		blankcnt ++;
 		$content.focus();
 	}else if($phone.val() == ''){
-		alert('식당 연락처');
+		swal({
+	        title: "식당 연락처"",
+	        text: "",
+	        icon: "info"
+	    });
 		blankcnt ++;
 		$phone.focus();
 	}else if($hours.val() == ''){
-		alert('영업시간');
+		swal({
+	        title: "영업시간",
+	        text: "",
+	        icon: "info"
+	    });
 		blankcnt ++;
 		$hours.focus();
 	}else{
@@ -365,15 +389,22 @@ $('#write').on('click',function(e){
 			contentType:false,
 			processData:false,
 			enctype : 'multipart/form-data',
-			success:function(data){
-				var result = data.result;
-				console.log(result);
-				alert(result);
-				if(result == '권한없음'){
-					location.href = '/main'
-				}else if(result == '식당 작성 완료'){
-					location.href = 'list';
-				}
+			success: function(data) {
+			    var result = data.result;
+			    console.log(result);
+
+			    swal({
+			        title: result,
+			        text: "",
+			        icon: "info",
+			        buttons: ["확인"]
+			    }).then((value) => {
+			        if (result === '권한없음') {
+			            location.href = '/main';
+			        } else if (result === '식당 작성 완료') {
+			            location.href = 'list';
+			        }
+			    });
 			},
 			error:function(e){
 				console.log(e);
