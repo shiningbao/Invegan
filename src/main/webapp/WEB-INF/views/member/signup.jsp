@@ -142,7 +142,7 @@ option{
 	<c:import url="/main/header" />
 	<div class="container">
 		<div id="signup-img">
-			<img alt="deco-img" src="<c:url value='/resources/main/signup-src.png'/>">
+			<img alt="deco-img" src="<c:url value='/resources/main/invegan_source.png'/>">
 		</div>
 		<div id="signup-box">
 			<label class="join-title">JOIN US</label>
