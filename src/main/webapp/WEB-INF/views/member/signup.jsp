@@ -7,14 +7,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>회원가입</title>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-<<<<<<< HEAD
 
 <!-- icon --> 
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
-=======
 <!-- alert ,cofirm 창 -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
->>>>>>> ad3f697f1a11af22787bf10e6fb1557b8b6be0da
 <style>
 .container{
 	width: 1000px;
