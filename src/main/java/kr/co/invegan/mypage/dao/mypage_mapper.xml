@@ -43,21 +43,18 @@
 	</select>
 	 -->
 	<select id="feedList" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
-	SELECT
-    it.server_file_name,
-    it2.server_file_name AS profile_image,
-    m.nickname,
-    b.content
-	FROM
-	    Members m
-	JOIN
-	    ImageTable it2 ON m.user_no = it2.idx 
-	JOIN
-	    Board b ON m.user_no = b.user_no
-	LEFT JOIN
-	     ImageTable it ON it.idx = b.post_id AND it.category = '피드'
-	WHERE
-	    m.user_no = #{param1} AND b.category = '피드' GROUP BY b.post_id ORDER BY date DESC;
+		SELECT
+	    it.server_file_name,
+	    m.nickname,
+	    b.content
+		FROM
+		    Members m
+		JOIN
+		    Board b ON m.user_no = b.user_no
+		LEFT JOIN
+		     ImageTable it ON it.idx = b.post_id AND it.category = '피드'
+		WHERE
+		    m.user_no = #{param1}  AND b.category = '피드' GROUP BY b.post_id ORDER BY date DESC;
 	</select>
 	
 	<delete id="delUser" parameterType="int">
@@ -92,12 +89,11 @@
 	
 	<select id="feedComments" resultType="kr.co.invegan.mypage.dto.MyPageDTO">
 		SELECT
-		    b.post_id,
-		    b.content,
-		    m.nickname,
-		    m.user_no,
-		    it2.server_file_name AS profile_image,
-		    it.server_file_name AS server_file_name
+	    b.post_id,
+	    b.content,
+	    m.nickname,
+	    m.user_no,
+	    it.server_file_name AS server_file_name
 		FROM
 		    Comments c
 		JOIN
@@ -106,8 +102,6 @@
 		    Board b ON c.post_id = b.post_id 
 		LEFT JOIN
 		    ImageTable it ON it.idx = b.post_id AND it.category = '피드'
-		LEFT JOIN
-		    ImageTable it2 ON m.user_no = it2.image_id AND it2.category = '회원'
 		WHERE
 		    c.user_no = #{param1} and b.category='피드' group by c.post_id 
 		ORDER BY

@@ -1108,7 +1108,7 @@ function drawList(list) {
     	 var shortenedContent = item.content.length > 10 ? item.content.substring(0, 10) + '...' : item.content;
     	
     	content += '<div class="feedDiv">';
-        content += '<div class="profile"><img src="/photo/' + item.profile_image + '" alt="image">' + item.nickname + '</div>';
+        // content += '<div class="profile"><img src="/photo/' + item.profile_image + '" alt="image">' + item.nickname + '</div>';
         content += '<div class="feedImage"><img src="/photo/' + item.server_file_name + '" alt="image" id="feedImg"></div>';
         content += '<div class="itemContent">' + shortenedContent + '</div>';
 
@@ -1171,7 +1171,7 @@ function drawFcList(fcmList) {
     	 var shortenedContent = item.content.length > 10 ? item.content.substring(0, 10) + '...' : item.content;
     	
     	content += '<div class = "fCDiv">';
-        content += '<div class="profile"><img src="/photo/' + item.profile_image + '" alt="image">' + item.nickname + '</div>';
+        // content += '<div class="profile"><img src="/photo/' + item.profile_image + '" alt="image">' + item.nickname + '</div>';
         content += '<div class="fCImage"><img src="/photo/' + item.server_file_name + '" alt="image" id="fCImg"></div>';
         content += '<div class="itemContent">' + shortenedContent + '</div>';
 
