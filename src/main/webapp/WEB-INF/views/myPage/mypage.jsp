@@ -733,7 +733,7 @@ input[name="password"] {
 	   				<td>${dto.nickname}</td>
 	   			</tr>
 	   			<tr>
-	   				<td>비건타입</td>
+	   				<td>비건단계</td>
 	   				<td>
 	   					<c:if test="${dto.vegan_type eq '1' }">플루테리언</c:if>
 				        <c:if test="${dto.vegan_type eq '2' }">비건</c:if> 

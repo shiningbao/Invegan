@@ -155,7 +155,7 @@ option{
 	<c:import url="/main/header" />
 	<div class="container">
 		<div id="signup-img">
-			<img alt="deco-img" src="<c:url value='/resources/main/invegan_source.png'/>">
+			<img alt="deco-img" src="<c:url value='/resources/main/signup-src.png'/>">
 		</div>
 		<div id="signup-box">
 			<label class="join-title">JOIN US</label>
@@ -225,7 +225,7 @@ option{
 						</td>
 					</tr>
 					<tr>
-						<th><label for="vegan_type">식단 유형</label></th>
+						<th><label for="vegan_type">비건 단계</label></th>
 						<td>
 							<select id="vegan_type" class="box" name="vegan_type">
 								<option value="1">플루테리언</option>
