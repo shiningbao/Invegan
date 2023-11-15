@@ -341,11 +341,13 @@ input[type="text"] {
 		var nickname = "${getNickname}";
 		post_id = "${getPost_id}";
 		if(nickname != '' && post_id != ''){
+			 $('.addBtnImg').hide();
 			console.log('nickname from main page',nickname);
 			$('.nameSearch').val(nickname);
 			var searchNick = $('#nameSearchBtn');
-			searchNick.trigger('click');			
+			searchNick.trigger('click');	
 			searchNick();
+			
 		}
 	});
 	
