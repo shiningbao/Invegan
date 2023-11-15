@@ -703,32 +703,36 @@
 		            icon: "info",
 		        });
 				listCall();
-			} else{
-				var deletechk = confirm('재료를 삭제하시겠습니까?');
-				if (deletechk == true){
-					
-					$.ajax({
-		        		type:'get',
-		        		url:'mdelete.do',
-		        		data:{"material_id":material_id},
-		        		dataType:'json',
-		        		success:function(data){
-		        			console.log(data);
-		        			if (data.success == true) {
-		        				swal({
-		        		            title: "재료가 삭제되었습니다.",
-		        		            text: "",
-		        		            icon: "info",
-		        		        });
-		        				myRecipeMenu();
-		        			}
-
-		        		},
-		        		error:function(e){
-		        			console.log(e);
-		        		}
-		        	});
-				}
+			} else {
+			    swal({
+			        title: '재료를 삭제하시겠습니까?',
+			        text: "",
+			        icon: "warning",
+			        buttons: ["취소", "삭제"]
+			    }).then((confirmed) => {
+			        if (confirmed) {
+			            $.ajax({
+			                type: 'get',
+			                url: 'mdelete.do',
+			                data: { "material_id": material_id },
+			                dataType: 'json',
+			                success: function (data) {
+			                    console.log(data);
+			                    if (data.success == true) {
+			                        swal({
+			                            title: "재료가 삭제되었습니다.",
+			                            text: "",
+			                            icon: "info",
+			                        });
+			                        myRecipeMenu();
+			                    }
+			                },
+			                error: function (e) {
+			                    console.log(e);
+			                }
+			            });
+			        }
+			    });
 			}
         }
         
