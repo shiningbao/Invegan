@@ -904,21 +904,21 @@ input[name="password"] {
 			<tr>
 				<td id="purpose">나의 비건 목적</td>
 				<td colspan="2" id="vgPurpose">
-					<input type="radio" name="vegan_purpose" value="질병으로 인해" ${dto.vegan_purpose == '질병으로 인해' ? 'checked' : ''}/>질병으로 인해
-					동물성 식품을 먹지 못함
+					<input type="radio" name="vegan_purpose" value="질병으로 인한 동물성 식품 섭취불가" ${dto.vegan_purpose == '질병으로 인한 동물성 식품 섭취불가' ? 'checked' : ''}/>질병으로 인한 동물성 식품 섭취불가
+					
 					<p>
-						<input type="radio" name="vegan_purpose" value="건강 개선" ${dto.vegan_purpose == '건강 개선' ? 'checked' : ''}/>건강 개선
+						<input type="radio" name="vegan_purpose" value="건강 개선을 위해" ${dto.vegan_purpose == '건강 개선을 위해' ? 'checked' : ''}/>건강 개선을 위해
 					</p>
 					<p>
-						<input type="radio" name="vegan_purpose" value="체중 조절 및 미용" ${dto.vegan_purpose == '체중 조절 및 미용' ? 'checked' : ''}/>체중 조절 및 미용
+						<input type="radio" name="vegan_purpose" value="체중 조절 및 미용 목적" ${dto.vegan_purpose == '체중 조절 및 미용 목적' ? 'checked' : ''}/>체중 조절 및 미용 목적
 					</p>
 					<p>
-						<input type="radio" name="vegan_purpose" value="동물 학대를 방지" ${dto.vegan_purpose == '동물 학대를 방지' ? 'checked' : ''}/>동물 학대를 방지
+						<input type="radio" name="vegan_purpose" value="동물 학대를 방지하기 위해" ${dto.vegan_purpose == '동물 학대를 방지하기 위해' ? 'checked' : ''}/>동물 학대를 방지하기 위해
 					</p>
 					<p>
-						<input type="radio" name="vegan_purpose" value="환경 문제" ${dto.vegan_purpose == '환경 문제' ? 'checked' : ''}/>환경 문제
+						<input type="radio" name="vegan_purpose" value="환경 문제를 개선하기위해" ${dto.vegan_purpose == '환경 문제를 개선하기위해' ? 'checked' : ''}/>환경 문제를 개선하기위해
 					</p> 
-					<input type="radio" name="vegan_purpose" value="개인적인 신념이나 종교" ${dto.vegan_purpose == '개인적인 신념이나 종교' ? 'checked' : ''}/>개인적인 신념이나 종교
+					<input type="radio" name="vegan_purpose" value="개인적인 신념이나 종교" ${dto.vegan_purpose == '개인적인 신념이나 종교로 인해' ? 'checked' : ''}/>개인적인 신념이나 종교로 인해
 				</td>
 			</tr>
 			</table>
