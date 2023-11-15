@@ -28,7 +28,7 @@
     font-family: 'S-CoreDream-3Light', sans-serif; 
 }
 
-::-webkit-scrollbar {
+body::-webkit-scrollbar {
     width: 0; /* 스크롤바 너비를 0으로 설정하여 숨깁니다. */
 }
 

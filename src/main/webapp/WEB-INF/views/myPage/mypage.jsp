@@ -20,77 +20,139 @@
 	body{
 		margin: 8px !important;
 	}
-	#container{
+	
+	/* 수평 스크롤 바 */
+	listContainer::-webkit-scrollbar-horizontal {
+	  height: 2px; /* 수평 스크롤 바 높이 조절 */
+	}
+	
+	/* 수평 스크롤 핸들 */
+	listContainer::-webkit-scrollbar-horizontal-thumb {
+	  height: 2px; /* 수평 스크롤 핸들 높이 조절 */
+}
+	
+	
+	#mypage-container{
 		position : relative;
+		height:800px;
 		width: 1000px;
 		margin: 0px auto;
 	}
 	.profileContainer {
 		position : absolute;
-		height: 270px;
-		width: 100%;
-		background-color : #d8f3ec;
-		border : solid #b0b5b4;
-		border-radius : 17px;
-		
+		margin: 40px 0;
 	}
-      
+	.profileContainer div{
+		display: inline-block;
+		
+	}      
+	.profileContainer td{
+		font-size: 19px;
+		padding: 3px 12px;
+	}
+	.profileContainer td:nth-child(odd){	/*td중 홀수번째에만 적용*/
+		font-weight: 600;
+	}
 	.myPageImg{
+		vertical-align:baseline;	/*bootstrap 속성 초기화하기*/
+		/* 도훈이 주석 
 		position : absolute;
 		top : 20px;
-		bottom : 20px;
+		bottom : 20px; */ 
 		left : 20px;
-		width : 180px;
-	
+		width : 210px;
+		border-radius: 3px;
 	}
-      
-	.userInfo {
+	.profile-vertical-line{
+	    border-right: 2px solid #95df95;
+	    height: 170px;
+	    width: 1px;
+	    margin: 17px 20px;
+	}
+    .additionalInfo{
+   		margin: 25px 35px 25px 0;
+    }
+	.userInfo { 
+		margin: 0 35px 50px 0;
+		/* 도훈이 주석
 		position : absolute;
 		top: 30px;
 		left : 300px;
 		font-size: 18px;
-		width: 221px;
-  
-}
-      
+		width: 221px; */
+	}
+	.isAdmin-box{
+		width: 60px;
+	    position: absolute;
+	    right: 60px;
+	    top: 39px;
+	}
+	.isAdmin{
+		margin: 0;
+		padding-bottom: 1px;
+		border-bottom: 1.5px solid #95df95;
+		font-size: 14px;
+		text-align: center;
+	}
+	.chkd-inter{
+		border-left: 2px solid #95df95;
+		border-right: 2px solid #95df95;
+		padding: 0px 50px;
+		border-radius: 10px;
+	}
 	.additionalInfo{
+		/* 도훈이 주석
 		position : absolute;
 		top: 30px;
 		right: 10px;
 		font-size: 18px;
-		width : 336px;
-      	
-}
+		width : 336px; */
+	}
       
 	.is_admin{
+	/*  도훈이 주석
 		position : absolute;
 		top: 10px;
 		right: 298px;
 		font-size: 14px;
 		text-decoration: underline;
 		text-decoration-color: #08ffb3; 
-		text-decoration-thickness: 2px;
+		text-decoration-thickness: 2px; */
+	}
 	
-}
       
 	.delUser{
+		position: absolute;
+		bottom: 8px;
+		/* 도훈이 주석 
 		position : absolute;
 		top: 15px;
-		right: -24px;
+		right: -7px; */
 		cursor: pointer;
 		font-size: 14px;
 		width : 80px;
 }
 
 	.changeInfo{
-		position : absolute;
-		top: 312px; 
-		right: -9px;
-		cursor: pointer;
-		font-size: 18px;
-		font-weight: bold;
-		width : 120px;
-}
+		color: grey;
+	    bottom: -24px;
+	    position: absolute;
+	    cursor: pointer;
+	    font-size: 18px;
+	    font-weight: bold;
+	    width: 120px;
+	    right: -25px;
+	}
+	.changeInfo:hover{
+		color: #95df95;
+	}
+
+	.myPage-vertical{
+		width: 100%;
+		border: 1px solid lightgrey; 
+		position: absolute;
+		top: 400px;
+	}
 	
 	/* .tabContainer {
 		position : absolute;
@@ -98,33 +160,46 @@
 
 
 } */
+	.tabContainer{
+		height: 400px;
+	    position: absolute;
+	    bottom: 14px;
+	    width: 1000px;
+	}
+	.tab-box{
+	    width: 100%;
+	}
 
 	ul.tabs{
+/* 		도훈이 주석
 		position : absolute;
-		top : 383px;
-		margin: 0px;
+		top : 383px; */
+		margin: 2px;
 		padding: 0px;
 		list-style: none;
-}
+		text-align: center;
+		font-size: 17px;
+		font-weight: 600;
+	}
 
 	ul.tabs li{
+		width: 320px; 
 		display: inline-block;
 		padding: 10px 15px;
 		margin: -3px;
 		cursor: pointer;
-		border: solid #b0b5b4;
-		border-radius : 5px;
-		border-bottom: none;
-		background-color : #d8f3ec;
+		border: 1.5px solid #b0b5b4;
+		border-radius : 5px 5px 0 0;
+		border-bottom-color : #95df95;
 }
 
 	ul.tabs li.current{
-		width: 173px; 
+		width: 330px; 
 	    height: 53px; 
 	    line-height: 40px; 
 	    font-weight: bold;
-	    border: solid #b0b5b4;
-		border-bottom-color : #d8f3ec;
+	    border: 1.5px solid #b0b5b4;
+		border-bottom: none;
 }
 
 	.tab-content{
@@ -302,15 +377,12 @@
 			border-bottom:0;
 			
 		} */
-		
 		#listContainer {
-			position : absolute;
-			display: flex;
-		    top: 489px;
-		    left : 0px;
-		    width : 100%;
-		    overflow-x:auto; 
-		    white-space:nowrap; 
+			height: 339px;
+		    display: flex;
+		    width: 100%;
+		    overflow-x: auto;
+		    overflow-y: hidden;
 		}
 		
 		.titleLink{
@@ -583,120 +655,190 @@ input[name="password"] {
 	    font-weight : bold;
 	}
 	
-	
-
     </style>
 </head>
 <body>
 <c:import url="/main/header" />
-<div id=container>
- <h3>마이페이지</h3>
- 
-	<div class="profileContainer">
- 	<c:set var="myPageImg" value="${dto.profile_image}" />
- 	<c:choose>
-    <c:when test="${not empty myPageImg}">
-        <img src="/photo/${myPageImg}" width="180" height="220" class="myPageImg">
-    </c:when>
-    <c:otherwise>
-        <img src="/invegan/resources/main/profile.jpg" width="180" height="220" class="myPageImg">
-    </c:otherwise>
-</c:choose>
-  	<%-- <div class="myPageImg">
-        <img src="/photo/${myPageImg}" width="180" height="220">
-
-    </div> --%>
-    
-   	<div class="userInfo">
-        <label>가입 날짜 :</label> ${dto.join_date}<br>
-        <label>아이디 : </label> ${dto.id}<br>
-        <label>생년월일 : </label> ${dto.birthdate}<br>
-        <label>성별 : </label> ${dto.gender}<br>
-        
-
-    </div>
-    
-    <div class="is_admin">
-	    <c:choose>
-	        <c:when test="${dto.is_admin==1}">
-	            관리자
-	        </c:when>
-	        <c:otherwise>
-	            일반회원
-	        </c:otherwise>
+<div id="mypage-container">
+	<div class="isAdmin-box">
+		<c:choose>
+	        <c:when test="${dto.is_admin==1}"><p class="isAdmin">관리자</p></c:when>
+	        <c:otherwise><p class="isAdmin">일반회원</p></c:otherwise>
 	    </c:choose>
-    </div>
-   
-   	<div class="additionalInfo">
-        <label>닉네임 : </label> ${dto.nickname}<br>
-        <label>비건타입 : </label>  <c:if test="${dto.vegan_type eq '1' }"> 
-           플루테리언
-        </c:if> <c:if test="${dto.vegan_type eq '2' }"> 
-           비건
-        </c:if> <c:if test="${dto.vegan_type eq '3' }"> 
-           락토
-        </c:if> <c:if test="${dto.vegan_type eq '4' }"> 
-           오보
-        </c:if> <c:if test="${dto.vegan_type eq '5' }"> 
-           락토오보
-        </c:if> <c:if test="${dto.vegan_type eq '6' }"> 
-           폴로
-        </c:if> <c:if test="${dto.vegan_type eq '7' }"> 
-           페스코
-        </c:if> <c:if test="${dto.vegan_type eq '8' }"> 
-           폴로페스코
-        </c:if> <c:if test="${dto.vegan_type eq '9' }"> 
-           플렉시테리언
-        </c:if><br>
-        <label>비건목적 </label><br>${dto.vegan_purpose}<br>
-        <label>관심사</label><br>${dto.interests}
-		<input type="hidden" name="id" value="${dto.id}"/>
-		<input type="hidden" name="user_no" value="${dto.user_no}"/>
-
-    </div>
 	</div>
-	<div class="changeInfo">회원정보 변경</div>
-	<div class="delUser" onclick="confirmDelete(${dto.user_no})">회원탈퇴</div>
-	
-<div class="tabContainer">
-	<ul class="tabs">
-		<li class="tab-link current" data-tab="tab-1">작성한 피드 모아보기</li>
-		<li class="tab-link" data-tab="tab-2">댓글 모아보기</li>
-		<li class="tab-link" data-tab="tab-3">나의 스크랩</li>
-	</ul>
-	
-	<div id="tab-1" class="tab-content current">
-		<h3>내가 작성한 피드 보기</h3>
-	</div>
-	
-	<div id="tab-2" class="tab-content">
-		<h3>내가 작성한 댓글 보기</h3>
-		<!-- <div class="button">
-			<input type="button" value="레시피"/>
-			<input type="button" value="자유게시판"/>
-			<input type="button" id = "restaurantBtn" value="식당"/>
-			<input type="button" id = "feedBtn" value="피드"/>
-		</div> -->
-	</div>
+	<div class="profileContainer">
+	 	<c:set var="myPageImg" value="${dto.profile_image}" />
+	 	<c:choose>
+		    <c:when test="${not empty myPageImg}">
+		        <img src="/photo/${myPageImg}" width="180" height="220" class="myPageImg">
+		    </c:when>
+		    <c:otherwise>
+		        <img src="/invegan/resources/main/profile.jpg" width="180" height="220" class="myPageImg">
+		    </c:otherwise>
+		</c:choose>
+		<div class="profile-vertical-line"></div>	<!-- 가로선 -->
+	  	<%-- <div class="myPageImg">
+	        <img src="/photo/${myPageImg}" width="180" height="220">
+	    </div> --%>
+	    
+		<%-- 도훈이 주석	 
+	   <div class="is_admin">
+		    <c:choose>
+		        <c:when test="${dto.is_admin==1}">
+		            관리자
+		        </c:when>
+		        <c:otherwise>
+		            일반회원
+		        </c:otherwise>
+		    </c:choose>
+	    </div> --%>
+	    
+	    <div class="userInfo">
+	    	<table>
+	    		
+	    		<tr>
+	    			<td>가입날짜</td><td>${dto.join_date}</td>
+	    		</tr>
+	    		<tr>
+	    			<td>아이디</td><td>${dto.id}</td>
+	    		</tr>
+	    		<tr>
+	    			<td>생년월일</td><td>${dto.birthdate}</td>
+	    		</tr>
+	    		<tr>
+	    			<td>성별</td><td>${dto.gender}</td>
+	    		</tr>
+	    	</table>
+	    	
+		   	<%-- 도훈이 주석 
+		   	<div class="userInfo-title">
+		        <label>가입날짜</label><br>
+		        <label style="letter-spacing:9px;">아이디</label><br>
+		        <label>생년월일</label><br>
+		        <label style="letter-spacing:34px;">성별</label>
+		    </div>
+		    <div class="userInfo-value">
+		    	<p>${dto.join_date}</p>
+		        <p>${dto.id}</p>
+		        <p>${dto.birthdate}</p>
+		        <p>${dto.gender}</p>
+		    </div> --%>
+	    </div>
+	   
+	   	<div class="additionalInfo">
+	   		<table>
+	   			
+	   			<tr>
+	   				<td>닉네임</td>
+	   				<td>${dto.nickname}</td>
+	   			</tr>
+	   			<tr>
+	   				<td>비건타입</td>
+	   				<td>
+	   					<c:if test="${dto.vegan_type eq '1' }">플루테리언</c:if>
+				        <c:if test="${dto.vegan_type eq '2' }">비건</c:if> 
+				        <c:if test="${dto.vegan_type eq '3' }">락토</c:if> 
+				        <c:if test="${dto.vegan_type eq '4' }">오보</c:if> 
+				        <c:if test="${dto.vegan_type eq '5' }">락토오보</c:if> 
+				        <c:if test="${dto.vegan_type eq '6' }">폴로</c:if> 
+				        <c:if test="${dto.vegan_type eq '7' }">페스코</c:if> 
+				        <c:if test="${dto.vegan_type eq '8' }">폴로페스코</c:if> 
+				        <c:if test="${dto.vegan_type eq '9' }">플렉시테리언</c:if>
+	   				</td>
+	   			</tr>
+	   			<tr>
+	   				<td>비건목적</td><td>${dto.vegan_purpose}</td>
+	   			</tr>
+	   			<tr>
+	   				<td>관심사</td>
+	   				<td>
+		   				<div class="chkd-inter">
+			   				<input disabled="disabled" type="checkbox" name="interests" value="식당" id="interests" ${fn:contains(dto.interests, '식당') ? 'checked' : ''}/> 식당
+							<input disabled="disabled" type="checkbox" name="interests" value="레시피" id="interests" ${fn:contains(dto.interests, '레시피') ? 'checked' : ''}/> 레시피
+							<input disabled="disabled" type="checkbox" name="interests" value="식품" id="interests" ${fn:contains(dto.interests, '식품') ? 'checked' : ''}/> 식품
+							<br>
+							<input disabled="disabled" type="checkbox" name="interests" value="뷰티" id="interests" ${fn:contains(dto.interests, '뷰티') ? 'checked' : ''}/> 뷰티
+							<input disabled="disabled" type="checkbox" name="interests" value="패션" id="interests" ${fn:contains(dto.interests, '패션') ? 'checked' : ''}/> 패션
+							<input disabled="disabled" type="checkbox" name="interests" value="일상" id="interests" ${fn:contains(dto.interests, '일상') ? 'checked' : ''}/> 일상
+		   				</div>
+	   				</td>
+	   			</tr>
+	   		</table>
+	   		
+<%-- 	   도훈이 주석
+		    <label>닉네임 : </label> ${dto.nickname}<br>
+	        <label>비건타입 : </label>  
+	        <c:if test="${dto.vegan_type eq '1' }"> 
+	           플루테리언
+	        </c:if> <c:if test="${dto.vegan_type eq '2' }"> 
+	           비건
+	        </c:if> <c:if test="${dto.vegan_type eq '3' }"> 
+	           락토
+	        </c:if> <c:if test="${dto.vegan_type eq '4' }"> 
+	           오보
+	        </c:if> <c:if test="${dto.vegan_type eq '5' }"> 
+	           락토오보
+	        </c:if> <c:if test="${dto.vegan_type eq '6' }"> 
+	           폴로
+	        </c:if> <c:if test="${dto.vegan_type eq '7' }"> 
+	           페스코
+	        </c:if> <c:if test="${dto.vegan_type eq '8' }"> 
+	           폴로페스코
+	        </c:if> <c:if test="${dto.vegan_type eq '9' }"> 
+	           플렉시테리언
+	        </c:if><br>
+	        <label>비건목적 </label><br>${dto.vegan_purpose}<br>
+	        <label>관심사</label><br>${dto.interests} --%>
+			<input type="hidden" name="id" value="${dto.id}"/>
+			<input type="hidden" name="user_no" value="${dto.user_no}"/>
+	    </div>
+		<div class="changeInfo">회원정보 변경</div>
 		
-	<div id="tab-3" class="tab-content">
-		<h3>내가 스크랩한 식당 보기</h3>	
 	</div>
 	
-	<!-- list 그리는 부분 -->
-	<div id="listContainer" >
+	
+	<div class="tabContainer">
+		<div class="tab-box">
+			<ul class="tabs">
+				<li class="tab-link current" data-tab="tab-1">작성한 피드 모아보기</li>
+				<li class="tab-link" data-tab="tab-2">댓글 모아보기</li>
+				<li class="tab-link" data-tab="tab-3">나의 스크랩</li>
+			</ul>
+		</div>
+		
+		<!-- <div id="tab-1" class="tab-content current">
+			<h3>내가 작성한 피드 보기</h3>
+		</div> -->
+		
+		<div id="tab-2" class="tab-content">
+			<!-- <h3>내가 작성한 댓글 보기</h3> -->
+			<!-- <div class="button">
+				<input type="button" value="레시피"/>
+				<input type="button" value="자유게시판"/>
+				<input type="button" id = "restaurantBtn" value="식당"/>
+				<input type="button" id = "feedBtn" value="피드"/>
+			</div> -->
+		</div>
+			
+		<!-- <div id="tab-3" class="tab-content">
+			<h3>내가 스크랩한 식당 보기</h3>	
+		</div> -->
+		
+		<!-- list 그리는 부분 -->
+		<div id="listContainer" >
+		
+		</div>
 	
 	</div>
-	
-</div>
-	
+	<!-- 	
 	<div class="pageContainer">									
 		<nav aria-label="Page navigation" style="text-align:center">
 			<ul class="pagination" id="pagination"></ul>
 		</nav>					
-	</div>
+	</div> -->
 </div>
 
+<!-- 회원 정보 변경 모달 -->
 <div class="modal" id="updateModal">
     <div class="modal-content">
         <h1>회원정보변경</h1>
@@ -706,8 +848,8 @@ input[name="password"] {
 			        <img src="/photo/${myPageImg}" id= updateImg width="150" height="150">
 			    </c:when>
 			    <c:otherwise>
-		        <img src="/invegan/resources/main/profile.jpg" id= updateImg width="150" height="150">
-		    </c:otherwise>
+		       		<img src="/invegan/resources/main/profile.jpg" id= updateImg width="150" height="150">
+		    	</c:otherwise>
 			</c:choose>
         	
         	<div class="plusImg">+</div>
@@ -735,7 +877,7 @@ input[name="password"] {
 				<input type="checkbox" name="interests" value="식당" id="interests" ${fn:contains(dto.interests, '식당') ? 'checked' : ''}/> 식당
 				<input type="checkbox" name="interests" value="레시피" id="interests" ${fn:contains(dto.interests, '레시피') ? 'checked' : ''}/> 레시피
 				<input type="checkbox" name="interests" value="식품" id="interests" ${fn:contains(dto.interests, '식품') ? 'checked' : ''}/> 식품
-				<p>
+				<br>
 				<input type="checkbox" name="interests" value="뷰티" id="interests" ${fn:contains(dto.interests, '뷰티') ? 'checked' : ''}/> 뷰티
 				<input type="checkbox" name="interests" value="패션" id="interests" ${fn:contains(dto.interests, '패션') ? 'checked' : ''}/> 패션
 				<input type="checkbox" name="interests" value="일상" id="interests" ${fn:contains(dto.interests, '일상') ? 'checked' : ''}/> 일상
@@ -780,8 +922,13 @@ input[name="password"] {
 				</td>
 			</tr>
 			</table>
+
 			<div class="save" style=cursor:pointer id="fileSave">저장하기</div>
      
+
+			<div class="save" style=cursor:pointer>저장하기</div>
+     		<div class="delUser" onclick="confirmDelete(${dto.user_no})">회원탈퇴</div>
+
         <span class="close">&times;</span>
    	</div>
 </div>
