@@ -81,6 +81,14 @@
 input[type="radio"] ,input[type="checkbox"]{
   vertical-align: middle; 
 }
+input[type="radio"]:hover{
+	cursor: pointer;
+}
+input[type="radio"]:hover + p {
+      color: #95df95;
+      cursor: pointer;
+}
+
 .box{
 	width: 95px;
 	border: none;
@@ -96,6 +104,11 @@ input[type="radio"] ,input[type="checkbox"]{
 
 option{
 	color: black;
+}
+
+.signup-gender p{
+	margin: 0;
+	display: inline-block;
 }
 
 /* table, tr, td {
@@ -206,8 +219,10 @@ option{
 					</tr>
 					<tr>
 						<th>성별</th>
-						<td colspan="2"><input type="radio" name="gender" value="남"
-							checked />남자 <input type="radio" name="gender" value="여" />여자</td>
+						<td class="signup-gender">
+							<input type="radio" name="gender" value="남"checked /><p>남자</p>
+							<input type="radio" name="gender" value="여" /><p>여자</p>
+						</td>
 					</tr>
 					<tr>
 						<th><label for="vegan_type">식단 유형</label></th>
@@ -232,16 +247,16 @@ option{
 						<td id="v-purpose">
 							<input type="radio" name="vegan_purpose" value="질병으로 인한 동물성 식품 섭취불가" checked="checked"/>
 							<p>질병으로 인한 동물성 식품 섭취불가</p><br/>
-							<input type="radio" name="vegan_purpose" value="건강 개선" />
-							<p>건강 개선</p><br/>
-							<input type="radio" name="vegan_purpose" value="체중 조절 및 미용" />
+							<input type="radio" name="vegan_purpose" value="건강 개선을 위해" />
+							<p>건강 개선을 위해</p><br/>
+							<input type="radio" name="vegan_purpose" value="체중 조절 및 미용 목적" />
 							<p>체중 조절 및 미용</p><br/>
-							<input type="radio" name="vegan_purpose" value="동물 학대를 방지" />
-							<p>동물학대를 방지</p><br/>
-							<input type="radio" name="vegan_purpose" value="환경 문제" />
-							<p>환경 문제</p><br/>
-							<input type="radio" name="vegan_purpose" value="개인적인 신념이나 종교" />
-							<p>개인적인 신념이나 종교</p>
+							<input type="radio" name="vegan_purpose" value="동물 학대를 방지하기 위해" />
+							<p>동물 학대를 방지하기 위해</p><br/>
+							<input type="radio" name="vegan_purpose" value="환경 문제를 개선하기위해" />
+							<p>환경 문제를 개선하기위해</p><br/>
+							<input type="radio" name="vegan_purpose" value="개인적인 신념이나 종교로 인해" />
+							<p>개인적인 신념이나 종교로 인해</p>
 						</td>
 					</tr>
 					<tr>
