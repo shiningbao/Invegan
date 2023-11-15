@@ -259,8 +259,8 @@ public class MyPageController {
 		// 프로필 이미지 등록
 		@RequestMapping(value="/myPage/imgUpload",method=RequestMethod.POST)
 		@ResponseBody 
-		public String imgUpload(HttpSession session, @RequestParam("photo") MultipartFile photo, @RequestParam Integer user_no) throws IOException {
-		logger.info("file :"+photo.getOriginalFilename()+"/user_no : "+user_no);
+		public String imgUpload(HttpSession session, @RequestParam MultipartFile photo, @RequestParam Integer user_no) throws IOException {
+		logger.info(photo.getOriginalFilename()+"/user_no : "+user_no);
 		
 		
 		  service.imgUpload(session,photo,user_no);

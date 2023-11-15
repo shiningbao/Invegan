@@ -23,7 +23,7 @@
     LEFT JOIN 
         ImageTable it ON m1.user_no = it.idx AND it.category = '회원'
     WHERE 
-        m1.user_no = #{session.user_no}
+        m1.user_no = #{session.user_no} ORDER BY it.image_id DESC LIMIT 1
 	</select>
 	
 	<select id="overlay" resultType="int">
