@@ -1207,68 +1207,68 @@ $('.completePw').on('click',function(){
 	}
 });
 
-// 회원 정보 변경 저장하기 
+//회원 정보 변경 저장하기 
 $('.save').on('click',function(){
-	
-	var user_no = $('input[name="user_no"]').val();
-	var interests = [];
-	    $('input[name="interests"]:checked').each(function() {
-	        interests.push($(this).val());
-	    });
+    var user_no = $('input[name="user_no"]').val();
+    var interests = [];
+    // 실제로 체크된 체크박스만 선택
+    $('input[name="interests"]:checked').each(function() {
+        interests.push(this.value);
+    });
+
     var vegan_type = $('select[name="vegan_type"]').val();
     var vegan_purpose = $('input[name="vegan_purpose"]:checked').val();
     console.log(user_no + '/' + interests + '/' + vegan_type + '/' + vegan_purpose);
-    
+
     var param = {
         user_no: user_no,
         vegan_type: vegan_type,
         vegan_purpose: vegan_purpose,
         interests: interests.join(',')
     };
-	
-	if(interests==''){
-		swal({
-	  	      title: "관심사를 선택해주세요.",
-	  	      text: "",
-	  	      icon: "info"
-	  	  });
-	}else if(vegan_purpose==undefined){
-		swal({
-	  	      title: "나의 비건 목적을 선택해주세요.",
-	  	      text: "",
-	  	      icon: "info"
-	  	  });
-	}else if(vegan_type==0){
-		swal({
-	  	      title: "나의 비건 단계를 선택해주세요.",
-	  	      text: "",
-	  	      icon: "info"
-	  	  });
-	}else{
-	$.ajax({
-		type:'get', 
-		url:	'save',
-		data: param,
-		dataType:'JSON',
-		success: function(data){
-			console.log(data);
-			if(data.cnt>0){
-				swal({
-			  	      title: "변경이 완료 되었습니다.",
-			  	      text: "",
-			  	      icon: "success"
-			  	  });
-				location.reload();
-			}
-			
-		}, 
-		error: function(error){
-			console.log(error);
-		}
-	});
-	}
-});
 
+    if(interests.length === 0){
+        swal({
+              title: "관심사를 선택해주세요.",
+              text: "",
+              icon: "info"
+          });
+    } else if(vegan_purpose === undefined){
+        swal({
+              title: "나의 비건 목적을 선택해주세요.",
+              text: "",
+              icon: "info"
+          });
+    } else if(vegan_type == 0){
+        swal({
+              title: "나의 비건 단계를 선택해주세요.",
+              text: "",
+              icon: "info"
+          });
+    } else {
+        $.ajax({
+            type: 'get',
+            url: 'save',
+            data: param,
+            dataType: 'JSON',
+            success: function(data){
+                console.log(data);
+                if(data.cnt > 0){
+                    swal({
+                          title: "변경이 완료 되었습니다.",
+                          text: "",
+                          icon: "success"
+                      });
+                    location.reload();
+                }
+
+            },
+            error: function(error){
+                console.log(error);
+            }
+        });
+    }
+});
 //회원탈퇴
 function confirmDelete(user_no) {
     swal({
