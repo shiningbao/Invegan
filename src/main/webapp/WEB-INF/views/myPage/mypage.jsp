@@ -780,7 +780,7 @@ input[name="password"] {
 				</td>
 			</tr>
 			</table>
-			<div class="save" style=cursor:pointer>저장하기</div>
+			<div class="save" style=cursor:pointer id="fileSave">저장하기</div>
      
         <span class="close">&times;</span>
    	</div>
@@ -816,15 +816,32 @@ window.onclick = function(event) {
 }
 
 
+
 	 var image = '${dto.profile_image}';
-	 console.log(image);
-	 
-
-
  $('.plusImg').on('click', function(){
     $('#photo').click();
+    console.log('image:'+image);
     
 });
+ 
+ // 첨부 이미지 선택하면 이미지 보이기
+ $('#photo').on('change', function() {
+	    var fileInput = this;
+	    var user_no = $('input[name="user_no"]').val();
+	    var previewImg = $('#updateImg');
+
+	    if (fileInput.files && fileInput.files[0]) {
+	        var reader = new FileReader();
+
+	        reader.onload = function(e) {
+	            previewImg.attr('src', e.target.result);
+	        };
+
+	        reader.readAsDataURL(fileInput.files[0]);
+	        console.log('Selected image:', fileInput.files[0]);
+	    }
+	   
+	});
  
 // mypage profileImage가 비어있는 상태에서 +버튼 클릭시 profileImage 등록 가능 
 if(image==''){
@@ -875,7 +892,7 @@ $('#photo').on('change', function() {
 	    
 	});
 	
-}
+} 
 
 // 닉네임 중복체크 
 var overlayChk = false;
