@@ -27,7 +27,7 @@ public class MyPageService {
 	@Autowired
 	MyPageDAO dao;
 
-	private String root = "C:/upload/";
+	private String root = "C:/upload";
 
 	public MyPageDTO userInfo(int user_no) {
 

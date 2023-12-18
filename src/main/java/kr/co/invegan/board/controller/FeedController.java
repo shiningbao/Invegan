@@ -41,7 +41,7 @@ public class FeedController {
 		return "feed/feedWrite"; // feedWrite.jsp로 이동
 	}
 
-	@RequestMapping(value = "write")
+	@RequestMapping(value ="write")
 	@ResponseBody
 	public String write(HttpSession session, Model model, @RequestParam HashMap<String, String> params,
 			@RequestParam("photos") MultipartFile[] uploadimages) throws Exception {

@@ -32,7 +32,7 @@ public class RestaurantService {
 
 	Logger logger = LoggerFactory.getLogger(getClass());
 
-	private String root = "C:/upload/";
+	private String root = "C:/upload";
 	
 	// 작성 메서드
 	public String restaurantWrite(int user_no, MultipartFile[] uploadImages, HashMap<String, Object> param){
