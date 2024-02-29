@@ -27,7 +27,7 @@ public class MyPageService {
 	@Autowired
 	MyPageDAO dao;
 
-	private String root = "C:/upload";
+	private String root = "C:/upload/invegan/";
 
 	public MyPageDTO userInfo(int user_no) {
 
@@ -181,10 +181,9 @@ public class MyPageService {
 	     session.setAttribute("loginInfo", loginInfo);
 	     loginInfo.setProfile_img(server_file_name);
 	        
-		 dao.imgModify(server_file_name,user_no);
-
-			 
-	 }
+		 dao.imgModify(server_file_name,user_no);		 
+		 
+		 }
 	}
 
 	public ArrayList<MyPageDTO> requestBoardList(Integer user_no) {

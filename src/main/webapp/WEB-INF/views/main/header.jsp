@@ -43,10 +43,11 @@ body::-webkit-scrollbar {
 	width: 126px;
     height: 104px;
 }
-.header-logoImg{
-	position: fixed;
-    left: 6px;
-}
+ .header-logoImg{
+	position : relative;
+	float : left;
+    /* left: 6px; */
+} 
 .header-logoImg img:hover{
 	cursor: pointer;
 }
@@ -90,8 +91,9 @@ body::-webkit-scrollbar {
 }
 
 .loginInfo{
-	position: fixed;
-	right: 42px;
+	position : relative;
+	float:right;
+	/* right: 42px; */
     top: 5px;
     z-index: 10;
 }
@@ -153,25 +155,10 @@ body::-webkit-scrollbar {
 </head>
 <body>
 <header>
-
-<div id="header-container">
-	
-		<div class = "header-logoImg">
-			<img src="<c:url value='/resources/main/invegan_logo_master.png'/>"  alt="Logo Img" id="Logo"/>
-		</div>
-		<div class="header-navbar">
-			<nav class="header-nav">
-				<ul class="header-nav_list">
-					<li class="header-nav_item"><a id="go_diet" href="<c:url value='/diet/dietCalander'/>">식단관리</a></li>
-					<li class="header-nav_item" id="go_rest"><a href="<c:url value='/restaurant/list'/>">비건식당</a></li>
-					<li class="header-nav_item"><a id="go_feed" href="<c:url value='/feed/list.go'/>">피드</a></li>
-					<c:if test="${not empty loginInfo}">
-						<li class="header-nav_item"><a id="go_myPage" href="<c:url value='/myPage/info.go'/>">MyPage</a></li>
-					</c:if>
-				</ul>
-			</nav>
-		</div>
-		<div class="loginInfo">
+<div class = "header-logoImg">
+	<img src="<c:url value='/resources/main/invegan_logo_master.png'/>"  alt="Logo Img" id="Logo"/>
+</div>
+<div class="loginInfo">
 			<!-- 로그인 안했을 때 -->
 			<c:if test="${empty loginInfo}">
 				<p id="header-loginBtn">Login</p>
@@ -193,6 +180,22 @@ body::-webkit-scrollbar {
 				</div> 
 			</c:if>
 		</div>
+<div id="header-container">
+
+	
+		<div class="header-navbar">
+			<nav class="header-nav">
+				<ul class="header-nav_list">
+					<li class="header-nav_item"><a id="go_diet" href="<c:url value='/diet/dietCalander'/>">식단관리</a></li>
+					<li class="header-nav_item" id="go_rest"><a href="<c:url value='/restaurant/list'/>">비건식당</a></li>
+					<li class="header-nav_item"><a id="go_feed" href="<c:url value='/feed/list.go'/>">피드</a></li>
+					<c:if test="${not empty loginInfo}">
+						<li class="header-nav_item"><a id="go_myPage" href="<c:url value='/myPage/info.go'/>">MyPage</a></li>
+					</c:if>
+				</ul>
+			</nav>
+		</div>
+		
 		<!-- 모달 창 -->
 		<div id="login-modal" class="login-modal">
 		    <div class="modal-content">

@@ -262,8 +262,7 @@ public class MyPageController {
 		public String imgUpload(HttpSession session, @RequestParam MultipartFile photo, @RequestParam Integer user_no) throws IOException {
 		logger.info(photo.getOriginalFilename()+"/user_no : "+user_no);
 		
-		
-		  service.imgUpload(session,photo,user_no);
+		service.imgUpload(session,photo,user_no);
 
 		  return "update 성공"; 
 		}
@@ -273,12 +272,9 @@ public class MyPageController {
 		@ResponseBody 
 		public String imgModify(HttpSession session, @RequestParam("photo") MultipartFile photo, @RequestParam Integer user_no) throws IOException {
 		logger.info("file :"+photo.getOriginalFilename()+"/user_no : "+user_no);
-		
-		
-		 service.imgModify(session,photo,user_no);
-		 
 
-		  return "update 성공"; 
+		 service.imgModify(session,photo,user_no);
+		 return "update 성공"; 
 		}
 		  
 	 

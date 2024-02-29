@@ -27,12 +27,10 @@
 		width: 1000px;
 		margin: 0px auto;
 	}
-	
 	.profileContainer {
 		position : absolute;
 		margin: 40px 0;
 	}
-	
 	.profileContainer div{
 		display: inline-block;
 		
@@ -592,28 +590,12 @@ input[name="password"] {
 	    font-weight : bold;
 	}
 	
-	#menu{
-		position : relative;
-	}
-	
-	#menuList{
-		list-style: none; /* list 점 없애기 */
-	}
-
     </style>
 </head>
 
 <body>
 <c:import url="/main/header" />
-<div id="menu">
-	<ul id="menuList">
-		<li>내 프로필</li>
-		<li>내가 작성한 피드</li>
-		<li>나의 스크랩</li>
-	</ul>	
-</div>
 <div id="mypage-container">
-	
 	<div class="isAdmin-box">
 		<c:choose>
 	        <c:when test="${dto.is_admin==1}"><p class="isAdmin">관리자</p></c:when>
