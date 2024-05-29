@@ -46,7 +46,8 @@
 		SELECT
 	    it.server_file_name,
 	    m.nickname,
-	    b.content
+	    b.content,
+	    b.post_id
 		FROM
 		    Members m
 		JOIN
@@ -58,14 +59,14 @@
 	</select>
 	
 	<delete id="delUser" parameterType="int">
-		delete from Favorite where user_no=#{user_no}; 
+		<!-- delete from Favorite where user_no=#{user_no}; 
 		delete from Comments where user_no=#{user_no}; 
 		delete from FeedTags where post_id in (select post_id from Board where user_no=#{user_no}); 
 		delete from Board where user_no=#{user_no};
 		delete from Material where menu_id in (select menu_id from Menu where user_no=#{user_no});
 		delete from Diet_composition where menu_id in (select menu_id from Menu where user_no=#{user_no}); 
 		delete from Menu where user_no=#{user_no}; 
-		delete from Diet where user_no=#{user_no}; 
+		delete from Diet where user_no=#{user_no};  -->
 		delete from Members where user_no=#{user_no};	  
 	</delete>
 

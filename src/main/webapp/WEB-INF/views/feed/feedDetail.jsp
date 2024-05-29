@@ -142,7 +142,7 @@ $(document).ready(function(){
      
      $.ajax({
          type: 'GET',
-         url: 'feed/feedDetailCall', // 데이터를 제공하는 서버의 엔드포인트로 변경
+         url: '/invegan/feed/feedDetailCall', // 데이터를 제공하는 서버의 엔드포인트로 변경
          data: { post_id: post_id },
          success: function(data) {
              drawdetailList(data.detailList,data.findBoardUserno,data.user_no,data.is_admin); // 게시글 상세보기 리스트

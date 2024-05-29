@@ -2,7 +2,6 @@ package kr.co.invegan.mypage.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,7 +34,6 @@ public class MyPageController {
 
 	@RequestMapping(value = "/myPage/info.go")
 	public String infoGo(Model model, HttpSession session) {
-
 		int user_no = ((MemberDTO) session.getAttribute("loginInfo")).getUser_no();
 		
 		if (user_no != 0) {
@@ -53,7 +51,6 @@ public class MyPageController {
 	@RequestMapping(value = "/myPage/feedListCall")
 	@ResponseBody
 	public HashMap<String, Object> feedListCall(@RequestParam String tabType, @RequestParam Integer user_no) {
-
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		ArrayList<MyPageDTO> list = null;
 		// String page = params.get("page");
@@ -111,10 +108,8 @@ public class MyPageController {
 	@RequestMapping(value = "/myPage/feedCmListCall")
 	@ResponseBody
 	public HashMap<String, Object> feedCmListCall(@RequestParam String tabType, @RequestParam Integer user_no) {
-
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		ArrayList<MyPageDTO> fcmList = null;
-
 
 		logger.info(tabType+"/"+user_no);
 	
@@ -155,7 +150,6 @@ public class MyPageController {
 	@RequestMapping(value = "/myPage/favoriteListCall")
 	@ResponseBody
 	public HashMap<String, Object> favoriteListCall(@RequestParam String tabType, @RequestParam Integer user_no) {
-
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		ArrayList<MyPageDTO> favList = null;
 		
@@ -202,8 +196,7 @@ public class MyPageController {
 		
 		int cnt = service.updateNickname(nickname, user_no);
 	   
-	    if (cnt > 0) {
-	        
+	    if (cnt > 0) {	        
 	        MemberDTO loginInfo = (MemberDTO) session.getAttribute("loginInfo");
 	        loginInfo.setNickname(nickname);
 	        session.setAttribute("loginInfo", loginInfo);
@@ -241,6 +234,7 @@ public class MyPageController {
 			logger.info("수정여부:" + completePw);
 			map.put("completePw", completePw);
 		}
+		
 		return map;
 	}
 
@@ -250,32 +244,38 @@ public class MyPageController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		logger.info(params.get("user_no") + "/" + params.get("interests") + "/" + params.get("vegan_type") + "/"
 				+ params.get("vegan_purpose"));
+		
 		int cnt = service.save(params);
 		logger.info("수정 여부:" + cnt);
 		map.put("cnt", cnt);
 
 		return map;
 	}
+	
 		// 프로필 이미지 등록
 		@RequestMapping(value="/myPage/imgUpload",method=RequestMethod.POST)
 		@ResponseBody 
 		public String imgUpload(HttpSession session, @RequestParam MultipartFile photo, @RequestParam Integer user_no) throws IOException {
-		logger.info(photo.getOriginalFilename()+"/user_no : "+user_no);
-		
-		service.imgUpload(session,photo,user_no);
+			logger.info(photo.getOriginalFilename()+"/user_no : "+user_no);
+			
+			service.imgUpload(session,photo,user_no);
 
-		  return "update 성공"; 
+			return "update 성공"; 
 		}
 		
 		// 프로필 이미지 수정
 		@RequestMapping(value="/myPage/imgModify",method=RequestMethod.POST)
 		@ResponseBody 
 		public String imgModify(HttpSession session, @RequestParam("photo") MultipartFile photo, @RequestParam Integer user_no) throws IOException {
-		logger.info("file :"+photo.getOriginalFilename()+"/user_no : "+user_no);
+			logger.info("file :"+photo.getOriginalFilename()+"/user_no : "+user_no);
 
-		 service.imgModify(session,photo,user_no);
-		 return "update 성공"; 
+			service.imgModify(session,photo,user_no);
+			return "update 성공"; 
 		}
-		  
+		
+		@RequestMapping(value="/myPage/feedDetail")
+		public String feedDetail() {
+			return "feed/feedDetail"; 
+		}
 	 
 }

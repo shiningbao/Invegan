@@ -124,7 +124,7 @@ public class FeedController {
 		return "feed/feedDetail";
 	}
 
-	@RequestMapping(value = {"feedDetailCall", "feed/feedDetailCall"})
+	@RequestMapping(value = {"/feedDetailCall"}, method = RequestMethod.GET)
 	@ResponseBody
 	public HashMap<String, Object> feedDetailCall(HttpSession session, @RequestParam("post_id") int post_id) {
 
