@@ -32,7 +32,7 @@ public class FeedService {
 	FeedDAO dao;
 	PhotoDTO photodto = new PhotoDTO();
 	FeedListDTO feedlistdto = new FeedListDTO();
-	private String root = "C:/upload";
+	private String root = "C:/upload/invegan/";
 
 	public void write(int userno, HashMap<String, String> params, MultipartFile[] uploadimages) throws Exception {
 

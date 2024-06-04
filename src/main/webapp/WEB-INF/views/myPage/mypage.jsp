@@ -14,7 +14,7 @@
 <!-- jquery 는 사용하는 플러그인과 다른 라이브러리와의 충돌 여부를 확인해야 한다. -->
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-<script src="<c:url value='/resources/js/jquery.twbsPagination.js'/>" type="text/javascript"></script>
+<%-- <script src="<c:url value='/resources/js/jquery.twbsPagination.js'/>" type="text/javascript"></script> --%>
 <!-- alert ,cofirm 창 -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
@@ -99,6 +99,7 @@
 		width: 80px;
 		color: grey;
 		float: left;
+		margin: 10px 0px;
 	}
 
 	.changeInfo{
@@ -252,6 +253,7 @@
 		
 	.profile img{
 		width: 30px;
+		height: 35px;
 		border-radius: 50%;
 		margin: 1px;
 	}
@@ -269,7 +271,7 @@
 	}
 	
 	.updateImg{
-		width: 280px;
+		width: 230px;
 		margin: 10px;
 		display: flex;
 	}
@@ -293,6 +295,7 @@
 	    border: none;
 	    border-radius: 4px;
 	    float: right;
+	    margin: 0px 8px;
 	}
 
 	.restaurantPhoto img{
@@ -311,8 +314,8 @@
 	.favDiv{
 		position : relative;
 		display : inline-block;
-		width : 20%;
-		margin : 0px auto 10px auto;
+		/* width : 20%;
+		margin : 0px auto 10px auto; */
 		top : 39px;
 		min-height: 250px;			
 	}
@@ -335,8 +338,8 @@
 	.feedDiv {
 		position : relative;
 		display : inline-block;
-		width : 20%;
-		margin : 0px auto 10px auto;
+		/* width : 20%;
+		margin : 0px auto 10px auto; */
 		top : 39px;
 		min-height: 250px;
 	}
@@ -358,8 +361,8 @@
 	.fCDiv {
 		position : relative;
 		display : inline-block;
-		width : 20%;
-		margin : 0px auto 10px auto;
+		/* width : 20%;
+		margin : 0px auto 10px auto; */
 		top : 39px;
 		min-height: 250px;
 	}
@@ -430,7 +433,7 @@
 	}
 	
 	#updateModal .modal-content {
-		width: 700px;
+		width: 643px;
 		height: 607px;
 	}
 	
@@ -448,6 +451,216 @@
 	
 	#updateFooter{
 		padding : 10px;
+	}
+	
+	.feedComment {
+	width: 310px;
+    height: 45px;
+    padding-left: 10px;
+    font-size: 18px;
+	}
+
+	.post-header img {
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		margin-right: 10px;
+	}
+	
+	.username {
+		font-weight: bold;
+	}
+	
+	.post-caption .username {
+		font-weight: bold;
+	}
+	
+	/* 댓글 스타일 */
+	.post-comments {
+		padding: 10px;
+	}
+	
+	.comment {
+		margin-bottom: 10px;
+	}
+	
+	.comment .username {
+		font-weight: bold;
+	}
+	
+	.side-tag{
+		width: 310px;
+	}
+	
+	.commentFeedWrite {
+		float: right;
+	}
+	
+	.post-del-btn, .post-edit-btn {
+		float: right;
+	}
+	
+	.ui-autocomplete {
+		max-height: 200px;
+		overflow-y: auto;
+		/* prevent horizontal scrollbar */
+		overflow-x: hidden;
+		height: auto;
+	}
+	
+	#autoComplete:focus, #autoComplete:hover {
+		font-weight: 600;
+	}
+	
+	.ui-menu-item div.ui-state-hover, .ui-menu-item div.ui-state-active {
+		color: #ffffff;
+		text-decoration: none;
+		background-color: #f6B664;
+		border-radius: 0px;
+		-webkit-border-radius: 0px;
+		-moz-border-radius: 0px;
+		background-image: none;
+		border: none;
+	}
+	
+	.no-comment {
+		color: gray;
+	}
+	
+	.addBtnSearch, .addBtn {
+		display: none;
+		margin-left: 830px;
+		border: none;
+		background-color: transparent;
+		cursor: pointer;
+	}
+	
+	.addBtnImg {
+		width: 40px;
+	}
+	
+	.btn {
+		width: 100px;
+		margin-top: 5px;
+		margin-bottom: 5px;
+		height: 40px;
+	}
+	
+	.addBtn:disabled {
+		cursor: not-allowed;
+		opacity: 0.5;
+	}
+	
+	.addBtnSearch:disabled {
+		cursor: not-allowed;
+		opacity: 0.5;
+	}
+	
+	.addBtn:disabled:hover::before, .addBtnSearch:disabled:hover::before {
+		content: "마지막 게시글입니다";
+		position: absolute;
+		background-color: #fff; /* 텍스트 배경색 */
+		padding: 5px;
+		border: 1px solid #ccc; /* 텍스트 테두리 스타일 */
+		border-radius: 5px;
+		color: #333; /* 텍스트 색상 */
+	}
+	
+	.btn-success {
+		width: 150px;
+		margin-bottom: 5px;
+		height: 40px;
+	}
+	
+	.mainFeedPhoto {
+		border: 1px solid gray;
+	}
+	
+	.custom-col-1 {
+		border-left: 1px solid #000;
+		height: 100vh;
+		position: sticky;
+		top: 0;
+	}
+	
+	 .col-3 {
+		z-index: 1;
+	}
+	
+	#write-btn {
+	    width: 158px;
+	    height: 50px;
+	    margin: 20px 77px;
+	}
+	
+	#content {
+		height: 200px;
+	}
+	
+	.post{
+		width: 500px;
+		margin: 0 auto;
+	}
+	
+	.post-time {
+		width: 500px;
+		margin-bottom: 10px;
+	}
+	
+	#post-tag {
+		font-size: 12px;
+		height: 30px;
+		width: 60px;
+		text-align: center;
+		margin-left: 5px;
+	}
+	
+	#nameSearchBtn, #searchBtn{
+		background: none;
+	    width: 45px;
+	    position: absolute;
+	    right: 0px;
+	    right: 15px;
+	    height: 35px;
+	    border-left: 1px solid black;
+	    border-radius: 0px;
+	}
+	
+	.side-searchTag, .side-searchNick{
+		width: 100%;
+	}
+
+	/*작성버튼*/
+	#write-btn{
+		color: #86bd86;
+	    width: 152px;
+	    background: none;
+	    padding: 6px 10px;
+	    font-size: 17px;
+	    margin: 16px 3px;
+	    border-radius: 5px;
+	    border: 2px solid #86bd86;
+	    box-shadow: lightgray 5px 4px 7px 1px;
+	    outline-color: #86bd86;
+	    position: absolute;
+	    bottom: -85px;
+	    left: 71px;
+	}
+	
+	#write-btn:hover{
+		cursor: pointer;
+		color: black;
+		border: 1.3px solid black;
+	}
+	
+	#write-btn:active{
+		box-shadow: lightgray 3px 2px 9px 0px;
+		border: 1.3px solid #9eca9e;
+		color: #9eca9e;
+	 	position: absolute;
+	    bottom: -87px;
+	    left: 73px;
+		
 	}
 	
 </style>
@@ -612,13 +825,13 @@
 					    		<tr>
 									<td id="myInterests">나의 관심사</td>
 									<td colspan="3" class="interCheck">
-									<input type="checkbox" name="interests" value="식당" id="interests" ${fn:contains(dto.interests, '식당') ? 'checked' : ''}/> 식당
-									<input type="checkbox" name="interests" value="레시피" id="interests" ${fn:contains(dto.interests, '레시피') ? 'checked' : ''}/> 레시피
-									<input type="checkbox" name="interests" value="식품" id="interests" ${fn:contains(dto.interests, '식품') ? 'checked' : ''}/> 식품
+									<input type="checkbox" name="updateInterests" value="식당" id="interests" ${fn:contains(dto.interests, '식당') ? 'checked' : ''}/> 식당
+									<input type="checkbox" name="updateInterests" value="레시피" id="interests" ${fn:contains(dto.interests, '레시피') ? 'checked' : ''}/> 레시피
+									<input type="checkbox" name="updateInterests" value="식품" id="interests" ${fn:contains(dto.interests, '식품') ? 'checked' : ''}/> 식품
 									<br>
-									<input type="checkbox" name="interests" value="뷰티" id="interests" ${fn:contains(dto.interests, '뷰티') ? 'checked' : ''}/> 뷰티
-									<input type="checkbox" name="interests" value="패션" id="interests" ${fn:contains(dto.interests, '패션') ? 'checked' : ''}/> 패션
-									<input type="checkbox" name="interests" value="일상" id="interests" ${fn:contains(dto.interests, '일상') ? 'checked' : ''}/> 일상
+									<input type="checkbox" name="updateInterests" value="뷰티" id="interests" ${fn:contains(dto.interests, '뷰티') ? 'checked' : ''}/> 뷰티
+									<input type="checkbox" name="updateInterests" value="패션" id="interests" ${fn:contains(dto.interests, '패션') ? 'checked' : ''}/> 패션
+									<input type="checkbox" name="updateInterests" value="일상" id="interests" ${fn:contains(dto.interests, '일상') ? 'checked' : ''}/> 일상
 									</td>
 								</tr>
 								<tr>
@@ -660,12 +873,10 @@
 							</table><!-- myInfo 끝 -->
 						</div><!-- infoBox 끝 -->	
 					</div>
-				</div><!-- modal-body 끝 -->
-				
-				<div class="modal-footer" id="updateFooter">
 	     			<span class="delUser" onclick="confirmDelete(${dto.user_no})">회원탈퇴</span>
 					<input type="button" class="save" id ="fileSave" value="저장"/>	
-				</div>
+				</div><!-- modal-body 끝 -->
+				
 				
 		   	</div><!-- modal-content 끝 -->
 		</div>
@@ -683,25 +894,6 @@
 	feedListCall();
 
 	var modal = document.getElementById("updateModal");
-
-	// 회원정보변경 클릭시 모달창 열림
-	/* $('.changeInfo').on('click',function(){
-		modal.style.display = "show";
-	}); */
-
-	// x 클릭시 모달창 닫힘
-	$('.close').on('click',function(){
-		location.reload();
-		modal.style.display = "none";
-	});
-	
-	// 다른 영역 클릭시 모달창 닫힘
-	window.onclick = function(event) {
-	    if (event.target == modal) {
-	    	location.reload();
-	    	modal.style.display = "none";
-	    }
-	}
 
 	var image = '${dto.profile_image}';
 	$('.plusImg').on('click', function(){
@@ -728,7 +920,7 @@
 	    
 	});
  
-// mypage profileImage가 비어있는 상태에서 +버튼 클릭시 profileImage 등록 가능 
+	// mypage profileImage가 비어있는 상태에서 +버튼 클릭시 profileImage 등록 가능 
 	if(image==''){
 		$('#photo').on('change', function() {
 		    var user_no = $('input[name="user_no"]').val();
@@ -919,6 +1111,7 @@
 		  	    icon: "info"
 		  	});
 		} else {
+			
 			$.ajax({
 				type: 'get', 
 				url: 'completePw',
@@ -960,7 +1153,7 @@
 	    var user_no = $('input[name="user_no"]').val();
 	    var interests = [];
 	    // 실제로 체크된 체크박스만 선택
-	    $('input[name="interests"]:checked').each(function() {
+	    $('input[name="updateInterests"]:checked').each(function() {
 	        interests.push(this.value);
 	    });
 	
@@ -994,6 +1187,7 @@
 				icon: "info"
 			});
 	    } else {
+	    	
 	        $.ajax({
 	            type: 'get',
 	            url: 'save',
@@ -1016,6 +1210,7 @@
 	                console.log(error);
 	            }
 	        });
+	        
 	    }
 	    
 	});
@@ -1102,7 +1297,7 @@
 		
 	}
 
-	function drawList(list) {
+	function drawList(list) { // 내가 작성한 피드리스트
 	    var content = '';
 		var image = '${dto.profile_image}';
 		
@@ -1153,7 +1348,7 @@
 		
 	}
 
-	function drawFcList(fcmList) {
+	function drawFcList(fcmList) { // 내가 작성한 피드 댓글 리스트
 	    var content = '';
 	 	console.log(fcmList);
 	 	
@@ -1166,7 +1361,11 @@
 		        } else {
 		             content += '<div class="profile"><img src="/invegan/resources/main/profile.jpg">'+item.nickname+'</div>';
 		        }
-	        content += '<div class="fCImage"><img src="/photo/' + item.server_file_name + '" alt="image" id="fCImg"></div>';
+	        content += '<div class="fCImage">';
+	        content += '<a href="#" class="post-link" data-post-id="'+ item.post_id+ '" data-toggle="modal" data-target="#detailModal";>'
+	        content += '<img src="/photo/' + item.server_file_name + '" alt="image" id="fCImg">';
+	        content += '</a>';
+			content += '</div>';
 	        content += '<div class="itemContent">' + shortenedContent + '</div>';	
 	        content += '</div>';
 	    });
@@ -1175,7 +1374,7 @@
 	    $('#listContainer').html(content);
 	}
 
-	function drawRtCmList(rtCmList) {
+	/* function drawRtCmList(rtCmList) {
 	    var content = '';
 	
 	    rtCmList.forEach(function(item, idx) {
@@ -1187,7 +1386,7 @@
 	
 	    $('#listContainer').empty();
 	    $('#listContainer').html(content);
-	}
+	} */
 
 	function favoriteListCall(){
 		var user_no = $('input[name="user_no"]').val();
@@ -1220,7 +1419,10 @@
 	    favList.forEach(function(item, idx) {
 	        content += '<div class="favDiv">';
 	        content += '<div class="title">' + item.title + '</div>';
-	        content += '<div class="favImg"><a href="/invegan/restaurant/detail?post_id=' + item.post_id + '"><img src="/photo/' + item.server_file_name + '" alt="image" id="restaurantPhoto"></div>';	
+	        content += '<div class="favImg">'
+	        content += '<a href="/invegan/restaurant/detail?post_id=' + item.post_id + '"><img src="/photo/' + item.server_file_name + '" alt="image" id="restaurantPhoto">';
+	        content += '</a>';
+	        content += '</div>';	
 	        content += '</div>';
 	    });
 	

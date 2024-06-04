@@ -354,8 +354,7 @@ $(document).ready(function(){
           content += '<span class="username">' + item.nickname + '</span>';
           content += '</div>';
           
-			if (loginInfo != null && (user_no == findBoardUserno || is_admin == 1)) {
-        	  
+			if (user_no == findBoardUserno || is_admin == 1) {
         	  content += '<div class="post-btn-group">';
         	  content += '<button class="btn btn-dark" id="post-del-btn" data-post-id="' + item.post_id + '">삭제</button>';
         	  content += '<button class="btn btn-dark" id="post-edit-btn" data-post-id="' + item.post_id + '" data-feed-content="' + item.content + '">게시글 수정</button>';
